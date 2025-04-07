@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    style="@style/MedicalCardStyle"
+    app:cardBackgroundColor="@color/card_background"
+    app:rippleColor="@color/ripple_color">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:padding="20dp"
+    android:gravity="center_vertical">
+
+    <!-- Icon Container -->
+<com.google.android.material.card.MaterialCardView
+android:id="@+id/icon_container"
+android:layout_width="64dp"
+    android:layout_height="64dp"
+    style="@style/MedicalPremiumCardStyle"
+    app:cardCornerRadius="16dp">
+
+<com.google.android.material.imageview.ShapeableImageView
+android:id="@+id/feature_icon"
+android:layout_width="36dp"
+    android:layout_height="36dp"
+    android:layout_gravity="center"
+    android:scaleType="centerInside"
+    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Circle"
+    tools:src="@drawable/icon_university" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Text Container -->
+<LinearLayout
+android:layout_width="0dp"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:orientation="vertical"
+android:layout_marginStart="16dp"
+android:layout_marginEnd="12dp">
+
+<TextView
+    android:id="@+id/feature_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textStyle="bold"
+    android:textSize="18sp"
+    android:letterSpacing="0.01"
+android:textColor="@color/text_primary_color"
+tools:text="University Explorer" />
+
+<TextView
+    android:id="@+id/feature_description"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="14sp"
+    android:lineSpacingExtra="4dp"
+    android:layout_marginTop="6dp"
+android:textColor="@color/text_secondary_color"
+android:maxLines="2"
+android:ellipsize="end"
+tools:text="Discover top-rated universities tailored to your academic goals" />
+</LinearLayout>
+
+    <!-- Arrow Container -->
+<com.google.android.material.card.MaterialCardView
+android:id="@+id/arrow_container"
+android:layout_width="40dp"
+    android:layout_height="40dp"
+    style="@style/MedicalSecondaryButton"
+    app:cardBackgroundColor="@color/button_secondary"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/button_outline"
+    app:strokeWidth="1.5dp">
+
+<ImageView
+android:id="@+id/arrow_icon"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:padding="10dp"
+    android:src="@drawable/ic_arrow_forward"
+    app:tint="@color/button_text_secondary"/>
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>

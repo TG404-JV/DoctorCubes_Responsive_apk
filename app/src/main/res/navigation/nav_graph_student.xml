@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_student.xml"
+    app:startDestination="@id/home2">
+
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.tvm.doctorcube.student.Home"
+        android:label="fragment_home2"
+        tools:layout="@layout/fragment_home2" >
+        <action
+            android:id="@+id/action_home2_to_settings"
+            app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_home2_to_study"
+            app:destination="@id/study" />
+    </fragment>
+    <fragment
+        android:id="@+id/study"
+        android:name="com.tvm.doctorcube.student.Study"
+        android:label="fragment_study"
+        tools:layout="@layout/fragment_study" >
+        <action
+            android:id="@+id/action_study_to_settings"
+            app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_study_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.tvm.doctorcube.student.Settings"
+        android:label="fragment_settings2"
+        tools:layout="@layout/fragment_settings2" >
+        <action
+            android:id="@+id/action_settings_to_study"
+            app:destination="@id/study" />
+        <action
+            android:id="@+id/action_settings_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+</navigation>

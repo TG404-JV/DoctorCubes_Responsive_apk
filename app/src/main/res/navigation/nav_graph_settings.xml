@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_settings"
+    app:startDestination="@id/settingsHome">
+
+    <fragment
+        android:id="@+id/settingsHome"
+        android:name="com.tvm.doctorcube.settings.SettingsHome"
+        android:label="SettingsHome">
+        <action
+            android:id="@+id/action_settingsHome_to_fragmentEditDetails"
+            app:destination="@id/fragmentEditDetails" />
+        <action
+            android:id="@+id/action_settingsHome_to_fragmentPrivacy"
+            app:destination="@id/fragmentPrivacy" />
+        <action
+            android:id="@+id/action_settingsHome_to_fragmentAbout"
+            app:destination="@id/fragmentAbout" />
+        <action
+            android:id="@+id/action_settingsHome_to_fragmentFAQ"
+            app:destination="@id/fragmentFAQ" />
+        <action
+            android:id="@+id/action_settingsHome_pop"
+            app:popUpTo="@id/settingsHome"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_settingsHome_to_notificationPref"
+            app:destination="@id/notificationPref" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentEditDetails"
+        android:name="com.tvm.doctorcube.settings.FragmentEditDetails"
+        android:label="fragment_edit_details"
+        tools:layout="@layout/fragment_edit_details">
+        <action
+            android:id="@+id/action_fragmentEditDetails_pop"
+            app:popUpTo="@id/settingsHome"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentEditDetails_self"
+            app:destination="@id/fragmentEditDetails" />
+        <action
+            android:id="@+id/action_fragmentEditDetails_to_settingsHome"
+            app:destination="@id/settingsHome" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentAbout"
+        android:name="com.tvm.doctorcube.settings.FragmentAbout"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_fragmentAbout_pop"
+            app:popUpTo="@id/settingsHome"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentAbout_to_settingsHome"
+            app:destination="@id/settingsHome" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPrivacy"
+        android:name="com.tvm.doctorcube.settings.FragmentPrivacy"
+        android:label="fragment_privacy"
+        tools:layout="@layout/fragment_privacy">
+        <action
+            android:id="@+id/action_fragmentPrivacy_pop"
+            app:popUpTo="@id/settingsHome"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentPrivacy_to_settingsHome"
+            app:destination="@id/settingsHome" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentFAQ"
+        android:name="com.tvm.doctorcube.settings.FragmentFAQ"
+        android:label="fragment_f_a_q"
+        tools:layout="@layout/fragment_f_a_q">
+        <action
+            android:id="@+id/action_fragmentFAQ_pop"
+            app:popUpTo="@id/settingsHome"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentFAQ_to_settingsHome"
+            app:destination="@id/settingsHome" />
+    </fragment>
+
+    <!-- Global action to navigate back to settingsHome -->
+    <action
+        android:id="@+id/action_global_settingsHome"
+        app:destination="@id/settingsHome"
+        app:popUpTo="@id/settingsHome"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/notificationPref"
+        android:name="com.tvm.doctorcube.settings.NotificationPref"
+        android:label="fragment_notification_pref"
+        tools:layout="@layout/fragment_notification_pref" >
+        <action
+            android:id="@+id/action_notificationPref_to_settingsHome"
+            app:destination="@id/settingsHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tvm.doctorcube.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_notificationPref"
+            app:destination="@id/notificationPref" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsHome"
+            app:destination="@id/settingsHome" />
+    </fragment>
+</navigation>

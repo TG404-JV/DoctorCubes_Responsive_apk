@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand Colors -->
+    <color name="primary_dark_color">#0277BD</color>    <!-- Brightened dark blue for dark mode visibility -->
+    <color name="primary_light_color">#64B5F6</color>   <!-- Brightened for dark backgrounds -->
+
+    <!-- Accent Colors -->
+    <color name="accent_dark_color">#FF9800</color>     <!-- Brightened for dark backgrounds -->
+    <color name="accent_light_color">#FFCC80</color>    <!-- Maintained brightness for contrast -->
+
+    <!-- Background Colors -->
+    <color name="secondary_background">#1E2732</color>  <!-- Dark background with slight blue tint -->
+
+    <!-- Card Design Colors -->
+    <color name="card_shadow">#50000000</color>         <!-- Deeper shadow for dark mode -->
+    <color name="card_border">#2C3540</color>           <!-- Dark borders for cards -->
+    <color name="card_highlight">#1E3A50</color>        <!-- Dark blue highlight for cards -->
+    <color name="card_accent_border">#64B5F6</color>    <!-- Brightened to match primary_light_color -->
+    <color name="premium_card_bg">#2D2A1C</color>       <!-- Dark yellow/gold for premium -->
+
+    <!-- Text Colors -->
+    <color name="text_tertiary_color">#78849E</color>   <!-- Brightened gray for dark mode -->
+    <color name="text_on_primary">#FFFFFF</color>       <!-- Maintained -->
+    <color name="text_on_accent">#121212</color>        <!-- Kept dark for contrast on accent colors -->
+    <color name="text_link">#64B5F6</color>             <!-- Brightened for visibility on dark -->
+    <color name="text_highlight">#64B5F6</color>        <!-- Brightened for visibility -->
+
+    <!-- Button Colors - Refined -->
+    <color name="button_primary">#0288D1</color>        <!-- Maintained -->
+    <color name="button_primary_pressed">#0277BD</color><!-- Matched to primary_dark_color -->
+    <color name="button_secondary">#1E3A50</color>      <!-- Darkened, with blue tint -->
+    <color name="button_secondary_text">#64B5F6</color> <!-- Brightened for visibility -->
+    <color name="button_accent">#FF9800</color>         <!-- Brightened orange for visibility -->
+    <color name="button_accent_pressed">#F57C00</color> <!-- Slightly darker when pressed -->
+    <color name="button_success">#43A047</color>        <!-- Vibrant green for visibility -->
+    <color name="button_error">#E53935</color>          <!-- Vibrant red for visibility -->
+    <color name="button_disabled">#424242</color>       <!-- Dark gray for disabled state -->
+    <color name="button_text_primary">#FFFFFF</color>   <!-- Maintained -->
+    <color name="button_text_secondary">#64B5F6</color> <!-- Brightened for visibility -->
+    <color name="button_disabled_text">#666666</color>  <!-- Lighter than background but still muted -->
+    <color name="button_outline">#0277BD</color>        <!-- Darker blue for outlines -->
+
+    <!-- Status Colors -->
+    <color name="success_color">#4CAF50</color>         <!-- Brightened for visibility -->
+    <color name="error_color">#F44336</color>           <!-- Brightened for visibility -->
+    <color name="warning_color">#FFC107</color>         <!-- Brightened for visibility -->
+    <color name="info_color">#2196F3</color>            <!-- Brightened for visibility -->
+
+    <!-- UI Component Colors -->
+    <color name="checkbox_tint">#64B5F6</color>         <!-- Brightened for visibility -->
+    <color name="switch_thumb_on">#64B5F6</color>       <!-- Brightened for visibility -->
+    <color name="switch_track_on">#0277BD</color>       <!-- Darkened for track -->
+    <color name="switch_thumb_off">#BDBDBD</color>      <!-- Brightened for visibility -->
+    <color name="switch_track_off">#424242</color>      <!-- Darkened for track -->
+    <color name="slider_inactive">#424242</color>       <!-- Darkened inactive state -->
+    <color name="slider_active">#64B5F6</color>         <!-- Brightened for visibility -->
+    <color name="progress_primary">#64B5F6</color>      <!-- Brightened for visibility -->
+    <color name="progress_secondary">#0277BD</color>    <!-- Darkened for secondary progress -->
+    <color name="input_outline">#2C3540</color>         <!-- Darkened for outlines -->
+    <color name="input_focus">#64B5F6</color>           <!-- Brightened for visibility -->
+
+    <!-- Tab and Navigation Colors -->
+    <color name="tab_selected">#64B5F6</color>          <!-- Brightened for visibility -->
+    <color name="tab_unselected">#78849E</color>        <!-- Brightened gray for visibility -->
+    <color name="tab_indicator">#64B5F6</color>         <!-- Brightened for visibility -->
+    <color name="nav_selected">#64B5F6</color>          <!-- Brightened for visibility -->
+    <color name="nav_unselected">#78849E</color>        <!-- Brightened gray for visibility -->
+    <color name="nav_background">#121212</color>        <!-- Dark background -->
+    <color name="nav_ripple">#1E3A50</color>            <!-- Dark blue for ripple effect -->
+
+    <!-- Gradient Colors -->
+    <color name="gradient_primary_start">#0288D1</color><!-- Maintained -->
+    <color name="gradient_primary_end">#01579B</color>  <!-- Maintained -->
+    <color name="gradient_accent_start">#FF9800</color> <!-- Brightened for visibility -->
+    <color name="gradient_accent_end">#F57C00</color>   <!-- Maintained -->
+    <color name="gradient_card_start">#1A1A1A</color>   <!-- Dark gradient start -->
+    <color name="gradient_card_end">#121212</color>     <!-- Darker gradient end -->
+
+    <!-- UI Element Colors -->
+    <color name="icon_tint_primary">#64B5F6</color>     <!-- Brightened for visibility -->
+    <color name="icon_tint_secondary">#78849E</color>   <!-- Brightened gray for visibility -->
+    <color name="icon_tint_accent">#FF9800</color>      <!-- Brightened for visibility -->
+    <color name="divider_color">#2C3540</color>         <!-- Darkened for dividers -->
+    <color name="ripple_color">#33FFFFFF</color>        <!-- White ripple with opacity -->
+    <color name="ripple_light">#33FFFFFF</color>        <!-- Maintained -->
+    <color name="badge_text">#121212</color>            <!-- Dark text for contrast on bright badges -->
+
+    <!-- Service Category Colors - Darkened -->
+    <!-- University Services -->
+    <color name="university_icon_bg">#1E3A50</color>    <!-- Dark blue background -->
+
+    <!-- Scholarship Services -->
+    <color name="scholarship_icon_bg">#1B3724</color>   <!-- Dark green background -->
+
+    <!-- Visa Services -->
+    <color name="visa_icon_bg">#2D2417</color>          <!-- Dark orange background -->
+
+    <!-- Application Tracking -->
+    <color name="tracking_icon_bg">#25192D</color>      <!-- Dark purple background -->
+
+    <!-- Support Services -->
+    <color name="support_icon_bg">#2D1A1D</color>       <!-- Dark red background -->
+
+    <!-- Communication Button Colors -->
+    <color name="email_button_color">#F44336</color>    <!-- Brightened for visibility -->
+    <color name="chat_button_color">#2196F3</color>     <!-- Brightened for visibility -->
+
+    <!-- Country-specific Colors -->
+    <color name="usa_color">#4F91C8</color>             <!-- Brightened for visibility -->
+    <color name="uk_color">#4563B0</color>              <!-- Brightened for visibility -->
+    <color name="canada_color">#F44336</color>          <!-- Brightened for visibility -->
+    <color name="australia_color">#4CAF50</color>       <!-- Brightened for visibility -->
+    <color name="germany_color">#F44336</color>         <!-- Brightened for visibility -->
+
+    <!-- Base Colors -->
+    <color name="transparent">#00000000</color>         <!-- Maintained -->
+
+    <!-- Notification Colors -->
+    <color name="notification_unread">#1E3A50</color>   <!-- Dark blue for unread -->
+    <color name="notification_urgent">#2D1A1D</color>   <!-- Dark red for urgent -->
+
+    <color name="hint_color">#78849E</color>            <!-- Brightened for visibility -->
+
+    <!-- Additional Accent Colors -->
+    <color name="badge_color">#F44336</color>           <!-- Brightened for visibility -->
+    <color name="indicator_active">#FF9800</color>      <!-- Brightened for visibility -->
+    <color name="indicator_inactive">#424242</color>    <!-- Dark gray for inactive -->
+
+    <!-- Social Media Colors -->
+    <color name="facebook_color">#4267B2</color>        <!-- Brightened for visibility -->
+    <color name="instagram_color">#E1306C</color>       <!-- Brightened for visibility -->
+    <color name="twitter_color">#1DA1F2</color>         <!-- Maintained -->
+    <color name="youtube_color">#FF0000</color>         <!-- Maintained -->
+
+    <!-- Common Colors -->
+    <color name="black">#000000</color>                 <!-- Maintained -->
+
+    <!-- Core Colors -->
+    <color name="primary_color">#2196F3</color>         <!-- Brightened for visibility -->
+    <color name="accent_color">#FFC107</color>          <!-- Brightened for visibility -->
+    <color name="background_color">#121212</color>      <!-- Main dark background -->
+    <color name="card_background">#1A1A1A</color>       <!-- Slightly lighter dark for cards -->
+    <color name="text_primary_color">#E0E0E0</color>    <!-- Light gray for primary text -->
+    <color name="text_secondary_color">#9E9E9E</color>  <!-- Medium gray for secondary text -->
+    <color name="white">#FFFFFF</color>                 <!-- Maintained -->
+
+    <!-- Icon Tints -->
+    <color name="university_icon_tint">#2196F3</color>  <!-- Brightened for visibility -->
+    <color name="scholarship_icon_tint">#4CAF50</color> <!-- Brightened for visibility -->
+    <color name="visa_icon_tint">#F44336</color>        <!-- Brightened for visibility -->
+    <color name="tracking_icon_tint">#9C27B0</color>    <!-- Brightened for visibility -->
+    <color name="support_icon_tint">#FF9800</color>     <!-- Brightened for visibility -->
+
+    <!-- Button Colors -->
+    <color name="whatsapp_button_color">#25D366</color> <!-- Maintained -->
+    <color name="call_button_color">#4CAF50</color>     <!-- Brightened for visibility -->
+    <color name="ripple_effect">#33FFFFFF</color>       <!-- White ripple with opacity -->
+    <color name="background_light">#1D1D1D</color>      <!-- Slightly lighter than main background -->
+
+    <!-- ask user button color -->
+    <color name="button_default_color">#1E3A50</color>  <!-- Dark blue background -->
+    <color name="button_pressed_color">#FF9800</color>  <!-- Brightened for visibility -->
+    <color name="button_disabled_color">#424242</color> <!-- Dark gray for disabled -->
+    <color name="button_stroke_color">#FF9800</color>   <!-- Brightened for visibility -->
+</resources>

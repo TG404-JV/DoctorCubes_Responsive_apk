@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/splashFragment2">
+
+    <fragment
+        android:id="@+id/splashFragment2"
+        android:name="com.tvm.doctorcube.authentication.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment2_to_getStartedFragment"
+            app:destination="@id/getStartedFragment" />
+        <action
+            android:id="@+id/action_splashFragment2_to_mainActivity2"
+            app:destination="@id/mainActivity2"
+            app:popUpTo="@id/nav_graph.xml"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_splashFragment2_to_adminActivity2"
+            app:destination="@id/adminActivity2"
+            app:popUpTo="@id/nav_graph.xml"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/getStartedFragment"
+        android:name="com.tvm.doctorcube.authentication.GetStartedFragment"
+        android:label="fragment_get_started"
+        tools:layout="@layout/fragment_get_started">
+        <action
+            android:id="@+id/action_getStartedFragment_to_fragmentAskUser"
+            app:destination="@id/fragmentAskUser" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.tvm.doctorcube.authentication.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment2_to_mainActivity2"
+            app:destination="@id/mainActivity2"
+            app:popUpTo="@id/nav_graph.xml"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment2_to_adminActivity2"
+            app:destination="@id/adminActivity2"
+            app:popUpTo="@id/nav_graph.xml"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment2_to_collectUserDetailsFragment"
+            app:destination="@id/collectUserDetailsFragment" />
+        <action
+            android:id="@+id/action_loginFragment2_to_createAccountFragment2"
+            app:destination="@id/createAccountFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment2"
+        android:name="com.tvm.doctorcube.authentication.CreateAccountFragment"
+        android:label="fragment_create_account"
+        tools:layout="@layout/fragment_create_account">
+        <action
+            android:id="@+id/action_createAccountFragment2_to_collectUserDetailsFragment"
+            app:destination="@id/collectUserDetailsFragment" />
+        <action
+            android:id="@+id/action_createAccountFragment2_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_createAccountFragment2_to_mainActivity2"
+            app:destination="@id/mainActivity2" />
+        <action
+            android:id="@+id/action_createAccountFragment2_to_adminActivity2"
+            app:destination="@id/adminActivity2" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectUserDetailsFragment"
+        android:name="com.tvm.doctorcube.authentication.CollectUserDetailsFragment"
+        android:label="fragment_collect_user_details"
+        tools:layout="@layout/fragment_collect_user_details">
+        <action
+            android:id="@+id/action_collectUserDetailsFragment_to_mainActivity2"
+            app:destination="@id/mainActivity2"
+            app:popUpTo="@id/nav_graph.xml"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_collectUserDetailsFragment_to_splashFragment2"
+            app:destination="@id/splashFragment2" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity2"
+        android:name="com.tvm.doctorcube.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/adminActivity2"
+        android:name="com.tvm.doctorcube.AdminActivity"
+        android:label="activity_admin"
+        tools:layout="@layout/activity_admin" />
+    <fragment
+        android:id="@+id/fragmentAskUser"
+        android:name="com.tvm.doctorcube.authentication.FragmentAskUser"
+        android:label="fragment_ask_user"
+        tools:layout="@layout/fragment_ask_user">
+        <action
+            android:id="@+id/action_getStartedFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_getStartedFragment_to_createAccountFragment2"
+            app:destination="@id/createAccountFragment2" />
+    </fragment>
+</navigation>

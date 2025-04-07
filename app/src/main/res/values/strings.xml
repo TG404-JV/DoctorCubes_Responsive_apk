@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DoctorCubes</string>
+
+
+    <!-- General strings -->
+    <string name="welcome">Welcome to Global Education Hub</string>
+    <string name="explore">Explore Opportunities</string>
+    <string name="get_started">Get Started</string>
+    <string name="learn_more">Learn More</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="loading">Loading…</string>
+
+    <!-- Advertisement Section -->
+    <string name="study_abroad_made_easy">Study Abroad Made Easy!</string>
+    <string name="banner_subtitle">Top Universities, Scholarships, and Visa Guidance!</string>
+
+    <!-- Section Titles -->
+    <string name="special_offers">Special Offers</string>
+    <string name="select_your_destination">Select Your Destination</string>
+    <string name="our_services">Our Services</string>
+    <string name="popular_universities">Popular Universities</string>
+    <string name="testimonials">Student Testimonials</string>
+
+    <!-- Offer Slider Texts -->
+    <string name="offer_free_admission">Free Admission Processing</string>
+    <string name="offer_free_admission_desc">Limited time offer: Get free admission processing for selected universities!</string>
+
+    <string name="offer_scholarship">50% Scholarship Opportunity</string>
+    <string name="offer_scholarship_desc">Apply now for a chance to win up to 50% scholarship for top universities!</string>
+
+    <string name="offer_visa_assistance">Free Visa Consultation</string>
+    <string name="offer_visa_assistance_desc">Book a session with our visa experts and get personalized guidance!</string>
+
+    <string name="offer_language_course">Free Language Course</string>
+    <string name="offer_language_course_desc">Enroll now and get a free language course to prepare for your studies abroad!</string>
+
+    <!-- Country Names -->
+    <string name="russia">Russia</string>
+    <string name="china">China</string>
+    <string name="kazakhstan">Kazakhstan</string>
+    <string name="uzbekistan">Uzbekistan</string>
+    <string name="georgia">Georgia</string>
+    <string name="nepal">Nepal</string>
+
+    <!-- Service Features -->
+    <string name="top_university_listings">Top University Listings</string>
+    <string name="top_university_listings_desc">Access information about over 5000+ top universities worldwide</string>
+    <string name="scholarship_assistance">Scholarship Assistance</string>
+    <string name="scholarship_assistance_desc">Find and apply for scholarships matching your profile</string>
+    <string name="visa_admission_guidance">Visa &amp; Admission Guidance</string>
+    <string name="visa_admission_guidance_desc">Step-by-step guidance for visa and admission processes</string>
+    <string name="application_tracking">Application Tracking</string>
+    <string name="application_tracking_desc">Track all your university applications in one place</string>
+    <string name="student_support">24/7 Student Support</string>
+    <string name="student_support_desc">Get assistance anytime from our expert counselors</string>
+
+    <!-- Actions -->
+    <string name="apply_now">Apply Now</string>
+    <string name="view_details">View Details</string>
+    <string name="share">Share</string>
+    <string name="book_consultation">Book Consultation</string>
+    <string name="download_brochure">Download Brochure</string>
+    <string name="create_account">Create Account</string>
+    <string name="login">Login</string>
+
+    <!-- General UI Strings -->
+    <string name="search_universities_courses">Search universities, courses…</string>
+    <string name="see_all">See All</string>
+    <string name="get_consultation">Get Consultation</string>
+
+
+    <!-- Special Offers Content -->
+    <string name="early_bird_discount">Early Bird Discount</string>
+    <string name="application_fee_waiver">Application Fee Waiver</string>
+    <string name="scholarship_opportunity">Scholarship Opportunity</string>
+    <string name="free_consultation">Free Consultation</string>
+    <string name="limited_time_offer">Limited Time Offer</string>
+
+
+    <string name="continue_exploring">Continue Exploring</string>
+
+    <!-- Profile Related -->
+    <string name="profile_settings">Profile Settings</string>
+    <string name="my_applications">My Applications</string>
+    <string name="saved_universities">Saved Universities</string>
+    <string name="documents">My Documents</string>
+
+    <!-- Notifications -->
+    <string name="notification_application_update">Application Status Updated</string>
+    <string name="notification_document_required">Document Required</string>
+    <string name="notification_deadline_approaching">Deadline Approaching</string>
+
+    <!-- Error Messages -->
+    <string name="error_loading_data">Could not load data. Please try again.</string>
+    <string name="error_connection">No internet connection available</string>
+    <string name="error_try_again">Please try again later</string>
+
+    <!-- Success Messages -->
+    <string name="success_application_submitted">Application submitted successfully!</string>
+    <string name="success_profile_updated">Profile updated successfully</string>
+
+    <!-- Filter Options -->
+    <string name="filter_by">Filter By</string>
+    <string name="filter_tuition">Tuition Range</string>
+    <string name="filter_ranking">Ranking</string>
+    <string name="filter_course">Course</string>
+    <string name="filter_apply">Apply Filters</string>
+    <string name="filter_reset">Reset</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Find Your Dream University</string>
+    <string name="onboarding_desc_1">Browse thousands of top universities worldwide</string>
+    <string name="onboarding_title_2">Apply with Confidence</string>
+    <string name="onboarding_desc_2">Get expert guidance throughout your application journey</string>
+    <string name="onboarding_title_3">Track Your Progress</string>
+    <string name="onboarding_desc_3">Stay updated with real-time application status</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- App Info -->
+    <string name="admin_panel">Student Management</string>
+    <string name="admin_email">admin@example.com</string>
+
+    <!-- Navigation -->
+    <string name="dashboard">Dashboard</string>
+    <string name="students">Students</string>
+    <string name="call_logs">Call Logs</string>
+    <string name="analytics">Analytics</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="account">Account</string>
+
+    <!-- Search -->
+    <string name="search_students">Search by name or contact number</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="clear_search">Clear Search</string>
+
+    <!-- Sort & Filter -->
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
+    <string name="sort_by">Sort By</string>
+    <string name="filter_options">Filter Options</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear All</string>
+
+    <!-- Sort Options -->
+    <string name="date_newest_to_oldest">Date (Newest to Oldest)</string>
+    <string name="date_oldest_to_newest">Date (Oldest to Newest)</string>
+    <string name="call_made_first">Call Made (Yes first)</string>
+    <string name="not_called_first">Not Called First</string>
+    <string name="interested_first">Interested (Yes first)</string>
+    <string name="not_interested_first">Not Interested First</string>
+    <string name="name_a_to_z">Name (A to Z)</string>
+
+    <!-- Filter Options -->
+    <string name="date_filter">Date Added</string>
+    <string name="call_status">Call Status</string>
+    <string name="interest_status">Interest Status</string>
+    <string name="all_time">All Time</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="earlier">Earlier</string>
+    <string name="called_students">Called Students</string>
+    <string name="not_called_students">Not Called Students</string>
+    <string name="interested_students">Interested Students</string>
+    <string name="not_interested_students">Not Interested Students</string>
+
+    <!-- Student Card -->
+    <string name="call">Call</string>
+    <string name="call_made">Call Made</string>
+    <string name="interested">Interested</string>
+    <string name="app_logo">App Logo</string>
+    <string name="call_students">Call Students</string>
+
+    <string name="open">Open Drawer</string>
+    <string name="close">Close Drawer</string>
+    <string name="default_web_client_id">94710265310-f5avta1rpbbbe9veqi00fn07ofs6p7dh.apps.googleusercontent.com</string>
+
+    <string name="call_student">Call student</string>
+
+    <string name="admitted">Admitted</string>
+
+    <!-- Search-related strings -->
+    <string name="search_hint">Search…</string>
+    <string name="search_icon_description">Search icon</string>
+    <string name="filter_icon_description">Filter options</string>
+
+    <!-- Button texts -->
+    <string name="study_button_text">Study</string>
+    <string name="exam_button_text">Exam</string>
+    <string name="university_button_text">University</string>
+    <string name="app_tagline">Global Medical Education Pathways</string>
+    <string name="loading_text">Navigating Your Medical Journey</string>
+    <string name="footer_text">© 2024 DoctorCubes | Connecting Medical Professionals Globally</string>
+    <string name="airplane_description">Flying Airplane Icon</string>
+    <string name="logo_description">DoctorCubes Logo</string>
+
+
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="privacy_policy_description">At DoctorCube, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application. Please read this policy carefully. If you do not agree with the terms of this privacy policy, please do not access the application.</string>
+    <string name="information_we_collect_title">Information We Collect</string>
+    <string name="information_we_collect_intro">We may collect the following information to help with your medical education abroad:</string>
+    <string name="personal_information_title">Personal Information</string>
+    <string name="personal_information_details">
+        <ul>
+            <li>Personal identifiers (name, email, phone number)</li>
+            <li>Medical university application details</li>
+            <li>Academic qualifications including NEET scores</li>
+            <li>Visa status and passport information</li>
+        </ul>
+    </string>
+
+    <string name="terms_and_conditions_createac">Terms and Conditions\n\n
+1. Acceptance of Terms\n
+By creating an account and using our MBBS consultancy application, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use this application.\n\n
+2. Account Registration\n
+You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account. You must provide accurate and complete information during registration.\n\n
+3. Service Description\n
+Our application provides information about MBBS programs abroad. We do not guarantee admission to any university or institution. Our consultancy services are informational in nature.\n\n
+4. User Conduct\n
+You agree not to misuse the application, interfere with its operation, or attempt to access areas or features you are not authorized to access. You will not use the application for any illegal or unauthorized purpose.\n\n
+5. Intellectual Property\n
+All content in this application, including text, graphics, logos, and software, is the property of our company and protected by intellectual property laws. You may not reproduce or distribute this content without permission.\n\n
+6. Limitation of Liability\n
+We strive to provide accurate information, but we make no warranties about the completeness or reliability of our content. We will not be liable for any losses or damages arising from your use of the application.\n\n
+7. Modification of Terms\n
+We reserve the right to modify these terms at any time. Continued use of the application after changes constitutes acceptance of the modified terms.\n\n
+8. Governing Law\n
+These terms shall be governed by and construed in accordance with the laws of [Your Country/State], without regard to its conflict of law principles.\n\n
+By clicking \'I Agree\', you acknowledge that you have read and understood these Terms and Conditions and agree to be bound by them.</string>
+
+
+    <string name="usage_data_title">Usage Data</string>
+    <string name="usage_data_details">We may also collect non-personal information automatically when you use our website or services. This information may include:\n
+        -Device information (e.g., IP address, browser type, operating system)\n
+        -Log information (e.g., date and time of access, pages viewed, interactions)\n
+        -Cookies and similar technologies.</string>
+    <string name="how_we_use_your_information_title">How We Use Your Information</string>
+    <string name="how_we_use_your_information_content">We use the information we collect for the following purposes:\n
+        -To assist with your medical university applications\n
+        -To provide personalized counseling and support\n
+        -To communicate updates and important information</string>
+    <string name="information_sharing_title">Information Sharing</string>
+    <string name="information_sharing_content">We may share your information with the following:\n
+        -Partner Universities: We share your application information with universities abroad to facilitate the admissions process.\n
+        -Service Providers: We may engage third-party service providers to assist us with various functions, such as:  Visa processing, Travel arrangements, IT support\n
+        -Legal Compliance: We may disclose your information if required by law or to comply with a legal process.</string>
+    <string name="data_security_title">Data Security</string>
+    <string name="data_security_content">We take reasonable measures to protect your personal information from unauthorized access, use, or disclosure. However, please note that no data transmission or storage system is completely secure, and we cannot guarantee absolute security.</string>
+    <string name="your_rights_title">Your Rights</string>
+    <string name="your_rights_content">You have the right to:\n
+        -Access your personal information\n
+        -Request correction of inaccurate information\n
+        -Request deletion of your personal information\n
+        -Object to the processing of your personal information\n
+        -Withdraw your consent at any time</string>
+    <string name="data_retention_title">Data Retention</string>
+    <string name="data_retention_content">We will retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.</string>
+    <string name="changes_to_policy_title">Changes to This Privacy Policy</string>
+    <string name="changes_to_policy_content">We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the updated policy on our website. Your continued use of our services after the effective date of the revised policy constitutes your acceptance of the updated terms.</string>
+    <string name="contact_us_title">Contact Us</string>
+    <string name="contact_us_details">If you have any questions or concerns about this Privacy Policy, please contact us at:\n
+        Email: doctorscube71@gmail.com\n
+        Phone: +917517036564</string>
+
+
+    <!--CONTACT INFO -->
+    <string name="whatsapp_number">+917517036564</string>
+    <string name="email_address">doctorscube71@gmail.com</string>
+
+    <!-- Social Media Links -->
+    <string name="youtube_link">https://youtube.com/@travelcubes9053</string>
+    <string name="instagram_link">https://www.instagram.com/travelcubes_mbbs_education</string>
+    <string name="twitter_link">https://x.com/doctors_cube?s=11</string>
+    <string name="doctor_cubes_rights">© 2025 DoctorCube. All rights reserved.</string>
+    <string name="call_support_disc">Call Support</string>
+    <string name="back_disc">Back</string>
+    <string name="pdf_name">Document Title</string>
+    <string name="loading_document_text">Loading document…</string>
+    <string name="country_university">Universities in Russia</string>
+    <string name="country_count">542</string>
+    <string name="universities">Universities</string>
+    <string name="rank_count">86</string>
+    <string name="out_of_rank">Top 100 Ranked</string>
+    <string name="search_hint_txt">Search by name, location, or programs…</string>
+    <string name="no_universities">No universities found</string>
+    <string name="browse_universities">Try adjusting your search filters or browse all universities</string>
+    <string name="clear_filters">Clear Filters</string>
+    <string name="university_image_desc">University Image</string>
+    <string name="overview">Overview</string>
+    <string name="established">Established</string>
+    <string name="ranking">Ranking</string>
+    <string name="location">Location</string>
+    <string name="campus_facilities">Campus Facilities</string>
+    <string name="library">Library</string>
+    <string name="laboratories">Laboratories</string>
+    <string name="sports_complex">Sports Complex</string>
+    <string name="hostels">Hostels</string>
+    <string name="cafeteria">Cafeteria</string>
+    <string name="wifi_campus">WiFi Campus</string>
+    <string name="admission_requirements">Admission Requirements</string>
+    <string name="contact_information">Contact Information</string>
+    <string name="add_content">Add Content</string>
+    <string name="video_title">Video Title</string>
+    <string name="author">Author</string>
+    <string name="size_e_g_2_5_mb">Size (e.g., 2.5 MB)</string>
+    <string name="number_of_pages">Number of Pages</string>
+    <string name="category_e_g_math_physics">Category (e.g., Math, Physics)</string>
+    <string name="description_optional">Description (optional)</string>
+    <string name="url">URL</string>
+    <string name="video">Video</string>
+    <string name="notes">Notes</string>
+    <string name="upload">Upload</string>
+    <string name="change_password">Change Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="update">Update</string>
+    <string name="close_btn">close</string>
+    <string name="about_us">About Us</string>
+    <string name="doctorcube_logo">DoctorCube Logo</string>
+    <string name="doctor_cubes_slogun">Your Pathway to Global Education</string>
+    <string name="our_mission">Our Mission</string>
+    <string name="doctor_cubes_mission_text">At DoctorCube, our mission is to simplify the international education journey for students worldwide. We\'re dedicated to providing a seamless platform that guides students through university applications, scholarships, and visa processes with clarity and expertise.</string>
+    <string name="who_we_are">Who We Are</string>
+    <string name="doctor_cubes_history">Founded in 2020, DoctorCube began with a team of education consultants who recognized the challenges international students face. Today, we\'ve helped thousands of students from over 50 countries achieve their education dreams through personalized guidance and technological innovation.</string>
+    <string name="what_we_offer">What We Offer</string>
+    <string name="doctor_cubes_feature_1">University Applications</string>
+    <string name="doctor_cubes_feature_1_inner_text">Streamlined application process to top universities worldwide with personalized guidance.</string>
+    <string name="doctor_cubes_feature_2">Scholarships</string>
+    <string name="doctor_cubes_feature_2_inner_text">Access to exclusive scholarship opportunities and assistance with applications.</string>
+    <string name="doctor_cubes_feature_3">Visa Support</string>
+    <string name="doctor_cubes_feature_3_inner_text">Expert guidance through student visa procedures for different countries.</string>
+    <string name="doctor_cubes_feature_4">Application Tracking</string>
+    <string name="doctor_cubes_feature_4_inner_text">Real-time tracking of all your applications in one convenient dashboard.</string>
+    <string name="doctor_cubes_feature_5">24/7 Support</string>
+    <string name="doctor_cubes_feature_5_inner_text">Round-the-clock assistance from our dedicated support team to address all your queries.</string>
+    <string name="our_values">Our Values</string>
+    <string name="excellence">Excellence</string>
+    <string name="excellence_detail">Excellence: We strive for excellence in every interaction and service we provide.</string>
+    <string name="integrity">Integrity</string>
+    <string name="integrity_detail">Integrity: We operate with transparency and honesty in all our dealings.</string>
+    <string name="innovation">Innovation</string>
+    <string name="innovation_detail">Innovation: We continuously evolve our platform to meet the changing needs of international students.</string>
+    <string name="empathy">Empathy</string>
+    <string name="empathy_detail">Empathy: We understand the challenges of studying abroad and are committed to making the journey easier.</string>
+    <string name="our_team">Our Team</string>
+    <string name="about_doctor_cubes_team">DoctorCube is powered by a diverse team of education experts, counselors, and technology specialists from around the globe. Our team members bring years of experience in international education and a shared passion for helping students achieve their academic goals.</string>
+    <string name="get_in_touch">Get In Touch</string>
+    <string name="support_detail">Have questions or need assistance? Our team is ready to help you.</string>
+    <string name="email_us">Email Us</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="call_us">Call Us</string>
+    <string name="follow_us">Follow Us</string>
+    <string name="instagram">Instagram</string>
+    <string name="twitter">Twitter</string>
+    <string name="youtube">YouTube</string>
+    <string name="admin_management">Admin Management</string>
+    <string name="add_new_administrator">Add New Administrator</string>
+    <string name="administrator_details">Administrator Details</string>
+    <string name="full_name">Full Name</string>
+    <string name="enter_email">Email Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="admin_role">Admin Role</string>
+    <string name="add">add</string>
+    <string name="build_your_career">Build Your Career</string>
+    <string name="selact_access">Select Your Access Method</string>
+    <string name="log_in">Log In</string>
+    <string name="profile_setup">Profile Setup</string>
+    <string name="complete">Complete</string>
+    <string name="your_profile">your profile</string>
+    <string name="data_request_text">Help us personalize your medical education abroad journey</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="study_country">Select Your Country in which you want to study</string>
+    <string name="state_province">State/Province</string>
+    <string name="city">City</string>
+    <string name="medical_education">Medical Education</string>
+    <string name="neet_score">Do you have a NEET Score?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="your_neet_score">Your NEET Score</string>
+    <string name="passport">Do you have a Passport?</string>
+    <string name="submit_details">Submit Details</string>
+    <string name="background_design">Background Design</string>
+    <string name="back_button">Back Button</string>
+    <string name="create_your_account">Create Your Account</string>
+    <string name="fill_details">Fill the details below to get started.</string>
+    <string name="password_strength">Password Strength</string>
+    <string name="password_must_be_8_14_chars_with_uppercase_lowercase_number_and_special_char">Password must be 8–14 chars with uppercase, lowercase, number, and special char</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="agree_to_terms">Agree to Terms</string>
+    <string name="i_agree_to_the">I agree to the</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="my_profile">My Profile</string>
+    <string name="tap_to_change_profile_photo">Tap to change profile photo</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="export_status">Export Status</string>
+    <string name="ready_to_export">Ready to export 24 medical student applications</string>
+    <string name="last_export">Last export: 03/19/2025 at 15:30</string>
+    <string name="exporting">Exporting… (0/24)</string>
+    <string name="applied_filters">Applied Filters</string>
+    <string name="edit">Edit</string>
+    <string name="program">Program:</string>
+    <string name="program_value">MBBS, MD, Medical Research</string>
+    <string name="country">Country:</string>
+    <string name="country_value">USA, UK, Germany, Australia</string>
+    <string name="status">Status:</string>
+    <string name="status_value">Applied, Under Review, Accepted</string>
+    <string name="date_range">Date Range:</string>
+    <string name="date_value">Jan 1, 2025 - Mar 20, 2025</string>
+    <string name="export_options">Export Options</string>
+    <string name="excel_format">Excel Format (.xlsx)</string>
+    <string name="csv_format">CSV Format (.csv)</string>
+    <string name="pdf_report">PDF Report (.pdf)</string>
+    <string name="include_statistics">Include statistics summary</string>
+    <string name="include_contacts">Include contact information</string>
+    <string name="export_data">Export Data</string>
+    <string name="view_previous_exports">View Previous Exports</string>
+    <string name="sort_and_filter">Sort and Filter</string>
+    <string name="info_icon_description">Info Icon</string>
+    <string name="excel_icon_description">Excel Icon</string>
+    <string name="upload_icon_description">Upload Icon</string>
+    <string name="faqs_title">Frequently Asked Questions</string>
+    <string name="no_faqs_available">No FAQs Available</string>
+    <string name="no_faqs_subtitle">Couldn\'t find what you\'re looking for? Contact us directly for assistance.</string>
+    <string name="whatsapp_contact">Contact on WhatsApp</string>
+    <string name="no_faqs_image_description">No FAQs available</string>
+    <string name="onboarding_title">Make Your Abroad Admission Dream Come True</string>
+    <string name="onboarding_subtitle">Start your journey today!</string>
+    <string name="image_caption_description">Image Caption</string>
+    <string name="upcoming_events">Upcoming Events</string>
+    <string name="countries_to_study">Countries to Study MBBS Abroad</string>
+    <string name="top_universities">Top Medical Universities</string>
+    <string name="success_stories">Success Stories</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="data_management_title">Data Management</string>
+    <string name="import_student_data">Import Student Data</string>
+    <string name="excel_data_import">Excel Data Import</string>
+    <string name="excel_import_status">Select an Excel file to import student data</string>
+    <string name="file_name">filename.xlsx</string>
+    <string name="file_info">Size: 245 KB | Modified: 20 Mar 2025</string>
+    <string name="importing_data">Importing data… (0/100)</string>
+    <string name="expected_format_preview">Expected Format Preview</string>
+    <string name="name_header">Name</string>
+    <string name="email_header">Email</string>
+    <string name="phone_header">Phone</string>
+    <string name="course_header">Course</string>
+    <string name="country_header">Country</string>
+    <string name="sample_name">John Doe</string>
+    <string name="sample_email">john.doe@example.com</string>
+    <string name="sample_phone">+1 123–456–7890</string>
+    <string name="sample_course">MBA</string>
+    <string name="sample_country">USA</string>
+    <string name="select_excel_file">Select Excel File</string>
+    <string name="import_data">Import Data</string>
+    <string name="excel_file_icon_description">Excel File Icon</string>
+    <string name="info_text">Ensure your Excel file includes: Name, Email, Phone, Course, and Country of Interest. Only .xlsx files are supported.</string>
+    <string name="slogun">Log in. Dream. Achieve.</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_text">Sign in to access your global education journey</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or">OR</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="new_to_our_platform">New to our platform?</string>
+    <string name="no_notes_available">No notes available</string>
+
+    <string name="notification_settings">Notification Settings</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="notification_updates_description">Receive updates about applications, deadlines, and more</string>
+    <string name="notification_time">Notification Time</string>
+    <string name="set_preferred_time">Set a preferred time to receive notifications</string>
+    <string name="default_notification_time">09:00 AM</string>
+    <string name="reset">Reset</string>
+    <string name="notification_categories">Notification Categories</string>
+    <string name="university_updates">University Updates</string>
+    <string name="scholarship_opportunities">Scholarship Opportunities</string>
+    <string name="visa_immigration_updates">Visa &amp; Immigration Updates</string>
+    <string name="application_status_updates">Application Status Updates</string>
+    <string name="events_webinars">Events &amp; Webinars</string>
+    <string name="recent_notifications">Recent Notifications</string>
+    <string name="back">Back</string>
+    <string name="privacy_shield_icon">Privacy shield icon</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="medical_education_banner">Medical education banner</string>
+    <string name="your_privacy_matters">Your Privacy Matters</string>
+    <string name="last_updated_march_1_2025">Last Updated: March 1, 2025</string>
+    <string name="doctor_cubes_privacy_promise">At DoctorCube, we are committed to protecting your personal information as you pursue your medical education abroad.</string>
+    <string name="user_status">Student • Russia Aspirant</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="edit_profile_details">Edit Profile Details</string>
+    <string name="notification_preferences">Notification Preferences</string>
+    <string name="support_and_help">Support and Help</string>
+    <string name="about_doctorcubes">About DoctorCubes</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="need_personalized_help">Need Personalized Help?</string>
+    <string name="schedule_free_consultation">Schedule a free consultation with our education experts</string>
+    <string name="schedule_consultation">Schedule Consultation</string>
+    <string name="app_version">DoctorCubes v2.1.0</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="settings_icon">Settings Icon</string>
+    <string name="arrow_icon">Arrow Icon</string>
+    <string name="support_icon">Support Icon</string>
+    <string name="consultation_icon">Consultation Icon</string>
+    <string name="profile">Profile</string>
+    <string name="make_your_abroad_dream_true">Make Your Abroad Dream True !</string>
+    <string name="no_videos_available">No videos available</string>
+    <string name="delete">Delete</string>
+    <string name="chat_on_whatsapp">Chat on WhatsApp</string>
+    <string name="_60_universities">60+ Universities</string>
+    <string name="_15_universities">15+ Universities</string>
+    <string name="_20_universities">20+ Universities</string>
+    <string name="_10_universities">10+ Universities</string>
+    <string name="_45_universities">45+ Universities</string>
+    <string name="_12_universities">12+ Universities</string>
+    <string name="question">Question</string>
+    <string name="answer">Answer</string>
+    <string name="invite_your_friends">Invite your friends</string>
+    <string name="make_his_dream">Make His Dream</string>
+    <string name="invite">INVITE</string>
+    <string name="pages_45">Pages: 45</string>
+    <string name="size_2_3_mb">Size: 2.3 MB</string>
+    <string name="details">details</string>
+    <string name="last_updated_mar_27_2025">Last Updated: Mar 27, 2025</string>
+    <string name="university_application_deadline">University Application Deadline</string>
+    <string name="notification_desc">Your application to Oxford University is due in 3 days</string>
+    <string name="_2_hours_ago">2 hours ago</string>
+    <string name="testimonial">DoctorCubes made my dream of studying medicine abroad come true. Their guidance throughout the application process was invaluable.</string>
+    <string name="tvm_it_solutions">TVM IT Solutions</string>
+    <string name="sechenov_university">Sechenov University</string>
+    <string name="batch_2023">Batch 2023</string>
+    <string name="university_of_georgia">University of Georgia</string>
+    <string name="mbbs">MBBS</string>
+    <string name="bachelor">Bachelor</string>
+    <string name="medical">medical</string>
+    <string name="top_500">Top 500</string>
+    <string name="duration">Duration:</string>
+    <string name="course_duration">5.8 Years</string>
+    <string name="language">Language:</string>
+
+
+    <string name="intake">Intake:</string>
+    <string name="scholarships_available">Scholarships up to 30% available</string>
+
+    <string name="grade">Grade</string>
+    <string name="university_banner">University Banner</string>
+    <string name="university_logo">University Logo</string>
+    <string name="country_flag">Country Flag</string>
+    <string name="duration_icon">Duration Icon</string>
+    <string name="ranking_icon">Ranking Icon</string>
+    <string name="language_icon">Language Icon</string>
+    <string name="calendar_icon">Calendar Icon</string>
+    <string name="scholarship_icon">Scholarship Icon</string>
+    <string name="whatsapp_icon">WhatsApp Icon</string>
+    <string name="call_icon">Call Icon</string>
+    <string name="public_text">Public</string>
+
+    <string name="verify_phone_number">Verify Phone Number</string>
+    <string name="otp_sent_message">Enter the OTP sent to your mobile number.</string>
+    <string name="enter_otp_hint">Enter OTP</string>
+    <string name="otp_input_description">OTP Input</string>
+    <string name="password_strength_text">Easy</string>
+    <string name="resend_otp_text">Didn\'t receive code? Resend in 00:59</string>
+    <string name="verify_button_text">Verify</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="otp_verification_image">OTP Verification</string>
+    <string name="loading_notes">Loading notes…</string>
+    <string name="failed_to_load_notes">Failed to load notes</string>
+    <string name="view">view</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_valid_email">Enter a valid email</string>
+    <string name="enter_valid_phone">Enter a valid phone number</string>
+    <string name="select_your_country">Select your country</string>
+    <string name="enter_your_state">Enter your state/province</string>
+    <string name="enter_your_city">Enter your city</string>
+    <string name="select_neet_score_status">Select whether you have a NEET score</string>
+    <string name="enter_your_neet_score">Enter your NEET score</string>
+    <string name="select_passport_status">Select whether you have a passport</string>
+    <string name="edit_details">edit details</string>
+</resources>

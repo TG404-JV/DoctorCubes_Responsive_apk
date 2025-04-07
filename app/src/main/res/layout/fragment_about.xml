@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".settings.FragmentAbout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Enhanced Toolbar with Gradient -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/gradient_toolbar_background"
+                app:navigationIcon="@drawable/ic_back"
+                app:titleTextColor="@color/white">
+
+                <TextView
+                    android:id="@+id/tvToolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/about_us"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Enhanced Scrollable Content -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="24dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Enhanced Logo Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardLogo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/OutlinedBox">  <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient_card_background"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <ImageView
+                        android:id="@+id/ivLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:contentDescription="@string/doctorcube_logo"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/logo_doctor_cubes_dynamic" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/doctor_cubes_slogun"
+                        android:textColor="@color/text_primary_color"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Enhanced About Us Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardAboutUs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="@color/card_background"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardLogo">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="24dp">
+
+                        <!-- Mission Section -->
+                        <TextView
+                            android:id="@+id/tvMissionTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/our_mission"
+                            android:textColor="@color/primary_color"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/dividerMission"
+                            android:layout_width="80dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/accent_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvMissionTitle" />
+
+                        <TextView
+                            android:id="@+id/tvMissionContent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:lineSpacingExtra="4dp"
+                            android:text="@string/doctor_cubes_mission_text"
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/dividerMission" />
+
+                        <!-- Who We Are Section -->
+                        <TextView
+                            android:id="@+id/tvWhoWeAreTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/who_we_are"
+                            android:textColor="@color/primary_color"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvMissionContent" />
+
+                        <View
+                            android:id="@+id/dividerWhoWeAre"
+                            android:layout_width="80dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/accent_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvWhoWeAreTitle" />
+
+                        <TextView
+                            android:id="@+id/tvWhoWeAreContent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:lineSpacingExtra="4dp"
+                            android:text="@string/doctor_cubes_history"
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/dividerWhoWeAre" />
+
+                        <!-- What We Offer Section -->
+                        <TextView
+                            android:id="@+id/tvWhatWeOfferTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/what_we_offer"
+                            android:textColor="@color/primary_color"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvWhoWeAreContent" />
+
+                        <View
+                            android:id="@+id/dividerWhatWeOffer"
+                            android:layout_width="80dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/accent_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvWhatWeOfferTitle" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardUniversity"
+                            style="@style/ServiceCard"
+                            android:layout_marginTop="20dp"
+                            app:layout_constraintTop_toBottomOf="@id/dividerWhatWeOffer">
+
+                            <LinearLayout
+                                style="@style/ServiceCardLinearLayout">
+
+                                <ImageView
+                                    android:id="@+id/ivUniversityIcon"
+                                    style="@style/ServiceCardImageView"
+                                    android:src="@drawable/icon_university" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvUniversityTitle"
+                                        style="@style/ServiceCardTitle"
+                                        android:text="@string/doctor_cubes_feature_1" />
+
+                                    <TextView
+                                        android:id="@+id/tvUniversityDesc"
+                                        style="@style/ServiceCardDescription"
+                                        android:text="@string/doctor_cubes_feature_1_inner_text" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardScholarship"
+                            style="@style/ServiceCard"
+                            app:layout_constraintTop_toBottomOf="@id/cardUniversity">
+
+                            <LinearLayout
+                                style="@style/ServiceCardLinearLayout">
+
+                                <ImageView
+                                    android:id="@+id/ivScholarshipIcon"
+                                    style="@style/ServiceCardImageView"
+                                    android:src="@drawable/icon_scholarship" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvScholarshipTitle"
+                                        style="@style/ServiceCardTitle"
+                                        android:text="@string/doctor_cubes_feature_2" />
+
+                                    <TextView
+                                        android:id="@+id/tvScholarshipDesc"
+                                        style="@style/ServiceCardDescription"
+                                        android:text="@string/doctor_cubes_feature_2_inner_text" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardVisa"
+                            style="@style/ServiceCard"
+                            app:layout_constraintTop_toBottomOf="@id/cardScholarship">
+
+                            <LinearLayout
+                                style="@style/ServiceCardLinearLayout">
+
+                                <ImageView
+                                    android:id="@+id/ivVisaIcon"
+                                    style="@style/ServiceCardImageView"
+                                    android:src="@drawable/icon_visa" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvVisaTitle"
+                                        style="@style/ServiceCardTitle"
+                                        android:text="@string/doctor_cubes_feature_3" />
+
+                                    <TextView
+                                        android:id="@+id/tvVisaDesc"
+                                        style="@style/ServiceCardDescription"
+                                        android:text="@string/doctor_cubes_feature_3_inner_text" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardTracking"
+                            style="@style/ServiceCard"
+                            app:layout_constraintTop_toBottomOf="@id/cardVisa">
+
+                            <LinearLayout
+                                style="@style/ServiceCardLinearLayout">
+
+                                <ImageView
+                                    android:id="@+id/ivTrackingIcon"
+                                    style="@style/ServiceCardImageView"
+                                    android:src="@drawable/ic_location"
+                                    app:tint="@color/primary_color" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvTrackingTitle"
+                                        style="@style/ServiceCardTitle"
+                                        android:text="@string/doctor_cubes_feature_4" />
+
+                                    <TextView
+                                        android:id="@+id/tvTrackingDesc"
+                                        style="@style/ServiceCardDescription"
+                                        android:text="@string/doctor_cubes_feature_4_inner_text" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cardSupport"
+                            style="@style/ServiceCard"
+                            app:layout_constraintTop_toBottomOf="@id/cardTracking">
+
+                            <LinearLayout
+                                style="@style/ServiceCardLinearLayout">
+
+                                <ImageView
+                                    android:id="@+id/ivSupportIcon"
+                                    style="@style/ServiceCardImageView"
+                                    android:src="@drawable/icon_support" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tvSupportTitle"
+                                        style="@style/ServiceCardTitle"
+                                        android:text="@string/doctor_cubes_feature_5" />
+
+                                    <TextView
+                                        android:id="@+id/tvSupportDesc"
+                                        style="@style/ServiceCardDescription"
+                                        android:text="@string/doctor_cubes_feature_5_inner_text" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Values Section -->
+                        <TextView
+                            android:id="@+id/tvValuesTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/our_values"
+                            android:textColor="@color/primary_color"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/cardSupport" />
+
+                        <View
+                            android:id="@+id/dividerValues"
+                            android:layout_width="80dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/accent_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvValuesTitle" />
+
+                        <LinearLayout
+                            android:id="@+id/llValues"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@id/dividerValues">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:contentDescription="@string/excellence"
+                                    android:src="@drawable/ic_check_circle"
+                                    app:tint="@color/primary_color" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:text="@string/excellence_detail"
+                                    android:textColor="@color/text_secondary_color"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:contentDescription="@string/integrity"
+                                    android:src="@drawable/ic_check_circle"
+                                    app:tint="@color/primary_color" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:text="@string/integrity_detail"
+                                    android:textColor="@color/text_secondary_color"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:contentDescription="@string/innovation"
+                                    android:src="@drawable/ic_check_circle"
+                                    app:tint="@color/primary_color" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:text="@string/innovation_detail"
+                                    android:textColor="@color/text_secondary_color"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
+                                    android:contentDescription="@string/empathy"
+                                    android:src="@drawable/ic_check_circle"
+                                    app:tint="@color/primary_color" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:text="@string/empathy_detail"
+                                    android:textColor="@color/text_secondary_color"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Team Section Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTeam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="@color/card_background"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardAboutUs">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:id="@+id/tvTeamTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/our_team"
+                            android:textColor="@color/primary_color"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/dividerTeam"
+                            android:layout_width="80dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/accent_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvTeamTitle" />
+
+                        <TextView
+                            android:id="@+id/tvTeamContent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:lineSpacingExtra="4dp"
+                            android:text="@string/about_doctor_cubes_team"
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/dividerTeam" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Contact Section Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardContact"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="24dp"
+                    app:cardBackgroundColor="@color/card_background"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardTeam">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:id="@+id/tvContactTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/get_in_touch"
+                            android:textColor="@color/primary_color"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/dividerContact"
+                            android:layout_width="80dp"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/accent_color"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvContactTitle" />
+
+                        <TextView
+                            android:id="@+id/tvContactContent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:lineSpacingExtra="4dp"
+                            android:text="@string/support_detail"
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/dividerContact" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEmail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:backgroundTint="@color/primary_color"
+                            android:text="@string/email_us"
+                            android:textColor="@color/white"
+                            app:cornerRadius="8dp"
+                            app:icon="@drawable/ic_email"
+                            app:iconGravity="textStart"
+                            app:iconTint="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvContactContent" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnWhatsApp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:backgroundTint="@color/whatsapp_button_color"
+                            android:text="@string/whatsapp"
+                            android:textColor="@color/white"
+                            app:cornerRadius="8dp"
+                            app:icon="@drawable/ic_whatsapp"
+                            app:iconGravity="textStart"
+                            app:iconTint="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/btnEmail" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCall"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:backgroundTint="@color/call_button_color"
+                            android:text="@string/call_us"
+                            android:textColor="@color/white"
+                            app:cornerRadius="8dp"
+                            app:icon="@drawable/ic_call"
+                            app:iconGravity="textStart"
+                            app:iconTint="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/btnWhatsApp" />
+
+                        <TextView
+                            android:id="@+id/tvSocialTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/follow_us"
+                            android:textColor="@color/primary_color"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/btnCall" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvSocialTitle">
+
+
+                            <ImageView
+                                android:id="@+id/btnInstagram"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/instagram"
+                                android:src="@drawable/ic_instagram" />
+
+                            <ImageView
+                                android:id="@+id/btnTwitter"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/twitter"
+                                android:src="@drawable/ic_twitter" />
+
+                            <ImageView
+                                android:id="@+id/btnYoutube"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="8dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="@string/youtube"
+                                android:src="@drawable/ic_youtube" />
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

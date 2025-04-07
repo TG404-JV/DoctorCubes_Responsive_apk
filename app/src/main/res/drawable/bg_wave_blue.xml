@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1440dp"
+    android:height="360dp"
+    android:viewportWidth="1440"
+    android:viewportHeight="360">
+
+    <!-- Bottom base wave (darker) -->
+    <path
+        android:pathData="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+        android:fillColor="@color/primary_color"/>
+
+    <!-- Middle wave (medium opacity) -->
+    <path
+        android:pathData="M0,64L60,80C120,96,240,128,360,138.7C480,149,600,139,720,133.3C840,128,960,128,1080,138.7C1200,149,1320,171,1380,181.3L1440,192L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
+        android:fillColor="@color/primary_light_color"
+        android:fillAlpha="0.6"/>
+
+    <!-- Top wave (lightest, more dynamic) -->
+    <path
+        android:pathData="M0,160L40,145C80,130,160,100,240,85.3C320,70,400,70,480,90.7C560,112,640,154,720,160C800,165,880,133,960,112C1040,91,1120,80,1200,96C1280,112,1360,155,1400,176.7L1440,198.7L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"
+        android:fillColor="@color/accent_light_color"
+        android:fillAlpha="0.35"/>
+
+    <!-- Subtle accent dots/circles for modern feel -->
+    <path
+        android:pathData="M240,80m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
+        android:fillColor="@color/accent_color"
+        android:fillAlpha="0.7"/>
+
+    <path
+        android:pathData="M480,110m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
+        android:fillColor="@color/accent_color"
+        android:fillAlpha="0.5"/>
+
+    <path
+        android:pathData="M720,70m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"
+        android:fillColor="@color/accent_color"
+        android:fillAlpha="0.6"/>
+
+    <path
+        android:pathData="M960,90m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0"
+        android:fillColor="@color/accent_color"
+        android:fillAlpha="0.5"/>
+
+    <path
+        android:pathData="M1200,60m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0"
+        android:fillColor="@color/accent_color"
+        android:fillAlpha="0.7"/>
+</vector>

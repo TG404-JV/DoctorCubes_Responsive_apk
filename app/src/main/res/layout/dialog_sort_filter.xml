@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/card_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Scrollable Content -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Sort Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sort By"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark_color" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/sort_chip_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_name_asc"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name (A-Z)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_name_desc"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name (Z-A)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_date_newest"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date (Newest)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_date_oldest"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date (Oldest)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_last_updated_newest"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Updated (Newest)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_last_updated_oldest"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Updated (Oldest)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_firebase_push_newest"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firebase Push (Newest)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_firebase_push_oldest"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firebase Push (Oldest)"
+                        app:chipBackgroundColor="@color/chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <!-- Filter Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter By"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark_color" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/filter_chip_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_interested"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Interested"
+                        app:chipBackgroundColor="@color/filter_chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_not_interested"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not Interested"
+                        app:chipBackgroundColor="@color/filter_chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_admitted"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Admitted"
+                        app:chipBackgroundColor="@color/filter_chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_not_admitted"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not Admitted"
+                        app:chipBackgroundColor="@color/filter_chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_call_made"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Called"
+                        app:chipBackgroundColor="@color/filter_chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_filter_call_not_made"
+                        style="@style/Widget.MaterialComponents.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not Called"
+                        app:chipBackgroundColor="@color/filter_chip_background_selector"
+                        app:chipStrokeColor="@color/primary_light_color"
+                        app:chipStrokeWidth="1dp"
+                        android:textColor="@color/chip_text_selector"
+                        app:checkedIconTint="@color/white"
+                        app:chipMinTouchTargetSize="48dp" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <!-- Date Filter Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filter By Date"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark_color" />
+
+                <RadioGroup
+                    android:id="@+id/date_filter_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="4dp"
+                    android:paddingBottom="16dp">
+
+                    <RadioButton
+                        android:id="@+id/radio_all_dates"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All Dates"
+                        android:checked="true"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_yesterday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yesterday"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_last_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Week"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_last_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Month"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_last_updated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Updated"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_firebase_push"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firebase Push Date"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_custom_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Custom Date Range"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_color"
+                        android:buttonTint="@color/primary_color"
+                        android:paddingVertical="8dp" />
+                </RadioGroup>
+
+                <!-- Custom Date Range -->
+                <LinearLayout
+                    android:id="@+id/date_range_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From Date"
+                        app:boxStrokeColor="@color/primary_color"
+                        app:hintTextColor="@color/primary_color"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeWidth="1dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tv_from_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select Date"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary_color"
+                            android:background="@android:color/transparent"
+                            android:padding="12dp"
+                            android:inputType="none"
+                            android:focusable="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:hint="To Date"
+                        app:boxStrokeColor="@color/primary_color"
+                        app:hintTextColor="@color/primary_color"
+                        app:boxBackgroundColor="@color/white"
+                        app:boxStrokeWidth="1dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tv_to_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select Date"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary_color"
+                            android:background="@android:color/transparent"
+                            android:padding="12dp"
+                            android:inputType="none"
+                            android:focusable="false" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Fixed Buttons Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:background="@color/card_background"
+            android:gravity="end">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textSize="14sp"
+                android:textColor="@color/primary_color"
+                app:strokeColor="@color/primary_color"
+                app:cornerRadius="8dp"
+                app:rippleColor="@color/ripple_light"
+                android:paddingHorizontal="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_apply"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Apply"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/primary_color"
+                app:cornerRadius="8dp"
+                app:rippleColor="@color/ripple_light"
+                android:paddingHorizontal="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
