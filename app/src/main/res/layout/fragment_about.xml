@@ -16,7 +16,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="6dp"
+            android:elevation="@dimen/_6sdp"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
@@ -46,7 +46,7 @@
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingBottom="24dp"
+            android:paddingBottom="@dimen/_24sdp"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,11 +62,11 @@
                     android:id="@+id/cardLogo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardElevation="@dimen/_4sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -76,14 +76,14 @@
                     android:background="@drawable/gradient_card_background"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="24dp">
+                    android:padding="@dimen/_24sdp">
 
                     <ImageView
                         android:id="@+id/ivLogo"
                         android:layout_width="match_parent"
-                        android:layout_height="160dp"
+                        android:layout_height="@dimen/_160sdp"
                         android:contentDescription="@string/doctorcube_logo"
-                        android:scaleType="centerInside"
+                        android:scaleType="fitCenter"
                         android:src="@drawable/logo_doctor_cubes_dynamic" />
 
                     <TextView
@@ -103,12 +103,12 @@
                     android:id="@+id/cardAboutUs"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
                     app:cardBackgroundColor="@color/card_background"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardElevation="@dimen/_4sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cardLogo">
@@ -116,7 +116,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="24dp">
+                        android:padding="@dimen/_24sdp">
 
                         <!-- Mission Section -->
                         <TextView
@@ -134,9 +134,9 @@
 
                         <View
                             android:id="@+id/dividerMission"
-                            android:layout_width="80dp"
-                            android:layout_height="3dp"
-                            android:layout_marginTop="6dp"
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_3sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
                             android:background="@color/accent_color"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvMissionTitle" />
@@ -145,8 +145,8 @@
                             android:id="@+id/tvMissionContent"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:lineSpacingExtra="4dp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:lineSpacingExtra="@dimen/_4sdp"
                             android:text="@string/doctor_cubes_mission_text"
                             android:textColor="@color/text_secondary_color"
                             android:textSize="15sp"
@@ -159,7 +159,7 @@
                             android:id="@+id/tvWhoWeAreTitle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="32dp"
+                            android:layout_marginTop="@dimen/_32sdp"
                             android:fontFamily="sans-serif-medium"
                             android:text="@string/who_we_are"
                             android:textColor="@color/primary_color"

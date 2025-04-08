@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.tvm.doctorcube.university.ApplyBottomSheetFragment;
+import com.tvm.doctorcube.university.UniversityDetailsBottomSheet;
 import com.tvm.doctorcube.university.model.University;
 import com.tvm.doctorcube.university.model.UniversityDetailsData;
 import com.google.android.material.button.MaterialButton;
@@ -58,18 +59,24 @@ private MaterialButton admissionButton;
             }
         }
 
-        admissionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                University university = new University();
-                FragmentManager fragmentManager = (getSupportFragmentManager());
-                ApplyBottomSheetFragment bottomSheet = new ApplyBottomSheetFragment(university);
-                Bundle args = new Bundle();
-                args.putString("event_title", university.getName());
-                bottomSheet.show(fragmentManager, "ApplyBottomSheet");
-            }
-        });
-    }
+        admissionButton.setOnClickListener(v -> {
+            // Create the university data
+            // Get the user name (you'll need to retrieve this from your app)
+
+
+            assert intent != null;
+            String universityName = intent.getStringExtra("UNIVERSITY_NAME");
+            UniversityDetailsData.UniversityDetail detail = UniversityDetailsData.getUniversityDetails(universityName);
+
+
+
+            // Use the newInstance method to create the bottom sheet with proper parameters
+            UniversityDetailsBottomSheet bottomSheet =
+                    UniversityDetailsBottomSheet.newInstance(detail.getImageResourceId(), universityName);
+
+            // Show the bottom sheet
+            bottomSheet.show(getSupportFragmentManager(), "ApplyBottomSheet");
+        });    }
 
     private void initializeViews() {
         universityImageView = findViewById(R.id.university_image);

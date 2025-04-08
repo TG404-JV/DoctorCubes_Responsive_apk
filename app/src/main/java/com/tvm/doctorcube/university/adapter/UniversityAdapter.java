@@ -3,7 +3,6 @@ package com.tvm.doctorcube.university.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +13,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tvm.doctorcube.CustomToast;
 import com.tvm.doctorcube.R;
 import com.tvm.doctorcube.SocialActions;
 import com.tvm.doctorcube.UniversityDetailsActivity;
-import com.tvm.doctorcube.university.ApplyBottomSheetFragment;
+import com.tvm.doctorcube.university.UniversityDetailsBottomSheet;
 import com.tvm.doctorcube.university.model.University;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,11 +101,12 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         // Apply Button - Opens Bottom Sheet Dialog
         // In UniversityAdapter.java, update the btnApply click listener:
         holder.btnApply.setOnClickListener(v -> {
-            FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-            ApplyBottomSheetFragment bottomSheet = new ApplyBottomSheetFragment(university);
-            Bundle args = new Bundle();
-            args.putString("event_title", university.getName());
-            bottomSheet.show(fragmentManager, "ApplyBottomSheet");
+            UniversityDetailsBottomSheet bottomSheet =
+                    UniversityDetailsBottomSheet.newInstance(university.getBannerResourceId(), university.getName());
+
+            bottomSheet.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheet.getTag());
+
+            // Show the bottom sheet
         });
 
         // Brochure Button (keeping as placeholder)
@@ -174,31 +172,6 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
 
         notifyDataSetChanged();
     }
-
-    // 🔹 Filter universities by country (not used directly now, but kept for potential reuse)
-    public void filterByCountry(String country) {
-        universities.clear();
-        if (country.equals("All")) {
-            universities.addAll(originalUniversities);
-        } else {
-            for (University university : originalUniversities) {
-                if (university.getCountry().equalsIgnoreCase(country)) {
-                    universities.add(university);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
-
-    public void resetFilters() {
-        // Restore original data
-        this.universities.clear();
-        this.universities.addAll(originalUniversities);
-
-        // Notify adapter of data change
-        notifyDataSetChanged();
-    }
-
 
 
     static class UniversityViewHolder extends RecyclerView.ViewHolder {

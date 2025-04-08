@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:textSize="16sp"
     android:textColor="@color/text_primary_color" 
-    android:padding="16dp"
+    android:padding="@dimen/_16sdp"
     android:ellipsize="marquee"
     android:singleLine="true"
     android:textAlignment="inherit"/>

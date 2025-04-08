@@ -32,6 +32,11 @@ public class UniversityDetailsData {
             this.admissionRequirements = admissionRequirements; // Initialize
         }
 
+        public UniversityDetail()
+        {
+
+        }
+
         // Getters
         public int getImageResourceId() {
             return imageResourceId;
