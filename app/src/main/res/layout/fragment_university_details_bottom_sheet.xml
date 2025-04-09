@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
+    android:nestedScrollingEnabled="true"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
@@ -51,7 +52,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="Dr. Username"
                     android:textColor="@color/primary_dark_color"
-                    android:textSize="@dimen/_24sdp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -100,7 +101,7 @@
                             android:paddingBottom="@dimen/_6sdp"
                             android:text="United Kingdom"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="12sp" />
                     </FrameLayout>
 
                     <LinearLayout
@@ -117,7 +118,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:text="University of Cambridge"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="@dimen/_20sdp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -133,7 +134,7 @@
                                 android:fontFamily="sans-serif-medium"
                                 android:text="MBBS Program"
                                 android:textColor="@color/text_secondary_color"
-                                android:textSize="@dimen/_16sdp" />
+                                android:textSize="16sp" />
 
                         </LinearLayout>
 
@@ -143,7 +144,7 @@
                             android:layout_marginBottom="@dimen/_8sdp"
                             android:text="Program Highlights"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="@dimen/_16sdp"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -172,7 +173,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="6 years (May Change)"
                                     android:textColor="@color/text_secondary_color"
-                                    android:textSize="@dimen/_14sdp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -195,7 +196,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="English Medium"
                                     android:textColor="@color/text_secondary_color"
-                                    android:textSize="@dimen/_14sdp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -210,7 +211,7 @@
                 android:layout_marginBottom="@dimen/_24sdp"
                 android:text="Would you like to apply to this university? Our consultants will guide you through the entire process."
                 android:textColor="@color/text_primary_color"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -221,7 +222,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/apply_button"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_56sdp"
+                    android:layout_height="@dimen/_48sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/button_accent"
@@ -229,14 +230,14 @@
                     android:text="Apply Now"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_16sdp"
+                    android:textSize="16sp"
                     app:cornerRadius="@dimen/_28sdp"
                     app:rippleColor="@color/button_accent_pressed" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/whatsapp_button"
-                    android:layout_width="@dimen/_56sdp"
-                    android:layout_height="@dimen/_56sdp"
+                    android:layout_width="@dimen/_48sdp"
+                    android:layout_height="@dimen/_48sdp"
                     android:backgroundTint="@color/whatsapp_button_color"
                     app:cornerRadius="@dimen/_28sdp"
                     app:icon="@drawable/ic_whatsapp"

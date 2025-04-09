@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tvm.doctorcube.CustomToast;
-import com.tvm.doctorcube.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -24,10 +23,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.tvm.doctorcube.CustomToast;
+import com.tvm.doctorcube.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FragmentUploadStudyMaterial extends Fragment {
@@ -40,6 +41,10 @@ public class FragmentUploadStudyMaterial extends Fragment {
     private List<ContentItem> contentList = new ArrayList<>();
     private String currentContentId;
     private String currentCollection = "videos"; // Keep track of the current collection
+    private RadioGroup contentRadioGroup; // Add RadioGroup
+    private RadioButton videoRadioButton;
+    private RadioButton notesRadioButton;
+
 
     @Nullable
     @Override
@@ -61,6 +66,9 @@ public class FragmentUploadStudyMaterial extends Fragment {
         contentRecyclerView = view.findViewById(R.id.contentRecyclerView);
         fabAddContent = view.findViewById(R.id.fabAddContent);
         tabLayout = view.findViewById(R.id.tabLayout);
+        contentRadioGroup = view.findViewById(R.id.contentRadioGroup); // Initialize RadioGroup
+        videoRadioButton = view.findViewById(R.id.videoRadioButton);
+        notesRadioButton = view.findViewById(R.id.notesRadioButton);
     }
 
     private void setupRecyclerView() {
@@ -111,6 +119,7 @@ public class FragmentUploadStudyMaterial extends Fragment {
                             String notesUrl = document.getString("notesUrl");
                             contentList.add(new ContentItem(id, title, author, size, pages, category, description, videoId, notesUrl));
                         }
+                        contentAdapter.notifyDataSetChanged(); // Notify the adapter here!
                     } else {
                         CustomToast.showToast(requireActivity(), "Error fetching content");
                     }
@@ -129,6 +138,7 @@ public class FragmentUploadStudyMaterial extends Fragment {
         TextInputEditText categoryEditText = dialogView.findViewById(R.id.categoryEditText);
         TextInputEditText descriptionEditText = dialogView.findViewById(R.id.descriptionEditText);
         TextInputEditText urlEditText = dialogView.findViewById(R.id.urlEditText);
+        RadioGroup videoNotesRadioGroup = dialogView.findViewById(R.id.contentRadioGroup);  //changed
         RadioButton videoRadioButton = dialogView.findViewById(R.id.videoRadioButton);
         RadioButton notesRadioButton = dialogView.findViewById(R.id.notesRadioButton);
         MaterialButton actionButton = dialogView.findViewById(R.id.actionButton);
@@ -149,18 +159,24 @@ public class FragmentUploadStudyMaterial extends Fragment {
             actionButton.setText("Update");
             currentContentId = itemToEdit.id;
         } else {
-            videoRadioButton.setChecked(true);
+            // Set the radio button based on the current tab.
+            if (currentCollection.equals("videos")) {
+                videoRadioButton.setChecked(true);
+            } else {
+                notesRadioButton.setChecked(true);
+            }
             actionButton.setText("Upload");
             currentContentId = null;
         }
 
         updateInputFieldsVisibility(videoRadioButton.isChecked(), authorEditText, sizeEditText, pagesEditText, categoryEditText, descriptionEditText);
 
-        videoRadioButton.setOnClickListener(v -> {
-            updateInputFieldsVisibility(true, authorEditText, sizeEditText, pagesEditText, categoryEditText, descriptionEditText);
-        });
-        notesRadioButton.setOnClickListener(v -> {
-            updateInputFieldsVisibility(false, authorEditText, sizeEditText, pagesEditText, categoryEditText, descriptionEditText);
+        videoNotesRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {  // added listener
+            if (checkedId == R.id.videoRadioButton) {
+                updateInputFieldsVisibility(true, authorEditText, sizeEditText, pagesEditText, categoryEditText, descriptionEditText);
+            } else if (checkedId == R.id.notesRadioButton) {
+                updateInputFieldsVisibility(false, authorEditText, sizeEditText, pagesEditText, categoryEditText, descriptionEditText);
+            }
         });
 
         actionButton.setOnClickListener(v -> {
@@ -168,7 +184,8 @@ public class FragmentUploadStudyMaterial extends Fragment {
             String url = urlEditText.getText().toString().trim();
             boolean isVideo = videoRadioButton.isChecked();
 
-            if (!validateInputs(title, url, isVideo, authorEditText, sizeEditText, pagesEditText, categoryEditText, descriptionEditText)) return;
+            if (!validateInputs(title, url, isVideo, authorEditText, sizeEditText, pagesEditText, categoryEditText, descriptionEditText))
+                return;
 
             progressBar.setVisibility(View.VISIBLE);
             actionButton.setEnabled(false);
@@ -218,7 +235,8 @@ public class FragmentUploadStudyMaterial extends Fragment {
                             progressBar.setVisibility(View.GONE);
                             actionButton.setEnabled(true);
 
-                            CustomToast.showToast(requireActivity(), "Upload failed: " + e.getMessage());                        });
+                            CustomToast.showToast(requireActivity(), "Upload failed: " + e.getMessage());
+                        });
             } else {
                 db.collection(collection)
                         .document(currentContentId)
@@ -353,7 +371,7 @@ public class FragmentUploadStudyMaterial extends Fragment {
                 holder.sizeTextView.setText("Size: " + item.size);
                 holder.pagesTextView.setText("Pages: " + item.pages);
                 holder.categoryTextView.setText("Category: " + item.category);
-                holder.descriptionTextView.setText(item.description != null && !item.description.isEmpty() ? "Description: " + item.description: "No description");
+                holder.descriptionTextView.setText(item.description != null && !item.description.isEmpty() ? "Description: " + item.description : "No description");
                 holder.authorTextView.setVisibility(View.VISIBLE);
                 holder.sizeTextView.setVisibility(View.VISIBLE);
                 holder.pagesTextView.setVisibility(View.VISIBLE);

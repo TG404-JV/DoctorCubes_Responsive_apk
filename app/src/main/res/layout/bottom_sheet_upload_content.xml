@@ -21,10 +21,36 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <RadioGroup
+                android:id="@+id/contentRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_16sdp">
+
+                <RadioButton
+                    android:id="@+id/videoRadioButton"
+                    style="@style/MedicalCheckboxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/video"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/notesRadioButton"
+                    style="@style/MedicalCheckboxStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/notes" />
+            </RadioGroup>
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/MedicalTextInputStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/titleEditText"
                     android:layout_width="match_parent"
@@ -122,29 +148,7 @@
                     android:textColorHint="@color/hint_color" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/videoRadioButton"
-                    style="@style/MedicalCheckboxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/video"
-                    android:checked="true" />
-
-                <RadioButton
-                    android:id="@+id/notesRadioButton"
-                    style="@style/MedicalCheckboxStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/notes" />
-            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actionButton"

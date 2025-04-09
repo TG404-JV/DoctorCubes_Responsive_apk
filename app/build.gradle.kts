@@ -31,12 +31,7 @@ android {
     }
 
     signingConfigs {
-        getByName("debug") {
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-        }
-
+        // Removed the debug signing config to use the default
         create("release") {
             // The storeFile path should be relative to the project root, not an absolute path like "C:/".
             // This makes the project portable and avoids hardcoding paths specific to a developer's machine.
@@ -49,10 +44,6 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -134,5 +125,3 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 }
 
-// Avoid applying plugin twice (already used in plugins block)
-// apply(plugin = "com.google.gms.google-services") // ❌ REMOVE THIS LINE

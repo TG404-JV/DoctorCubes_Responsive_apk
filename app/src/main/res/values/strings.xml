@@ -584,4 +584,20 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="select_passport_status">Select whether you have a passport</string>
     <string name="edit_details">edit details</string>
     <string name="tap_here_to_changes_profile">Tap Here To Changes Profile</string>
+    <string name="academic_information">academic_information</string>
+    <string name="has_neet_score">has_neet_score</string>
+    <string name="has_passport">has_passport</string>
+    <string name="application_status">application_status</string>
+    <string name="applied_date">applied_date</string>
+    <string name="is_applied">is_applied</string>
+    <string name="is_interested">is_interested</string>
+    <string name="is_admitted">is_admitted</string>
+    <string name="call_information">call_information</string>
+    <string name="last_call_date">last_call_date</string>
+    <string name="last_updated_date">last_updated_date</string>
+    <string name="system_information">system_information</string>
+    <string name="user_id">user_id</string>
+    <string name="timestamp">timestamp</string>
+    <string name="call_now">call_now</string>
+    <string name="update_status">update_status</string>
 </resources>
