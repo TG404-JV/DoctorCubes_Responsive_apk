@@ -24,11 +24,11 @@ import com.tvm.doctorcube.R;
 import com.tvm.doctorcube.adminpannel.ChipManager;
 import com.tvm.doctorcube.adminpannel.FilterManager;
 import com.tvm.doctorcube.adminpannel.SortFilterDialogManager;
-import com.tvm.doctorcube.adminpannel.Student;
 import com.tvm.doctorcube.adminpannel.StudentAdapter;
 import com.tvm.doctorcube.adminpannel.StudentDataLoader;
 import com.tvm.doctorcube.adminpannel.StudentSorter;
 import com.google.android.material.chip.ChipGroup;
+import com.tvm.doctorcube.adminpannel.databsemanager.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +38,7 @@ import java.util.Locale;
 public class FragmentAdminHome extends Fragment {
 
     private static final String TAG = "FragmentAdminHome";
+    private static final int REQUEST_CALL_PHONE = 1;
 
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -80,17 +81,19 @@ public class FragmentAdminHome extends Fragment {
         // Initialize data structures
         studentList = new ArrayList<>();
         filteredList = new ArrayList<>();
-        adapter = new StudentAdapter(filteredList, getContext());
+
+        // Initialize StudentDataLoader with context
+        dataLoader = new StudentDataLoader(requireContext());
+        adapter = new StudentAdapter(filteredList, requireContext(), dataLoader);
         recyclerView.setAdapter(adapter);
 
         // Initialize helpers
-        dataLoader = new StudentDataLoader();
         sorter = new StudentSorter(dateFormat, getContext());
         filterManager = new FilterManager(studentList, filteredList, sorter, dateFormat, displayFormat, getContext());
-        dialogManager = new SortFilterDialogManager(getContext(), filterManager, this::updateUIAfterFilter); // Pass callback
+        dialogManager = new SortFilterDialogManager(getContext(), filterManager, this::updateUIAfterFilter);
         chipManager = new ChipManager(activeFiltersChipGroup, filterManager, searchEditText);
 
-        // Swipe refresh setup (only for initial load or manual refresh)
+        // Swipe refresh setup
         swipeRefreshLayout.setColorSchemeColors(Color.GREEN);
         swipeRefreshLayout.setOnRefreshListener(this::loadStudentData);
 
@@ -139,7 +142,7 @@ public class FragmentAdminHome extends Fragment {
         dataLoader.loadStudents(new StudentDataLoader.DataLoadListener() {
             @Override
             public void onDataLoaded(List<Student> students) {
-                Log.d(TAG, "Data loaded, size: " + students.size());
+                Log.d(TAG, "Data loaded successfully, size: " + students.size());
                 studentList.clear();
                 studentList.addAll(students);
                 filterManager.applyFiltersAndSorting();
@@ -149,19 +152,19 @@ public class FragmentAdminHome extends Fragment {
 
             @Override
             public void onDataLoadFailed(String error) {
+                Log.e(TAG, "Data load failed: " + error);
                 swipeRefreshLayout.setRefreshing(false);
-                CustomToast.showToast(requireActivity(), "Unable To Load Student Data");
+                CustomToast.showToast(requireActivity(), "Unable to load student data: " + error);
             }
         });
     }
 
     // Callback to update UI after filter changes
     private void updateUIAfterFilter() {
-        adapter.notifyDataSetChanged();
+        adapter.updateStudentList(new ArrayList<>(filteredList)); // Update adapter with filtered list
         chipManager.updateChips();
         if (filteredList.isEmpty()) {
             showNoStudentsPopup();
-        } else {
         }
     }
 
@@ -181,6 +184,15 @@ public class FragmentAdminHome extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        adapter.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CALL_PHONE) {
+            adapter.handlePermissionResult(requestCode, grantResults);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Cleanup resources
+        dataLoader.cleanup();
     }
 }

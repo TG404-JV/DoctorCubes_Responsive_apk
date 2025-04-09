@@ -17,10 +17,10 @@ import com.tvm.doctorcube.CustomToast;
 import com.tvm.doctorcube.R;
 import com.tvm.doctorcube.adminpannel.FilterManager;
 import com.tvm.doctorcube.adminpannel.SortFilterDialogManager;
-import com.tvm.doctorcube.adminpannel.Student;
 import com.tvm.doctorcube.adminpannel.StudentDataLoader;
 import com.tvm.doctorcube.adminpannel.StudentSorter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tvm.doctorcube.adminpannel.databsemanager.Student;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -77,7 +77,7 @@ public class FragmentExportXLData extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataLoader = new StudentDataLoader();
+        dataLoader = new StudentDataLoader(requireContext());
         studentList = new ArrayList<>();
         filteredStudentList = new ArrayList<>();
 
@@ -235,7 +235,7 @@ public class FragmentExportXLData extends Fragment {
             setCellValue(row, 10, student.getSubmissionDate());
             setCellValue(row, 11, student.getCallStatus());
             setCellValue(row, 12, student.getLastCallDate());
-            row.createCell(13).setCellValue(student.getIsInterested() ? "Yes" : "No");
+            row.createCell(13).setCellValue(student.isInterested() ? "Yes" : "No");
             row.createCell(14).setCellValue(student.isAdmitted() ? "Yes" : "No");
 
             progressStatusTextView.setText("Exporting... (" + (i + 1) + "/" + filteredStudentList.size() + ")");

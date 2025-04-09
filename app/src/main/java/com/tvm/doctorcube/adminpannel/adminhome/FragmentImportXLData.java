@@ -21,9 +21,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.tvm.doctorcube.R;
-import com.tvm.doctorcube.adminpannel.Student;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tvm.doctorcube.adminpannel.databsemanager.Student;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -367,7 +367,7 @@ public class FragmentImportXLData extends Fragment {
             studentData.put("submissionDate", submissionDate);
             studentData.put("callStatus", TextUtils.isEmpty(student.getCallStatus()) ? "pending" : student.getCallStatus());
             studentData.put("lastCallDate", student.getLastCallDate());
-            studentData.put("isInterested", student.getIsInterested());
+            studentData.put("isInterested", student.isInterested());
             studentData.put("isAdmitted", student.isAdmitted());
             studentData.put("firebasePushDate", currentDate);
 

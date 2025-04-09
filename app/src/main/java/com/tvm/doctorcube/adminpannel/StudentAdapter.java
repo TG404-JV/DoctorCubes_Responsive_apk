@@ -20,8 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tvm.doctorcube.CustomToast;
 import com.tvm.doctorcube.R;
-import com.tvm.doctorcube.SocialActions;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.tvm.doctorcube.adminpannel.databsemanager.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,13 +33,13 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private static final int REQUEST_CALL_PHONE = 1;
     private List<Student> studentList;
     private Context context;
-    private FirebaseFirestore firestoreDB;
+    private StudentDataLoader studentDataLoader;
     private Student studentToCall;
 
-    public StudentAdapter(List<Student> studentList, Context context) {
+    public StudentAdapter(List<Student> studentList, Context context, StudentDataLoader studentDataLoader) {
         this.studentList = studentList;
         this.context = context;
-        this.firestoreDB = FirebaseFirestore.getInstance();
+        this.studentDataLoader = studentDataLoader;
     }
 
     @NonNull
@@ -58,38 +57,40 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             return;
         }
 
-        holder.name.setText(student.getName());
-        holder.state.setText(student.getState());
-        holder.contact.setText(student.getMobile());
+        holder.name.setText(student.getName() != null ? student.getName() : "N/A");
+        holder.state.setText(student.getState() != null ? student.getState() : "N/A");
+        holder.contact.setText(student.getMobile() != null ? student.getMobile() : "N/A");
         holder.lastUpdated.setText("Last Updated: " + (student.getLastCallDate() != null ? student.getLastCallDate() : "N/A"));
 
         holder.btnCall.setOnClickListener(v -> {
-            if (student.getMobile() != null && !student.getMobile().equals("N/A")) {
+            if (student.getMobile() != null && !student.getMobile().isEmpty() && !student.getMobile().equals("N/A")) {
                 showCallConfirmationDialog(student);
             } else {
                 CustomToast.showToast((Activity) context, "Mobile number not available");
             }
         });
 
+        // Reset listeners to prevent recycling issues
         holder.checkBoxCallMade.setOnCheckedChangeListener(null);
         holder.checkBoxCallMade.setChecked("called".equals(student.getCallStatus()));
         holder.checkBoxCallMade.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int adapterPosition = holder.getAdapterPosition();
             if (adapterPosition != RecyclerView.NO_POSITION) {
                 Student currentStudent = studentList.get(adapterPosition);
-                currentStudent.setCallStatus(isChecked ? "called" : "pending");
-                updateStudentData(currentStudent, "callStatus", currentStudent.getCallStatus());
+                String newStatus = isChecked ? "called" : "pending";
+                currentStudent.setCallStatus(newStatus);
+                updateStudentData(currentStudent, "callStatus", newStatus);
             }
         });
 
         holder.checkBoxInterested.setOnCheckedChangeListener(null);
-        holder.checkBoxInterested.setChecked(student.getIsInterested());
+        holder.checkBoxInterested.setChecked(student.isInterested());
         holder.checkBoxInterested.setOnCheckedChangeListener((buttonView, isChecked) -> {
             int adapterPosition = holder.getAdapterPosition();
             if (adapterPosition != RecyclerView.NO_POSITION) {
                 Student currentStudent = studentList.get(adapterPosition);
                 currentStudent.setIsInterested(isChecked);
-                updateStudentData(currentStudent, "isInterested", currentStudent.getIsInterested());
+                updateStudentData(currentStudent, "isInterested", isChecked);
             }
         });
 
@@ -100,7 +101,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             if (adapterPosition != RecyclerView.NO_POSITION) {
                 Student currentStudent = studentList.get(adapterPosition);
                 currentStudent.setAdmitted(isChecked);
-                updateStudentData(currentStudent, "isAdmitted", currentStudent.isAdmitted());
+                updateStudentData(currentStudent, "isAdmitted", isChecked);
             }
         });
     }
@@ -113,15 +114,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private void showCallConfirmationDialog(Student student) {
         new AlertDialog.Builder(context)
                 .setTitle("Confirm Call")
-                .setMessage("Are you sure you want to call " + student.getName() + " at " + student.getMobile() + "?")
+                .setMessage("Are you sure you want to call " + (student.getName() != null ? student.getName() : "this student") +
+                        " at " + student.getMobile() + "?")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         studentToCall = student;
-                        ActivityCompat.requestPermissions((android.app.Activity) context, new String[]{android.Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE);
+                        ActivityCompat.requestPermissions((Activity) context,
+                                new String[]{android.Manifest.permission.CALL_PHONE},
+                                REQUEST_CALL_PHONE);
                     } else {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + student.getMobile()));
-                        context.startActivity(intent);
-                        updateLastCallDate(student);
+                        makeCall(student);
                     }
                 })
                 .setNegativeButton("No", null)
@@ -129,9 +131,20 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
                 .show();
     }
 
+    private void makeCall(Student student) {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + student.getMobile()));
+        try {
+            context.startActivity(intent);
+            updateLastCallDate(student);
+        } catch (SecurityException e) {
+            CustomToast.showToast((Activity) context, "Unable to make call: " + e.getMessage());
+        }
+    }
+
     private void updateLastCallDate(Student student) {
         String collection = getCollectionName(student);
         if (collection == null || student.getId() == null) {
+            CustomToast.showToast((Activity) context, "Cannot update: Invalid student data");
             return;
         }
         String currentDate = new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(new Date());
@@ -142,29 +155,37 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     private void updateStudentData(Student student, String field, Object value) {
         String collection = getCollectionName(student);
         if (collection == null || student.getId() == null) {
+            CustomToast.showToast((Activity) context, "Cannot update: Invalid student data");
             return;
         }
-
-        // Use the method from StudentDataLoader to update the data
-        new StudentDataLoader().updateStudent(collection, student.getId(), field, value);
+        studentDataLoader.updateStudent(collection, student.getId(), field, value);
     }
 
     private String getCollectionName(Student student) {
-        if (student == null || student.getId() == null) {
+        if (student == null || student.getId() == null || student.getCollection() == null) {
             return null;
         }
-        return student.getCollection(); //changed
+        return student.getCollection();
     }
 
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CALL_PHONE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    // Method to handle permission result from Activity
+    public void handlePermissionResult(int requestCode, int[] grantResults) {
+        if (requestCode == REQUEST_CALL_PHONE && grantResults.length > 0 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (studentToCall != null) {
-                new SocialActions().makeDirectCall(context);
+                makeCall(studentToCall);
+                studentToCall = null; // Reset after call
             }
         } else {
             CustomToast.showToast((Activity) context, "Permission denied");
+            studentToCall = null; // Reset if permission denied
         }
+    }
+
+    // Method to update student list when data changes
+    public void updateStudentList(List<Student> newStudentList) {
+        this.studentList = newStudentList;
+        notifyDataSetChanged();
     }
 
     static class StudentViewHolder extends RecyclerView.ViewHolder {
@@ -185,4 +206,3 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         }
     }
 }
-

@@ -1,141 +1,207 @@
-// StudentDataLoader.java
 package com.tvm.doctorcube.adminpannel;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
+import com.google.gson.Gson;
+import com.tvm.doctorcube.adminpannel.databsemanager.FirestoreDataHelper;
+import com.tvm.doctorcube.adminpannel.databsemanager.Student;
+import com.tvm.doctorcube.adminpannel.databsemanager.StudentDatabase;
+import com.tvm.doctorcube.adminpannel.databsemanager.StudentEntity;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-/**
- * This class is responsible for loading student data from Firestore.  It retrieves
- * data from the "registrations", "xl data", "app_submissions" and "web_submissions" collections
- * and merges them into a single list of Student objects.
- */
 public class StudentDataLoader {
+    private static final String TAG = "StudentDataLoader";
+    private static final String COLLECTION_REGISTRATIONS = "registrations";
+    private static final String COLLECTION_XL_DATA = "xl_data";
+    private static final String COLLECTION_APP_SUBMISSIONS = "app_submissions";
+    private static final String COLLECTION_WEB_SUBMISSIONS = "web_submissions";
+    private static final String LAST_SYNC_TIMESTAMP = "lastSyncTimestamp";
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final FirebaseFirestore firestoreDB;
+    private final StudentDatabase localDB;
+    private final ExecutorService executorService;
+    private final Context context;
+    private List<Student> studentList;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy", Locale.getDefault());
+    private final List<ListenerRegistration> snapshotListeners;
 
-    private static final String TAG = "StudentDataLoader"; // Tag for logging
-    private FirebaseFirestore firestoreDB; // Firestore instance
-    private List<Student> studentList; // List to hold the loaded student data
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy", Locale.getDefault()); // Date format for strings
-    private SimpleDateFormat fullDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()); // Date format for Firestore Timestamps
-
-    /**
-     * Interface definition for a callback to be invoked when the student data
-     * has been loaded.
-     */
     public interface DataLoadListener {
-        /**
-         * Called when the student data has been successfully loaded.
-         *
-         * @param students The list of Student objects.
-         */
         void onDataLoaded(List<Student> students);
-
-        /**
-         * Called when there is an error loading the student data.
-         *
-         * @param error A message describing the error.
-         */
         void onDataLoadFailed(String error);
     }
 
-    /**
-     * Constructor for StudentDataLoader.  Initializes the Firestore instance
-     * and the student list.
-     */
-    public StudentDataLoader() {
-        firestoreDB = FirebaseFirestore.getInstance(); // Get the Firestore instance
-        studentList = new ArrayList<>(); // Initialize the student list
+    public StudentDataLoader(Context context) {
+        this.context = context;
+        firestoreDB = FirebaseFirestore.getInstance();
+        localDB = StudentDatabase.getDatabase(context);
+        executorService = Executors.newSingleThreadExecutor();
+        studentList = new ArrayList<>();
+        snapshotListeners = new ArrayList<>();
     }
 
-    /**
-     * Loads student data from Firestore.  This method retrieves data from the
-     * "registrations", "xl data", "app_submissions" and "web_submissions" collections and merges them into a single
-     * list.  It then notifies the listener.
-     *
-     * @param listener The DataLoadListener to notify when the data is loaded.
-     */
     public void loadStudents(final DataLoadListener listener) {
-        studentList.clear(); // Clear the list before loading
-        loadRegistrationsAndXlData(listener);
+        studentList.clear();
+        executorService.execute(() -> {
+            try {
+                List<StudentEntity> cachedStudents = localDB.studentDao().getAll();
+                List<Student> students = convertEntitiesToStudents(cachedStudents);
+                if (!students.isEmpty()) {
+                    mainHandler.post(() -> {
+                        listener.onDataLoaded(students);
+                        startRealtimeListeners(listener);
+                    });
+                } else {
+                    loadAllStudentData(listener, Source.SERVER);
+                }
+            } catch (Exception e) {
+                mainHandler.post(() -> listener.onDataLoadFailed("Error loading cached data: " + e.getMessage()));
+                loadAllStudentData(listener, Source.SERVER);
+            }
+        });
     }
 
-    private void loadRegistrationsAndXlData(final DataLoadListener listener) {
-        final Task<QuerySnapshot> registrationsTask = firestoreDB.collection("registrations").get();
-        final Task<QuerySnapshot> xlDataTask = firestoreDB.collection("xl_data").get();
-        final Task<QuerySnapshot> appSubmissionsTask = firestoreDB.collection("app_submissions").get(); // Get app_submissions
-        final Task<QuerySnapshot> webSubmissionsTask = firestoreDB.collection("web_submissions").get();
+    private void startRealtimeListeners(final DataLoadListener listener) {
+        stopRealtimeListeners();
+        String[] collections = {COLLECTION_REGISTRATIONS, COLLECTION_XL_DATA,
+                COLLECTION_APP_SUBMISSIONS, COLLECTION_WEB_SUBMISSIONS};
 
-        Tasks.whenAllSuccess(registrationsTask, xlDataTask, appSubmissionsTask, webSubmissionsTask) // Use whenAllSuccess
+        for (String collection : collections) {
+            ListenerRegistration registration = firestoreDB.collection(collection)
+                    .addSnapshotListener((snapshot, error) -> {
+                        if (error != null) {
+                            Log.e(TAG, "Realtime listener failed for " + collection + ": " + error.getMessage());
+                            mainHandler.post(() -> listener.onDataLoadFailed("Realtime listener error: " + error.getMessage()));
+                            return;
+                        }
+                        if (snapshot != null) {
+                            processRealtimeChanges(snapshot.getDocumentChanges(), collection, listener);
+                        }
+                    });
+            snapshotListeners.add(registration);
+        }
+    }
+
+    private void processRealtimeChanges(List<DocumentChange> changes, String collection, DataLoadListener listener) {
+        executorService.execute(() -> {
+            List<Student> updatedStudents = new ArrayList<>();
+            for (DocumentChange change : changes) {
+                DocumentSnapshot document = change.getDocument();
+                try {
+                    switch (change.getType()) {
+                        case ADDED:
+                        case MODIFIED:
+                            Student student = createStudentFromDocument(document, collection);
+                            if (student != null) {
+                                student.setCollection(collection);
+                                saveToLocalDB(student);
+                                updatedStudents.add(student);
+                            }
+                            break;
+                        case REMOVED:
+                            String documentId = document.getId();
+                            localDB.studentDao().deleteById(documentId);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Error processing change for document " + document.getId() + ": " + e.getMessage());
+                }
+            }
+            if (!updatedStudents.isEmpty()) {
+                updateLastSyncTime();
+                List<StudentEntity> cachedStudents = localDB.studentDao().getAll();
+                List<Student> allStudents = convertEntitiesToStudents(cachedStudents);
+                mainHandler.post(() -> listener.onDataLoaded(allStudents));
+            }
+        });
+    }
+
+    private void loadAllStudentData(final DataLoadListener listener, Source source) {
+        final Task<QuerySnapshot> registrationsTask = firestoreDB.collection(COLLECTION_REGISTRATIONS).get(source);
+        final Task<QuerySnapshot> xlDataTask = firestoreDB.collection(COLLECTION_XL_DATA).get(source);
+        final Task<QuerySnapshot> appSubmissionsTask = firestoreDB.collection(COLLECTION_APP_SUBMISSIONS).get(source);
+        final Task<QuerySnapshot> webSubmissionsTask = firestoreDB.collection(COLLECTION_WEB_SUBMISSIONS).get(source);
+
+        Tasks.whenAllSuccess(registrationsTask, xlDataTask, appSubmissionsTask, webSubmissionsTask)
                 .addOnSuccessListener(results -> {
                     List<Student> allStudents = new ArrayList<>();
-                    //Process the result
+                    int index = 0;
+                    String[] collectionNames = {COLLECTION_REGISTRATIONS, COLLECTION_XL_DATA,
+                            COLLECTION_APP_SUBMISSIONS, COLLECTION_WEB_SUBMISSIONS};
+
                     for (Object result : results) {
                         if (result instanceof QuerySnapshot) {
                             QuerySnapshot snapshot = (QuerySnapshot) result;
+                            String collectionName = collectionNames[index];
                             for (DocumentSnapshot document : snapshot) {
                                 try {
-                                    Student student;
-                                    String collectionName = document.getReference().getParent().getId(); //changed
-                                    if (collectionName.equals("registrations")) {
-                                        student = createStudentFromRegistration(document);
-                                    } else if (collectionName.equals("xl_data")) {
-                                        student = createStudentFromXlData(document);
-                                    } else if (collectionName.equals("app_submissions")) {  // Handle app_submissions
-                                        student = createStudentFromAppSubmissions(document);
-                                    } else if (collectionName.equals("web_submissions")) {
-                                        student = createStudentFromWebSubmissions(document);
-                                    }
-                                    else{
-                                        student = null;
-                                    }
-                                    if(student!=null){
-                                        student.setCollection(collectionName); // Store the collection name!
+                                    Student student = createStudentFromDocument(document, collectionName);
+                                    if (student != null) {
+                                        student.setCollection(collectionName);
                                         allStudents.add(student);
+                                        saveToLocalDB(student);
                                     }
-
                                 } catch (Exception e) {
-                                    listener.onDataLoadFailed("Error parsing data: " + e.getMessage());
+                                    Log.e(TAG, "Error parsing document in " + collectionName + ": " + e.getMessage());
+                                    mainHandler.post(() -> listener.onDataLoadFailed("Error parsing data: " + e.getMessage()));
                                     return;
                                 }
                             }
+                            index++;
                         }
                     }
-                    listener.onDataLoaded(allStudents);
+                    updateLastSyncTime();
+                    mainHandler.post(() -> {
+                        listener.onDataLoaded(allStudents);
+                        startRealtimeListeners(listener);
+                    });
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        listener.onDataLoadFailed("Failed to load data: " + e.getMessage());
-                    }
-                });
+                .addOnFailureListener(e -> mainHandler.post(() -> listener.onDataLoadFailed("Failed to load data: " + e.getMessage())));
     }
 
+    private Student createStudentFromDocument(DocumentSnapshot document, String collectionName) throws ParseException {
+        switch (collectionName) {
+            case COLLECTION_REGISTRATIONS:
+                return createStudentFromRegistration(document);
+            case COLLECTION_XL_DATA:
+                return createStudentFromXlData(document);
+            case COLLECTION_APP_SUBMISSIONS:
+                return createStudentFromAppSubmissions(document);
+            case COLLECTION_WEB_SUBMISSIONS:
+                return createStudentFromWebSubmissions(document);
+            default:
+                Log.w(TAG, "Unknown collection: " + collectionName);
+                return null;
+        }
+    }
 
-    /**
-     * Creates a Student object from a DocumentSnapshot from the "registrations"
-     * collection.
-     *
-     * @param document The DocumentSnapshot.
-     * @return A Student object, or null if there's an error.
-     */
     private Student createStudentFromRegistration(DocumentSnapshot document) throws ParseException {
         Student student = new Student();
-        student.setId(document.getId());  // Use document ID
+        student.setId(document.getId());
         student.setName(FirestoreDataHelper.getString(document, "name"));
         student.setMobile(FirestoreDataHelper.getString(document, "mobile"));
         student.setEmail(FirestoreDataHelper.getString(document, "email"));
@@ -153,21 +219,14 @@ public class StudentDataLoader {
             student.setSubmissionDate(dateFormat.format(registrationDate));
             student.setFirebasePushDate(dateFormat.format(registrationDate));
         }
-        student.setLastCallDate(FirestoreDataHelper.getString(document, "lastCallDate"));
-
+        String lastCallDate = FirestoreDataHelper.getString(document, "lastCallDate", "Not Called Yet");
+        student.setLastCallDate(lastCallDate);
         return student;
     }
 
-    /**
-     * Creates a Student object from a DocumentSnapshot from the "xl data"
-     * collection.
-     *
-     * @param document The DocumentSnapshot.
-     * @return A Student object, or null if there's an error.
-     */
     private Student createStudentFromXlData(DocumentSnapshot document) throws ParseException {
         Student student = new Student();
-        student.setId(document.getId()); // Use document ID
+        student.setId(document.getId());
         student.setName(FirestoreDataHelper.getString(document, "name"));
         student.setMobile(FirestoreDataHelper.getString(document, "mobile"));
         student.setEmail(FirestoreDataHelper.getString(document, "email"));
@@ -185,16 +244,11 @@ public class StudentDataLoader {
             student.setSubmissionDate(dateFormat.format(uploadDate));
             student.setFirebasePushDate(dateFormat.format(uploadDate));
         }
-        student.setLastCallDate(FirestoreDataHelper.getString(document, "lastCallDate"));
+        String lastCallDate = FirestoreDataHelper.getString(document, "lastCallDate", "Not Called Yet");
+        student.setLastCallDate(lastCallDate);
         return student;
     }
-    /**
-     * Creates a Student object from a DocumentSnapshot from the "app_submissions"
-     * collection.
-     *
-     * @param document The DocumentSnapshot.
-     * @return A Student object, or null if there's an error.
-     */
+
     private Student createStudentFromAppSubmissions(DocumentSnapshot document) throws ParseException {
         Student student = new Student();
         student.setId(document.getId());
@@ -215,7 +269,8 @@ public class StudentDataLoader {
             student.setSubmissionDate(dateFormat.format(submissionDate));
             student.setFirebasePushDate(dateFormat.format(submissionDate));
         }
-        student.setLastCallDate(FirestoreDataHelper.getString(document, "lastCallDate"));
+        String lastCallDate = FirestoreDataHelper.getString(document, "lastCallDate", "Not Called Yet");
+        student.setLastCallDate(lastCallDate);
         return student;
     }
 
@@ -239,191 +294,77 @@ public class StudentDataLoader {
             student.setSubmissionDate(dateFormat.format(webSubmissionDate));
             student.setFirebasePushDate(dateFormat.format(webSubmissionDate));
         }
-        student.setLastCallDate(FirestoreDataHelper.getString(document, "lastCallDate"));
+        String lastCallDate = FirestoreDataHelper.getString(document, "lastCallDate", "Not Called Yet");
+        student.setLastCallDate(lastCallDate);
         return student;
     }
 
-    /**
-     * Updates a student's data in Firestore.  This method allows you to update
-     * a specific field for a student in either the "registrations", "xl data", "app_submissions", or "web_submissions"
-     * collection.
-     *
-     * @param collection The Firestore collection ("registrations", "xl data", "app_submissions", or "web_submissions").
-     * @param documentId The ID of the document to update.
-     * @param field The field to update.
-     * @param value The new value for the field.
-     */
+    private void saveToLocalDB(Student student) {
+        StudentEntity entity = new StudentEntity();
+        entity.id = student.getId();
+        entity.collection = student.getCollection();
+        entity.data = studentToJson(student);
+        entity.lastUpdated = System.currentTimeMillis();
+
+        executorService.execute(() -> localDB.studentDao().insertAll(Collections.singletonList(entity)));
+    }
+
     public void updateStudent(String collection, String documentId, String field, Object value) {
         Map<String, Object> updates = new HashMap<>();
         updates.put(field, value);
-        updates.put("lastUpdatedDate", new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(new Date()));
+        updates.put("lastCallDate", new SimpleDateFormat("dd/MM/yy", Locale.getDefault()).format(new Date()));
 
         firestoreDB.collection(collection).document(documentId)
                 .update(updates)
-                .addOnSuccessListener(aVoid -> Log.d(TAG, "Student data updated successfully for document: "))
-                .addOnFailureListener(e -> Log.e(TAG, "Failed to update student data: " ));
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "Student data updated successfully for document: " + documentId))
+                .addOnFailureListener(e -> Log.e(TAG, "Failed to update student data for document: " + documentId, e));
     }
 
-    /**
-     * Helper class to safely extract data from Firestore DocumentSnapshot.  This
-     * class provides methods to get data of various types from a DocumentSnapshot,
-     * handling null values and potential exceptions.
-     */
-    private static class FirestoreDataHelper {
-
-        /**
-         * Gets a string value from a DocumentSnapshot.
-         *
-         * @param snapshot The DocumentSnapshot.
-         * @param key The key of the field to retrieve.
-         * @return The string value, or null if the field is not found or is null.
-         */
-        static String getString(DocumentSnapshot snapshot, String key) {
-            return getString(snapshot, key, null);
-        }
-
-        /**
-         * Gets a string value from a DocumentSnapshot with a default value.
-         *
-         * @param snapshot The DocumentSnapshot.
-         * @param key The key of the field to retrieve.
-         * @param defaultValue The default value to return if the field is not
-         * found or is null.
-         * @return The string value, or the default value if the field is not
-         * found or is null.
-         */
-        static String getString(DocumentSnapshot snapshot, String key, String defaultValue) {
-            if (snapshot.contains(key)) {
-                try {
-                    Object value = snapshot.get(key);
-                    if (value != null) {
-                        return value.toString().trim();
-                    }
-                } catch (Exception e) {
-                    return defaultValue;
-                }
+    private List<Student> convertEntitiesToStudents(List<StudentEntity> entities) {
+        List<Student> students = new ArrayList<>();
+        for (StudentEntity entity : entities) {
+            Student student = jsonToStudent(entity.data);
+            if (student != null) {
+                student.setCollection(entity.collection);
+                students.add(student);
             }
-            return defaultValue;
         }
+        return students;
+    }
 
-        /**
-         * Gets a boolean value from a DocumentSnapshot with a default value.
-         *
-         * @param snapshot The DocumentSnapshot.
-         * @param key The key of the field to retrieve.
-         * @param defaultValue The default value to return if the field is not
-         * found or is null.
-         * @return The boolean value, or the default value if the field is not
-         * found or is null.
-         */
-        static Boolean getBoolean(DocumentSnapshot snapshot, String key, boolean defaultValue) {
-            if (snapshot.contains(key)) {
-                try {
-                    Boolean value = snapshot.getBoolean(key);
-                    if (value != null) {
-                        return value;
-                    }
-                } catch (Exception e) {
-                    return defaultValue;
-                }
-            }
-            return defaultValue;
-        }
+    private String studentToJson(Student student) {
+        return new Gson().toJson(student);
+    }
 
-        /**
-         * Gets a Long value from a DocumentSnapshot with a default value.
-         *
-         * @param snapshot The DocumentSnapshot.
-         * @param key The key of the field to retrieve.
-         * @param defaultValue The default value to return if the field is not
-         * found or is null.
-         * @return The Long value, or the default value if the field is not
-         * found or is null.
-         */
-        static Long getLong(DocumentSnapshot snapshot, String key, Long defaultValue) {
-            if (snapshot.contains(key)) {
-                try {
-                    Long value = snapshot.getLong(key);
-                    if (value != null) {
-                        return value;
-                    }
-                } catch (Exception e) {
-                    return defaultValue;
-                }
-            }
-            return defaultValue;
-        }
-
-        /**
-         * Gets a Double value from a DocumentSnapshot with a default value.
-         *
-         * @param snapshot The DocumentSnapshot.
-         * @param key The key of the field to retrieve.
-         * @param defaultValue The default value to return if the field is not
-         * found or is null.
-         * @return The Double value, or the default value if the field is not
-         * found or is null.
-         */
-        static Double getDouble(DocumentSnapshot snapshot, String key, Double defaultValue) {
-            if (snapshot.contains(key)) {
-                try {
-                    Double value = snapshot.getDouble(key);
-                    if (value != null) {
-                        return value;
-                    }
-                } catch (Exception e) {
-                    return defaultValue;
-                }
-            }
-            return defaultValue;
-        }
-
-        /**
-         * Gets a Date value from a DocumentSnapshot, specifically for Firestore
-         * Timestamps.
-         *
-         * @param snapshot The DocumentSnapshot.
-         * @param key The key of the field to retrieve.
-         * @return The Date value, or null if the field is not found or is null.
-         */
-        static Date getTimestamp(DocumentSnapshot snapshot, String key) {
-            if (snapshot.contains(key)) {
-                try {
-                    com.google.firebase.Timestamp timestamp = snapshot.getTimestamp(key);
-                    if (timestamp != null) {
-                        return timestamp.toDate();
-                    }
-                } catch (Exception e) {
-                    return null;
-                }
-            }
+    private Student jsonToStudent(String json) {
+        try {
+            return new Gson().fromJson(json, Student.class);
+        } catch (Exception e) {
+            Log.e(TAG, "Error converting JSON to Student: " + e.getMessage());
             return null;
         }
+    }
 
-        /**
-         * Gets a Date value from a DocumentSnapshot, formatted as a string.
-         *
-         * @param snapshot The DocumentSnapshot.
-         * @param key The key of the field to retrieve.
-         * @param dateFormat The SimpleDateFormat to use for parsing the date
-         * string.
-         * @param defaultValue The default value to return if the field is not
-         * found or is null.
-         * @return The Date value, or the default value if the field is not
-         * found or is null.
-         */
-        static Date getDate(DocumentSnapshot snapshot, String key, SimpleDateFormat dateFormat, Date defaultValue) {
-            if (snapshot.contains(key)) {
-                try {
-                    String dateString = snapshot.getString(key);
-                    if (dateString != null) {
-                        return dateFormat.parse(dateString);
-                    }
-                } catch (ParseException e) {
-                    return defaultValue;
-                }
-            }
-            return defaultValue;
+    private long getLastSyncTime() {
+        SharedPreferences prefs = context.getSharedPreferences("SyncPrefs", Context.MODE_PRIVATE);
+        return prefs.getLong(LAST_SYNC_TIMESTAMP, 0);
+    }
+
+    private void updateLastSyncTime() {
+        SharedPreferences prefs = context.getSharedPreferences("SyncPrefs", Context.MODE_PRIVATE);
+        prefs.edit().putLong(LAST_SYNC_TIMESTAMP, System.currentTimeMillis()).apply();
+    }
+
+    public void stopRealtimeListeners() {
+        for (ListenerRegistration listener : snapshotListeners) {
+            listener.remove();
         }
+        snapshotListeners.clear();
+    }
+
+    public void cleanup() {
+        stopRealtimeListeners();
+        executorService.shutdown();
+        mainHandler.removeCallbacksAndMessages(null);
     }
 }

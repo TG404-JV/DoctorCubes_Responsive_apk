@@ -1,6 +1,9 @@
 package com.tvm.doctorcube.adminpannel;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.tvm.doctorcube.adminpannel.databsemanager.Student;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,11 +13,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class FilterManager {
+    private static final String TAG = "FilterManager";
+
     private List<Student> studentList;
     private final List<Student> filteredList;
     private final StudentSorter sorter;
-    private final SimpleDateFormat dateFormat;
-    public final SimpleDateFormat displayFormat;
+    private final SimpleDateFormat dateFormat; // Input format: ddMMyy
+    public final SimpleDateFormat displayFormat; // Display format: dd/MM/yy
     private final Context context;
 
     private String currentSortBy = null;
@@ -43,10 +48,10 @@ public class FilterManager {
         filteredList.clear();
 
         Calendar todayCal = Calendar.getInstance();
-        String today = displayFormat.format(todayCal.getTime()); // Use displayFormat
+        String today = displayFormat.format(todayCal.getTime());
         Calendar yesterdayCal = Calendar.getInstance();
         yesterdayCal.add(Calendar.DAY_OF_MONTH, -1);
-        String yesterday = displayFormat.format(yesterdayCal.getTime()); // Use displayFormat
+        String yesterday = displayFormat.format(yesterdayCal.getTime());
 
         Calendar weekCal = Calendar.getInstance();
         weekCal.add(Calendar.DAY_OF_MONTH, -7);
@@ -56,56 +61,59 @@ public class FilterManager {
         monthCal.add(Calendar.MONTH, -1);
         Date monthAgo = monthCal.getTime();
 
-
         for (Student student : studentList) {
             boolean matchesFilter = true;
 
-            // Search
+            // Search (unchanged)
             if (!searchQuery.isEmpty()) {
                 String queryLower = searchQuery.toLowerCase(Locale.getDefault());
                 boolean matchesSearch = (student.getName() != null && student.getName().toLowerCase(Locale.getDefault()).contains(queryLower)) ||
                         (student.getMobile() != null && student.getMobile().toLowerCase(Locale.getDefault()).contains(queryLower));
-                if (!matchesSearch) matchesFilter = false;
+                if (!matchesSearch) {
+                    matchesFilter = false;
+                }
             }
 
-            // Filters
-            if (filterInterested && !student.getIsInterested()) matchesFilter = false;
-            if (filterNotInterested && student.getIsInterested()) matchesFilter = false;
+            // Filters (unchanged)
+            if (filterInterested && !student.isInterested()) matchesFilter = false;
+            if (filterNotInterested && student.isInterested()) matchesFilter = false;
             if (filterAdmitted && !student.isAdmitted()) matchesFilter = false;
             if (filterNotAdmitted && student.isAdmitted()) matchesFilter = false;
-            if (filterCalled && (student.getCallStatus() == null || !student.getCallStatus().equalsIgnoreCase("Called")))
+            if (filterCalled && (student.getCallStatus() == null || !student.getCallStatus().equalsIgnoreCase("called")))
                 matchesFilter = false;
-            if (filterNotCalled && (student.getCallStatus() != null && student.getCallStatus().equalsIgnoreCase("Called")))
+            if (filterNotCalled && (student.getCallStatus() != null && student.getCallStatus().equalsIgnoreCase("called")))
                 matchesFilter = false;
 
             // Date Filters
             try {
                 Date submissionDate = null;
-                Date lastUpdatedDate = null;
+                Date lastCallDate = null;
                 Date firebasePushDate = null;
 
-                if (student.getSubmissionDate() != null) {
+                if (student.getSubmissionDate() != null && !student.getSubmissionDate().isEmpty()) {
                     try {
                         submissionDate = dateFormat.parse(student.getSubmissionDate());
                     } catch (ParseException e) {
-                        matchesFilter = false;
+                        Log.w(TAG, "Failed to parse submissionDate: " + student.getSubmissionDate(), e);
                     }
                 }
-                if (student.getLastUpdatedDate() != null) {
-                    try {
-                        lastUpdatedDate = dateFormat.parse(student.getLastUpdatedDate());
-                    } catch (ParseException e) {
-                        matchesFilter = false;
+                if (student.getLastCallDate() != null && !student.getLastCallDate().isEmpty()) {
+                    // Check if lastCallDate is a valid date string
+                    if (!student.getLastCallDate().equals("Not Called Yet")) {
+                        try {
+                            lastCallDate = displayFormat.parse(student.getLastCallDate());
+                        } catch (ParseException e) {
+                            Log.w(TAG, "Failed to parse lastCallDate: " + student.getLastCallDate(), e);
+                        }
                     }
                 }
-                if (student.getFirebasePushDate() != null) {
+                if (student.getFirebasePushDate() != null && !student.getFirebasePushDate().isEmpty()) {
                     try {
                         firebasePushDate = dateFormat.parse(student.getFirebasePushDate());
                     } catch (ParseException e) {
-                        matchesFilter = false;
+                        Log.w(TAG, "Failed to parse firebasePushDate: " + student.getFirebasePushDate(), e);
                     }
                 }
-
 
                 switch (dateFilter) {
                     case "today":
@@ -123,7 +131,7 @@ public class FilterManager {
                         if (submissionDate == null || submissionDate.before(monthAgo)) matchesFilter = false;
                         break;
                     case "last_updated":
-                        if (lastUpdatedDate == null || !today.equals(displayFormat.format(lastUpdatedDate)))
+                        if (lastCallDate == null || !today.equals(displayFormat.format(lastCallDate)))
                             matchesFilter = false;
                         break;
                     case "firebase_push":
@@ -141,20 +149,26 @@ public class FilterManager {
                                 matchesFilter = false;
                         }
                         break;
+                    case "all":
+                        break;
+                    default:
+                        Log.w(TAG, "Unknown date filter: " + dateFilter);
                 }
             } catch (Exception e) {
+                Log.e(TAG, "Error processing date filters for student: " + student.getId(), e);
                 matchesFilter = false;
             }
 
-            if (matchesFilter) filteredList.add(student);
+            if (matchesFilter) {
+                filteredList.add(student);
+            }
         }
 
-        // Sorting
+        // Sorting (unchanged)
         if (currentSortBy != null) {
             sorter.sortStudents(filteredList, currentSortBy);
         }
     }
-
     // Getters and Setters
     public String getCurrentSortBy() {
         return currentSortBy;
@@ -227,7 +241,6 @@ public class FilterManager {
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
     }
-
 
     public void setUseCustomDateRange(boolean useCustomDateRange) {
         this.useCustomDateRange = useCustomDateRange;
