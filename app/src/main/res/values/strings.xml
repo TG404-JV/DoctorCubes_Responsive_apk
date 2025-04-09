@@ -583,4 +583,5 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="enter_your_neet_score">Enter your NEET score</string>
     <string name="select_passport_status">Select whether you have a passport</string>
     <string name="edit_details">edit details</string>
+    <string name="tap_here_to_changes_profile">Tap Here To Changes Profile</string>
 </resources>

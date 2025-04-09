@@ -18,7 +18,6 @@ import com.tvm.doctorcube.R;
 import com.tvm.doctorcube.StudyMaterialFragment;
 import com.tvm.doctorcube.study.fragment.adapter.VideosAdapter;
 import com.tvm.doctorcube.study.fragment.models.VideoItem;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -41,7 +41,6 @@ import okhttp3.Response;
 
 public class VideosFragment extends Fragment implements StudyMaterialFragment.SearchableFragment {
 
-    private static final String TAG = "VideosFragment";
     private static final String VIDEOS_COLLECTION = "videos";
     private static final String YOUTUBE_API_KEY = BuildConfig.YOUTUBE_API_KEY; // Replace with your key
     private static final String YOUTUBE_VIDEO_URL = "https://www.googleapis.com/youtube/v3/videos";
@@ -144,27 +143,24 @@ public class VideosFragment extends Fragment implements StudyMaterialFragment.Se
                         executorService.shutdown();
 
                         if (isAdded() && getContext() != null) {
-                            getActivity().runOnUiThread(() -> updateAdapterAndFinishLoading(allVideoItems));
+                            requireActivity().runOnUiThread(() -> updateAdapterAndFinishLoading(allVideoItems));
                         }
                         else{
                             updateAdapterAndFinishLoading(allVideoItems);
                         }
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        if (!isAdded() || getContext() == null) {
-                            executorService.shutdownNow();
-                            return;
-                        }
-                        CustomToast.showToast(requireActivity(), "Failed to load videos. Please check your internet connection.");
-                        if (emptyView != null) {
-                            emptyView.setText("Failed to load videos. Please check your internet connection.");
-                            emptyView.setVisibility(View.VISIBLE);
-                        }
+                .addOnFailureListener(e -> {
+                    if (!isAdded() || getContext() == null) {
                         executorService.shutdownNow();
+                        return;
                     }
+                    CustomToast.showToast(requireActivity(), "Failed to load videos. Please check your internet connection.");
+                    if (emptyView != null) {
+                        emptyView.setText("Failed to load videos. Please check your internet connection.");
+                        emptyView.setVisibility(View.VISIBLE);
+                    }
+                    executorService.shutdownNow();
                 });
     }
 

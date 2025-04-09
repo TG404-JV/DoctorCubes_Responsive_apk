@@ -13,16 +13,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80sdp"
-            android:background="@drawable/gradient_toolbar_background"
+            android:layout_height="@dimen/_60sdp"  android:background="@drawable/gradient_toolbar_background"
             android:gravity="center_vertical">
 
             <ImageButton
                 android:id="@+id/backBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:background="@color/transparent"
+                android:layout_width="@dimen/_40sdp"  android:layout_height="@dimen/_40sdp"  android:layout_marginStart="@dimen/_8sdp"  android:background="@color/transparent"
                 android:src="@drawable/ic_back"
                 android:contentDescription="@string/back"
                 app:tint="@color/white" />
@@ -31,18 +27,14 @@
                 style="@style/ToolbarTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:textSize="@dimen/_18sdp"
-                android:text="@string/notification_settings" />
+                android:layout_marginStart="@dimen/_8sdp"  android:textSize="@dimen/_16sdp"  android:text="@string/notification_settings" />
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="2dp"
+            android:layout_margin="@dimen/_12sdp"  app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp"
             app:strokeColor="@color/card_border"
             app:strokeWidth="1dp">
 
@@ -50,68 +42,60 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
+                android:padding="@dimen/_12sdp">  <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_12sdp"  android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/SettingTitleTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/enable_notifications"
-                            android:textSize="@dimen/_16sdp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            style="@style/SettingDescriptionTextStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/notification_updates_description"
-                            android:textSize="@dimen/_14sdp" />
-                    </LinearLayout>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_notifications"
+                    <TextView
+                        style="@style/SettingTitleTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true"
-                        app:thumbTint="@color/switch_thumb_on"
-                        app:trackTint="@color/switch_track_on" />
+                        android:text="@string/enable_notifications"
+                        android:textSize="@dimen/_14sdp"  android:textStyle="bold" />
+
+                    <TextView
+                        style="@style/SettingDescriptionTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notification_updates_description"
+                        android:textSize="@dimen/_12sdp"  android:lineSpacingExtra="@dimen/_2sdp"/>
                 </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_notifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:thumbTint="@color/switch_thumb_on"
+                    app:trackTint="@color/switch_track_on" />
+            </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:background="@color/divider_color" />
+                    android:layout_marginBottom="@dimen/_12sdp"  android:background="@color/divider_color" />
 
                 <TextView
                     style="@style/SettingTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:text="@string/notification_time"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="@dimen/_8sdp"  android:text="@string/notification_time"
+                    android:textSize="@dimen/_14sdp"  android:textStyle="bold" />
 
                 <TextView
                     style="@style/SettingDescriptionTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:text="@string/set_preferred_time"
-                    android:textSize="@dimen/_14sdp" />
+                    android:layout_marginBottom="@dimen/_12sdp"  android:text="@string/set_preferred_time"
+                    android:textSize="@dimen/_12sdp"  android:lineSpacingExtra="@dimen/_2sdp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,11 +105,9 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_notification_time"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_8sdp"
-                        android:layout_weight="1"
+                        android:layout_height="@dimen/_40sdp"  android:layout_marginEnd="@dimen/_8sdp"  android:layout_weight="1"
                         android:text="@string/default_notification_time"
-                        android:textColor="@color/button_text_primary"
+                        android:textSize="@dimen/_12sdp"  android:textColor="@color/button_text_primary"
                         app:backgroundTint="@color/button_primary"
                         app:cornerRadius="@dimen/_8sdp"
                         app:icon="@drawable/ic_duration"
@@ -136,9 +118,8 @@
                         android:id="@+id/btn_reset_time"
                         style="@style/MedicalSecondaryButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/reset"
-                        app:cornerRadius="@dimen/_8sdp" />
+                        android:layout_height="@dimen/_40sdp"  android:text="@string/reset"
+                        android:textSize="@dimen/_12sdp"  app:cornerRadius="@dimen/_8sdp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -146,10 +127,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="2dp"
+            android:layout_margin="@dimen/_12sdp"  app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp"
             app:strokeColor="@color/card_border"
             app:strokeWidth="1dp">
 
@@ -157,28 +136,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    style="@style/SectionTitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:text="@string/notification_categories"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold" />
+                android:padding="@dimen/_12sdp">  <TextView
+                style="@style/SectionTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_12sdp"  android:text="@string/notification_categories"
+                android:textSize="@dimen/_14sdp"  android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/_8sdp"  android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:layout_marginEnd="@dimen/_12sdp"
                         android:background="@drawable/rounded_square"
                         android:backgroundTint="@color/university_icon_bg" />
 
@@ -188,7 +160,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/university_updates"
-                        android:textSize="@dimen/_15sdp" />
+                        android:textSize="@dimen/_13sdp"  android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_university"
@@ -203,14 +176,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/_8sdp"  android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:layout_marginEnd="@dimen/_12sdp"
                         android:background="@drawable/rounded_square"
                         android:backgroundTint="@color/scholarship_icon_bg" />
 
@@ -220,7 +190,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/scholarship_opportunities"
-                        android:textSize="@dimen/_15sdp" />
+                        android:textSize="@dimen/_13sdp"  android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_scholarship"
@@ -235,14 +206,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/_8sdp"  android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:layout_marginEnd="@dimen/_12sdp"
                         android:background="@drawable/rounded_square"
                         android:backgroundTint="@color/visa_icon_bg" />
 
@@ -252,7 +220,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/visa_immigration_updates"
-                        android:textSize="@dimen/_15sdp" />
+                        android:textSize="@dimen/_13sdp"  android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_visa"
@@ -267,14 +236,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/_8sdp"  android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:layout_marginEnd="@dimen/_12sdp"
                         android:background="@drawable/rounded_square"
                         android:backgroundTint="@color/tracking_icon_bg" />
 
@@ -284,7 +250,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/application_status_updates"
-                        android:textSize="@dimen/_15sdp" />
+                        android:textSize="@dimen/_13sdp"  android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_application"
@@ -303,9 +270,7 @@
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="@dimen/_24sdp"
-                        android:layout_height="@dimen/_24sdp"
-                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:layout_marginEnd="@dimen/_12sdp"
                         android:background="@drawable/rounded_square"
                         android:backgroundTint="@color/support_icon_bg" />
 
@@ -315,7 +280,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/events_webinars"
-                        android:textSize="@dimen/_15sdp" />
+                        android:textSize="@dimen/_13sdp"  android:maxLines="1"
+                        android:ellipsize="end"/>
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switch_support"
@@ -333,9 +299,8 @@
             android:id="@+id/card_notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="2dp"
+            android:layout_margin="@dimen/_12sdp"  app:cardBackgroundColor="@color/card_background"
+            app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp"
             app:strokeColor="@color/card_border"
             app:strokeWidth="1dp">
 
@@ -343,16 +308,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    style="@style/SectionTitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:text="@string/recent_notifications"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold" />
+                android:padding="@dimen/_12sdp">  <TextView
+                style="@style/SectionTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_12sdp"  android:text="@string/recent_notifications"
+                android:textSize="@dimen/_14sdp"  android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_notifications"
