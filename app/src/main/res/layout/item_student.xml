@@ -6,14 +6,14 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
     app:cardBackgroundColor="@color/card_background"
-    app:cardCornerRadius="@dimen/_12sdp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:cardElevation="@dimen/_2sdp"
+    app:contentPadding="@dimen/_12sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/_16sdp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_highlight"
-                    android:textSize="@dimen/_18sdp"
+                    android:textSize="@dimen/_16sdp"
                     android:textStyle="bold"
                     android:maxLines="1"
                     android:ellipsize="end"
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:textColor="@color/text_on_accent"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     tools:text="California" />
 
                 <TextView
@@ -53,28 +53,28 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
                     android:textColor="@color/text_tertiary_color"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     tools:text="+1 (123) 456-7890" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_call_student"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_50sdp"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:contentDescription="@string/call_student"
                 app:icon="@drawable/ic_call"
                 app:iconGravity="textEnd"
-                app:iconSize="@dimen/_24sdp"
-                app:cornerRadius="@dimen/_8sdp"
+                app:iconSize="@dimen/_20sdp"
                 android:backgroundTint="@color/button_accent" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
             android:background="@color/divider_color" />
 
         <LinearLayout
@@ -90,9 +90,12 @@
                 android:layout_weight="1"
                 android:text="@string/call_made"
                 android:textColor="@color/primary_light_color"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:buttonTint="@color/checkbox_tint"
-                android:padding="@dimen/_4sdp" />
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:minHeight="@dimen/_32sdp"
+                app:useMaterialThemeColors="true"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkbox_interested"
@@ -101,9 +104,12 @@
                 android:layout_weight="1"
                 android:text="@string/interested"
                 android:textColor="@color/primary_light_color"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:buttonTint="@color/checkbox_tint"
-                android:padding="@dimen/_4sdp" />
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:minHeight="@dimen/_32sdp"
+                app:useMaterialThemeColors="true"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkbox_admitted"
@@ -112,16 +118,19 @@
                 android:layout_weight="1"
                 android:text="@string/admitted"
                 android:textColor="@color/primary_light_color"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 app:buttonTint="@color/checkbox_tint"
-                android:padding="@dimen/_4sdp" />
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:minHeight="@dimen/_32sdp"
+                app:useMaterialThemeColors="true"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:gravity="center_vertical">
 
             <TextView
@@ -130,8 +139,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/text_secondary_color"
-                android:textSize="@dimen/_12sdp"
-                android:textStyle="italic"
+                android:textSize="@dimen/_10sdp"
+                android:fontFamily="sans-serif-italic"
                 tools:text="Last Updated: Mar 9, 2025" />
 
             <com.google.android.material.button.MaterialButton
@@ -142,7 +151,10 @@
                 android:text="@string/view_details"
                 android:textColor="@color/button_accent"
                 android:textSize="@dimen/_12sdp"
-                app:cornerRadius="@dimen/_4sdp" />
+                app:cornerRadius="@dimen/_4sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:minHeight="@dimen/_32sdp"/>
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

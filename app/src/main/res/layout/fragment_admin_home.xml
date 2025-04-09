@@ -8,27 +8,26 @@
     android:orientation="vertical"
     android:background="@color/background_color">
 
-    <!-- Search Card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/search_filter_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
         app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="@dimen/_12sdp"
-        app:cardElevation="@dimen/_4sdp">
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_2sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/_12sdp"
+            android:padding="@dimen/_8sdp"
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:src="@drawable/ic_search"
                 android:contentDescription="@string/search_icon"
                 android:scaleType="centerInside"
@@ -37,15 +36,15 @@
             <EditText
                 android:id="@+id/search_edit_text"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_48sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_weight="1"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:background="@null"
                 android:hint="@string/search_students"
                 android:textColor="@color/text_primary_color"
                 android:textColorHint="@color/hint_color"
-                android:textSize="16sp"
+                android:textSize="@dimen/_14sdp"
                 android:inputType="text"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
@@ -54,8 +53,8 @@
 
             <ImageButton
                 android:id="@+id/filter_button"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_filter"
                 android:scaleType="centerInside"
@@ -64,12 +63,11 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Active Filters -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginHorizontal="@dimen/_6sdp"
         android:scrollbars="none"
         android:clipToPadding="false">
 
@@ -77,13 +75,12 @@
             android:id="@+id/active_filters_chip_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp"
-            app:chipSpacingHorizontal="@dimen/_8sdp"
+            android:padding="@dimen/_6sdp"
+            app:chipSpacingHorizontal="@dimen/_6sdp"
             app:singleLine="true"
             app:selectionRequired="false" />
     </HorizontalScrollView>
 
-    <!-- Content Area -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
@@ -94,7 +91,7 @@
             android:id="@+id/students_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_6sdp"
             android:clipToPadding="false"
             android:background="@color/background_color"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

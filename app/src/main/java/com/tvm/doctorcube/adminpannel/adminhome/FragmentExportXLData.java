@@ -133,8 +133,8 @@ public class FragmentExportXLData extends Fragment {
         if (filterManager != null) {
             filterManager.applyFiltersAndSorting();
             StringBuilder filterDetails = new StringBuilder();
-            if (filterManager.getCurrentSortBy() != null) {
-                filterDetails.append("Sort By: ").append(filterManager.getCurrentSortBy()).append("\n");
+            if (filterManager.getCurrentSortByList() != null) {
+                filterDetails.append("Sort By: ").append(filterManager.getCurrentSortByList()).append("\n");
             }
             if (!filterManager.getSearchQuery().isEmpty()) {
                 filterDetails.append("Search: ").append(filterManager.getSearchQuery()).append("\n");
@@ -145,7 +145,7 @@ public class FragmentExportXLData extends Fragment {
             if (filterManager.isFilterNotAdmitted()) filterDetails.append("Not Admitted: Yes\n");
             if (filterManager.isFilterCalled()) filterDetails.append("Called: Yes\n");
             if (filterManager.isFilterNotCalled()) filterDetails.append("Not Called: Yes\n");
-            String dateFilter = filterManager.getDateFilter();
+            String dateFilter = String.valueOf(filterManager.getDateFilters());
             if (dateFilter != null) {
                 switch (dateFilter) {
                     case "today":

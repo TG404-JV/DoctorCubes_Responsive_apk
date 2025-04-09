@@ -10,14 +10,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
-import com.tvm.doctorcube.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputEditText;
+import com.tvm.doctorcube.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class SortFilterDialogManager {
     private final Context context;
@@ -49,18 +51,21 @@ public class SortFilterDialogManager {
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
 
-        // Sort Chips
+        // Sort Chips (Single selection as per XML)
         ChipGroup sortGroup = dialogView.findViewById(R.id.sort_chip_group);
-        Chip sortNameChip = dialogView.findViewById(R.id.chip_sort_name); // Updated ID
-        Chip sortSubmissionDateChip = dialogView.findViewById(R.id.chip_sort_submission_date); // Updated ID
-        Chip sortLastCallDateChip = dialogView.findViewById(R.id.chip_sort_last_call_date); // Updated ID
-        Chip sortFirebasePushDateChip = dialogView.findViewById(R.id.chip_sort_firebase_push_date); // Updated ID
+        Chip sortNameChip = dialogView.findViewById(R.id.chip_sort_name);
+        Chip sortSubmissionDateChip = dialogView.findViewById(R.id.chip_sort_submission_date);
+        Chip sortLastCallDateChip = dialogView.findViewById(R.id.chip_sort_last_call_date);
+        Chip sortFirebasePushDateChip = dialogView.findViewById(R.id.chip_sort_firebase_push_date);
 
-        String currentSortBy = filterManager.getCurrentSortBy();
-        if ("name".equals(currentSortBy)) sortNameChip.setChecked(true);
-        else if ("submission_date".equals(currentSortBy)) sortSubmissionDateChip.setChecked(true);
-        else if ("last_call_date".equals(currentSortBy)) sortLastCallDateChip.setChecked(true);
-        else if ("firebase_push_date".equals(currentSortBy)) sortFirebasePushDateChip.setChecked(true);
+        List<String> currentSortBy = filterManager.getCurrentSortByList();
+        if (currentSortBy != null && !currentSortBy.isEmpty()) {
+            String sort = currentSortBy.get(0); // Take first item since XML enforces single selection
+            if ("name".equals(sort)) sortNameChip.setChecked(true);
+            else if ("submission_date".equals(sort)) sortSubmissionDateChip.setChecked(true);
+            else if ("last_call_date".equals(sort)) sortLastCallDateChip.setChecked(true);
+            else if ("firebase_push_date".equals(sort)) sortFirebasePushDateChip.setChecked(true);
+        }
 
         // Filter Chips
         Chip filterInterestedChip = dialogView.findViewById(R.id.chip_filter_interested);
@@ -77,22 +82,24 @@ public class SortFilterDialogManager {
         filterCallMadeChip.setChecked(filterManager.isFilterCalled());
         filterCallNotMadeChip.setChecked(filterManager.isFilterNotCalled());
 
-        // Date Filters
+        // Date Filters (Single selection via RadioGroup)
         RadioGroup dateRadioGroup = dialogView.findViewById(R.id.date_filter_radio_group);
         RadioButton radioAllDates = dialogView.findViewById(R.id.radio_all_dates);
         RadioButton radioToday = dialogView.findViewById(R.id.radio_today);
         RadioButton radioYesterday = dialogView.findViewById(R.id.radio_yesterday);
         RadioButton radioLastWeek = dialogView.findViewById(R.id.radio_last_week);
         RadioButton radioLastMonth = dialogView.findViewById(R.id.radio_last_month);
-        RadioButton radioLastCallDate = dialogView.findViewById(R.id.radio_last_call_date); // Updated ID
+        RadioButton radioLastCallDate = dialogView.findViewById(R.id.radio_last_call_date);
         RadioButton radioFirebasePush = dialogView.findViewById(R.id.radio_firebase_push);
         RadioButton radioCustomRange = dialogView.findViewById(R.id.radio_custom_range);
 
         LinearLayout dateRangeLayout = dialogView.findViewById(R.id.date_range_layout);
-      //  TextView tvFromDate = dialogView.findViewById(R.id.tv_from_date);
-     //   TextView tvToDate = dialogView.findViewById(R.id.tv_to_date);
+        TextInputEditText etFromDate = dialogView.findViewById(R.id.et_from_date);
+        TextInputEditText etToDate = dialogView.findViewById(R.id.et_to_date);
 
-        switch (filterManager.getDateFilter()) {
+        List<String> currentDateFilters = filterManager.getDateFilters();
+        String dateFilter = currentDateFilters != null && !currentDateFilters.isEmpty() ? currentDateFilters.get(0) : "all";
+        switch (dateFilter) {
             case "today":
                 radioToday.setChecked(true);
                 break;
@@ -115,9 +122,9 @@ public class SortFilterDialogManager {
                 radioCustomRange.setChecked(true);
                 dateRangeLayout.setVisibility(View.VISIBLE);
                 if (filterManager.getFromDate() != null)
-                 //   tvFromDate.setText(filterManager.displayFormat.format(filterManager.getFromDate()));
+                    etFromDate.setText(filterManager.displayFormat.format(filterManager.getFromDate()));
                 if (filterManager.getToDate() != null)
-                 //   tvToDate.setText(filterManager.displayFormat.format(filterManager.getToDate()));
+                    etToDate.setText(filterManager.displayFormat.format(filterManager.getToDate()));
                 break;
             default:
                 radioAllDates.setChecked(true);
@@ -127,21 +134,22 @@ public class SortFilterDialogManager {
             dateRangeLayout.setVisibility(checkedId == R.id.radio_custom_range ? View.VISIBLE : View.GONE);
         });
 
-      //  tvFromDate.setOnClickListener(v -> showDatePickerDialog(tvFromDate, true));
-      //  tvToDate.setOnClickListener(v -> showDatePickerDialog(tvToDate, false));
+        etFromDate.setOnClickListener(v -> showDatePickerDialog(etFromDate, true));
+        etToDate.setOnClickListener(v -> showDatePickerDialog(etToDate, false));
 
         // Buttons
         Button btnApply = dialogView.findViewById(R.id.btn_apply);
         Button btnCancel = dialogView.findViewById(R.id.btn_cancel);
-        Button btnClear = dialogView.findViewById(R.id.btn_clear_filters); // New button
+        Button btnClear = dialogView.findViewById(R.id.btn_clear_filters);
 
         btnApply.setOnClickListener(v -> {
-            // Apply Sort
-            if (sortNameChip.isChecked()) filterManager.setCurrentSortBy("name");
-            else if (sortSubmissionDateChip.isChecked()) filterManager.setCurrentSortBy("submission_date");
-            else if (sortLastCallDateChip.isChecked()) filterManager.setCurrentSortBy("last_call_date");
-            else if (sortFirebasePushDateChip.isChecked()) filterManager.setCurrentSortBy("firebase_push_date");
-            else filterManager.setCurrentSortBy(null);
+            // Apply Sort (Single selection)
+            List<String> sortCriteria = new ArrayList<>();
+            if (sortNameChip.isChecked()) sortCriteria.add("name");
+            else if (sortSubmissionDateChip.isChecked()) sortCriteria.add("submission_date");
+            else if (sortLastCallDateChip.isChecked()) sortCriteria.add("last_call_date");
+            else if (sortFirebasePushDateChip.isChecked()) sortCriteria.add("firebase_push_date");
+            filterManager.setCurrentSortByList(sortCriteria.isEmpty() ? null : sortCriteria);
 
             // Apply Filters
             filterManager.setFilterInterested(filterInterestedChip.isChecked());
@@ -151,21 +159,21 @@ public class SortFilterDialogManager {
             filterManager.setFilterCalled(filterCallMadeChip.isChecked());
             filterManager.setFilterNotCalled(filterCallNotMadeChip.isChecked());
 
-            // Apply Date Filter
-            String dateFilter;
-            if (radioToday.isChecked()) dateFilter = "today";
-            else if (radioYesterday.isChecked()) dateFilter = "yesterday";
-            else if (radioLastWeek.isChecked()) dateFilter = "last_week";
-            else if (radioLastMonth.isChecked()) dateFilter = "last_month";
-            else if (radioLastCallDate.isChecked()) dateFilter = "last_updated"; // Matches FilterManager
-            else if (radioFirebasePush.isChecked()) dateFilter = "firebase_push";
-            else if (radioCustomRange.isChecked()) dateFilter = "custom";
-            else dateFilter = "all";
+            // Apply Date Filter (Single selection)
+            List<String> dateFilters = new ArrayList<>();
+            String selectedDateFilter;
+            if (radioToday.isChecked()) selectedDateFilter = "today";
+            else if (radioYesterday.isChecked()) selectedDateFilter = "yesterday";
+            else if (radioLastWeek.isChecked()) selectedDateFilter = "last_week";
+            else if (radioLastMonth.isChecked()) selectedDateFilter = "last_month";
+            else if (radioLastCallDate.isChecked()) selectedDateFilter = "last_updated";
+            else if (radioFirebasePush.isChecked()) selectedDateFilter = "firebase_push";
+            else if (radioCustomRange.isChecked()) selectedDateFilter = "custom";
+            else selectedDateFilter = "all";
+            dateFilters.add(selectedDateFilter);
+            filterManager.setDateFilters(dateFilters);
+            filterManager.setUseCustomDateRange("custom".equals(selectedDateFilter));
 
-            filterManager.setDateFilter(dateFilter);
-            filterManager.setUseCustomDateRange("custom".equals(dateFilter));
-
-            // Apply all filters and sorting
             filterManager.applyFiltersAndSorting();
 
             if (onApplyCallback != null) {
@@ -180,7 +188,7 @@ public class SortFilterDialogManager {
         btnClear.setOnClickListener(v -> {
             // Reset sort
             sortGroup.clearCheck();
-            filterManager.setCurrentSortBy(null);
+            filterManager.setCurrentSortByList(null);
 
             // Reset filters
             filterInterestedChip.setChecked(false);
@@ -199,14 +207,15 @@ public class SortFilterDialogManager {
             // Reset date filter
             dateRadioGroup.check(R.id.radio_all_dates);
             dateRangeLayout.setVisibility(View.GONE);
-            //tvFromDate.setText("");
-          //  tvToDate.setText("");
-            filterManager.setDateFilter("all");
+            etFromDate.setText("");
+            etToDate.setText("");
+            List<String> resetDateFilters = new ArrayList<>();
+            resetDateFilters.add("all");
+            filterManager.setDateFilters(resetDateFilters);
             filterManager.setUseCustomDateRange(false);
             filterManager.setFromDate(null);
             filterManager.setToDate(null);
 
-            // Apply reset
             filterManager.applyFiltersAndSorting();
             if (onApplyCallback != null) {
                 onApplyCallback.run();
@@ -218,7 +227,7 @@ public class SortFilterDialogManager {
         dialog.show();
     }
 
-    private void showDatePickerDialog(TextView targetTextView, boolean isFromDate) {
+    private void showDatePickerDialog(TextInputEditText targetEditText, boolean isFromDate) {
         Calendar calendar = Calendar.getInstance();
         if ((isFromDate && filterManager.getFromDate() != null) || (!isFromDate && filterManager.getToDate() != null)) {
             calendar.setTime(isFromDate ? filterManager.getFromDate() : filterManager.getToDate());
@@ -238,7 +247,7 @@ public class SortFilterDialogManager {
                     } else {
                         filterManager.setToDate(selectedCalendar.getTime());
                     }
-                    targetTextView.setText(filterManager.displayFormat.format(selectedCalendar.getTime()));
+                    targetEditText.setText(filterManager.displayFormat.format(selectedCalendar.getTime()));
                 },
                 year, month, day
         );

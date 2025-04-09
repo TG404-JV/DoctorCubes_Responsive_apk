@@ -19,8 +19,8 @@ android {
         applicationId = "com.tvm.doctorcube"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -31,7 +31,12 @@ android {
     }
 
     signingConfigs {
-        // Removed the debug signing config to use the default
+        getByName("debug") {
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+
         create("release") {
             // The storeFile path should be relative to the project root, not an absolute path like "C:/".
             // This makes the project portable and avoids hardcoding paths specific to a developer's machine.
@@ -40,10 +45,18 @@ android {
             storePassword = localProperties["KEYSTORE_PASSWORD"] as String? ?: "default_password"
             keyAlias = localProperties["KEY_ALIAS"] as String? ?: "default_alias"
             keyPassword = localProperties["KEY_PASSWORD"] as String? ?: "default_key_password"
+
+            println("Keystore path: ${keystorePath}")
+            println("Alias: ${localProperties["KEY_ALIAS"]}")
+
         }
     }
 
     buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -118,10 +131,8 @@ dependencies {
     implementation("org.apache.xmlbeans:xmlbeans:5.2.0")
     implementation("org.apache.commons:commons-compress:1.26.0")
 
-    implementation ("com.google.android.play:integrity:1.4.0")
     // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
-
