@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/gradient_toolbar_background"
-        android:elevation="4dp"
+        android:elevation="@dimen/_4sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -34,10 +34,10 @@
         android:id="@+id/profileCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/_16sdp"
         app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
@@ -49,19 +49,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="@dimen/_16sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="@dimen/_24sdp">
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/profileImageView"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_120sdp"
                         android:background="@drawable/circle_background"
-                        android:padding="2dp"
+                        android:padding="@dimen/_2sdp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_doctor"
                         app:shapeAppearance="@style/ShapeAppearanceOverlay.Circle"  app:layout_constraintEnd_toEndOf="parent"
@@ -69,10 +69,10 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="@dimen/_36sdp"
+                        android:layout_height="@dimen/_36sdp"
                         android:background="@drawable/circular_background"
-                        android:padding="8dp"
+                        android:padding="@dimen/_8sdp"
                         android:src="@drawable/ic_camera"
                         app:layout_constraintBottom_toBottomOf="@id/profileImageView"
                         app:layout_constraintEnd_toEndOf="@id/profileImageView"
@@ -81,7 +81,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/tap_to_change_profile_photo"
                         style="@style/CaptionTextStyle"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,7 @@
                     android:id="@+id/fullNameLayout"
                     style="@style/MedicalTextInputStyle"  android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/_16sdp"
                     android:hint="@string/full_name">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -110,7 +110,7 @@
                     android:id="@+id/emailLayout"
                     style="@style/MedicalTextInputStyle"  android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/_16sdp"
                     android:hint="@string/enter_email">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -126,7 +126,7 @@
                     android:id="@+id/phoneLayout"
                     style="@style/MedicalTextInputStyle"  android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/_16sdp"
                     android:hint="@string/phone_number">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -141,8 +141,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/changePasswordButton"
                     style="@style/MedicalSecondaryButton"  android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="24dp"
+                    android:layout_height="@dimen/_56sdp"
+                    android:layout_marginBottom="@dimen/_24sdp"
                     android:text="@string/change_password"
                     app:icon="@drawable/ic_lock"
                     app:iconTint="@color/primary_color"
@@ -152,7 +152,7 @@
                     android:id="@+id/saveButton"
                     style="@style/MedicalPrimaryButton"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="@dimen/_56sdp"
                     android:text="@string/save_changes" />
 
             </LinearLayout>

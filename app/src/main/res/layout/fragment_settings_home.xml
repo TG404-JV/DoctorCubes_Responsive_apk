@@ -14,14 +14,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="@dimen/_16sdp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/profile_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_16sdp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/gradient_primary_start">
 
@@ -29,12 +29,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
                         android:src="@drawable/logo_doctor_cubes_white"
                         app:civ_border_width="2dp"
                         app:civ_border_color="@color/white"
@@ -46,7 +46,7 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="16dp">
+                        android:layout_marginStart="@dimen/_16sdp">
 
                         <TextView
                             android:id="@+id/user_name"
@@ -76,8 +76,8 @@
                 android:id="@+id/account_settings_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_16sdp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/card_background">
 
@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -98,14 +98,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:layout_marginTop="8dp"
+                        android:padding="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/settings_item_background"
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@android:drawable/ic_menu_manage"
                             app:tint="@color/icon_tint_primary"
                             android:contentDescription="@string/settings_icon"/>
@@ -118,8 +118,8 @@
                             style="@style/SettingsItemTextStyle"  />
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_back"
                             android:rotation="180"
                             app:tint="@color/icon_tint_secondary"
@@ -131,14 +131,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:layout_marginTop="8dp"
+                        android:padding="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/settings_item_background"
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@android:drawable/ic_popup_reminder"
                             app:tint="@color/icon_tint_primary"
                             android:contentDescription="@string/settings_icon"/>
@@ -151,8 +151,8 @@
                             style="@style/SettingsItemTextStyle"  />
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_back"
                             android:rotation="180"
                             app:tint="@color/icon_tint_secondary"
@@ -164,8 +164,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_16sdp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/card_background">
 
@@ -173,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -186,14 +186,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:layout_marginTop="8dp"
+                        android:padding="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/settings_item_background"
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@android:drawable/ic_menu_info_details"
                             app:tint="@color/icon_tint_primary"
                             android:contentDescription="@string/support_icon"/>
@@ -206,8 +206,8 @@
                             style="@style/SettingsItemTextStyle"  />
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_back"
                             android:rotation="180"
                             app:tint="@color/icon_tint_secondary"
@@ -219,14 +219,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:layout_marginTop="8dp"
+                        android:padding="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/settings_item_background"
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@android:drawable/ic_lock_lock"
                             app:tint="@color/icon_tint_primary"
                             android:contentDescription="@string/settings_icon"/>
@@ -239,8 +239,8 @@
                             style="@style/SettingsItemTextStyle"  />
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_back"
                             android:rotation="180"
                             app:tint="@color/icon_tint_secondary"
@@ -252,14 +252,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:layout_marginTop="8dp"
+                        android:padding="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:background="@drawable/settings_item_background"
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@android:drawable/ic_menu_help"
                             app:tint="@color/icon_tint_primary"
                             android:contentDescription="@string/support_icon"/>
@@ -272,8 +272,8 @@
                             style="@style/SettingsItemTextStyle"  />
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_back"
                             android:rotation="180"
                             app:tint="@color/icon_tint_secondary"
@@ -286,8 +286,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="@dimen/_24sdp"
+                app:cardCornerRadius="@dimen/_16sdp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/premium_card_bg">
 
@@ -295,7 +295,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -303,12 +303,12 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
+                            android:layout_width="@dimen/_48sdp"
+                            android:layout_height="@dimen/_48sdp"
                             android:src="@android:drawable/ic_dialog_email"
                             android:background="@drawable/circular_background"
 
-                            android:padding="12dp"
+                            android:padding="@dimen/_12sdp"
                             app:tint="@color/black"
                             android:contentDescription="@string/consultation_icon"/>
 
@@ -316,7 +316,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginStart="16dp">
+                            android:layout_marginStart="@dimen/_16sdp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -338,12 +338,12 @@
                         android:layout_height="wrap_content"
                         android:text="@string/schedule_consultation"
                         android:textAllCaps="false"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/_16sdp"
                         android:textColor="@color/text_on_primary"
                         android:backgroundTint="@color/accent_color"
-                        app:cornerRadius="12dp"
-                        android:layout_marginTop="16dp"
-                        android:paddingVertical="12dp"/>
+                        app:cornerRadius="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:paddingVertical="@dimen/_12sdp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -356,7 +356,7 @@
                 android:text="@string/app_version"
                 style="@style/AppVersionTextStyle"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginTop="@dimen/_24sdp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

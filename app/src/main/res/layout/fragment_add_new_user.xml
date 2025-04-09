@@ -22,13 +22,13 @@
             android:orientation="vertical"
             android:background="@drawable/gradient_toolbar_background"
             android:padding="@dimen/_minus20sdp"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="@dimen/_24sdp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/admin_management"
-                android:textSize="16sp"
+                android:textSize="@dimen/_16sdp"
                 android:textColor="@color/text_on_primary"
                 android:alpha="0.8"/>
 
@@ -37,11 +37,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="@dimen/_8sdp">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
                     android:src="@drawable/ic_add_user"
                     app:tint="@color/text_on_primary" />
 
@@ -49,10 +49,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_new_administrator"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/_24sdp"
                     android:textStyle="bold"
                     android:textColor="@color/text_on_primary"
-                    android:layout_marginStart="12dp" />
+                    android:layout_marginStart="@dimen/_12sdp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -60,26 +60,26 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="@dimen/_16sdp"
+            app:cardElevation="@dimen/_4sdp"
             app:cardBackgroundColor="@color/card_background"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="@dimen/_20sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="@dimen/_24sdp">
 
                 <!-- Title -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/administrator_details"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_16sdp"
                     android:textColor="@color/text_primary_color"
                     android:textStyle="bold"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="@dimen/_16sdp"/>
 
                 <!-- Input Fields -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -90,23 +90,22 @@
                     app:hintTextColor="@color/primary_color"
                     app:boxStrokeColor="@color/primary_color"
                     app:boxBackgroundColor="@color/card_background"
-                    app:boxStrokeWidth="1dp"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusTopStart="@dimen/_12sdp"
+                    app:boxCornerRadiusTopEnd="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomStart="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
                     app:startIconDrawable="@drawable/ic_profile"
                     app:startIconTint="@color/icon_tint_primary"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="@dimen/_16sdp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/_16sdp"
                         android:textColor="@color/text_primary_color"
-                        android:padding="16dp" />
+                        android:padding="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -117,23 +116,22 @@
                     app:hintTextColor="@color/primary_color"
                     app:boxStrokeColor="@color/primary_color"
                     app:boxBackgroundColor="@color/card_background"
-                    app:boxStrokeWidth="1dp"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusTopStart="@dimen/_12sdp"
+                    app:boxCornerRadiusTopEnd="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomStart="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
                     app:startIconDrawable="@drawable/ic_email"
                     app:startIconTint="@color/icon_tint_primary"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="@dimen/_16sdp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/_16sdp"
                         android:textColor="@color/text_primary_color"
-                        android:padding="16dp" />
+                        android:padding="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -144,23 +142,23 @@
                     app:hintTextColor="@color/primary_color"
                     app:boxStrokeColor="@color/primary_color"
                     app:boxBackgroundColor="@color/card_background"
-                    app:boxStrokeWidth="1dp"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:boxCornerRadiusTopStart="@dimen/_12sdp"
+                    app:boxCornerRadiusTopEnd="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomStart="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
                     app:startIconDrawable="@drawable/ic_call"
                     app:startIconTint="@color/icon_tint_primary"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="@dimen/_16sdp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/_16sdp"
                         android:textColor="@color/text_primary_color"
-                        android:padding="16dp" />
+                        android:padding="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -171,16 +169,16 @@
                     app:hintTextColor="@color/primary_color"
                     app:boxStrokeColor="@color/primary_color"
                     app:boxBackgroundColor="@color/card_background"
-                    app:boxStrokeWidth="1dp"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:boxCornerRadiusTopStart="@dimen/_12sdp"
+                    app:boxCornerRadiusTopEnd="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomStart="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
                     app:startIconDrawable="@drawable/ic_lock"
                     app:startIconTint="@color/icon_tint_primary"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/primary_color"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="@dimen/_16sdp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
@@ -189,7 +187,7 @@
                         android:inputType="textPassword"
                         android:textSize="16sp"
                         android:textColor="@color/text_primary_color"
-                        android:padding="16dp" />
+                        android:padding="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -201,14 +199,14 @@
                     app:hintTextColor="@color/primary_color"
                     app:boxStrokeColor="@color/primary_color"
                     app:boxBackgroundColor="@color/card_background"
-                    app:boxStrokeWidth="1dp"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxStrokeWidth="@dimen/_1sdp"
+                    app:boxCornerRadiusTopStart="@dimen/_12sdp"
+                    app:boxCornerRadiusTopEnd="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomStart="@dimen/_12sdp"
+                    app:boxCornerRadiusBottomEnd="@dimen/_12sdp"
                     app:startIconDrawable="@drawable/ic_add_user"
                     app:startIconTint="@color/icon_tint_primary"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="@dimen/_24sdp">
 
                     <AutoCompleteTextView
                         android:id="@+id/etRole"
@@ -217,7 +215,7 @@
                         android:inputType="none"
                         android:textSize="16sp"
                         android:textColor="@color/text_primary_color"
-                        android:padding="16dp" />
+                        android:padding="@dimen/_16sdp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -227,7 +225,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="@dimen/_8sdp">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnCancel"
@@ -240,9 +238,9 @@
                         android:textColor="@color/primary_color"
                         android:backgroundTint="@color/white"
                         app:strokeColor="@color/primary_color"
-                        app:cornerRadius="12dp"
-                        android:paddingVertical="12dp"
-                        android:layout_marginEnd="8dp"/>
+                        app:cornerRadius="@dimen/_12sdp"
+                        android:paddingVertical="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"/>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddUser"
@@ -251,13 +249,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/add"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/_12sdp"
                         android:textColor="@color/white"
                         android:backgroundTint="@color/primary_color"
-                        app:cornerRadius="12dp"
+                        app:cornerRadius="@dimen/_12sdp"
                         app:rippleColor="@color/ripple_light"
-                        android:paddingVertical="12dp"
-                        android:layout_marginStart="8dp"/>
+                        android:paddingVertical="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_8sdp"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

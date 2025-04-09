@@ -23,7 +23,7 @@
             android:id="@+id/splash_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/_25sdp"
             android:src="@drawable/logo_doctorcubes"
             android:layout_centerHorizontal="true" />
 

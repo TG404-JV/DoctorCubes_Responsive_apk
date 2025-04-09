@@ -37,7 +37,7 @@ public class CommunicationUtils {
     }
 
     public void setupCommunicationButtons(View view) {
-        MaterialCardView callButton = view.findViewById(R.id.call_now_button);
+        MaterialCardView callButton = view.findViewById(R.id.call_button);
         MaterialCardView whatsappButton = view.findViewById(R.id.whatsapp_button);
 
         setupCallButton(callButton);

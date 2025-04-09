@@ -1,22 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/_8sdp"
     app:cardBackgroundColor="@color/card_background"
-    app:cardCornerRadius="12dp"
+    app:cardCornerRadius="@dimen/_12sdp"
     app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
-        <!-- Header Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_highlight"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/_18sdp"
                     android:textStyle="bold"
                     android:maxLines="1"
                     android:ellipsize="end"
@@ -44,43 +42,41 @@
                     android:id="@+id/tv_student_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:textColor="@color/text_on_accent"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14sdp"
                     tools:text="California" />
 
                 <TextView
                     android:id="@+id/tv_student_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:textColor="@color/text_tertiary_color"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_14sdp"
                     tools:text="+1 (123) 456-7890" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_call_student"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:contentDescription="@string/call_student"
                 app:icon="@drawable/ic_call"
                 app:iconGravity="textEnd"
-                app:iconSize="24dp"
-                app:cornerRadius="8dp"
+                app:iconSize="@dimen/_24sdp"
+                app:cornerRadius="@dimen/_8sdp"
                 android:backgroundTint="@color/button_accent" />
         </LinearLayout>
 
-        <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="12dp"
+            android:layout_marginVertical="@dimen/_12sdp"
             android:background="@color/divider_color" />
 
-        <!-- Status Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -94,9 +90,9 @@
                 android:layout_weight="1"
                 android:text="@string/call_made"
                 android:textColor="@color/primary_light_color"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14sdp"
                 app:buttonTint="@color/checkbox_tint"
-                android:padding="4dp" />
+                android:padding="@dimen/_4sdp" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkbox_interested"
@@ -105,9 +101,9 @@
                 android:layout_weight="1"
                 android:text="@string/interested"
                 android:textColor="@color/primary_light_color"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14sdp"
                 app:buttonTint="@color/checkbox_tint"
-                android:padding="4dp" />
+                android:padding="@dimen/_4sdp" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkbox_admitted"
@@ -116,17 +112,16 @@
                 android:layout_weight="1"
                 android:text="@string/admitted"
                 android:textColor="@color/primary_light_color"
-                android:textSize="14sp"
+                android:textSize="@dimen/_14sdp"
                 app:buttonTint="@color/checkbox_tint"
-                android:padding="4dp" />
+                android:padding="@dimen/_4sdp" />
         </LinearLayout>
 
-        <!-- Footer Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:gravity="center_vertical">
 
             <TextView
@@ -135,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/text_secondary_color"
-                android:textSize="12sp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="italic"
                 tools:text="Last Updated: Mar 9, 2025" />
 
@@ -146,8 +141,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/view_details"
                 android:textColor="@color/button_accent"
-                android:textSize="12sp"
-                app:cornerRadius="4dp" />
+                android:textSize="@dimen/_12sdp"
+                app:cornerRadius="@dimen/_4sdp" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

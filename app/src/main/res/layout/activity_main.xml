@@ -9,8 +9,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:elevation="4dp"
+        android:layout_height="?attr/actionBarSize"  android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,46 +19,38 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/app_logo"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:background="@color/white"
-                app:shapeAppearanceOverlay="@style/CircleShape"
-                app:srcCompat="@drawable/logo_doctor_cubes_dark"
+                android:layout_width="@dimen/_36sdp"  android:layout_height="@dimen/_36sdp"  android:background="@android:color/transparent"  app:shapeAppearanceOverlay="@style/CircleShape"
+                android:src="@drawable/logo_doctor_cubes_white"
                 android:scaleType="fitCenter"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="@dimen/_8sdp"/>
 
             <TextView
                 android:id="@+id/app_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:layout_toEndOf="@id/app_logo"
                 android:layout_centerVertical="true"
                 android:letterSpacing="0.02"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_16sdp"  android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/call_button"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:layout_alignParentEnd="true"
+                android:layout_width="@dimen/_40sdp"  android:layout_height="@dimen/_40sdp"  android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/circle_background"
-                android:clickable="true"
+                android:layout_marginEnd="@dimen/_4sdp"  android:background="?attr/selectableItemBackgroundBorderless"  android:clickable="true"
                 android:contentDescription="@string/call_support_disc"
                 android:focusable="true"
-                android:padding="10dp"
-                android:src="@drawable/ic_call"
-                app:tint="@color/black"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:padding="@dimen/_8sdp"  android:src="@drawable/ic_call"
+                app:tint="@color/white"  tools:ignore="TouchTargetSizeCheck" />
         </RelativeLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
@@ -86,11 +77,10 @@
         <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
             android:id="@+id/bubbleNavigation"
             android:layout_width="match_parent"
-            android:layout_height="68dp"
+            android:layout_height="60dp"
             android:background="@color/nav_background"
             android:elevation="8dp"
-            android:padding="10dp"
-            app:bnc_mode="spread">
+            android:paddingTop="@dimen/_6sdp"  android:paddingBottom="@dimen/_6sdp"  app:bnc_mode="spread">
 
             <com.gauravk.bubblenavigation.BubbleToggleView
                 android:id="@+id/nav_home"
@@ -100,15 +90,10 @@
                 app:bt_colorActive="@color/primary_color"
                 app:bt_colorInactive="@color/tab_unselected"
                 app:bt_icon="@drawable/ic_home"
-                app:bt_iconWidth="@dimen/_24sdp"
-                app:bt_iconHeight="@dimen/_24sdp"
-                app:bt_padding="@dimen/_8sdp"
-                app:bt_shape="@drawable/rounded_rect_shape"
+                app:bt_iconWidth="@dimen/_28sdp"  app:bt_iconHeight="@dimen/_28sdp"  app:bt_padding="@dimen/_6sdp"  app:bt_shape="@drawable/rounded_rect_shape"
                 app:bt_shapeColor="@color/card_background"
                 app:bt_title="Home"
-                app:bt_titleSize="12sp"
-                app:bt_titlePadding="6dp"
-                app:bt_duration="300" />
+                app:bt_titleSize="13sp"  app:bt_titlePadding="4dp"  app:bt_duration="200"  />
 
             <com.gauravk.bubblenavigation.BubbleToggleView
                 android:id="@+id/nav_study"
@@ -118,15 +103,15 @@
                 app:bt_colorActive="@color/primary_color"
                 app:bt_colorInactive="@color/tab_unselected"
                 app:bt_icon="@drawable/ic_notes"
-                app:bt_iconWidth="@dimen/_24sdp"
-                app:bt_iconHeight="@dimen/_24sdp"
-                app:bt_padding="@dimen/_8sdp"
+                app:bt_iconWidth="@dimen/_28sdp"
+                app:bt_iconHeight="@dimen/_28sdp"
+                app:bt_padding="@dimen/_6sdp"
                 app:bt_shape="@drawable/rounded_rect_shape"
                 app:bt_shapeColor="@color/card_background"
                 app:bt_title="Study"
-                app:bt_titleSize="12sp"
-                app:bt_titlePadding="6dp"
-                app:bt_duration="300" />
+                app:bt_titleSize="13sp"
+                app:bt_titlePadding="4dp"
+                app:bt_duration="200" />
 
 
             <com.gauravk.bubblenavigation.BubbleToggleView
@@ -137,14 +122,14 @@
                 app:bt_colorActive="@color/primary_color"
                 app:bt_colorInactive="@color/tab_unselected"
                 app:bt_icon="@drawable/ic_setting"
-                app:bt_iconWidth="@dimen/_24sdp"
-                app:bt_iconHeight="@dimen/_24sdp"
-                app:bt_padding="@dimen/_8sdp"
+                app:bt_iconWidth="@dimen/_28sdp"
+                app:bt_iconHeight="@dimen/_28sdp"
+                app:bt_padding="@dimen/_6sdp"
                 app:bt_shape="@drawable/rounded_rect_shape"
                 app:bt_shapeColor="@color/card_background"
                 app:bt_title="Settings"
-                app:bt_titleSize="12sp"
-                app:bt_titlePadding="6dp"
-                app:bt_duration="300" />
+                app:bt_titleSize="13sp"
+                app:bt_titlePadding="4dp"
+                app:bt_duration="200" />
         </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

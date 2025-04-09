@@ -22,12 +22,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="@dimen/_16sdp">
 
                 <ImageView
                     android:id="@+id/backButton"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_back"
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="@dimen/_24sdp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                     android:id="@+id/PersonlizedTxt"
                     style="@style/BodyText"  android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:textColor="@color/white"
                     android:text="@string/data_request_text"
                     />
@@ -75,23 +75,23 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="24dp"
+            app:cardCornerRadius="@dimen/_24sdp"
             app:cardBackgroundColor="@color/card_background">  <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/_20sdp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/personal_information"
-                style="@style/SectionTitleText"  android:layout_marginBottom="16dp" />
+                style="@style/SectionTitleText"  android:layout_marginBottom="@dimen/_16sdp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:startIconDrawable="@drawable/ic_profile"
                 app:startIconTint="@color/primary_color"
                 style="@style/MedicalTextInputStyle">  <com.google.android.material.textfield.TextInputEditText
@@ -106,7 +106,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:startIconDrawable="@drawable/ic_email"
                 app:startIconTint="@color/primary_color"
                 style="@style/MedicalTextInputStyle">  <com.google.android.material.textfield.TextInputEditText
@@ -121,7 +121,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/_24sdp"
                 app:startIconDrawable="@drawable/ic_call"
                 app:startIconTint="@color/primary_color"
                 style="@style/MedicalTextInputStyle">  <com.google.android.material.textfield.TextInputEditText
@@ -137,12 +137,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location Details"
-                style="@style/SectionTitleText"  android:layout_marginBottom="16dp" />
+                style="@style/SectionTitleText"  android:layout_marginBottom="@dimen/_16sdp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:startIconDrawable="@drawable/ic_location"
                 style="@style/MedicalDropdownStyle">
                 <AutoCompleteTextView
@@ -157,7 +157,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:startIconDrawable="@drawable/ic_location"
                 style="@style/MedicalTextInputStyle">  <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/stateEditText"
@@ -171,7 +171,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="@dimen/_24sdp"
                 app:startIconDrawable="@drawable/ic_location"
                 style="@style/MedicalTextInputStyle">  <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/cityEditText"
@@ -186,28 +186,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/medical_education"
-                style="@style/SectionTitleText"  android:layout_marginBottom="16dp" />
+                style="@style/SectionTitleText"  android:layout_marginBottom="@dimen/_16sdp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/neet_score"
                 android:textColor="@color/text_primary_color"  android:textSize="16sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="@dimen/_8sdp" />
 
             <RadioGroup
                 android:id="@+id/neetScoreGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="@dimen/_16sdp">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/neetScoreYes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="@dimen/_24sdp"
                     android:buttonTint="@color/primary_color" />  <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/neetScoreNo"
                 android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
                 android:id="@+id/neetScoreLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:boxStrokeColor="@color/primary_color"
                 android:visibility="gone"
                 style="@style/MedicalTextInputStyle">  <com.google.android.material.textfield.TextInputEditText
@@ -236,21 +236,21 @@
                 android:layout_height="wrap_content"
                 android:text="@string/passport"
                 android:textColor="@color/text_primary_color"  android:textSize="16sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="@dimen/_8sdp" />
 
             <RadioGroup
                 android:id="@+id/passportGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="@dimen/_24sdp">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/passportYes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="@dimen/_24sdp"
                     android:buttonTint="@color/primary_color" />  <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/passportNo"
                 android:layout_width="wrap_content"
@@ -261,17 +261,17 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submitButton"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="@dimen/_56sdp"
                 android:text="@string/submit_details"
                 android:textSize="16sp"
-                app:cornerRadius="8dp"
-                android:layout_marginBottom="16dp"
+                app:cornerRadius="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 style="@style/MedicalPrimaryButton"/>  <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Your information helps us match you with the best medical education opportunities abroad"
             style="@style/BodyText"  android:gravity="center"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="@dimen/_16sdp"/>
 
         </LinearLayout>
         </androidx.cardview.widget.CardView>

@@ -1,20 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/_12sdp"
         app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:padding="@dimen/_12sdp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -26,29 +27,37 @@
                     style="@style/InviteFriendsTitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/invite_your_friends" />
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/invite_your_friends"
+                    android:textSize="@dimen/_18sdp" />
 
                 <TextView
                     style="@style/InviteFriendsDescriptionTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/make_his_dream" />
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="@string/make_his_dream"
+                    android:textColor="@color/text_secondary_color"
+                    android:textSize="@dimen/_12sdp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/invite_button"
-                    style="@style/InviteFriendsButtonStyle"
+                    style="@style/MedicalPrimaryButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/button_background"
-                    android:text="@string/invite" />
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@color/accent_color"
+                    android:text="@string/invite"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_14sdp" />
             </LinearLayout>
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/logo_doctor_cubes_dynamic" />
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_doctor_cubes_dynamic" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

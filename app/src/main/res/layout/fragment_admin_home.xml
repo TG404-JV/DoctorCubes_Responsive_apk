@@ -13,22 +13,22 @@
         android:id="@+id/search_filter_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
         app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp">
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_4sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="12dp"
+            android:padding="@dimen/_12sdp"
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:src="@drawable/ic_search"
                 android:contentDescription="@string/search_icon"
                 android:scaleType="centerInside"
@@ -37,10 +37,10 @@
             <EditText
                 android:id="@+id/search_edit_text"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="@dimen/_48sdp"
                 android:layout_weight="1"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@null"
                 android:hint="@string/search_students"
                 android:textColor="@color/text_primary_color"
@@ -54,8 +54,8 @@
 
             <ImageButton
                 android:id="@+id/filter_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_filter"
                 android:scaleType="centerInside"
@@ -68,8 +68,8 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:scrollbars="none"
         android:clipToPadding="false">
 
@@ -77,8 +77,8 @@
             android:id="@+id/active_filters_chip_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:chipSpacingHorizontal="8dp"
+            android:padding="@dimen/_8sdp"
+            app:chipSpacingHorizontal="@dimen/_8sdp"
             app:singleLine="true"
             app:selectionRequired="false" />
     </HorizontalScrollView>
@@ -94,7 +94,7 @@
             android:id="@+id/students_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
+            android:padding="@dimen/_8sdp"
             android:clipToPadding="false"
             android:background="@color/background_color"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

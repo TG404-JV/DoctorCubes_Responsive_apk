@@ -33,9 +33,9 @@
 
                     <ImageView
                         android:id="@+id/ivLogo"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_marginEnd="12dp"
+                        android:layout_width="@dimen/_28sdp"
+                        android:layout_height="@dimen/_28sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
                         android:contentDescription="@string/privacy_shield_icon"
                         android:src="@drawable/ic_studymaterial"
                         app:tint="@color/white" />
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.02"
                         android:text="@string/privacy_policy"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/_20sdp" />
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:paddingBottom="16dp"
+            android:paddingBottom="@dimen/_16sdp"
             android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,14 +67,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="@dimen/_16sdp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/card_background"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="@dimen/_12sdp"
                     app:cardElevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +87,7 @@
                         <ImageView
                             android:id="@+id/ivHeaderImage"
                             android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                            android:layout_height="@dimen/_120sdp"
                             android:alpha="0.8"
                             android:contentDescription="@string/medical_education_banner"
                             android:scaleType="centerCrop"
@@ -98,7 +98,7 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                            android:layout_height="@dimen/_120sdp"
                             android:background="@drawable/gradient_toolbar_background"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -109,8 +109,8 @@
                             style="@style/CardTitleTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginBottom="50dp"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginBottom="@dimen/_50sdp"
                             android:textColor="@color/white"
                             android:text="@string/your_privacy_matters"
                             app:layout_constraintBottom_toBottomOf="@id/ivHeaderImage"
@@ -121,7 +121,7 @@
                             style="@style/CaptionTextStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="16dp"
+                            android:layout_margin="@dimen/_16sdp"
                             android:text="@string/last_updated_march_1_2025"
                             app:layout_constraintBottom_toBottomOf="@id/ivHeaderImage"
                             app:layout_constraintEnd_toEndOf="parent" />
@@ -131,7 +131,7 @@
                             style="@style/BodyText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="16dp"
+                            android:padding="@dimen/_16sdp"
                             android:text="@string/doctor_cubes_privacy_promise"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +144,7 @@
                     android:id="@+id/privacyPolicyContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -154,14 +154,14 @@
                         style="@style/SectionTitleText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/privacy_policy_title" />
 
                     <TextView
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/privacy_policy_description" />
 
@@ -169,14 +169,14 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/information_we_collect_title" />
 
                     <TextView
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/information_we_collect_intro" />
 
@@ -184,8 +184,8 @@
                         style="@style/SubTitleTextStyle2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/personal_information_title" />
 
                     <TextView
@@ -193,8 +193,8 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/personal_information_details" />
 
@@ -202,8 +202,8 @@
                         style="@style/SubTitleTextStyle2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/usage_data_title" />
 
                     <TextView
@@ -211,8 +211,8 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/usage_data_details" />
 
@@ -220,7 +220,7 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/how_we_use_your_information_title" />
 
                     <TextView
@@ -228,7 +228,7 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/how_we_use_your_information_content" />
 
@@ -236,7 +236,7 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/information_sharing_title" />
 
                     <TextView
@@ -244,7 +244,7 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/information_sharing_content" />
 
@@ -252,7 +252,7 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/data_security_title" />
 
                     <TextView
@@ -260,7 +260,7 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/data_security_content" />
 
@@ -268,7 +268,7 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/your_rights_title" />
 
                     <TextView
@@ -276,7 +276,7 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/your_rights_content" />
 
@@ -284,7 +284,7 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/data_retention_title" />
 
                     <TextView
@@ -292,7 +292,7 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/data_retention_content" />
 
@@ -300,7 +300,7 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/changes_to_policy_title" />
 
                     <TextView
@@ -308,7 +308,7 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/changes_to_policy_content" />
 
@@ -316,7 +316,7 @@
                         style="@style/SubTitleTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:text="@string/contact_us_title" />
 
                     <TextView
@@ -324,7 +324,7 @@
                         style="@style/BodyText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:lineSpacingExtra="4dp"
                         android:text="@string/contact_us_details" />
 

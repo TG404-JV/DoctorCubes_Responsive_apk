@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_12sdp"
     app:cardElevation="2dp"
-    app:cardCornerRadius="8dp"
     app:cardBackgroundColor="@color/card_background">
 
     <LinearLayout
@@ -15,30 +14,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- University Header with Banner Image -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp">
-
-            <ImageView
-                android:id="@+id/university_banner"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icon_university" />
+            android:layout_height="@dimen/_100sdp">  <ImageView
+            android:id="@+id/university_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_university" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/gradient_overlay" />
 
-            <!-- University Logo in Circle -->
             <androidx.cardview.widget.CardView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_margin="16dp"
-                app:cardCornerRadius="32dp"
-                app:cardElevation="4dp">
+                android:layout_width="@dimen/_56sdp"  android:layout_height="@dimen/_56sdp"
+                android:layout_margin="@dimen/_12sdp"  app:cardCornerRadius="@dimen/_28sdp"  app:cardElevation="4dp">
 
                 <ImageView
                     android:id="@+id/university_logo"
@@ -48,37 +40,26 @@
                     android:src="@drawable/icon_university" />
             </androidx.cardview.widget.CardView>
 
-            <!-- University Type Badge -->
             <TextView
                 android:id="@+id/university_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/badge_accent_rounded"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:text="@string/public_text"
+                android:paddingStart="@dimen/_8sdp"  android:paddingEnd="@dimen/_8sdp"    android:paddingTop="@dimen/_2sdp"    android:paddingBottom="@dimen/_2sdp"  android:text="@string/public_text"
                 android:textColor="@color/text_on_accent"
-                android:textSize="12sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/_10sdp"  android:textStyle="bold"
                 android:layout_gravity="end|top"
-                android:layout_margin="16dp" />
+                android:layout_margin="@dimen/_12sdp"  />
 
-            <!-- Country Flag -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_button"
-                android:padding="4dp"
+                android:padding="@dimen/_4sdp"
                 android:layout_gravity="bottom|end"
-                android:layout_margin="16dp">
-
-                <ImageView
-                    android:id="@+id/country_flag"
-                    android:layout_width="24dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/flag_russia" />
+                android:layout_margin="@dimen/_12sdp">  <ImageView
+                android:id="@+id/country_flag"
+                android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_14sdp"  android:src="@drawable/flag_russia" />
 
                 <TextView
                     android:id="@+id/country_name"
@@ -86,26 +67,21 @@
                     android:layout_height="wrap_content"
                     android:text="@string/georgia"
                     android:textColor="@color/text_primary_color"
-                    android:textSize="12sp"
-                    android:layout_marginStart="4dp" />
+                    android:textSize="@dimen/_10sdp"  android:layout_marginStart="@dimen/_4sdp" />
             </LinearLayout>
         </FrameLayout>
 
-        <!-- University Info Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/university_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/university_of_georgia"
-                android:textColor="@color/text_primary_color"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            android:padding="@dimen/_12sdp">  <TextView
+            android:id="@+id/university_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/university_of_georgia"
+            android:textColor="@color/text_primary_color"
+            android:textSize="@dimen/_16sdp"  android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/course_name"
@@ -113,16 +89,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mbbs"
                 android:textColor="@color/accent_color"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp" />
+                android:textSize="@dimen/_14sdp"  android:textStyle="bold"
+                android:layout_marginTop="@dimen/_4sdp" />
 
-            <!-- Tags Row -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="@dimen/_8sdp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -135,9 +109,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/bachelor"
                         android:background="@drawable/tag_background"
-                        android:padding="6dp"
-                        android:textColor="@color/primary_color"
-                        android:layout_marginEnd="8dp" />
+                        android:padding="@dimen/_4sdp"  android:textColor="@color/primary_color"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"  />
 
                     <TextView
                         android:id="@+id/field"
@@ -145,9 +119,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/medical"
                         android:background="@drawable/tag_background"
-                        android:padding="6dp"
-                        android:textColor="@color/primary_color"
-                        android:layout_marginEnd="8dp" />
+                        android:padding="@dimen/_4sdp"  android:textColor="@color/primary_color"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"  />
 
                     <TextView
                         android:id="@+id/ranking_tag"
@@ -155,87 +129,78 @@
                         android:layout_height="wrap_content"
                         android:text="@string/top_500"
                         android:background="@drawable/tag_background"
-                        android:padding="6dp"
-                        android:textColor="@color/primary_color"
-                        android:layout_marginEnd="8dp" />
+                        android:padding="@dimen/_4sdp"  android:textColor="@color/primary_color"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:textSize="@dimen/_10sdp"  />
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- Info Grid -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="@dimen/_12sdp">  <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <!-- Left Column -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:src="@drawable/ic_duration"
+                        app:tint="@color/primary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:text="@string/duration"
+                        android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
+                        android:layout_marginStart="@dimen/_4sdp" />
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_duration"
-                            app:tint="@color/primary_color" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/duration"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_secondary_color"
-                            android:layout_marginStart="4dp" />
-
-                        <TextView
-                            android:id="@+id/duration"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/course_duration"
-                            android:textColor="@color/text_primary_color"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/duration"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="8dp">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_ranking"
-                            app:tint="@color/primary_color" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Grade: "
-                            android:textSize="14sp"
-                            android:textColor="@color/text_secondary_color"
-                            android:layout_marginStart="4dp" />
-
-                        <TextView
-                            android:id="@+id/grade"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="A+"
-                            android:textColor="@color/text_primary_color"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                        android:text="@string/course_duration"
+                        android:textColor="@color/text_primary_color"
+                        android:textSize="@dimen/_12sdp"  />
                 </LinearLayout>
 
-                <!-- Right Column -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/_8sdp">  <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/ic_ranking"
+                    app:tint="@color/primary_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Grade: "
+                        android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
+                        android:layout_marginStart="@dimen/_4sdp" />
+
+                    <TextView
+                        android:id="@+id/grade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A+"
+                        android:textColor="@color/text_primary_color"
+                        android:textSize="@dimen/_12sdp"  />
+                </LinearLayout>
+            </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -249,8 +214,8 @@
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
                             android:src="@drawable/ic_language"
                             app:tint="@color/primary_color" />
 
@@ -258,9 +223,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/language"
-                            android:textSize="14sp"
-                            android:textColor="@color/text_secondary_color"
-                            android:layout_marginStart="4dp" />
+                            android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
+                            android:layout_marginStart="@dimen/_4sdp" />
 
                         <TextView
                             android:id="@+id/language"
@@ -268,7 +232,7 @@
                             android:layout_height="wrap_content"
                             android:text="English"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/_12sdp"  />
                     </LinearLayout>
 
                     <LinearLayout
@@ -276,21 +240,18 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="8dp">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_calendar"
-                            app:tint="@color/primary_color" />
+                        android:layout_marginTop="@dimen/_8sdp">  <ImageView
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:src="@drawable/ic_calendar"
+                        app:tint="@color/primary_color" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Intake: "
-                            android:textSize="14sp"
-                            android:textColor="@color/text_secondary_color"
-                            android:layout_marginStart="4dp" />
+                            android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
+                            android:layout_marginStart="@dimen/_4sdp" />
 
                         <TextView
                             android:id="@+id/intake"
@@ -298,25 +259,21 @@
                             android:layout_height="wrap_content"
                             android:text="Feb-25, Sep-25"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/_12sdp"  />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Scholarship Banner -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@drawable/scholarship_banner_bg"
-                android:padding="8dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical">
+                android:padding="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"  android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icon_scholarship" />
+                    android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@drawable/icon_scholarship" />
 
                 <TextView
                     android:id="@+id/scholarship_text"
@@ -326,53 +283,49 @@
                     android:text="Scholarships up to 30% available"
                     android:textColor="@color/scholarship_icon_tint"
                     android:textStyle="bold"
-                    android:layout_marginStart="8dp" />
+                    android:textSize="@dimen/_12sdp"  android:layout_marginStart="@dimen/_8sdp" />
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
                     android:rotation="180"
                     android:src="@drawable/ic_back"
                     app:tint="@color/scholarship_icon_tint" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Action Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:background="@color/secondary_background">
+            android:padding="@dimen/_12sdp"  android:background="@color/secondary_background">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_brochure"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="@dimen/_40sdp"  android:layout_weight="1"
                 android:text="Download Brochure"
                 android:textAllCaps="false"
                 android:background="@drawable/button_secondary_outline"
                 android:textColor="@color/button_text_secondary"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:textSize="@dimen/_12sdp"  />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_apply"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="@dimen/_40sdp"  android:layout_weight="1"
                 android:text="Apply Now"
                 android:textAllCaps="false"
                 android:background="@drawable/button_accent"
                 android:textColor="@color/button_text_primary"
-                android:layout_marginStart="8dp" />
+                android:layout_marginStart="@dimen/_8sdp"
+                android:textSize="@dimen/_12sdp"  />
         </LinearLayout>
 
-        <!-- Contact Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/_40sdp"  android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/btn_whatsapp"
@@ -384,9 +337,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_whatsapp"
+                    android:layout_width="@dimen/_18sdp"  android:layout_height="@dimen/_18sdp"  android:src="@drawable/ic_whatsapp"
                     app:tint="@color/white" />
 
                 <TextView
@@ -394,7 +345,7 @@
                     android:layout_height="wrap_content"
                     android:text="WhatsApp"
                     android:textColor="@color/white"
-                    android:layout_marginStart="8dp" />
+                    android:textSize="@dimen/_12sdp"  android:layout_marginStart="@dimen/_4sdp"  />
             </LinearLayout>
 
             <LinearLayout
@@ -407,9 +358,7 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_call"
+                    android:layout_width="@dimen/_18sdp"  android:layout_height="@dimen/_18sdp"  android:src="@drawable/ic_call"
                     app:tint="@color/white" />
 
                 <TextView
@@ -417,7 +366,7 @@
                     android:layout_height="wrap_content"
                     android:text="Call Us"
                     android:textColor="@color/white"
-                    android:layout_marginStart="8dp" />
+                    android:textSize="@dimen/_12sdp"  android:layout_marginStart="@dimen/_4sdp"  />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

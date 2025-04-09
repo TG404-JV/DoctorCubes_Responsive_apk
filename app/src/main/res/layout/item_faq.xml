@@ -2,21 +2,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
+    app:cardCornerRadius="@dimen/_8sdp"
     app:cardElevation="4dp"
-    android:layout_margin="8dp">
+    android:layout_margin="@dimen/_8sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
         <TextView
             android:id="@+id/tvQuestion"
             style="@style/QATextView_Question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/_16sdp"
             android:text="@string/question" />
 
         <TextView
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:text="@string/answer"
             android:visibility="gone"
-            android:paddingTop="8dp" />
+            android:paddingTop="@dimen/_8sdp"
+            android:textSize="@dimen/_14sdp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

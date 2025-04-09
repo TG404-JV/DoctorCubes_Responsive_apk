@@ -1,25 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/_8sdp"
     app:cardBackgroundColor="@color/card_background"
     app:cardElevation="4dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="@dimen/_8sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
             android:textColor="@color/text_primary_color" />
 
@@ -27,8 +26,8 @@
             android:id="@+id/authorTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:textColor="@color/text_secondary_color"
             android:visibility="gone" />
 
@@ -36,8 +35,8 @@
             android:id="@+id/sizeTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:textColor="@color/text_secondary_color"
             android:visibility="gone" />
 
@@ -45,8 +44,8 @@
             android:id="@+id/pagesTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:textColor="@color/text_secondary_color"
             android:visibility="gone" />
 
@@ -54,8 +53,8 @@
             android:id="@+id/categoryTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:textColor="@color/text_secondary_color"
             android:visibility="gone" />
 
@@ -63,8 +62,8 @@
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:textColor="@color/text_secondary_color"
             android:visibility="gone" />
 
@@ -72,15 +71,15 @@
             android:id="@+id/urlTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
+            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:textColor="@color/text_link" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="@dimen/_8sdp">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/editButton"
@@ -92,7 +91,7 @@
                 android:textColor="@color/button_secondary_text"
                 app:strokeColor="@color/button_outline"
                 app:rippleColor="@color/ripple_color"
-                android:layout_marginEnd="4dp" />
+                android:layout_marginEnd="@dimen/_4sdp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/deleteButton"
@@ -104,7 +103,7 @@
                 android:textColor="@color/error_color"
                 app:strokeColor="@color/error_color"
                 app:rippleColor="@color/ripple_color"
-                android:layout_marginStart="4dp" />
+                android:layout_marginStart="@dimen/_4sdp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

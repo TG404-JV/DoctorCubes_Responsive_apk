@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:padding="@dimen/_12sdp"
     android:background="@color/background_color">
 
     <View
         android:id="@+id/view_category_indicator"
-        android:layout_width="4dp"
+        android:layout_width="@dimen/_4sdp"
         android:layout_height="0dp"
         android:background="@color/primary_color"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/_12sdp"
         app:layout_constraintStart_toEndOf="@id/view_category_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +30,8 @@
             style="@style/NotificationTitleTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:textSize="@dimen/_16sdp"
             android:text="@string/university_application_deadline" />
 
         <TextView
@@ -38,7 +39,8 @@
             style="@style/NotificationMessageTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:textSize="@dimen/_14sdp"
             android:text="@string/notification_desc" />
 
         <TextView
@@ -46,6 +48,7 @@
             style="@style/NotificationTimeTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
             android:text="@string/_2_hours_ago" />
     </LinearLayout>
 

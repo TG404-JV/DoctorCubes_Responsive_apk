@@ -17,24 +17,24 @@
             android:id="@+id/searchCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/_16sdp"
             app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="@dimen/_16sdp"
             app:cardElevation="6dp"
             app:strokeColor="@color/card_border"
             app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/_50sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
+                android:paddingHorizontal="@dimen/_16sdp">
 
                 <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:contentDescription="@string/search_icon"
                     android:src="@drawable/ic_search"
                     app:tint="@drawable/icon_tint_selector" />
@@ -49,16 +49,16 @@
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="@dimen/_12sdp"
                     android:textColor="@color/text_primary_color"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/_16sdp" />
 
                 <ImageView
                     android:id="@+id/clearSearchButton"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_marginStart="12dp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
                     android:contentDescription="@string/clear_search"
                     android:src="@drawable/ic_clear"
                     android:visibility="gone"
@@ -70,8 +70,8 @@
             android:id="@+id/segmentedButtonGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
             app:singleSelection="true"
             app:selectionRequired="true">
 
@@ -83,9 +83,9 @@
                 android:layout_weight="1"
                 android:text="@string/notes"
                 app:icon="@drawable/ic_book"
-                app:iconSize="20dp"
+                app:iconSize="@dimen/_20sdp"
                 app:iconGravity="start"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="@dimen/_8sdp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVideos"
@@ -95,9 +95,9 @@
                 android:layout_weight="1"
                 android:text="@string/video"
                 app:icon="@drawable/ic_video"
-                app:iconSize="20dp"
+                app:iconSize="@dimen/_20sdp"
                 app:iconGravity="start"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="@dimen/_8sdp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
     </com.google.android.material.appbar.AppBarLayout>
 

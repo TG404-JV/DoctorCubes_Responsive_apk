@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/back_button"
-            android:padding="16dp"
+            android:padding="@dimen/_16sdp"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +28,7 @@
             android:id="@+id/appLogoImage"
             android:layout_width="200dp"
             android:layout_height="120dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="@dimen/_48sdp"
             android:contentDescription="@string/logo_description"
             android:src="@drawable/logo_doctor_cubes_white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
             style="@style/SectionTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:text="@string/slogun"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,11 +50,11 @@
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_24sdp"
             app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="@dimen/_20sdp"
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="28dp">
+                android:padding="@dimen/_28sdp">
 
                 <TextView
                     style="@style/SectionTitleText"
@@ -78,7 +78,7 @@
                     style="@style/BodyText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:text="@string/sign_in_text"
                     android:textAlignment="center" />
 
@@ -87,7 +87,7 @@
                     style="@style/MedicalTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="@dimen/_28sdp"
                     app:startIconDrawable="@drawable/ic_email"
                     app:startIconTint="@color/icon_tint_primary">
 
@@ -106,7 +106,7 @@
                     style="@style/MedicalTextInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     app:endIconMode="password_toggle"
                     app:endIconTint="@color/icon_tint_primary"
                     app:startIconDrawable="@drawable/ic_lock"
@@ -127,30 +127,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginTop="12dp"
-                    android:padding="4dp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/forgot_password"
                     android:textColor="@color/text_link"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/_14sdp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/loginButton"
                     style="@style/MedicalPrimaryButton"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
                     android:backgroundTint="@color/button_primary"
                     android:text="@string/sign_in"
                     android:textColor="@color/button_text_primary"
-                    android:textSize="16sp"
-                    app:cornerRadius="12dp"
+                    android:textSize="@dimen/_16sdp"
+                    app:cornerRadius="@dimen/_12sdp"
                     app:elevation="4dp"
                     app:rippleColor="@color/button_primary_pressed" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/_24sdp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -164,7 +164,7 @@
                         style="@style/BodyText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
+                        android:padding="@dimen/_8sdp"
                         android:text="@string/or" />
 
                     <View
@@ -177,7 +177,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="@dimen/_24sdp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -191,7 +191,7 @@
                         android:id="@+id/createAccountText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:padding="@dimen/_4sdp"
                         android:text="@string/create_account"
                         android:textColor="@color/text_link"
                         android:textStyle="bold" />

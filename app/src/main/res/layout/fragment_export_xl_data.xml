@@ -8,7 +8,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:padding="@dimen/_16sdp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -19,48 +19,48 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/_20sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/export_status"
                         android:textColor="@color/text_primary_color"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18sdp"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
                         android:background="@color/divider_color" />
 
                     <TextView
                         android:id="@+id/tv_export_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_info"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="@color/info_color"
+                        android:drawablePadding="@dimen/_8sdp"
                         android:text="@string/ready_to_export"
                         android:textColor="@color/text_secondary_color"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        app:drawableStartCompat="@drawable/ic_info"
+                        app:drawableTint="@color/info_color" />
 
                     <TextView
                         android:id="@+id/tv_last_export"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/last_export"
                         android:textColor="@color/text_tertiary_color"
                         android:textSize="14sp" />
@@ -72,11 +72,11 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:visibility="gone"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginTop="@dimen/_12sdp">
 
                         <ProgressBar
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:indeterminateTint="@color/primary_color" />
 
                         <TextView
@@ -85,8 +85,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/exporting"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="14sp"
-                            android:layout_marginStart="12dp" />
+                            android:textSize="@dimen/_14sdp"
+                            android:layout_marginStart="@dimen/_12sdp" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -94,16 +94,16 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/_20sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                             android:layout_weight="1"
                             android:text="@string/applied_filters"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="18sp"
+                            android:textSize="@dimen/_18sdp"
                             android:textStyle="bold" />
 
                         <com.google.android.material.button.MaterialButton
@@ -132,19 +132,19 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
                         android:background="@color/divider_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="@dimen/_100sdp"
                             android:layout_height="wrap_content"
                             android:text="@string/program"
                             android:textColor="@color/text_secondary_color"
@@ -162,11 +162,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="@dimen/_100sdp"
                             android:layout_height="wrap_content"
                             android:text="@string/country"
                             android:textColor="@color/text_secondary_color"
@@ -230,37 +230,37 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/_20sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/export_options"
                         android:textColor="@color/text_primary_color"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18sdp"
                         android:textStyle="bold" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
                         android:background="@color/divider_color" />
 
                     <RadioGroup
                         android:id="@+id/rg_export_format"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="@dimen/_16sdp">
 
                         <RadioButton
                             android:id="@+id/rb_excel"
@@ -270,7 +270,7 @@
                             android:checked="true"
                             android:text="@string/excel_format"
                             android:textColor="@color/text_primary_color"
-                            android:paddingVertical="4dp" />
+                            android:paddingVertical="@dimen/_4sdp" />
 
                         <RadioButton
                             android:id="@+id/rb_csv"
@@ -279,7 +279,7 @@
                             android:buttonTint="@color/checkbox_tint"
                             android:text="@string/csv_format"
                             android:textColor="@color/text_primary_color"
-                            android:paddingVertical="4dp" />
+                            android:paddingVertical="@dimen/_4sdp" />
 
                         <RadioButton
                             android:id="@+id/rb_pdf"
@@ -288,7 +288,7 @@
                             android:buttonTint="@color/checkbox_tint"
                             android:text="@string/pdf_report"
                             android:textColor="@color/text_primary_color"
-                            android:paddingVertical="4dp" />
+                            android:paddingVertical="@dimen/_4sdp" />
                     </RadioGroup>
 
                     <CheckBox
@@ -299,7 +299,7 @@
                         android:checked="true"
                         android:text="@string/include_statistics"
                         android:textColor="@color/text_primary_color"
-                        android:paddingVertical="4dp" />
+                        android:paddingVertical="@dimen/_4sdp" />
 
                     <CheckBox
                         android:id="@+id/cb_include_contacts"
@@ -309,7 +309,7 @@
                         android:checked="true"
                         android:text="@string/include_contacts"
                         android:textColor="@color/text_primary_color"
-                        android:paddingVertical="4dp" />
+                        android:paddingVertical="@dimen/_4sdp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -318,17 +318,17 @@
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="@dimen/_12sdp"
                 android:text="@string/export_data"
-                android:textSize="16sp"
+                android:textSize="@dimen/_16sdp"
                 android:textColor="@color/button_text_primary"
                 android:backgroundTint="@color/button_accent"
-                app:cornerRadius="12dp"
+                app:cornerRadius="@dimen/_12sdp"
                 app:rippleColor="@color/ripple_light"
                 app:icon="@drawable/ic_excel_file"
                 app:iconTint="@color/button_text_primary"
                 app:iconGravity="textStart"
-                android:paddingVertical="12dp" />
+                android:paddingVertical="@dimen/_12sdp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_view_exported"
@@ -339,12 +339,12 @@
                 android:textSize="16sp"
                 android:textColor="@color/button_secondary_text"
                 app:strokeColor="@color/button_secondary_text"
-                app:cornerRadius="12dp"
+                app:cornerRadius="@dimen/_12sdp"
                 app:rippleColor="@color/ripple_light"
                 app:icon="@drawable/ic_upload"
                 app:iconTint="@color/button_secondary_text"
                 app:iconGravity="textStart"
-                android:paddingVertical="12dp" />
+                android:paddingVertical="@dimen/_12sdp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -353,7 +353,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/_16sdp"
         android:contentDescription="@string/sort_and_filter"
         android:src="@drawable/ic_filter"
         app:backgroundTint="@color/button_accent"
