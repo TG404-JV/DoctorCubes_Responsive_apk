@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_8sdp"
+    android:layout_margin="@dimen/_7sdp"
     app:cardBackgroundColor="@color/card_background"
     app:cardCornerRadius="@dimen/_8sdp"
     app:cardElevation="@dimen/_2sdp"
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:textColor="@color/text_on_accent"
+                    android:textColor="@color/text_primary_color"
                     android:textSize="@dimen/_12sdp"
                     tools:text="California" />
 
@@ -138,7 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/text_secondary_color"
+                android:textColor="@color/text_primary_color"
                 android:textSize="@dimen/_10sdp"
                 android:fontFamily="sans-serif-italic"
                 tools:text="Last Updated: Mar 9, 2025" />

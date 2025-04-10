@@ -1,13 +1,11 @@
 package com.tvm.doctorcube.adminpannel.databsemanager;
 
-
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {StudentEntity.class}, version = 1)
+@Database(entities = {StudentEntity.class}, version = 1) // Changed Student.class to StudentEntity.class
 public abstract class StudentDatabase extends RoomDatabase {
     public abstract StudentDao studentDao();
 

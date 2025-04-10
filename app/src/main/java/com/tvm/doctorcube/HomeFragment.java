@@ -270,7 +270,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 getActivity(),
                 searchEditText,
                 fullSearchList,
-                new SearchUtils.SearchCallback<SearchItem>() {
+                new SearchUtils.SearchCallback<>() {
                     @Override
                     public void onSearchResults(List<SearchItem> filteredList) {
                         if (searchResultsAdapter == null) {

@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.tvm.doctorcube.CustomToast;
 import com.tvm.doctorcube.R;
 import com.tvm.doctorcube.adminpannel.databsemanager.Student;
@@ -104,6 +105,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
                 updateStudentData(currentStudent, "isAdmitted", isChecked);
             }
         });
+
+        // Handle View Details button click
+        holder.btnViewDetails.setOnClickListener(v -> showStudentDetailsBottomSheet(student));
     }
 
     @Override
@@ -168,21 +172,74 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         return student.getCollection();
     }
 
-    // Method to handle permission result from Activity
+    private void showStudentDetailsBottomSheet(Student student) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogTheme);
+        View sheetView = LayoutInflater.from(context).inflate(R.layout.bottomsheet_student_details, null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        // Populate student details
+        TextView tvName = sheetView.findViewById(R.id.tv_detail_name);
+        TextView tvMobile = sheetView.findViewById(R.id.tv_detail_mobile);
+        TextView tvEmail = sheetView.findViewById(R.id.tv_detail_email);
+        TextView tvState = sheetView.findViewById(R.id.tv_detail_state);
+        TextView tvCity = sheetView.findViewById(R.id.tv_detail_city);
+        TextView tvCountry = sheetView.findViewById(R.id.tv_detail_country);
+        TextView tvNeetScore = sheetView.findViewById(R.id.tv_detail_neet_score);
+        TextView tvPassport = sheetView.findViewById(R.id.tv_detail_passport);
+        TextView tvSubmissionDate = sheetView.findViewById(R.id.tv_detail_submission_date);
+        TextView tvCallStatus = sheetView.findViewById(R.id.tv_detail_call_status);
+        TextView tvLastCallDate = sheetView.findViewById(R.id.tv_detail_last_call_date);
+        TextView tvInterested = sheetView.findViewById(R.id.tv_detail_interested);
+        TextView tvAdmitted = sheetView.findViewById(R.id.tv_detail_admitted);
+
+        tvName.setText("Name: " + (student.getName() != null ? student.getName() : "N/A"));
+        tvMobile.setText("Mobile: " + (student.getMobile() != null ? student.getMobile() : "N/A"));
+        tvEmail.setText("Email: " + (student.getEmail() != null ? student.getEmail() : "N/A"));
+        tvState.setText("State: " + (student.getState() != null ? student.getState() : "N/A"));
+        tvCity.setText("City: " + (student.getCity() != null ? student.getCity() : "N/A"));
+        tvCountry.setText("Interested Country: " + (student.getInterestedCountry() != null ? student.getInterestedCountry() : "N/A"));
+        if (student.getHasNeetScore() != null) {
+            if (student.getHasNeetScore().equals("Yes"))
+                tvNeetScore.setText("NEET Score: " + student.getNeetScore());
+            else
+                tvNeetScore.setText("NEET Score: " + "No");
+        }
+        else
+            tvNeetScore.setText(new StringBuilder().append("NEET Score: ").append("N/A").toString());
+        if (student.getHasPassport() != null) {
+            if (student.getHasPassport().equals("Yes"))
+                tvPassport.setText(new StringBuilder().append("Has Passport: ").append("Yes").toString());
+            else
+                tvPassport.setText(new StringBuilder().append("Has Passport: ").append("No").toString());
+        }
+        else
+            tvPassport.setText(new StringBuilder().append("Has Passport: ").append("N/A").toString());
+        tvSubmissionDate.setText("Submission Date: " + (student.getSubmissionDate() != null ? student.getSubmissionDate() : "N/A"));
+        tvCallStatus.setText("Call Status: " + (student.getCallStatus() != null ? student.getCallStatus() : "N/A"));
+        tvLastCallDate.setText("Last Call Date: " + (student.getLastCallDate() != null ? student.getLastCallDate() : "N/A"));
+        tvInterested.setText("Interested: " + (student.isInterested() ? "Yes" : "No"));
+        tvAdmitted.setText("Admitted: " + (student.isAdmitted() ? "Yes" : "No"));
+
+        // Close button
+        Button btnClose = sheetView.findViewById(R.id.btn_close);
+        btnClose.setOnClickListener(v -> bottomSheetDialog.dismiss());
+
+        bottomSheetDialog.show();
+    }
+
     public void handlePermissionResult(int requestCode, int[] grantResults) {
         if (requestCode == REQUEST_CALL_PHONE && grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (studentToCall != null) {
                 makeCall(studentToCall);
-                studentToCall = null; // Reset after call
+                studentToCall = null;
             }
         } else {
             CustomToast.showToast((Activity) context, "Permission denied");
-            studentToCall = null; // Reset if permission denied
+            studentToCall = null;
         }
     }
 
-    // Method to update student list when data changes
     public void updateStudentList(List<Student> newStudentList) {
         this.studentList = newStudentList;
         notifyDataSetChanged();
@@ -190,7 +247,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     static class StudentViewHolder extends RecyclerView.ViewHolder {
         TextView name, state, contact, lastUpdated;
-        Button btnCall;
+        Button btnCall, btnViewDetails;
         CheckBox checkBoxCallMade, checkBoxInterested, checkBoxAdmitted;
 
         public StudentViewHolder(@NonNull View itemView) {
@@ -203,6 +260,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             checkBoxCallMade = itemView.findViewById(R.id.checkbox_call_made);
             checkBoxInterested = itemView.findViewById(R.id.checkbox_interested);
             checkBoxAdmitted = itemView.findViewById(R.id.checkbox_admitted);
+            btnViewDetails = itemView.findViewById(R.id.btn_view_details);
         }
     }
 }

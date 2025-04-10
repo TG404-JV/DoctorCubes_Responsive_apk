@@ -26,6 +26,10 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 public class UniversitiesActivity extends AppCompatActivity {
@@ -66,10 +70,13 @@ public class UniversitiesActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         backBtn = findViewById(R.id.backBtn); // Initialize backBtn
 
+        TextView countryNameTitle = findViewById(R.id.country_name_title);
+        countryNameTitle.setText("Universities in " + countryFilter);
+
         // Setup Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(countryFilter.equals("All") ? "All Universities" : "Universities in " + countryFilter);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(countryFilter.equals("All") ? "All Universities" : "Universities in " + countryFilter);
 
         // Verify critical components
         if (filterBtn == null || filterSpinner == null) {
@@ -85,8 +92,8 @@ public class UniversitiesActivity extends AppCompatActivity {
         // Setup RecyclerView with empty data initially
         setupRecyclerView();
 
-        // Load data asynchronously
-        new LoadUniversityDataTask().execute();
+        // Load data
+        loadUniversityData();
 
         // Setup listeners
         setupFilterSpinner();
@@ -104,7 +111,7 @@ public class UniversitiesActivity extends AppCompatActivity {
     }
 
     private void setupFilterSpinner() {
-        String[] filterOptions = {"None", "Top Ranked", "Scholarships",  "Sort A-Z", "Sort Z-A", "Sort Grade"};
+        String[] filterOptions = {"None", "Top Ranked", "Sort A-Z", "Sort Z-A", "Sort Grade"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filterOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(adapter);
@@ -113,13 +120,13 @@ public class UniversitiesActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedFilter = filterOptions[position];
-                applyFiltersAsync();
+                applyFilters();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedFilter = "None";
-                applyFiltersAsync();
+                applyFilters();
             }
         });
     }
@@ -127,10 +134,12 @@ public class UniversitiesActivity extends AppCompatActivity {
     private void setupSearch() {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -154,29 +163,95 @@ public class UniversitiesActivity extends AppCompatActivity {
             filterSpinner.setSelection(0);
             selectedFilter = "None";
             searchEditText.setText("");
-            if (adapter != null) {
-                filterByCountryAsync();
-            }
+            filterByCountry();
             filterSpinner.setVisibility(View.GONE);
         });
     }
 
     private void setupBackButton() {
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); // Call onBackPressed() to navigate back
-            }
+        backBtn.setOnClickListener(v -> {
+            onBackPressed(); // Call onBackPressed() to navigate back
         });
     }
 
+    private void loadUniversityData() {
+        try {
+            // Execute the AsyncTask and get the result
+            List<University> result = new LoadUniversityDataTask().execute().get(10, TimeUnit.SECONDS); // Set a timeout
+            if (progressBar != null) {
+                progressBar.setVisibility(View.GONE);
+            }
+            recyclerView.setVisibility(View.VISIBLE);
+            universities = result != null ? result : new ArrayList<>();
+            adapter.updateData(universities);
+            filterByCountry(); // Apply initial country filter
 
-    private void filterByCountryAsync() {
-        new FilterByCountryTask().execute();
+        } catch (ExecutionException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            // Handle the error appropriately, e.g., show a message to the user
+            if (progressBar != null) {
+                progressBar.setVisibility(View.GONE);
+            }
+            recyclerView.setVisibility(View.VISIBLE);
+            universities =  new ArrayList<>();
+            adapter.updateData(universities);
+            updateNoUniversitiesView();
+
+        }
     }
 
-    private void applyFiltersAsync() {
-        new ApplyFiltersTask().execute();
+    private void filterByCountry() {
+        List<University> filtered;
+        if (countryFilter.equals("All")) {
+            filtered = universities;
+        } else {
+            filtered = universities.stream()
+                    .filter(u -> u.getCountry() != null && u.getCountry().equalsIgnoreCase(countryFilter))
+                    .collect(Collectors.toList());
+        }
+        adapter.updateData(filtered);
+        updateStats();
+        updateNoUniversitiesView();
+    }
+
+    private void applyFilters() {
+        List<University> filteredUniversities = new ArrayList<>(universities);
+
+        if (!countryFilter.equals("All")) {
+            filteredUniversities = filteredUniversities.stream()
+                    .filter(u -> u.getCountry() != null && u.getCountry().equalsIgnoreCase(countryFilter))
+                    .collect(Collectors.toList());
+        }
+
+        if (!selectedFilter.equals("None")) {
+            switch (selectedFilter.toLowerCase()) {
+                case "top ranked":
+                    filteredUniversities = filteredUniversities.stream()
+                            .filter(u -> u.getRanking() != null && u.getRanking().contains("Top"))
+                            .collect(Collectors.toList());
+                    break;
+                case "sort a-z":
+                    filteredUniversities.sort((u1, u2) -> u1.getName().compareToIgnoreCase(u2.getName()));
+                    break;
+                case "sort z-a":
+                    filteredUniversities.sort((u1, u2) -> u2.getName().compareToIgnoreCase(u1.getName()));
+                    break;
+                case "sort grade":
+                    filteredUniversities.sort((u1, u2) -> {
+                        if (u1.getGrade() == null || u2.getGrade() == null) {
+                            return 0; // Handle null grades
+                        }
+                        return u1.getGrade().compareToIgnoreCase(u2.getGrade());
+                    });
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        adapter.updateData(filteredUniversities);
+        updateStats();
+        updateNoUniversitiesView();
     }
 
     private void updateStats() {
@@ -205,7 +280,7 @@ public class UniversitiesActivity extends AppCompatActivity {
     }
 
     // AsyncTask to load university data
-    private class LoadUniversityDataTask extends AsyncTask<Void, Void, List<University>> {
+    private static class LoadUniversityDataTask extends AsyncTask<Void, Void, List<University>> {
         @Override
         protected List<University> doInBackground(Void... voids) {
             try {
@@ -217,89 +292,13 @@ public class UniversitiesActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<University> result) {
-            if (progressBar != null) {
-                progressBar.setVisibility(View.GONE);
-            }
-            recyclerView.setVisibility(View.VISIBLE);
-            universities = result != null ? result : new ArrayList<>();
-            adapter.updateData(universities);
-            filterByCountryAsync(); // Apply initial country filter
-        }
-    }
-
-    // AsyncTask for country filtering
-    private class FilterByCountryTask extends AsyncTask<Void, Void, List<University>> {
-        @Override
-        protected List<University> doInBackground(Void... voids) {
-            if (countryFilter.equals("All")) {
-                return universities;
-            }
-            return universities.stream()
-                    .filter(u -> u.getCountry() != null && u.getCountry().equalsIgnoreCase(countryFilter))
-                    .collect(Collectors.toList());
-        }
-
-        @Override
-        protected void onPostExecute(List<University> filtered) {
-            if (adapter != null) {
-                adapter.updateData(filtered);
-                updateStats();
-                updateNoUniversitiesView();
-            }
-        }
-    }
-
-    // AsyncTask for applying filters
-    private class ApplyFiltersTask extends AsyncTask<Void, Void, List<University>> {
-        @Override
-        protected List<University> doInBackground(Void... voids) {
-            List<University> filteredUniversities = new ArrayList<>(universities);
-
-            if (!countryFilter.equals("All")) {
-                filteredUniversities = filteredUniversities.stream()
-                        .filter(u -> u.getCountry() != null && u.getCountry().equalsIgnoreCase(countryFilter))
-                        .collect(Collectors.toList());
-            }
-
-            if (!selectedFilter.equals("None")) {
-                switch (selectedFilter.toLowerCase()) {
-                    case "top ranked":
-                        return filteredUniversities.stream()
-                                .filter(u -> u.getRanking() != null && u.getRanking().contains("Top"))
-                                .collect(Collectors.toList());
-                    case "scholarships":
-                        return filteredUniversities.stream()
-                                .filter(u -> u.getScholarshipInfo() != null && !u.getScholarshipInfo().isEmpty())
-                                .collect(Collectors.toList());
-                    case "engineering":
-                        return filteredUniversities.stream()
-                                .filter(u -> u.getField() != null && u.getField().equalsIgnoreCase("engineering"))
-                                .collect(Collectors.toList());
-                }
-            }
-            return filteredUniversities;
-        }
-
-        @Override
-        protected void onPostExecute(List<University> filtered) {
-            if (adapter != null) {
-                adapter.updateData(filtered);
-                if (selectedFilter.equalsIgnoreCase("Sort A-Z")) {
-                    adapter.sortByName(true);
-                } else if (selectedFilter.equalsIgnoreCase("Sort Z-A")) {
-                    adapter.sortByName(false);
-                } else if (selectedFilter.equalsIgnoreCase("Sort Grade")) {
-                    adapter.sortByGrade(true);
-                }
-                updateStats();
-                updateNoUniversitiesView();
-            }
+            //No need to do anything here.
         }
     }
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        getOnBackPressedDispatcher();
         return true;
     }
 }

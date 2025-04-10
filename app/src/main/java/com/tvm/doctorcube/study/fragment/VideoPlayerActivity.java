@@ -174,7 +174,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         if (isFullScreen) {
             // Exit fullscreen
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             toolbar.setVisibility(View.VISIBLE);
             btnPrevious.setVisibility(View.VISIBLE);
             btnNext.setVisibility(View.VISIBLE);

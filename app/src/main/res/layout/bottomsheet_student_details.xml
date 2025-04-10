@@ -1,670 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    android:fillViewport="true">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_16sdp"
+    android:background="@color/card_background">
 
-    <LinearLayout
+    <!-- Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:background="@color/text_tertiary_color"
+        android:alpha="0.5"/>
+
+    <TextView
+        android:id="@+id/tv_details_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/_16sdp">
-
-        <!-- Header with student name and university -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/primary_dark_color"
-            android:padding="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cornerRadius="@dimen/_12sdp">
-
-            <TextView
-                android:id="@+id/tv_student_name_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tejas Kale"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_22sdp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_university_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
-                android:text="Kemerovo State Medical University"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp"
-                android:textStyle="italic" />
-        </LinearLayout>
-
-        <!-- Personal Information Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/personal_information"
-                    android:textColor="@color/text_highlight"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:background="@color/divider_color" />
-
-                <!-- Contact Information -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/phone_number"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_mobile"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="8788466016"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/enter_email"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_email"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="tgadvice06032002@gmail.com"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <!-- Location Information -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/city"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_city"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="kh"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/state_province"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_state"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="mh"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/country"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_country"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="Georgia"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Academic Information Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/academic_information"
-                    android:textColor="@color/text_highlight"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:background="@color/divider_color" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/neet_score"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_neet_score"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="512"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/has_neet_score"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_has_neet_score"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="No"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/has_passport"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_has_passport"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="No"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Application Status Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/application_status"
-                    android:textColor="@color/text_highlight"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:background="@color/divider_color" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/applied_date"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_applied_date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="April 8, 2025 at 11:57:49 AM"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/is_applied"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_is_applied"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="Yes"
-                        android:textColor="@color/success_color"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/is_interested"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_is_interested"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="Yes"
-                        android:textColor="@color/success_color"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/is_admitted"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_is_admitted"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="No"
-                        android:textColor="@color/warning_color"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Call Information Card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/call_information"
-                    android:textColor="@color/text_highlight"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:background="@color/divider_color" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/call_status"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_call_status"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="called"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/last_call_date"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_last_call_date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="08/04/25"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/last_updated_date"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_last_updated_date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="08/04/25"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_14sdp" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- User ID Information -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_16sdp"
-            app:cardBackgroundColor="@color/card_background"
-            app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_16sdp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/system_information"
-                    android:textColor="@color/text_highlight"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:background="@color/divider_color" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/user_id"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_user_id"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="AzEsZxdkgDRWjpBQtjkqXaB5Awf1"
-                        android:textColor="@color/text_tertiary_color"
-                        android:textSize="@dimen/_12sdp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_8sdp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/timestamp"
-                        android:textColor="@color/text_secondary_color"
-                        android:textSize="@dimen/_14sdp" />
-
-                    <TextView
-                        android:id="@+id/tv_timestamp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="April 8, 2025 at 12:20:54 AM UTC+5:30"
-                        android:textColor="@color/text_tertiary_color"
-                        android:textSize="@dimen/_12sdp" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Action Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_8sdp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_call_now"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/call_now"
-                android:textColor="@color/button_text_primary"
-                android:backgroundTint="@color/call_button_color"
-                app:cornerRadius="@dimen/_8sdp"
-                app:icon="@drawable/ic_call"
-                app:iconGravity="textStart"
-                android:layout_marginEnd="@dimen/_4sdp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_whatsapp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/whatsapp"
-                android:textColor="@color/button_text_primary"
-                android:backgroundTint="@color/whatsapp_button_color"
-                app:cornerRadius="@dimen/_8sdp"
-                app:icon="@drawable/ic_whatsapp"
-                app:iconGravity="textStart"
-                android:layout_marginStart="@dimen/_4sdp" />
-        </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_update_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:text="@string/update_status"
-            android:textColor="@color/button_text_primary"
-            android:backgroundTint="@color/button_primary"
-            app:cornerRadius="@dimen/_8sdp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_close"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:text="@string/close"
-            android:textColor="@color/text_secondary_color"
-            app:cornerRadius="@dimen/_8sdp"
-            app:strokeColor="@color/text_secondary_color" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+        android:text="Student Details"
+        android:textColor="@color/text_primary_color"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="@dimen/_12sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name: "
+        android:textColor="@color/text_highlight"
+        android:textSize="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mobile: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="State: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="City: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Interested Country: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_neet_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NEET Score: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_passport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Has Passport: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_submission_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submission Date: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_call_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Call Status: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_last_call_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last Call Date: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_interested"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Interested: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/tv_detail_admitted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Admitted: "
+        android:textColor="@color/text_secondary_color"
+        android:textSize="@dimen/_14sdp"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Close"
+        android:textColor="@color/button_text_primary"
+        android:backgroundTint="@color/button_primary"
+        app:rippleColor="@color/button_primary_pressed"
+        android:layout_marginTop="@dimen/_16sdp"/>
+</LinearLayout>
