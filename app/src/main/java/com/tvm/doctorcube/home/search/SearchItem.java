@@ -1,4 +1,4 @@
-package com.tvm.doctorcube.home.search;
+package com.tvm.doctorcube.home.search; // package name
 
 public  class SearchItem {
     private String title;
