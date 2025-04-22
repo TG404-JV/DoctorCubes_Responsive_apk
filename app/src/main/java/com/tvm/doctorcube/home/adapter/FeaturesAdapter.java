@@ -15,26 +15,11 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.tvm.doctorcube.R;
-import com.tvm.doctorcube.home.model.Feature;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.imageview.ShapeableImageView;
-
-import java.util.List;
-
 public class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.FeatureViewHolder> {
 
     private List<Feature> featureList;
     private OnFeatureClickListener listener;
+    private final RecyclerView.RecycledViewPool viewPool;
 
     public interface OnFeatureClickListener {
         void onFeatureClick(Feature feature);
@@ -43,6 +28,7 @@ public class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.Featur
     public FeaturesAdapter(List<Feature> featureList, OnFeatureClickListener listener) {
         this.featureList = featureList;
         this.listener = listener;
+        this.viewPool = new RecyclerView.RecycledViewPool();
     }
 
     @NonNull
@@ -64,11 +50,23 @@ public class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.Featur
         return featureList.size();
     }
 
+    @Override
+    public void onViewRecycled(@NonNull FeatureViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.clear();
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        viewPool.clear();
+    }
+
     static class FeatureViewHolder extends RecyclerView.ViewHolder {
-        private ShapeableImageView iconView;
-        private TextView titleView;
-        private TextView descriptionView;
-        private MaterialCardView cardView;
+        final ShapeableImageView iconView;
+        final TextView titleView;
+        final TextView descriptionView;
+        final MaterialCardView cardView;
 
         public FeatureViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,5 +88,21 @@ public class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.Featur
                 }
             });
         }
+
+        public void clear() {
+            iconView.setImageDrawable(null);
+            titleView.setText(null);
+            descriptionView.setText(null);
+        }
+    }
+
+    @Override
+    public void setHasStableIds(boolean hasStableIds) {
+        super.setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return featureList.get(position).getId();
     }
 }

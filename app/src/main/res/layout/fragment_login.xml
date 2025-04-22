@@ -95,7 +95,7 @@
                         android:id="@+id/accountEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="@string/enter_email"
                         android:inputType="textEmailAddress"
                         android:textColor="@color/text_primary_color"
                         android:textColorHint="@color/hint_color" />

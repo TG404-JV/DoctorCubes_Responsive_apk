@@ -30,9 +30,9 @@
                     android:paddingHorizontal="16dp">
 
                     <com.google.android.material.card.MaterialCardView
+                        style="@style/MedicalCardStyle"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
-                        style="@style/MedicalCardStyle"
                         app:cardBackgroundColor="@color/card_background"
                         app:cardCornerRadius="12dp"
                         app:strokeColor="@color/input_outline"
@@ -57,16 +57,16 @@
                                 android:id="@+id/searchEditText"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:layout_marginStart="12dp"
                                 android:layout_marginEnd="12dp"
+                                android:layout_weight="1"
                                 android:background="@null"
                                 android:hint="@string/search_hint"
+                                android:imeOptions="actionSearch"
+                                android:singleLine="true"
                                 android:textColor="@color/text_primary_color"
                                 android:textColorHint="@color/text_tertiary_color"
-                                android:textSize="16sp"
-                                android:imeOptions="actionSearch"
-                                android:singleLine="true" />
+                                android:textSize="16sp" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -100,12 +100,14 @@
                             android:id="@+id/studyButton"
                             style="@style/StudyButton"
                             android:layout_marginEnd="10dp">
-                            <LinearLayout
-                                style="@style/CategoryButtonLinearLayout">
+
+                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+
                                 <ImageView
                                     style="@style/CategoryButtonIcon"
                                     android:src="@drawable/ic_studymaterial"
                                     app:tint="@color/university_icon_tint" />
+
                                 <TextView
                                     style="@style/CategoryButtonText"
                                     android:text="@string/study_button_text" />
@@ -116,12 +118,14 @@
                             android:id="@+id/examButton"
                             style="@style/ExamButton"
                             android:layout_marginEnd="10dp">
-                            <LinearLayout
-                                style="@style/CategoryButtonLinearLayout">
+
+                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+
                                 <ImageView
                                     style="@style/CategoryButtonIcon"
                                     android:src="@drawable/ic_exam"
                                     app:tint="@color/tracking_icon_tint" />
+
                                 <TextView
                                     style="@style/CategoryButtonText"
                                     android:text="@string/exam_button_text" />
@@ -131,12 +135,14 @@
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/universityButton"
                             style="@style/UniversityButton">
-                            <LinearLayout
-                                style="@style/CategoryButtonLinearLayout">
+
+                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+
                                 <ImageView
                                     style="@style/CategoryButtonIcon"
                                     android:src="@drawable/icon_university"
                                     app:tint="@color/scholarship_icon_tint" />
+
                                 <TextView
                                     style="@style/CategoryButtonText"
                                     android:text="@string/university_button_text" />
@@ -158,16 +164,16 @@
                 <TextView
                     android:id="@+id/see_all_events"
                     style="@style/MedicalSeeAllText"
-                    android:visibility="gone"
-                    android:text="@string/see_all" />
+                    android:text="@string/see_all"
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
-                    android:overScrollMode="never" />
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
 
             <include layout="@layout/item_invite" />
@@ -182,9 +188,9 @@
                     android:text="@string/countries_to_study" />
 
                 <include
+                    layout="@layout/item_country_list"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    layout="@layout/item_country_list" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout

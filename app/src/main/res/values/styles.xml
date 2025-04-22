@@ -397,6 +397,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:drawableRight">@drawable/ic_page</item>
+        <item name="iconSize">@dimen/_100sdp</item>
         <item name="android:drawablePadding">8dp</item>
         <item name="android:drawableTint">@color/button_accent</item>
         <item name="android:gravity">center_vertical</item>

@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
+    app:cardBackgroundColor="@color/card_background"
     app:cardCornerRadius="@dimen/_12sdp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/card_background">
+    app:cardElevation="2dp">
 
     <LinearLayout
         android:id="@+id/university_card_container"
@@ -16,12 +16,14 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp">  <ImageView
-            android:id="@+id/university_banner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_university" />
+            android:layout_height="@dimen/_100sdp">
+
+            <ImageView
+                android:id="@+id/university_banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_university" />
 
             <View
                 android:layout_width="match_parent"
@@ -29,8 +31,11 @@
                 android:background="@drawable/gradient_overlay" />
 
             <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/_56sdp"  android:layout_height="@dimen/_56sdp"
-                android:layout_margin="@dimen/_12sdp"  app:cardCornerRadius="@dimen/_28sdp"  app:cardElevation="4dp">
+                android:layout_width="@dimen/_56sdp"
+                android:layout_height="@dimen/_56sdp"
+                android:layout_margin="@dimen/_12sdp"
+                app:cardCornerRadius="@dimen/_28sdp"
+                app:cardElevation="4dp">
 
                 <ImageView
                     android:id="@+id/university_logo"
@@ -44,30 +49,40 @@
                 android:id="@+id/university_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/badge_accent_rounded"
-                android:paddingStart="@dimen/_8sdp"  android:paddingEnd="@dimen/_8sdp"    android:paddingTop="@dimen/_2sdp"    android:paddingBottom="@dimen/_2sdp"  android:text="@string/public_text"
-                android:textColor="@color/text_on_accent"
-                android:textSize="@dimen/_10sdp"  android:textStyle="bold"
                 android:layout_gravity="end|top"
-                android:layout_margin="@dimen/_12sdp"  />
+                android:layout_margin="@dimen/_12sdp"
+                android:background="@drawable/badge_accent_rounded"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_2sdp"
+                android:text="@string/public_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_corner_button"
-                android:padding="@dimen/_4sdp"
                 android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/_12sdp">  <ImageView
-                android:id="@+id/country_flag"
-                android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_14sdp"  android:src="@drawable/flag_russia" />
+                android:layout_margin="@dimen/_12sdp"
+                android:background="@drawable/rounded_corner_button"
+                android:padding="@dimen/_4sdp">
+
+                <ImageView
+                    android:id="@+id/country_flag"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_14sdp"
+                    android:src="@drawable/flag_russia" />
 
                 <TextView
                     android:id="@+id/country_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:text="@string/georgia"
-                    android:textColor="@color/text_primary_color"
-                    android:textSize="@dimen/_10sdp"  android:layout_marginStart="@dimen/_4sdp" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp" />
             </LinearLayout>
         </FrameLayout>
 
@@ -75,28 +90,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/_12sdp">  <TextView
-            android:id="@+id/university_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/university_of_georgia"
-            android:textColor="@color/text_primary_color"
-            android:textSize="@dimen/_16sdp"  android:textStyle="bold" />
+            android:padding="@dimen/_12sdp">
+
+            <TextView
+                android:id="@+id/university_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/university_of_georgia"
+                android:textColor="@color/text_primary_color"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/course_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:text="@string/mbbs"
                 android:textColor="@color/accent_color"
-                android:textSize="@dimen/_14sdp"  android:textStyle="bold"
-                android:layout_marginTop="@dimen/_4sdp" />
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:layout_marginTop="@dimen/_8sdp">
+                android:layout_marginTop="@dimen/_8sdp"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -107,99 +126,42 @@
                         android:id="@+id/degree_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/bachelor"
-                        android:background="@drawable/tag_background"
-                        android:padding="@dimen/_4sdp"  android:textColor="@color/primary_color"
                         android:layout_marginEnd="@dimen/_8sdp"
-                        android:textSize="@dimen/_10sdp"  />
+                        android:background="@drawable/tag_background"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/bachelor"
+                        android:textColor="@color/primary_color"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/field"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/medical"
-                        android:background="@drawable/tag_background"
-                        android:padding="@dimen/_4sdp"  android:textColor="@color/primary_color"
                         android:layout_marginEnd="@dimen/_8sdp"
-                        android:textSize="@dimen/_10sdp"  />
+                        android:background="@drawable/tag_background"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/medical"
+                        android:textColor="@color/primary_color"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/ranking_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top_500"
-                        android:background="@drawable/tag_background"
-                        android:padding="@dimen/_4sdp"  android:textColor="@color/primary_color"
                         android:layout_marginEnd="@dimen/_8sdp"
-                        android:textSize="@dimen/_10sdp"  />
+                        android:background="@drawable/tag_background"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/top_500"
+                        android:textColor="@color/primary_color"
+                        android:textSize="@dimen/_10sdp" />
                 </LinearLayout>
             </HorizontalScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_12sdp">  <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="@dimen/_16sdp"
-                        android:layout_height="@dimen/_16sdp"
-                        android:src="@drawable/ic_duration"
-                        app:tint="@color/primary_color" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/duration"
-                        android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
-                        android:layout_marginStart="@dimen/_4sdp" />
-
-                    <TextView
-                        android:id="@+id/duration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/course_duration"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_12sdp"  />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="@dimen/_8sdp">  <ImageView
-                    android:layout_width="@dimen/_16sdp"
-                    android:layout_height="@dimen/_16sdp"
-                    android:src="@drawable/ic_ranking"
-                    app:tint="@color/primary_color" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Grade: "
-                        android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
-                        android:layout_marginStart="@dimen/_4sdp" />
-
-                    <TextView
-                        android:id="@+id/grade"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="A+"
-                        android:textColor="@color/text_primary_color"
-                        android:textSize="@dimen/_12sdp"  />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_marginTop="@dimen/_12sdp"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -210,8 +172,74 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:src="@drawable/ic_duration"
+                            app:tint="@color/primary_color" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:text="@string/duration"
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:id="@+id/duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/course_duration"
+                            android:textColor="@color/text_primary_color"
+                            android:textSize="@dimen/_12sdp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:src="@drawable/ic_ranking"
+                            app:tint="@color/primary_color" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:text="Grade: "
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:id="@+id/grade"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="A+"
+                            android:textColor="@color/text_primary_color"
+                            android:textSize="@dimen/_12sdp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="@dimen/_16sdp"
@@ -222,9 +250,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="@string/language"
-                            android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
-                            android:layout_marginStart="@dimen/_4sdp" />
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:id="@+id/language"
@@ -232,26 +261,29 @@
                             android:layout_height="wrap_content"
                             android:text="English"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="@dimen/_12sdp"  />
+                            android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="@dimen/_8sdp">  <ImageView
-                        android:layout_width="@dimen/_16sdp"
-                        android:layout_height="@dimen/_16sdp"
-                        android:src="@drawable/ic_calendar"
-                        app:tint="@color/primary_color" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_16sdp"
+                            android:layout_height="@dimen/_16sdp"
+                            android:src="@drawable/ic_calendar"
+                            app:tint="@color/primary_color" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="Intake: "
-                            android:textSize="@dimen/_12sdp"  android:textColor="@color/text_secondary_color"
-                            android:layout_marginStart="@dimen/_4sdp" />
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:id="@+id/intake"
@@ -259,7 +291,7 @@
                             android:layout_height="wrap_content"
                             android:text="Feb-25, Sep-25"
                             android:textColor="@color/text_primary_color"
-                            android:textSize="@dimen/_12sdp"  />
+                            android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -267,23 +299,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:background="@drawable/scholarship_banner_bg"
-                android:padding="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_12sdp"  android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_8sdp">
 
                 <ImageView
-                    android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@drawable/icon_scholarship" />
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/icon_scholarship" />
 
                 <TextView
                     android:id="@+id/scholarship_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:layout_weight="1"
                     android:text="Scholarships up to 30% available"
                     android:textColor="@color/scholarship_icon_tint"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_12sdp"  android:layout_marginStart="@dimen/_8sdp" />
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="@dimen/_16sdp"
@@ -297,55 +333,62 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/secondary_background"
             android:orientation="horizontal"
-            android:padding="@dimen/_12sdp"  android:background="@color/secondary_background">
+            android:padding="@dimen/_12sdp">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_brochure"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"  android:layout_weight="1"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@drawable/button_secondary_outline"
                 android:text="Download Brochure"
                 android:textAllCaps="false"
-                android:background="@drawable/button_secondary_outline"
                 android:textColor="@color/button_text_secondary"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:textSize="@dimen/_12sdp"  />
+                android:textSize="@dimen/_12sdp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_apply"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"  android:layout_weight="1"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_weight="1"
+                android:background="@drawable/button_accent"
                 android:text="Apply Now"
                 android:textAllCaps="false"
-                android:background="@drawable/button_accent"
                 android:textColor="@color/button_text_primary"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:textSize="@dimen/_12sdp"  />
+                android:textSize="@dimen/_12sdp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"  android:orientation="horizontal">
+            android:layout_height="@dimen/_40sdp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/btn_whatsapp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
                 android:background="@color/whatsapp_button_color"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/_18sdp"  android:layout_height="@dimen/_18sdp"  android:src="@drawable/ic_whatsapp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/ic_whatsapp"
                     app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:text="WhatsApp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp"  android:layout_marginStart="@dimen/_4sdp"  />
+                    android:textSize="@dimen/_12sdp" />
             </LinearLayout>
 
             <LinearLayout
@@ -353,20 +396,23 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
                 android:background="@color/call_button_color"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/_18sdp"  android:layout_height="@dimen/_18sdp"  android:src="@drawable/ic_call"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:src="@drawable/ic_call"
                     app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:text="Call Us"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp"  android:layout_marginStart="@dimen/_4sdp"  />
+                    android:textSize="@dimen/_12sdp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
