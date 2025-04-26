@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
-    android:nestedScrollingEnabled="true"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/university_details_bottom_sheet"
@@ -20,6 +20,7 @@
             android:orientation="vertical"
             android:padding="@dimen/_16sdp">
 
+            <!-- Drag Handle -->
             <View
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_4sdp"
@@ -28,6 +29,7 @@
                 android:alpha="0.5"
                 android:background="@color/text_tertiary_color" />
 
+            <!-- Welcome Header -->
             <LinearLayout
                 android:id="@+id/welcome_header"
                 android:layout_width="match_parent"
@@ -56,12 +58,12 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- University Card -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/university_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:stateListAnimator="@animator/card_elevation_animator"
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="@dimen/_12sdp"
                 app:cardElevation="4dp">
@@ -94,12 +96,11 @@
                             android:layout_gravity="top|end"
                             android:layout_margin="@dimen/_12sdp"
                             android:background="@drawable/country_badge_background"
-                            android:fontFamily="sans-serif-medium"
                             android:paddingStart="@dimen/_12sdp"
                             android:paddingTop="@dimen/_6sdp"
                             android:paddingEnd="@dimen/_12sdp"
                             android:paddingBottom="@dimen/_6sdp"
-                            android:text="United Kingdom"
+                            android:text="Country"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </FrameLayout>
@@ -116,27 +117,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_8sdp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="University of Cambridge"
+                            android:text="University Name"
                             android:textColor="@color/text_primary_color"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_16sdp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_4sdp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="MBBS Program"
-                                android:textColor="@color/text_secondary_color"
-                                android:textSize="16sp" />
-
-                        </LinearLayout>
+                            android:fontFamily="sans-serif-medium"
+                            android:text="MBBS Program"
+                            android:textColor="@color/text_secondary_color"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -171,7 +164,7 @@
                                     android:id="@+id/program_duration"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="6 years (May Change)"
+                                    android:text="6 years"
                                     android:textColor="@color/text_secondary_color"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -198,12 +191,21 @@
                                     android:textColor="@color/text_secondary_color"
                                     android:textSize="14sp" />
                             </LinearLayout>
-
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/_16sdp" />
+
+            <!-- Application Message -->
             <TextView
                 android:id="@+id/application_message"
                 android:layout_width="match_parent"
@@ -213,6 +215,7 @@
                 android:textColor="@color/text_primary_color"
                 android:textSize="16sp" />
 
+            <!-- Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -226,7 +229,6 @@
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/button_accent"
-                    android:stateListAnimator="@animator/button_state_list_animator"
                     android:text="Apply Now"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -246,8 +248,10 @@
                     app:iconTint="@color/white"
                     app:rippleColor="@color/ripple_effect" />
             </LinearLayout>
-
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <!-- Close Button -->
+    
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

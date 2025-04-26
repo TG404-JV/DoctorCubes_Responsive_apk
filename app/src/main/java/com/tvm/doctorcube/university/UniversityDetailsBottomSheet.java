@@ -2,8 +2,6 @@ package com.tvm.doctorcube.university;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +19,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
 
@@ -49,17 +50,18 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
     private TextView programMediumTextView;
     private MaterialButton applyButton;
     private MaterialButton whatsappButton;
+    private ProgressBar progressBar;
     private EncryptedSharedPreferencesManager sharedPreferencesManager;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-
-    public static UniversityDetailsBottomSheet newInstance(int universityimage, String UniversityName) {
+    public static UniversityDetailsBottomSheet newInstance(int universityImage, String universityName, String country) {
         UniversityDetailsBottomSheet fragment = new UniversityDetailsBottomSheet();
         Bundle args = new Bundle();
-        args.putInt("universityImage", universityimage);
-        args.putString("universityName", UniversityName);
+        args.putInt("universityImage", universityImage);
+        args.putString("universityName", universityName);
+        args.putString("country", country);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,7 +69,9 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        db = FirebaseFirestore.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        sharedPreferencesManager = new EncryptedSharedPreferencesManager(requireContext());
     }
 
     @Nullable
@@ -90,39 +94,40 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
         programMediumTextView = view.findViewById(R.id.program_medium);
         applyButton = view.findViewById(R.id.apply_button);
         whatsappButton = view.findViewById(R.id.whatsapp_button);
+        progressBar = view.findViewById(R.id.progress_bar);
 
+        // Setup bottom sheet behavior
         View bottomSheet = view.findViewById(R.id.university_details_bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-
-        // Set expanded state AFTER view is laid out
-        view.post(() -> {
-            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        });
-
-        // Make sure it's draggable
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetBehavior.setDraggable(true);
-
-        // This allows the bottom sheet to expand to full height
         bottomSheetBehavior.setFitToContents(true);
 
-        sharedPreferencesManager = new EncryptedSharedPreferencesManager(requireContext());
-        String fullName = sharedPreferencesManager.getString("name", "");
-        // Access the arguments properly
-        if (getArguments() != null) {
-            int universityImage = getArguments().getInt("universityImage", 0);
-            String universityName = getArguments().getString("universityName", "");
+        // Close button
 
-            // Populate data
+        // Populate data
+        String fullName = sharedPreferencesManager.getString("name", "User");
+        Bundle args = getArguments();
+        if (args != null) {
+            int universityImage = args.getInt("universityImage", R.drawable.icon_university);
+            String universityName = args.getString("universityName", "Unknown University");
+            String country = args.getString("country", "Unknown");
+
             userNameTextView.setText("Dr. " + fullName);
             universityNameTextView.setText(universityName);
             universityImageView.setImageResource(universityImage);
+            universityCountryTextView.setText(country);
+            programDurationTextView.setText("6 Years"); // Replace with dynamic data if available
+            programMediumTextView.setText("English"); // Replace with dynamic data if available
         } else {
-            // Handle case when arguments are null
-            int universityImage = new University().getBannerResourceId();
-            universityImageView.setImageResource(universityImage);
+            Log.w("UniversityDetails", "Arguments are null, using defaults");
+            userNameTextView.setText("Dr. " + fullName);
+            universityNameTextView.setText("Unknown University");
+            universityImageView.setImageResource(new University().getBannerResourceId());
+            universityCountryTextView.setText("Unknown");
+            programDurationTextView.setText("N/A");
+            programMediumTextView.setText("N/A");
         }
-
-        // Setup RecyclerView
 
         // Setup buttons
         setupButtons();
@@ -131,20 +136,19 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
         animateContent();
     }
 
-    // BottomSheetDialog to confirm when user has already applied
     private void checkAndAddUniversityApplication(String universityName) {
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
         if (currentUser == null) {
-            Toast.makeText(getContext(), "Please login to apply", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please log in to apply", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String userId = currentUser.getUid();
+        showProgress(true);
 
-        // First check shared preferences
-        if (sharedPreferencesManager.getBoolean("isApplied", false) && sharedPreferencesManager.getString("universityName", "").equals(universityName)) {
-            // User has already applied
+        // Check shared preferences
+        if (sharedPreferencesManager.getBoolean("isApplied", false) &&
+                sharedPreferencesManager.getString("universityName", "").equals(universityName)) {
+            showProgress(false);
             showConfirmationDialog(universityName, userId);
         } else {
             // Check Firestore
@@ -152,24 +156,23 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
                     .document(userId)
                     .get()
                     .addOnCompleteListener(task -> {
+                        showProgress(false);
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists() && document.contains("universityName")) {
                                 showConfirmationDialog(universityName, userId);
                             } else {
-                                // No previous application, proceed with new application
                                 saveUniversityApplication(universityName, userId);
                             }
                         } else {
-                            Log.e("UniversityDetails", "Error checking application status: ", task.getException());
-                            Toast.makeText(getContext(), "Error checking application status: " + task.getException().getMessage(),
+                            Log.e("UniversityDetails", "Error checking application: ", task.getException());
+                            Toast.makeText(getContext(), "Error: " + Objects.requireNonNull(task.getException()).getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
         }
     }
 
-    // Show confirmation dialog when user has already applied
     private void showConfirmationDialog(String universityName, String userId) {
         MBBSApplicationDialog.show(requireContext(), universityName, userId, new MBBSApplicationDialog.OnDialogActionListener() {
             @Override
@@ -179,109 +182,96 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
 
             @Override
             public void onCancel() {
-                // Do nothing or log cancellation
+                // No action needed
             }
         });
     }
-    // Save the university application to Firestore
+
     private void saveUniversityApplication(String universityName, String userId) {
-        db = FirebaseFirestore.getInstance();
+        showProgress(true);
         Map<String, Object> applicationData = new HashMap<>();
         applicationData.put("universityName", universityName);
         applicationData.put("isApplied", true);
         applicationData.put("appliedDate", new Date());
-        // Use SetOptions to merge data.  This will prevent overwriting the entire document.
+
         db.collection("app_submissions")
                 .document(userId)
-                .set(applicationData, SetOptions.merge()) // Use merge here
+                .set(applicationData, SetOptions.merge())
                 .addOnSuccessListener(aVoid -> {
+                    showProgress(false);
                     Toast.makeText(getContext(), "Application submitted successfully", Toast.LENGTH_SHORT).show();
                     sharedPreferencesManager.putBoolean("isApplied", true);
                     sharedPreferencesManager.putString("universityName", universityName);
-                    sharedPreferencesManager.putString("appliedDate", dateFormat.format(new Date())); // Format the date before saving
-                    dismiss(); // Close bottom sheet after successful submission
+                    sharedPreferencesManager.putString("appliedDate", dateFormat.format(new Date()));
+                    dismiss();
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("UniversityDetails", "Error submitting application: ", e); // Log the error
-                    Toast.makeText(getContext(), "Error submitting application: " + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
+                    showProgress(false);
+                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
-    // Add this to your setupButtons() method
     private void setupButtons() {
         applyButton.setOnClickListener(v -> {
             String universityName = universityNameTextView.getText().toString();
-            checkAndAddUniversityApplication(universityName);
+            if (!universityName.isEmpty()) {
+                checkAndAddUniversityApplication(universityName);
+            } else {
+                Toast.makeText(getContext(), "University name is missing", Toast.LENGTH_SHORT).show();
+            }
         });
 
         whatsappButton.setOnClickListener(v -> {
-            // Handle WhatsApp consultation click
             SocialActions socialActions = new SocialActions();
-            socialActions.openEmailApp(requireContext());            // Here you would launch your WhatsApp integration
+            socialActions.openWhatsApp(requireContext());
         });
     }
-
 
     private void animateContent() {
         // Animate welcome header
         View welcomeHeader = bottomSheetView.findViewById(R.id.welcome_header);
-        welcomeHeader.setAlpha(0f);
-        welcomeHeader.setTranslationY(50f);
-        welcomeHeader.animate()
-                .alpha(1f)
-                .translationY(0f)
-                .setDuration(500)
-                .setStartDelay(100)
-                .setInterpolator(new DecelerateInterpolator())
-                .start();
+        animateView(welcomeHeader, 100);
 
         // Animate university card
         View universityCard = bottomSheetView.findViewById(R.id.university_card);
-        universityCard.setAlpha(0f);
-        universityCard.setTranslationY(50f);
-        universityCard.animate()
-                .alpha(1f)
-                .translationY(0f)
-                .setDuration(500)
-                .setStartDelay(200)
-                .setInterpolator(new DecelerateInterpolator())
-                .start();
+        animateView(universityCard, 200);
 
         // Animate application message
         TextView applicationMessage = bottomSheetView.findViewById(R.id.application_message);
-        applicationMessage.setAlpha(0f);
-        applicationMessage.setTranslationY(50f);
-        applicationMessage.animate()
-                .alpha(1f)
-                .translationY(0f)
-                .setDuration(500)
-                .setStartDelay(300)
-                .setInterpolator(new DecelerateInterpolator())
-                .start();
+        animateView(applicationMessage, 300);
 
-        // Animate buttons with bounce effect
+        // Animate buttons
         AnimatorSet buttonAnimSet = new AnimatorSet();
-        ObjectAnimator scaleXAnim = ObjectAnimator.ofFloat(applyButton, "scaleX", 0.8f, 1.1f, 1f);
-        ObjectAnimator scaleYAnim = ObjectAnimator.ofFloat(applyButton, "scaleY", 0.8f, 1.1f, 1f);
+        ObjectAnimator scaleXAnim = ObjectAnimator.ofFloat(applyButton, "scaleX", 0.8f, 1f);
+        ObjectAnimator scaleYAnim = ObjectAnimator.ofFloat(applyButton, "scaleY", 0.8f, 1f);
         ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(applyButton, "alpha", 0f, 1f);
-
         buttonAnimSet.playTogether(scaleXAnim, scaleYAnim, alphaAnim);
-        buttonAnimSet.setDuration(500);
+        buttonAnimSet.setDuration(300);
         buttonAnimSet.setStartDelay(400);
         buttonAnimSet.start();
 
-        // Animate WhatsApp button
-        whatsappButton.setAlpha(0f);
-        whatsappButton.setScaleX(0.8f);
-        whatsappButton.setScaleY(0.8f);
-        whatsappButton.animate()
-                .alpha(1f)
-                .scaleX(1f)
-                .scaleY(1f)
-                .setDuration(500)
-                .setStartDelay(450)
-                .start();
+        animateView(whatsappButton, 450);
+    }
+
+    private void animateView(View view, long startDelay) {
+        if (view != null) {
+            view.setAlpha(0f);
+            view.setTranslationY(50f);
+            view.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(300)
+                    .setStartDelay(startDelay)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .start();
+        }
+    }
+
+    private void showProgress(boolean show) {
+        if (progressBar != null) {
+            progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+            applyButton.setEnabled(!show);
+            whatsappButton.setEnabled(!show);
+        }
     }
 }
-

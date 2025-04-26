@@ -165,7 +165,6 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         testimonials.add(new Testimonial(R.drawable.img_sneha, "Sneha Prakash Navas", "I will be studying one of my favorite subjects abroad. For students considering studying abroad, I highly recommend Doctorcubes. They took care of everything; I didn't have to worry about a thing during this journey. In short, Doctorcubes is 100% trustworthy and reliable.", String.valueOf(R.drawable.flag_russia), "Maykop University", "3rd year", 5.0f));
         testimonials.add(new Testimonial(R.drawable.img_dipanshu, "Dipanshu Tripude", "Initially, when I was planning to go abroad for my studies, I thought it would be very hectic. However, I was later thinking if I could do it. I got in touch with Doctorcubes and they took care of the entire process for me from the beginning till the end.", String.valueOf(R.drawable.flag_russia), "Chechen State Medical University", "2nd year", 5.0f));
 
-
         testimonialsAdapter = new TestimonialsSliderAdapter(testimonials);
         testimonialsViewPager.setAdapter(testimonialsAdapter);
 
@@ -210,11 +209,6 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
             chinaLayout.setOnClickListener(v -> openUniversitiesActivity("China"));
         if (uzbekistanLayout != null)
             uzbekistanLayout.setOnClickListener(v -> openUniversitiesActivity("Uzbekistan"));
-    }
-
-    private void setupCommunicationButtons(View view) {
-        CommunicationUtils commUtils = new CommunicationUtils(getActivity());
-        commUtils.setupCommunicationButtons(view);
     }
 
     private void setupSearchBar() {
@@ -340,7 +334,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                         .addToBackStack(null)
                         .commit();
                 ((MainActivity) requireActivity()).getToolbar().setTitle("Study");
-                ((MainActivity) requireActivity()).getBubbleNavigation().setCurrentActiveItem(1);
+                ((MainActivity) requireActivity()).setActiveNavigationItem(1); // Update navigation to Study
             });
         }
 
@@ -408,10 +402,8 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 description = "Connect with our dedicated support team for personalized assistance, expert guidance, and prompt answers to your queries.  We provide comprehensive support throughout your journey, from initial inquiries to post-arrival assistance.  Get help with application process, visa assistance, accommodation, and more.";
             }
             default -> {
-
             }
         }
-        ;
 
         // Show Bottom Sheet
         showFeatureBottomSheet(title, description);
@@ -485,7 +477,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     public static class SearchItem {
         private String title;
         private String type;
-        private Object data;
+        Object data;
         private int sectionPosition;
 
         public SearchItem(String title, String type, Object data, int sectionPosition) {

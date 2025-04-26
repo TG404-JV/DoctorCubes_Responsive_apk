@@ -66,13 +66,14 @@ private MaterialButton admissionButton;
 
             assert intent != null;
             String universityName = intent.getStringExtra("UNIVERSITY_NAME");
+            String country= intent.getStringExtra("country");
             UniversityDetailsData.UniversityDetail detail = UniversityDetailsData.getUniversityDetails(universityName);
 
 
 
             // Use the newInstance method to create the bottom sheet with proper parameters
             UniversityDetailsBottomSheet bottomSheet =
-                    UniversityDetailsBottomSheet.newInstance(detail.getImageResourceId(), universityName);
+                    UniversityDetailsBottomSheet.newInstance(detail.getImageResourceId(), universityName,country);
 
             // Show the bottom sheet
             bottomSheet.show(getSupportFragmentManager(), "ApplyBottomSheet");

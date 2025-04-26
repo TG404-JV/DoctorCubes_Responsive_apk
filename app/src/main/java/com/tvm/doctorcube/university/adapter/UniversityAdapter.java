@@ -84,6 +84,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
             intent.putExtra("UNIVERSITY_DURATION", university.getDuration());
             intent.putExtra("UNIVERSITY_GRADE", university.getGrade());
             intent.putExtra("UNIVERSITY_INTAKE", university.getIntake());
+            intent.putExtra("country",university.getCountry());
             context.startActivity(intent);
         });
 
@@ -102,7 +103,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         // In UniversityAdapter.java, update the btnApply click listener:
         holder.btnApply.setOnClickListener(v -> {
             UniversityDetailsBottomSheet bottomSheet =
-                    UniversityDetailsBottomSheet.newInstance(university.getBannerResourceId(), university.getName());
+                    UniversityDetailsBottomSheet.newInstance(university.getBannerResourceId(), university.getName(),university.getCountry());
 
             bottomSheet.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheet.getTag());
 
