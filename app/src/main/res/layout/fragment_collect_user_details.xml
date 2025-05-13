@@ -261,7 +261,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submitButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_56sdp"
+                android:layout_height="56sp"
                 android:text="@string/submit_details"
                 android:textSize="16sp"
                 app:cornerRadius="@dimen/_8sdp"

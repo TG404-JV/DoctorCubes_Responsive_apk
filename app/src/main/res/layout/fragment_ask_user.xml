@@ -59,17 +59,17 @@
             android:id="@+id/loginButton"
             style="@style/MedicalPrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_32sdp"
             android:text="@string/log_in"
             android:textAllCaps="false"
-            android:textSize="@dimen/_25sdp" />
+            android:textSize="@dimen/_18sdp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/createAccountButton"
             style="@style/MedicalSecondaryButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginHorizontal="@dimen/_32sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:text="@string/create_account"

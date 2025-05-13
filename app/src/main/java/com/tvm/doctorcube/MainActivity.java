@@ -4,7 +4,6 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,13 +16,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private LottieAnimationView callButton;
-    private TextView app_title;
     private LottieAnimationView[] lottieAnimationViews;
-    private LinearLayout[] navItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         appLogo.setOnClickListener(v -> {
             applySelectionAnimation(v);
             setActiveNavigationItem(2); // Settings
-            loadFragment(new SettingsFragment(), true);
+            loadFragment(new SettingsFragment());
         });
 
         // Initialize call button
@@ -55,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
         // Set up Toolbar functionality
         setupToolbar();
 
-        app_title = findViewById(R.id.app_title);
-        app_title.setText("DoctorCubes");
+        TextView app_title = findViewById(R.id.app_title);
+        app_title.setText(getString(R.string.app_name));
 
         // Initialize custom navigation
         setupCustomNavigation();
 
         // Load the home fragment by default
-        loadFragment(new HomeFragment(), true);
+        loadFragment(new HomeFragment());
         setActiveNavigationItem(0); // Home
     }
 
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
 
-            toolbar.getNavigationIcon().setColorFilter(
+            Objects.requireNonNull(toolbar.getNavigationIcon()).setColorFilter(
                     ContextCompat.getColor(this, android.R.color.white),
                     PorterDuff.Mode.SRC_IN
             );
@@ -95,15 +94,10 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.nav_study_icon),
                 findViewById(R.id.nav_settings_icon)
         };
-        navItems = new LinearLayout[]{
+        LinearLayout[] navItems = new LinearLayout[]{
                 findViewById(R.id.nav_home),
                 findViewById(R.id.nav_study),
                 findViewById(R.id.nav_settings)
-        };
-        TextView[] navTitles = new TextView[]{
-                findViewById(R.id.nav_home_title),
-                findViewById(R.id.nav_study_title),
-                findViewById(R.id.nav_settings_title)
         };
 
         for (int i = 0; i < navItems.length; i++) {
@@ -125,24 +119,29 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new SettingsFragment();
                         toolbar.setTitle("Settings");
                         break;
-                                   }
-                if (fragment != null) {
-                    loadFragment(fragment, true);
                 }
+                loadFragment(fragment);
             });
         }
 
         // Set initial state
         lottieAnimationViews[0].playAnimation();
     }
+
     public void setActiveNavigationItem(int position) {
         for (int i = 0; i < lottieAnimationViews.length; i++) {
-            TextView title = navItems[i].findViewById(android.R.id.text1);
             if (i == position) {
                 lottieAnimationViews[i].playAnimation();
+                // Apply tint to selected Lottie icon
+                lottieAnimationViews[i].setColorFilter(
+                        ContextCompat.getColor(this, R.color.primary_color),
+                        PorterDuff.Mode.SRC_IN
+                );
             } else {
                 lottieAnimationViews[i].cancelAnimation();
                 lottieAnimationViews[i].setProgress(0f);
+                // Remove tint from unselected Lottie icons
+                lottieAnimationViews[i].clearColorFilter();
             }
         }
     }
@@ -158,18 +157,16 @@ public class MainActivity extends AppCompatActivity {
                 .start();
     }
 
-    private void loadFragment(Fragment fragment, boolean withAnimation) {
+    private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        if (withAnimation) {
-            transaction.setCustomAnimations(
-                    R.anim.fragment_fade_enter,
-                    R.anim.fragment_fade_exit,
-                    R.anim.fragment_fade_enter,
-                    R.anim.fragment_fade_exit
-            );
-        }
+        transaction.setCustomAnimations(
+                R.anim.fragment_fade_enter,
+                R.anim.fragment_fade_exit,
+                R.anim.fragment_fade_enter,
+                R.anim.fragment_fade_exit
+        );
 
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);

@@ -1,73 +1,61 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/feature_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_8sdp"  android:clickable="true"
-    android:focusable="true"
-    style="@style/MedicalCardStyle"
-    app:cardBackgroundColor="@color/card_background"
-    app:rippleColor="@color/ripple_color"
-    app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp">  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="@dimen/_12sdp"  android:gravity="center_vertical">
+    android:background="@drawable/feature_item_background"
+    android:layout_marginBottom="8dp"
+    android:padding="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/icon_container"
-        android:layout_width="@dimen/_48sdp"  android:layout_height="@dimen/_48sdp"  style="@style/MedicalPremiumCardStyle"
-        app:cardCornerRadius="@dimen/_12sdp">  <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/feature_icon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/_12sdp"  android:scaleType="centerInside"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Circle"
-        tools:src="@drawable/icon_university" />
-    </com.google.android.material.card.MaterialCardView>
+    <ImageView
+        android:id="@+id/iv_feature_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/circle_background"
+        android:padding="10dp"
+        android:contentDescription="Feature Icon"
+        android:src="@drawable/icon_visa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_feature_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/_12sdp"  android:layout_marginEnd="@dimen/_8sdp">  <TextView
-        android:id="@+id/feature_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Global University Placements"
+        android:textColor="@color/primary_color"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize="16sp"  android:letterSpacing="0.01"
+        app:layout_constraintStart_toEndOf="@id/iv_feature_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_arrow" />
+
+    <TextView
+        android:id="@+id/tv_feature_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Access to prestigious medical universities across 15+ countries with guaranteed admission assistance"
         android:textColor="@color/text_primary_color"
-        tools:text="University Explorer"
-        android:maxLines="1"
-        android:ellipsize="end"/>
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/iv_feature_icon"
+        app:layout_constraintTop_toBottomOf="@id/tv_feature_title"
+        app:layout_constraintEnd_toStartOf="@id/iv_arrow" />
 
-        <TextView
-            android:id="@+id/feature_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"  android:lineSpacingExtra="@dimen/_2sdp"  android:layout_marginTop="@dimen/_4sdp"  android:textColor="@color/text_secondary_color"
-            android:maxLines="2"
-            android:ellipsize="end"
-            tools:text="Discover top-rated universities tailored to your academic goals" />
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/arrow_container"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        style="@style/MedicalSecondaryButton"
-        app:cardBackgroundColor="@color/button_secondary"
-        app:cardElevation="0dp"
-        app:strokeColor="@color/button_outline"
-        app:strokeWidth="1dp"  app:cardCornerRadius="@dimen/_12sdp">  <ImageView
-        android:id="@+id/arrow_icon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/_10sdp"
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="Navigate"
         android:src="@drawable/ic_arrow_forward"
-        app:tint="@color/button_text_secondary" />
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:tint="#084D8F" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
