@@ -8,8 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tvm.doctorcube.R;
@@ -41,15 +39,13 @@ public class UniversityListAdapter extends RecyclerView.Adapter<UniversityListAd
     public void onBindViewHolder(@NonNull UniversityViewHolder holder, int position) {
         University university = universities.get(position);
 
-        holder.flagImageView.setImageResource(university.getLogoResourceId());
+        holder.flagImageView.setImageResource(university.getFlagResourceId());
         holder.nameTextView.setText(university.getName());
-        holder.locationTextView.setText(String.format("%s, %s", university.getLocation(), university.getCountry()));
+        holder.locationTextView.setText(String.format("%s, %s", university.getCity(), university.getCountry()));
         holder.courseTextView.setText(university.getCourseName());
         holder.gradeTextView.setText(university.getGrade());
 
-        holder.viewDetailsButton.setOnClickListener(v -> {
-            listener.onItemClick(university);
-        });
+        holder.viewDetailsButton.setOnClickListener(v -> listener.onItemClick(university));
     }
 
     @Override

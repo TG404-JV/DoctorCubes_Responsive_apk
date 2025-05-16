@@ -50,7 +50,6 @@ public class UniversityFragment extends Fragment {
     private ImageButton backBtn;
 
     public UniversityFragment() {
-        // Required empty public constructor
     }
 
     public static UniversityFragment newInstance(String countryName) {
@@ -108,7 +107,7 @@ public class UniversityFragment extends Fragment {
             recyclerView.setVisibility(View.GONE);
         }
 
-        // Setup RecyclerView with empty data initially
+        // Setup RecyclerView
         setupRecyclerView();
 
         // Load data
@@ -132,8 +131,7 @@ public class UniversityFragment extends Fragment {
     private void navigateToUniversityDetails(University university) {
         NavController navController = Navigation.findNavController(requireView());
         Bundle args = new Bundle();
-        args.putString("UNIVERSITY_NAME", university.getName());
-        args.putString("COUNTRY", university.getCountry());
+        args.putSerializable("UNIVERSITY", university);
         navController.navigate(R.id.action_universityFragment_to_universityDetailsFragment, args);
     }
 
@@ -204,7 +202,7 @@ public class UniversityFragment extends Fragment {
 
     private void loadUniversityData() {
         try {
-            universities = UniversityData.getUniversities();
+            universities = UniversityData.getUniversities(requireContext());
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);
             }

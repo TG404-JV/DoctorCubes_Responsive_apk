@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base gradient background -->
+    <item>
+        <shape>
+            <corners android:radius="24dp" />
+            <gradient
+                android:type="linear"
+                android:angle="0"
+                android:startColor="#FFA86B"
+                android:centerColor="#FFC888"
+                android:centerX="0.6"
+                android:endColor="#FFDE9E" />
+        </shape>
+    </item>
+
+    <!-- Yellow spotlight on right side -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="180dp"
+                android:centerX="0.75"
+                android:centerY="0.5"
+                android:startColor="#26FFED85"
+                android:endColor="#00FFED85" />
+        </shape>
+    </item>
+
+    <!-- White spotlight on top right -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="120dp"
+                android:centerX="0.85"
+                android:centerY="0.3"
+                android:startColor="#26FFFFFF"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+
+    <!-- Subtle top highlight -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="200dp"
+                android:centerX="0.4"
+                android:centerY="0.1"
+                android:startColor="#0AFFFFFF"
+                android:endColor="#00FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

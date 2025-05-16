@@ -75,19 +75,17 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         // Card click to navigate to UniversityDetailsFragment
         holder.university_card_container.setOnClickListener(v -> listener.onItemClick(university));
 
-        // Call Button - Initiates phone call
+        // Call Button
         holder.btnCall.setOnClickListener(v -> openSocial.makeDirectCall(context));
 
-        // WhatsApp Button - Opens WhatsApp with pre-filled message
+        // WhatsApp Button
         holder.btnWhatsapp.setOnClickListener(v -> openSocial.openWhatsApp(context));
 
-        // Apply Button - Navigates to UniversityDetailsBottomSheet
+        // Apply Button
         holder.btnApply.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
             Bundle args = new Bundle();
-            args.putInt("imageResourceId", university.getBannerResourceId());
-            args.putString("universityName", university.getName());
-            args.putString("country", university.getCountry());
+            args.putSerializable("UNIVERSITY", university);
             navController.navigate(R.id.action_universityFragment_to_universityDetailsBottomSheet2, args);
         });
 
@@ -102,7 +100,6 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         return universities.size();
     }
 
-    // Search/Filter by name
     public void filterByName(String query) {
         universities.clear();
         if (query == null || query.trim().isEmpty()) {
@@ -119,7 +116,6 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         notifyDataSetChanged();
     }
 
-    // Update the adapter's data with a new list
     public void updateData(List<University> newUniversities) {
         this.universities.clear();
         this.universities.addAll(newUniversities);
@@ -128,15 +124,13 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         notifyDataSetChanged();
     }
 
-    // Sort universities by name (A-Z or Z-A)
     public void sortByName(final boolean ascending) {
-        Collections.sort(universities, (u1, u2) -> ascending
+        universities.sort((u1, u2) -> ascending
                 ? u1.getName().compareToIgnoreCase(u2.getName())
                 : u2.getName().compareToIgnoreCase(u1.getName()));
         notifyDataSetChanged();
     }
 
-    // Sort universities by grade (High-Low or Low-High)
     public void sortByGrade(final boolean descending) {
         List<String> gradeOrder = Arrays.asList("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F");
 

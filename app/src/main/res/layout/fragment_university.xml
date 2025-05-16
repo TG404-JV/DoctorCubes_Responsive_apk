@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
-    tools:context=".UniversitiesActivity">
+    android:background="@color/background_color">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_color"
+        android:background="@drawable/bg_home_header"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -45,7 +44,7 @@
                             android:contentDescription="@string/back_disc"
                             android:padding="@dimen/_12sdp"
                             android:src="@drawable/ic_back"
-                            app:tint="@color/text_on_primary" />
+                            app:tint="@color/black" />
 
                         <TextView
                             android:id="@+id/country_name_title"
@@ -57,7 +56,7 @@
                             android:maxLines="1"
                             android:paddingStart="@dimen/_8sdp"  android:paddingEnd="@dimen/_16sdp"
                             android:text="@string/country_university"
-                            android:textColor="@color/text_on_primary"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/_18sdp"  android:textStyle="bold" />  </LinearLayout>
                 </androidx.appcompat.widget.Toolbar>
 

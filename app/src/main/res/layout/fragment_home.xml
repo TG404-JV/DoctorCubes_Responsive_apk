@@ -17,10 +17,13 @@
             android:paddingBottom="16dp">
 
             <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_home_header"
-                android:paddingTop="16dp">
+                android:paddingTop="16dp"
+                android:paddingBottom="12dp">
 
                 <LinearLayout
                     android:id="@+id/searchHeader"
@@ -30,125 +33,158 @@
                     android:paddingHorizontal="16dp">
 
                     <com.google.android.material.card.MaterialCardView
-                        style="@style/MedicalCardStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        app:cardBackgroundColor="@color/card_background"
-                        app:cardCornerRadius="12dp"
-                        app:strokeColor="@color/input_outline"
-                        app:strokeWidth="1.5dp">
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="30dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:strokeWidth="0dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingHorizontal="12dp">
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp">
 
                             <ImageView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:layout_marginStart="12dp"
-                                android:contentDescription="@string/search_icon_description"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
                                 android:src="@android:drawable/ic_menu_search"
-                                app:tint="@color/icon_tint_primary" />
+                                app:tint="#6E6E6E"
+                                android:contentDescription="Search Icon" />
 
                             <EditText
                                 android:id="@+id/searchEditText"
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
-                                android:layout_marginEnd="12dp"
                                 android:layout_weight="1"
                                 android:background="@null"
-                                android:hint="@string/search_hint"
+                                android:hint="Search universities, exams..."
+                                android:textColor="#222222"
+                                android:textColorHint="#888888"
+                                android:textSize="16sp"
+                                android:inputType="text"
                                 android:imeOptions="actionSearch"
-                                android:singleLine="true"
-                                android:textColor="@color/text_primary_color"
-                                android:textColorHint="@color/text_tertiary_color"
-                                android:textSize="16sp" />
+                                android:singleLine="true" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/search_results_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:background="@color/card_background"
-                        android:elevation="4dp"
-                        android:maxHeight="240dp"
-                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_below="@id/searchHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/searchHeader"
                     android:orientation="horizontal"
                     android:paddingHorizontal="16dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="8dp">
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:weightSum="3">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
+                    <!-- Study -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/studyButton"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="#E0F2F1"
+                        app:strokeColor="#00796B"
+                        app:strokeWidth="0dp"
+                        android:layout_marginEnd="8dp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/studyButton"
-                            style="@style/StudyButton"
-                            android:layout_marginEnd="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
 
-                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_studymaterial"
+                                app:tint="#004D40" />
 
-                                <ImageView
-                                    style="@style/CategoryButtonIcon"
-                                    android:src="@drawable/ic_studymaterial"
-                                    app:tint="@color/university_icon_tint" />
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="Study"
+                                android:textColor="#004D40"
+                                android:textStyle="bold"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                                <TextView
-                                    style="@style/CategoryButtonText"
-                                    android:text="@string/study_button_text" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                    <!-- Exam -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/examButton"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="#EDE7F6"
+                        app:strokeColor="#5E35B1"
+                        app:strokeWidth="0dp"
+                        android:layout_marginEnd="8dp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/examButton"
-                            style="@style/ExamButton"
-                            android:layout_marginEnd="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
 
-                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_exam"
+                                app:tint="#512DA8" />
 
-                                <ImageView
-                                    style="@style/CategoryButtonIcon"
-                                    android:src="@drawable/ic_exam"
-                                    app:tint="@color/tracking_icon_tint" />
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="Exam"
+                                android:textColor="#512DA8"
+                                android:textStyle="bold"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                                <TextView
-                                    style="@style/CategoryButtonText"
-                                    android:text="@string/exam_button_text" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                    <!-- University -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/universityButton"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="#E8F5E9"
+                        app:strokeColor="#388E3C"
+                        app:strokeWidth="0dp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/universityButton"
-                            style="@style/UniversityButton">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center">
 
-                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/icon_university"
+                                app:tint="#2E7D32" />
 
-                                <ImageView
-                                    style="@style/CategoryButtonIcon"
-                                    android:src="@drawable/icon_university"
-                                    app:tint="@color/scholarship_icon_tint" />
-
-                                <TextView
-                                    style="@style/CategoryButtonText"
-                                    android:text="@string/university_button_text" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-                    </LinearLayout>
+                            <TextView
+                                android:layout_height="wrap_content"
+                                android:layout_width="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="University"
+                                android:textColor="#2E7D32"
+                                android:textStyle="bold"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
             </RelativeLayout>
 

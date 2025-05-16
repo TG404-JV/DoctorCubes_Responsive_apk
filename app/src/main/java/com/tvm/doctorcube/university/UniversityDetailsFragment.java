@@ -14,13 +14,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.tvm.doctorcube.R;
-import com.tvm.doctorcube.university.model.UniversityDetailsData;
+import com.tvm.doctorcube.university.model.University;
 import com.google.android.material.button.MaterialButton;
 
 public class UniversityDetailsFragment extends Fragment {
 
-    private static final String ARG_UNIVERSITY_NAME = "UNIVERSITY_NAME";
-    private static final String ARG_COUNTRY = "COUNTRY";
+    private static final String ARG_UNIVERSITY = "UNIVERSITY";
 
     // Views
     private ImageView universityImageView;
@@ -29,21 +28,14 @@ public class UniversityDetailsFragment extends Fragment {
     private MaterialButton admissionButton;
 
     public UniversityDetailsFragment() {
-        // Required empty public constructor
     }
 
-    public static UniversityDetailsFragment newInstance(String universityName, String country) {
+    public static UniversityDetailsFragment newInstance(University university) {
         UniversityDetailsFragment fragment = new UniversityDetailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_UNIVERSITY_NAME, universityName);
-        args.putString(ARG_COUNTRY, country);
+        args.putSerializable(ARG_UNIVERSITY, university);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -61,28 +53,20 @@ public class UniversityDetailsFragment extends Fragment {
         // Get data from arguments
         Bundle args = getArguments();
         if (args != null) {
-            String universityName = args.getString(ARG_UNIVERSITY_NAME);
-            String country = args.getString(ARG_COUNTRY);
-            if (universityName != null) {
-                // Fetch university details from UniversityDetailsData
-                UniversityDetailsData.UniversityDetail detail = UniversityDetailsData.getUniversityDetails(universityName);
-                if (detail != null) {
-                    // Set university data to views
-                    setUniversityData(universityName, detail);
-                } else {
-                    // Fallback if university not found
-                    setFallbackData(universityName);
-                }
-
+            University university = (University) args.getSerializable(ARG_UNIVERSITY);
+            if (university != null) {
+                setUniversityData(university);
                 // Setup admission button
                 admissionButton.setOnClickListener(v -> {
                     NavController navController = Navigation.findNavController(v);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("imageResourceId", detail != null ? detail.getImageResourceId() : R.drawable.icon_university);
-                    bundle.putString("universityName", universityName);
-                    bundle.putString("country", country);
+                    bundle.putInt("imageResourceId", university.getBannerResourceId());
+                    bundle.putString("universityName", university.getName());
+                    bundle.putString("country", university.getCountry());
                     navController.navigate(R.id.action_universityDetailsFragment_to_universityDetailsBottomSheet2, bundle);
                 });
+            } else {
+                setFallbackData("Unknown");
             }
         }
     }
@@ -100,16 +84,16 @@ public class UniversityDetailsFragment extends Fragment {
         admissionButton = view.findViewById(R.id.apply_button);
     }
 
-    private void setUniversityData(String universityName, UniversityDetailsData.UniversityDetail detail) {
-        universityImageView.setImageResource(detail.getImageResourceId());
-        locationTextView.setText(detail.getLocation());
-        descriptionTextView.setText(detail.getDescription());
-        establishedTextView.setText(detail.getEstablished());
-        rankingTextView.setText(detail.getRanking());
-        addressTextView.setText(detail.getAddress());
-        phoneTextView.setText(detail.getPhone());
-        emailTextView.setText(detail.getEmail());
-        admissionRequirementsTextView.setText(detail.getAdmissionRequirements());
+    private void setUniversityData(University university) {
+        universityImageView.setImageResource(university.getLogoResourceId());
+        locationTextView.setText(university.getCity() + ", " + university.getCountry());
+        descriptionTextView.setText(university.getDescription());
+        establishedTextView.setText(university.getEstablished());
+        rankingTextView.setText(university.getRanking());
+        addressTextView.setText(university.getAddress());
+        phoneTextView.setText(university.getPhone());
+        emailTextView.setText(university.getEmail());
+        admissionRequirementsTextView.setText(university.getAdmissionRequirements());
     }
 
     private void setFallbackData(String universityName) {

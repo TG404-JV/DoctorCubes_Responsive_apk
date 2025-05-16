@@ -59,12 +59,6 @@
             android:name=".PdfViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".UniversityDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UniversitiesActivity"
-            android:exported="false" />
-        <activity
             android:name=".AdminActivity"
             android:exported="false" />
         <activity

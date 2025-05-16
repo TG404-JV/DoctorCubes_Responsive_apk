@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     // Upcoming Events "SEE ALL" button
     private TextView seeAllEventsButton;
 
+    // University count
+
     // Invite Friends button
     private AppCompatButton inviteButton;
 
@@ -89,7 +91,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
 
         // Initialize UI components
         searchEditText = view.findViewById(R.id.searchEditText);
-        searchResultsRecyclerView = view.findViewById(R.id.search_results_recycler_view);
+        searchResultsRecyclerView = view.findViewById(R.id.search_results);
         studyButton = view.findViewById(R.id.studyButton);
         examButton = view.findViewById(R.id.examButton);
         universityButton = view.findViewById(R.id.universityButton);
@@ -161,17 +163,18 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         universitiesRecyclerView = view.findViewById(R.id.universities_recycler_view);
         if (universitiesRecyclerView == null) return;
         universitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        fullUniversityList = UniversityData.getUniversities();
+        fullUniversityList = UniversityData.getUniversities(requireContext());
         if (getContext() != null) {
             universityListAdapter = new UniversityListAdapter(getContext(), new ArrayList<>(fullUniversityList), this::navigateToUniversityDetails);
             universitiesRecyclerView.setAdapter(universityListAdapter);
         }
     }
 
+
+
     private void navigateToUniversityDetails(University university) {
         Bundle args = new Bundle();
-        args.putString("UNIVERSITY_NAME", university.getName());
-        args.putString("COUNTRY", university.getCountry());
+        args.putSerializable("UNIVERSITY", university);
         navController.navigate(R.id.action_homeFragment_to_universityDetailsFragment, args);
     }
 

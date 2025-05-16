@@ -1,64 +1,84 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_16sdp"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="4dp">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="@dimen/_12sdp"
-        app:cardElevation="4dp">
+        android:background="@drawable/invite_card_gradient_background">
 
+        <!-- Text Content -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/text_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/_12sdp">
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/illustration_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.6">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/invite_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:fontFamily="sans-serif-black"
+                android:text="Invite your friends"
+                android:textColor="#002147"
+                android:textSize="@dimen/_22sdp"
+                android:textStyle="bold" />
 
-                <TextView
-                    style="@style/InviteFriendsTitleTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/invite_your_friends"
-                    android:textSize="@dimen/_18sdp" />
+            <TextView
+                android:id="@+id/invite_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="sans-serif"
+                android:text="Help your friend achieve his dream!"
+                android:textColor="#002147"
+                android:textSize="@dimen/_14sdp" />
 
-                <TextView
-                    style="@style/InviteFriendsDescriptionTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:text="@string/make_his_dream"
-                    android:textColor="@color/text_secondary_color"
-                    android:textSize="@dimen/_12sdp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/invite_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@drawable/invite_button_background"
+                android:paddingStart="@dimen/_32sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_32sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:text="INVITE"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/invite_button"
-                    style="@style/MedicalPrimaryButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:background="@color/accent_color"
-                    android:text="@string/invite"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/_14sdp" />
-            </LinearLayout>
+        <!-- Illustration Container -->
+        <FrameLayout
+            android:id="@+id/illustration_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_container"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_100sdp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo_doctor_cubes_dynamic" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:id="@+id/person_illustration"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Person waving"
+                android:backgroundTint="#00000000"
+                android:src="@drawable/ic_waving_bg" />
+        </FrameLayout>
 
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
