@@ -1,0 +1,246 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_home_header"
+                android:paddingTop="16dp">
+
+                <LinearLayout
+                    android:id="@+id/searchHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/MedicalCardStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        app:cardBackgroundColor="@color/card_background"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="@color/input_outline"
+                        app:strokeWidth="1.5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="12dp">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginStart="12dp"
+                                android:contentDescription="@string/search_icon_description"
+                                android:src="@android:drawable/ic_menu_search"
+                                app:tint="@color/icon_tint_primary" />
+
+                            <EditText
+                                android:id="@+id/searchEditText"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:hint="@string/search_hint"
+                                android:imeOptions="actionSearch"
+                                android:singleLine="true"
+                                android:textColor="@color/text_primary_color"
+                                android:textColorHint="@color/text_tertiary_color"
+                                android:textSize="16sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/search_results_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@color/card_background"
+                        android:elevation="4dp"
+                        android:maxHeight="240dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/searchHeader"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/studyButton"
+                            style="@style/StudyButton"
+                            android:layout_marginEnd="10dp">
+
+                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+
+                                <ImageView
+                                    style="@style/CategoryButtonIcon"
+                                    android:src="@drawable/ic_studymaterial"
+                                    app:tint="@color/university_icon_tint" />
+
+                                <TextView
+                                    style="@style/CategoryButtonText"
+                                    android:text="@string/study_button_text" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/examButton"
+                            style="@style/ExamButton"
+                            android:layout_marginEnd="10dp">
+
+                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+
+                                <ImageView
+                                    style="@style/CategoryButtonIcon"
+                                    android:src="@drawable/ic_exam"
+                                    app:tint="@color/tracking_icon_tint" />
+
+                                <TextView
+                                    style="@style/CategoryButtonText"
+                                    android:text="@string/exam_button_text" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/universityButton"
+                            style="@style/UniversityButton">
+
+                            <LinearLayout style="@style/CategoryButtonLinearLayout">
+
+                                <ImageView
+                                    style="@style/CategoryButtonIcon"
+                                    android:src="@drawable/icon_university"
+                                    app:tint="@color/scholarship_icon_tint" />
+
+                                <TextView
+                                    style="@style/CategoryButtonText"
+                                    android:text="@string/university_button_text" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/MedicalSectionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MedicalSectionTitle"
+                    android:text="@string/upcoming_events" />
+
+                <TextView
+                    android:id="@+id/see_all_events"
+                    style="@style/MedicalSeeAllText"
+                    android:text="@string/see_all"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+
+            <include layout="@layout/item_invite" />
+
+            <LinearLayout
+                style="@style/MedicalSectionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MedicalSectionTitle"
+                    android:text="@string/countries_to_study" />
+
+                <include
+                    layout="@layout/item_country_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MedicalSectionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MedicalSectionTitle"
+                    android:text="@string/top_universities" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/universities_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MedicalSectionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MedicalSectionTitle"
+                    android:text="@string/our_services" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/features_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/MedicalSectionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/MedicalSectionTitle"
+                    android:text="@string/success_stories" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/testimonials_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <include layout="@layout/item_contact" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

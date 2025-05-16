@@ -1,0 +1,284 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_12sdp">  <androidx.cardview.widget.CardView
+            android:id="@+id/profile_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_12sdp"  app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp"  app:cardBackgroundColor="@color/gradient_primary_start">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/_12sdp">  <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/_56sdp"  android:layout_height="@dimen/_56sdp"  android:src="@drawable/logo_doctor_cubes_white"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/white"
+                android:contentDescription="@string/profile_image" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_12sdp">  <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    style="@style/ProfileNameTextStyle"
+                    android:textSize="@dimen/_16sdp"/>  <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_address"
+                    style="@style/ProfileEmailTextStyle"
+                    android:textSize="@dimen/_12sdp"/>  <TextView
+                    android:id="@+id/user_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_status"
+                    style="@style/ProfileStatusTextStyle"
+                    android:textSize="@dimen/_12sdp"/>  </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/account_settings_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_12sdp"  app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp"  app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_12sdp">  <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_settings"
+                    style="@style/CardTitleTextStyle"
+                    android:textSize="@dimen/_18sdp"/>  <LinearLayout
+                    android:id="@+id/profile_settings_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8sdp"  android:layout_marginTop="@dimen/_8sdp"  android:background="@drawable/settings_item_background"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@android:drawable/ic_menu_manage"
+                        app:tint="@color/icon_tint_primary"
+                        android:contentDescription="@string/settings_icon" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/edit_profile_details"
+                        style="@style/SettingsItemTextStyle"
+                        android:textSize="@dimen/_14sdp"/>  <ImageView
+                    android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@drawable/ic_back"
+                    android:rotation="180"
+                    app:tint="@color/icon_tint_secondary"
+                    android:contentDescription="@string/arrow_icon" />
+                </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/notification_settings_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp"  android:layout_marginTop="@dimen/_8sdp"  android:background="@drawable/settings_item_background"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@android:drawable/ic_popup_reminder"
+                            app:tint="@color/icon_tint_primary"
+                            android:contentDescription="@string/settings_icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/notification_preferences"
+                            style="@style/SettingsItemTextStyle"
+                            android:textSize="@dimen/_14sdp"/>  <ImageView
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@drawable/ic_back"
+                        android:rotation="180"
+                        app:tint="@color/icon_tint_secondary"
+                        android:contentDescription="@string/arrow_icon" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_12sdp"  app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp"  app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_12sdp">  <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/support_and_help"
+                    style="@style/CardTitleTextStyle"
+                    android:textSize="@dimen/_18sdp"/>  <LinearLayout
+                    android:id="@+id/about_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_8sdp"  android:layout_marginTop="@dimen/_8sdp"  android:background="@drawable/settings_item_background"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@android:drawable/ic_menu_info_details"
+                        app:tint="@color/icon_tint_primary"
+                        android:contentDescription="@string/support_icon" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/about_doctorcubes"
+                        style="@style/SettingsItemTextStyle"
+                        android:textSize="@dimen/_14sdp"/>  <ImageView
+                    android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@drawable/ic_back"
+                    android:rotation="180"
+                    app:tint="@color/icon_tint_secondary"
+                    android:contentDescription="@string/arrow_icon" />
+                </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/privacy_policy_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp"  android:layout_marginTop="@dimen/_8sdp"  android:background="@drawable/settings_item_background"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@android:drawable/ic_lock_lock"
+                            app:tint="@color/icon_tint_primary"
+                            android:contentDescription="@string/settings_icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/privacy_policy"
+                            style="@style/SettingsItemTextStyle"
+                            android:textSize="@dimen/_14sdp"/>  <ImageView
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@drawable/ic_back"
+                        android:rotation="180"
+                        app:tint="@color/icon_tint_secondary"
+                        android:contentDescription="@string/arrow_icon" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/faq_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_8sdp"  android:layout_marginTop="@dimen/_8sdp"  android:background="@drawable/settings_item_background"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@android:drawable/ic_menu_help"
+                            app:tint="@color/icon_tint_primary"
+                            android:contentDescription="@string/support_icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/frequently_asked_questions"
+                            style="@style/SettingsItemTextStyle"
+                            android:textSize="@dimen/_14sdp"/>  <ImageView
+                        android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:src="@drawable/ic_back"
+                        android:rotation="180"
+                        app:tint="@color/icon_tint_secondary"
+                        android:contentDescription="@string/arrow_icon" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_16sdp"  app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp"  app:cardBackgroundColor="@color/premium_card_bg">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_12sdp">  <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"  android:layout_height="@dimen/_40sdp"  android:src="@android:drawable/ic_dialog_email"
+                        android:background="@drawable/circular_background"
+                        android:padding="@dimen/_8sdp"  app:tint="@color/black"
+                        android:contentDescription="@string/consultation_icon" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/_12sdp">  <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/need_personalized_help"
+                        style="@style/ConsultationTitleTextStyle"
+                        android:textSize="@dimen/_14sdp"/>  <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/schedule_free_consultation"
+                        style="@style/ConsultationDescriptionTextStyle"
+                        android:textSize="@dimen/_12sdp"/>  </LinearLayout>
+                </LinearLayout>
+
+                    <Button
+                        android:id="@+id/schedule_consultation_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"  android:text="@string/schedule_consultation"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/_14sdp"  android:textColor="@color/text_on_primary"
+                        android:backgroundTint="@color/accent_color"
+                        app:cornerRadius="@dimen/_8sdp"  android:layout_marginTop="@dimen/_12sdp"  android:paddingVertical="@dimen/_8sdp"  />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+            <TextView
+                android:id="@+id/appVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_version"
+                style="@style/AppVersionTextStyle"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_16sdp"  android:textSize="@dimen/_12sdp"/>  </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

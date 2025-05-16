@@ -1,0 +1,213 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base Theme for Dark Mode -->
+    <style name="Base.Theme.MedicalConsultancy" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand colors - using adjusted medical blue tones for dark mode -->
+        <item name="colorPrimary">@color/primary_color</item>           <!-- #4DA8DA -->
+        <item name="colorPrimaryVariant">@color/primary_dark_color</item> <!-- #337AB7 -->
+        <item name="colorOnPrimary">@color/white</item>                 <!-- #E6F0FA (softer white) -->
+        <!-- For older API compatibility -->
+        <item name="android:colorPrimary">@color/primary_color</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark_color</item>
+        <item name="android:colorAccent">@color/accent_color</item>     <!-- #FF8C1A -->
+
+        <!-- Secondary colors - warm accent for calls-to-action -->
+        <item name="colorSecondary">@color/accent_color</item>         <!-- #FF8C1A -->
+        <item name="colorSecondaryVariant">@color/accent_dark_color</item> <!-- #FF8C1A -->
+        <item name="colorOnSecondary">@color/text_on_accent</item>     <!-- #E6E6E6 -->
+
+        <!-- Background and surface colors - dark, clinical feel -->
+        <item name="android:windowBackground">@color/background_color</item> <!-- #1A252F -->
+        <item name="colorSurface">@color/card_background</item>        <!-- #2A3E5C -->
+        <item name="colorOnBackground">@color/text_primary_color</item> <!-- #E6E6E6 -->
+        <item name="colorOnSurface">@color/text_primary_color</item>   <!-- #E6E6E6 -->
+
+        <!-- System UI colors -->
+        <item name="android:statusBarColor">@color/primary_dark_color</item> <!-- #337AB7 -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>         <!-- Dark icons on status bar -->
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item> <!-- Dark nav bar icons -->
+
+        <!-- Notification panel colors -->
+        <item name="android:colorEdgeEffect">@color/primary_color</item> <!-- #4DA8DA -->
+        <item name="colorControlActivated">@color/primary_color</item>  <!-- #4DA8DA -->
+
+        <!-- Text colors - improved readability for dark mode -->
+        <item name="android:textColorPrimary">@color/text_primary_color</item> <!-- #E6E6E6 -->
+        <item name="android:textColorSecondary">@color/text_secondary_color</item> <!-- #A3BFFA -->
+        <item name="android:textColor">@color/text_primary_color</item> <!-- #E6E6E6 -->
+        <item name="colorAccent">@color/accent_color</item>            <!-- #FF8C1A -->
+
+        <!-- Button styles - clear hierarchy for important actions -->
+        <item name="buttonStyle">@style/MedicalPrimaryButton</item>
+        <item name="materialButtonStyle">@style/MedicalPrimaryButton</item>
+
+        <!-- Form elements - clean, accessible inputs -->
+        <item name="textInputStyle">@style/MedicalTextInputStyle</item>
+        <item name="checkboxStyle">@style/MedicalCheckboxStyle</item>
+        <item name="switchStyle">@style/MedicalSwitchStyle</item>
+        <item name="sliderStyle">@style/MedicalSliderStyle</item>
+
+        <!-- Tab styling - clear navigation -->
+        <item name="tabTextAppearance">@style/MedicalTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/tab_selected</item>   <!-- #4DA8DA -->
+        <item name="tabIndicatorColor">@color/tab_indicator</item>     <!-- #4DA8DA -->
+        <item name="tabTextColor">@color/tab_unselected</item>         <!-- #8091A5 -->
+
+        <!-- Touch feedback -->
+        <item name="colorControlHighlight">@color/ripple_color</item>  <!-- #33FFFFFF -->
+
+        <!-- Card styling - dark information containers -->
+        <item name="cardViewStyle">@style/MedicalCardStyle</item>
+        <item name="cardBackgroundColor">@color/card_background</item> <!-- #2A3E5C -->
+
+        <!-- Dialog styling -->
+        <item name="alertDialogTheme">@style/MedicalAlertDialogTheme</item>
+    </style>
+
+    <style name="Theme.MedicalConsultancy" parent="Base.Theme.MedicalConsultancy"/>
+
+    <!-- Button Styles -->
+    <style name="MedicalPrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/button_text_primary</item> <!-- #E6F0FA -->
+        <item name="backgroundTint">@color/button_primary</item>        <!-- #4DA8DA -->
+        <item name="android:stateListAnimator">@null</item>
+        <item name="elevation">2dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MedicalSecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/button_text_secondary</item> <!-- #4DA8DA -->
+        <item name="strokeColor">@color/button_outline</item>          <!-- #66B2E6 -->
+        <item name="strokeWidth">1.5dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="elevation">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="MedicalAccentButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/text_on_accent</item>    <!-- #E6E6E6 -->
+        <item name="backgroundTint">@color/button_accent</item>        <!-- #FF8C1A -->
+        <item name="cornerRadius">10dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="elevation">2dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="MedicalCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">3dp</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">@color/card_background</item> <!-- #2A3E5C -->
+        <item name="strokeColor">@color/card_border</item>            <!-- #3D5A80 -->
+        <item name="strokeWidth">0.5dp</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <!-- Premium Card Style for Featured Services -->
+    <style name="MedicalPremiumCardStyle" parent="MedicalCardStyle">
+        <item name="cardBackgroundColor">@color/premium_card_bg</item> <!-- #332E25 -->
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- Text Input Style -->
+    <style name="MedicalTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/input_outline</item>        <!-- #66B2E6 -->
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
+        <item name="hintTextColor">@color/text_tertiary_color</item>   <!-- #A3BFFA -->
+        <item name="errorTextColor">@color/error_color</item>          <!-- #E63946 -->
+        <item name="counterTextColor">@color/text_tertiary_color</item> <!-- #A3BFFA -->
+    </style>
+
+    <!-- Checkbox Style -->
+    <style name="MedicalCheckboxStyle" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/text_primary_color</item> <!-- #E6E6E6 -->
+        <item name="buttonTint">@color/checkbox_tint</item>            <!-- #4DA8DA -->
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Switch Style -->
+    <style name="MedicalSwitchStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="trackTint">@color/switch_track_on</item>          <!-- #336699 -->
+        <item name="thumbTint">@color/switch_thumb_on</item>          <!-- #4DA8DA -->
+    </style>
+
+    <!-- Slider Style -->
+    <style name="MedicalSliderStyle" parent="Widget.MaterialComponents.Slider">
+        <item name="thumbColor">@color/slider_active</item>           <!-- #4DA8DA -->
+        <item name="trackColorActive">@color/slider_active</item>     <!-- #4DA8DA -->
+        <item name="trackColorInactive">@color/slider_inactive</item> <!-- #66B2E6 -->
+        <item name="haloColor">@color/primary_light_color</item>      <!-- #66B2E6 -->
+    </style>
+
+    <!-- Tab Style -->
+    <style name="MedicalTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Dialog Style -->
+    <style name="MedicalAlertDialogTheme" parent="ThemeOverlay.Material3.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/MedicalAlertDialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MedicalAlertDialogButton</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MedicalAlertDialogButton</item>
+        <item name="android:background">@color/card_background</item>  <!-- #2A3E5C -->
+        <item name="android:windowMinWidthMajor">300dp</item>
+        <item name="android:windowMinWidthMinor">300dp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <style name="MedicalAlertDialogButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/text_link</item>         <!-- #4DA8DA -->
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MedicalPrimaryButton2" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/button_text_primary</item> <!-- #E6F0FA -->
+        <item name="backgroundTint">@drawable/button_background</item>  <!-- Assumes dark mode drawable -->
+        <item name="cornerRadius">10dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="elevation">2dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Night mode specific styles -->
+    <style name="ThemeOverlay.MedicalConsultancy.DarkNotificationPanel" parent="">
+        <item name="android:colorPrimaryDark">@color/primary_dark_color</item> <!-- #337AB7 -->
+        <item name="android:colorAccent">@color/accent_color</item>            <!-- #FF8C1A -->
+        <item name="android:textColorPrimary">@color/white</item>              <!-- #E6F0FA -->
+        <item name="android:textColorSecondary">@color/text_secondary_color</item> <!-- #A3BFFA -->
+    </style>
+</resources>

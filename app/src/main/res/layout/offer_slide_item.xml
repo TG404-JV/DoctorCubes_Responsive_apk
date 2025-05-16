@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/card_background">
+
+    <ImageView
+        android:id="@+id/offer_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/offer_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary_color"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/offer_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/text_secondary_color"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_8sdp" />
+</LinearLayout>
