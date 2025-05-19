@@ -4,58 +4,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:background="@color/background_color">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/university_details_bottom_sheet"
+    <FrameLayout
+        android:id="@+id/bottom_sheet_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bottom_sheet_background"
-        app:behavior_hideable="true"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/_16sdp">
+            android:orientation="vertical">
 
-            <!-- Drag Handle -->
+            <!-- Handle/Drag Indicator -->
             <View
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_4sdp"
+                android:layout_width="40dp"
+                android:layout_height="4dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:alpha="0.5"
-                android:background="@color/text_tertiary_color" />
+                android:layout_marginTop="12dp"
+                android:background="@drawable/drag_indicator_bg" />
 
             <!-- Welcome Header -->
             <LinearLayout
                 android:id="@+id/welcome_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/greeting_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Hi there,"
-                    android:textColor="@color/text_primary_color"
-                    android:textSize="@dimen/_18sdp" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="16dp">
 
                 <TextView
                     android:id="@+id/user_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Dr. Username"
-                    android:textColor="@color/primary_dark_color"
-                    android:textSize="24sp"
+                    android:text="Dr. User"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
             <!-- University Card -->
@@ -63,10 +50,10 @@
                 android:id="@+id/university_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_16sdp"
-                app:cardBackgroundColor="@color/card_background"
-                app:cardCornerRadius="@dimen/_12sdp"
-                app:cardElevation="4dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,183 +62,265 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_160sdp">
+                        android:layout_height="wrap_content">
 
                         <ImageView
                             android:id="@+id/university_image"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:contentDescription="University Image"
-                            android:scaleType="centerCrop" />
+                            android:layout_height="170dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/university_campus" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/gradient_overlay" />
+                            android:layout_height="170dp"
+                            android:background="@drawable/image_gradient_overlay" />
 
                         <TextView
-                            android:id="@+id/university_country"
+                            android:id="@+id/university_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="top|end"
-                            android:layout_margin="@dimen/_12sdp"
-                            android:background="@drawable/country_badge_background"
-                            android:paddingStart="@dimen/_12sdp"
-                            android:paddingTop="@dimen/_6sdp"
-                            android:paddingEnd="@dimen/_12sdp"
-                            android:paddingBottom="@dimen/_6sdp"
-                            android:text="Country"
+                            android:layout_gravity="bottom|start"
+                            android:layout_margin="16dp"
+                            android:text="Unknown University"
                             android:textColor="@color/white"
-                            android:textSize="12sp" />
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
                     </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="@dimen/_16sdp">
-
-                        <TextView
-                            android:id="@+id/university_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_8sdp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="University Name"
-                            android:textColor="@color/text_primary_color"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_16sdp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="MBBS Program"
-                            android:textColor="@color/text_secondary_color"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_8sdp"
-                            android:text="Program Highlights"
-                            android:textColor="@color/text_primary_color"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="16dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_16sdp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_location"
+                                app:tint="@color/medical_primary" />
+
+                            <TextView
+                                android:id="@+id/university_country"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_8sdp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    android:layout_height="@dimen/_20sdp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginEnd="@dimen/_8sdp"
-                                    android:src="@drawable/ic_calendar"
-                                    app:tint="@color/icon_tint_primary" />
-
-                                <TextView
-                                    android:id="@+id/program_duration"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="6 years"
-                                    android:textColor="@color/text_secondary_color"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_8sdp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    android:layout_height="@dimen/_20sdp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_marginEnd="@dimen/_8sdp"
-                                    android:src="@drawable/ic_language"
-                                    app:tint="@color/icon_tint_primary" />
-
-                                <TextView
-                                    android:id="@+id/program_medium"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="English Medium"
-                                    android:textColor="@color/text_secondary_color"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
+                                android:layout_marginStart="8dp"
+                                android:text="Unknown"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp" />
                         </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <!-- Progress Bar -->
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:layout_marginBottom="@dimen/_16sdp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_education"
+                                app:tint="@color/medical_primary" />
+
+                            <TextView
+                                android:id="@+id/course_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="MBBS Program"
+                                android:textColor="@color/text_primary"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_time"
+                                app:tint="@color/medical_primary" />
+
+                            <TextView
+                                android:id="@+id/program_duration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="6 Years (5+1)"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_language"
+                                app:tint="@color/medical_primary" />
+
+                            <TextView
+                                android:id="@+id/program_medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="English Medium"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_grade"
+                                app:tint="@color/medical_primary" />
+
+                            <TextView
+                                android:id="@+id/grade"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="Grade: A+"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_ranking"
+                                app:tint="@color/medical_primary" />
+
+                            <TextView
+                                android:id="@+id/ranking"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="World Ranking: 350"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_scholarship"
+                                app:tint="@color/medical_primary" />
+
+                            <TextView
+                                android:id="@+id/scholarship"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="Scholarship Available"
+                                android:textColor="@color/medical_accent"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <!-- Application Message -->
             <TextView
                 android:id="@+id/application_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_24sdp"
-                android:text="Would you like to apply to this university? Our consultants will guide you through the entire process."
-                android:textColor="@color/text_primary_color"
-                android:textSize="16sp" />
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                android:text="Ready to begin your medical journey abroad?"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textAlignment="center" />
 
             <!-- Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="24dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/apply_button"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_48sdp"
-                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_height="56dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/button_accent"
                     android:text="Apply Now"
                     android:textAllCaps="false"
+                    android:layout_marginEnd="8dp"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:cornerRadius="@dimen/_28sdp"
-                    app:rippleColor="@color/button_accent_pressed" />
+                    android:backgroundTint="@color/medical_primary"
+                    app:cornerRadius="8dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/whatsapp_button"
-                    android:layout_width="@dimen/_48sdp"
-                    android:layout_height="@dimen/_48sdp"
-                    android:backgroundTint="@color/whatsapp_button_color"
-                    app:cornerRadius="@dimen/_28sdp"
-                    app:icon="@drawable/ic_whatsapp"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconTint="@color/white"
-                    app:rippleColor="@color/ripple_effect" />
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:text="WhatsApp"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/medical_secondary"
+                    app:cornerRadius="8dp"
+                    android:textColor="@color/text_primary_color"
+                    app:strokeColor="@color/whatsapp_button_color"
+                    app:strokeWidth="1dp" />
+
             </LinearLayout>
+
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
-    <!-- Close Button -->
+    </FrameLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/medical_primary"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

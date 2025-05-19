@@ -1,345 +1,67 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <HorizontalScrollView
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/country_card"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingStart="@dimen/_8sdp"
-        android:paddingEnd="@dimen/_8sdp"
-        android:scrollbars="none">
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/country_flag"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/country_russia_card"
-                style="@style/CountryCardView"
-                android:layout_marginStart="@dimen/_5sdp">
+            <TextView
+                android:id="@+id/country_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+            <TextView
+                android:id="@+id/university_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/flag_russia" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_12sdp">
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_star"
+                    app:tint="@color/yellow" />
 
-                        <TextView
-                            style="@style/CountryNameTextView"
-                            android:textSize="@dimen/_16sdp"
-                            android:text="@string/russia" />
-
-                        <TextView
-                            style="@style/UniversityCountTextView"
-                            android:textSize="@dimen/_12sdp"
-                            android:text="@string/_60_universities" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12sdp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                style="@style/RankingIconImageView"
-                                android:layout_width="@dimen/_16sdp"
-                                android:layout_height="@dimen/_16sdp" />
-
-                            <TextView
-                                style="@style/RankingTextView"
-                                android:textSize="@dimen/_14sdp"
-                                android:text="4.5" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/country_georgia_card"
-                style="@style/CountryCardView">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/flag_georgia" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_12sdp">
-
-                        <TextView
-                            style="@style/CountryNameTextView"
-                            android:textSize="@dimen/_16sdp"
-                            android:text="@string/georgia" />
-
-                        <TextView
-                            style="@style/UniversityCountTextView"
-                            android:textSize="@dimen/_12sdp"
-                            android:text="@string/_15_universities" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12sdp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                style="@style/RankingIconImageView"
-                                android:layout_width="@dimen/_16sdp"
-                                android:layout_height="@dimen/_16sdp" />
-
-                            <TextView
-                                style="@style/RankingTextView"
-                                android:textSize="@dimen/_14sdp"
-                                android:text="4.3" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/country_kazakhstan_card"
-                style="@style/CountryCardView">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/flag_kazakhstan" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_12sdp">
-
-                        <TextView
-                            style="@style/CountryNameTextView"
-                            android:textSize="@dimen/_16sdp"
-                            android:text="@string/kazakhstan" />
-
-                        <TextView
-                            style="@style/UniversityCountTextView"
-                            android:textSize="@dimen/_12sdp"
-                            android:text="@string/_20_universities" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12sdp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                style="@style/RankingIconImageView"
-                                android:layout_width="@dimen/_16sdp"
-                                android:layout_height="@dimen/_16sdp" />
-
-                            <TextView
-                                style="@style/RankingTextView"
-                                android:textSize="@dimen/_14sdp"
-                                android:text="4.2" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/country_nepal_card"
-                style="@style/CountryCardView">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/flag_nepal" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_12sdp">
-
-                        <TextView
-                            style="@style/CountryNameTextView"
-                            android:textSize="@dimen/_16sdp"
-                            android:text="@string/nepal" />
-
-                        <TextView
-                            style="@style/UniversityCountTextView"
-                            android:textSize="@dimen/_12sdp"
-                            android:text="@string/_10_universities" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12sdp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                style="@style/RankingIconImageView"
-                                android:layout_width="@dimen/_16sdp"
-                                android:layout_height="@dimen/_16sdp" />
-
-                            <TextView
-                                style="@style/RankingTextView"
-                                android:textSize="@dimen/_14sdp"
-                                android:text="4.0" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/country_china_card"
-                style="@style/CountryCardView">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/flag_china" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_12sdp">
-
-                        <TextView
-                            style="@style/CountryNameTextView"
-                            android:textSize="@dimen/_16sdp"
-                            android:text="@string/china" />
-
-                        <TextView
-                            style="@style/UniversityCountTextView"
-                            android:textSize="@dimen/_12sdp"
-                            android:text="@string/_45_universities" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12sdp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                style="@style/RankingIconImageView"
-                                android:layout_width="@dimen/_16sdp"
-                                android:layout_height="@dimen/_16sdp" />
-
-                            <TextView
-                                style="@style/RankingTextView"
-                                android:textSize="@dimen/_14sdp"
-                                android:text="4.4" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/country_uzbekistan_card"
-                style="@style/CountryCardView">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/flag_uzbekistan" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_12sdp">
-
-                        <TextView
-                            style="@style/CountryNameTextView"
-                            android:textSize="@dimen/_16sdp"
-                            android:text="@string/uzbekistan" />
-
-                        <TextView
-                            style="@style/UniversityCountTextView"
-                            android:textSize="@dimen/_12sdp"
-                            android:text="@string/_12_universities" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12sdp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                style="@style/RankingIconImageView"
-                                android:layout_width="@dimen/_16sdp"
-                                android:layout_height="@dimen/_16sdp" />
-
-                            <TextView
-                                style="@style/RankingTextView"
-                                android:textSize="@dimen/_14sdp"
-                                android:text="4.1" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/country_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
         </LinearLayout>
-    </HorizontalScrollView>
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

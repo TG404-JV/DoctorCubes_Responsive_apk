@@ -19,7 +19,6 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,6 +47,10 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
     private TextView universityCountryTextView;
     private TextView programDurationTextView;
     private TextView programMediumTextView;
+    private TextView gradeTextView;
+    private TextView rankingTextView;
+    private TextView scholarshipTextView;
+    private TextView courseNameTextView;
     private MaterialButton applyButton;
     private MaterialButton whatsappButton;
     private ProgressBar progressBar;
@@ -55,16 +58,7 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
-    public static UniversityDetailsBottomSheet newInstance(int universityImage, String universityName, String country) {
-        UniversityDetailsBottomSheet fragment = new UniversityDetailsBottomSheet();
-        Bundle args = new Bundle();
-        args.putInt("universityImage", universityImage);
-        args.putString("universityName", universityName);
-        args.putString("country", country);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private University university;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +66,18 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
         db = FirebaseFirestore.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         sharedPreferencesManager = new EncryptedSharedPreferencesManager(requireContext());
+
+        // Retrieve University object from arguments
+        Bundle args = getArguments();
+        if (args != null) {
+            university = (University) args.getSerializable("UNIVERSITY");
+            String universityId = args.getString("universityId");
+            if (university == null || universityId == null) {
+                Log.w("UniversityDetails", "Missing UNIVERSITY or universityId in arguments");
+            }
+        } else {
+            Log.w("UniversityDetails", "Arguments are null");
+        }
     }
 
     @Nullable
@@ -92,41 +98,46 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
         universityCountryTextView = view.findViewById(R.id.university_country);
         programDurationTextView = view.findViewById(R.id.program_duration);
         programMediumTextView = view.findViewById(R.id.program_medium);
+        gradeTextView = view.findViewById(R.id.grade);
+        rankingTextView = view.findViewById(R.id.ranking);
+        scholarshipTextView = view.findViewById(R.id.scholarship);
+        courseNameTextView = view.findViewById(R.id.course_name);
         applyButton = view.findViewById(R.id.apply_button);
         whatsappButton = view.findViewById(R.id.whatsapp_button);
         progressBar = view.findViewById(R.id.progress_bar);
 
         // Setup bottom sheet behavior
-        View bottomSheet = view.findViewById(R.id.university_details_bottom_sheet);
+        View bottomSheet = view.findViewById(R.id.bottom_sheet_content);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         bottomSheetBehavior.setDraggable(true);
         bottomSheetBehavior.setFitToContents(true);
 
-        // Close button
-
         // Populate data
         String fullName = sharedPreferencesManager.getString("name", "User");
-        Bundle args = getArguments();
-        if (args != null) {
-            int universityImage = args.getInt("universityImage", R.drawable.icon_university);
-            String universityName = args.getString("universityName", "Unknown University");
-            String country = args.getString("country", "Unknown");
+        userNameTextView.setText("Dr. " + fullName);
 
-            userNameTextView.setText("Dr. " + fullName);
-            universityNameTextView.setText(universityName);
-            universityImageView.setImageResource(universityImage);
-            universityCountryTextView.setText(country);
-            programDurationTextView.setText("6 Years"); // Replace with dynamic data if available
-            programMediumTextView.setText("English"); // Replace with dynamic data if available
+        if (university != null) {
+            universityNameTextView.setText(university.getName());
+            universityImageView.setImageResource(university.getBannerResourceId());
+            universityCountryTextView.setText(university.getCountry());
+            programDurationTextView.setText(university.getDuration());
+            programMediumTextView.setText(university.getLanguage());
+            gradeTextView.setText(university.getGrade());
+            rankingTextView.setText(university.getRanking());
+            scholarshipTextView.setText(university.getScholarshipInfo());
+            courseNameTextView.setText(university.getCourseName());
         } else {
-            Log.w("UniversityDetails", "Arguments are null, using defaults");
-            userNameTextView.setText("Dr. " + fullName);
+            Log.w("UniversityDetails", "University object is null, using defaults");
             universityNameTextView.setText("Unknown University");
-            universityImageView.setImageResource(new University().getBannerResourceId());
+            universityImageView.setImageResource(R.drawable.university_campus);
             universityCountryTextView.setText("Unknown");
             programDurationTextView.setText("N/A");
             programMediumTextView.setText("N/A");
+            gradeTextView.setText("N/A");
+            rankingTextView.setText("N/A");
+            scholarshipTextView.setText("N/A");
+            courseNameTextView.setText("N/A");
         }
 
         // Setup buttons
@@ -213,7 +224,7 @@ public class UniversityDetailsBottomSheet extends BottomSheetDialogFragment {
 
     private void setupButtons() {
         applyButton.setOnClickListener(v -> {
-            String universityName = universityNameTextView.getText().toString();
+            String universityName = university != null ? university.getName() : universityNameTextView.getText().toString();
             if (!universityName.isEmpty()) {
                 checkAndAddUniversityApplication(universityName);
             } else {

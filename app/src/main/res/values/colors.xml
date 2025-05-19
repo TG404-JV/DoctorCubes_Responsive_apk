@@ -168,21 +168,33 @@
     <color name="whatsapp_gradient_end">#C8E6C9</color>
 
     <!-- Text colors -->
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
     <color name="text_tertiary_color">#9E9E9E</color>
 
     <!-- UI element colors -->
-    <color name="white">#FFFFFF</color>
     <color name="surface_variant">#F5F5F5</color>
     <color name="card_border">#E0E0E0</color>
-    <color name="divider_color">#EEEEEE</color>
     <color name="ripple_color">#1F000000</color>
 
     <!-- Legacy support colors (kept for backward compatibility) -->
     <color name="call_button_color">#1565C0</color>
     <color name="whatsapp_button_color">#1B5E20</color>
+    <color name="yellow">#FFEB3B</color>
 
+    <color name="background_white">#FAFAFA</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Medical Theme Colors -->
+    <color name="medical_primary">#1E88E5</color>       <!-- Medical Blue -->
+    <color name="medical_primary_dark">#1565C0</color>  <!-- Darker Blue -->
+    <color name="medical_secondary">#FFFFFF</color>     <!-- White for secondary elements -->
+    <color name="medical_accent">#43A047</color>        <!-- Scholarship Green -->
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>          <!-- Almost Black for primary text -->
+    <color name="text_secondary">#5F6368</color>        <!-- Dark Gray for secondary text -->
+
+    <!-- Status/Background Colors -->
+    <color name="divider_color">#E0E0E0</color>
 
     <color name="card_stroke">#E0E0E0</color>
     <color name="settings_item_bg">#F5F5F5</color>

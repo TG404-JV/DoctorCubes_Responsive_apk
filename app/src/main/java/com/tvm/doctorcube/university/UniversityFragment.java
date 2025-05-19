@@ -3,6 +3,7 @@ package com.tvm.doctorcube.university;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +19,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.button.MaterialButton;
 import com.tvm.doctorcube.R;
 import com.tvm.doctorcube.university.adapter.UniversityAdapter;
 import com.tvm.doctorcube.university.model.University;
 import com.tvm.doctorcube.university.model.UniversityData;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class UniversityFragment extends Fragment {
     private AppBarLayout appBarLayout;
     private ProgressBar progressBar;
     private NavController navController;
-    private String countryFilter;
+    private String countryFilter = "All";
     private String selectedFilter = "None";
     private ImageButton backBtn;
 
@@ -66,7 +66,8 @@ public class UniversityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            countryFilter = getArguments().getString(ARG_COUNTRY_NAME, "All");
+            String country = getArguments().getString(ARG_COUNTRY_NAME, "All");
+            countryFilter = country != null && !country.isEmpty() ? country : "All";
         }
     }
 
@@ -93,7 +94,7 @@ public class UniversityFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         backBtn = view.findViewById(R.id.backBtn);
 
-        navController= NavHostFragment.findNavController(this);
+        navController = NavHostFragment.findNavController(this);
 
         // Set country title
         if (countryNameTitle != null) {
@@ -101,9 +102,10 @@ public class UniversityFragment extends Fragment {
         }
 
         // Verify critical components
-        if (filterBtn == null || filterSpinner == null) {
+      /*  if (filterBtn == null || filterSpinner == unimportant) {
+            Log.e("UniversityFragment", "Critical UI components missing");
             return;
-        }
+        }*/
 
         // Show loading state
         if (progressBar != null) {
@@ -126,25 +128,32 @@ public class UniversityFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         universities = new ArrayList<>();
-        adapter = new UniversityAdapter(requireContext(), universities, this::navigateToUniversityDetails,navController);
+        adapter = new UniversityAdapter(requireContext(), universities, this::navigateToUniversityDetails, navController);
         recyclerView.setAdapter(adapter);
     }
 
     private void navigateToUniversityDetails(University university) {
-        NavController navController = Navigation.findNavController(requireView());
-        Bundle args = new Bundle();
-        args.putSerializable("UNIVERSITY", university);
-        navController.navigate(R.id.action_universityFragment_to_universityDetailsFragment, args);
+        if (university == null) {
+            Log.e("UniversityFragment", "Attempted to navigate with null university");
+            return;
+        }
+        try {
+            Bundle args = new Bundle();
+            args.putSerializable("UNIVERSITY", university);
+            args.putString("universityId", university.getId());
+            navController.navigate(R.id.action_universityFragment_to_universityDetailsFragment, args);
+        } catch (Exception e) {
+            Log.e("UniversityFragment", "Navigation failed for " + university.getName(), e);
+        }
     }
 
     private void setupFilterSpinner() {
         String[] filterOptions = {"None", "Top Ranked", "Sort A-Z", "Sort Z-A", "Sort Grade"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, filterOptions);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterSpinner.setAdapter(adapter);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, filterOptions);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterSpinner.setAdapter(spinnerAdapter);
 
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -176,6 +185,7 @@ public class UniversityFragment extends Fragment {
                 if (adapter != null) {
                     adapter.filterByName(s.toString());
                     updateNoUniversitiesView();
+                    updateStats();
                 }
             }
         });
@@ -195,13 +205,17 @@ public class UniversityFragment extends Fragment {
             searchEditText.setText("");
             filterByCountry();
             filterSpinner.setVisibility(View.GONE);
+            updateStats();
         });
     }
 
     private void setupBackButton() {
         backBtn.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(requireView());
-            navController.navigateUp();
+            try {
+                navController.navigateUp();
+            } catch (Exception e) {
+                Log.e("UniversityFragment", "Back navigation failed", e);
+            }
         });
     }
 
@@ -212,10 +226,10 @@ public class UniversityFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
             recyclerView.setVisibility(View.VISIBLE);
-            adapter.updateData(universities);
             filterByCountry();
+            Log.d("UniversityFragment", "Loaded " + universities.size() + " universities for " + countryFilter);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("UniversityFragment", "Error loading university data", e);
             if (progressBar != null) {
                 progressBar.setVisibility(View.GONE);
             }
@@ -223,17 +237,18 @@ public class UniversityFragment extends Fragment {
             universities = new ArrayList<>();
             adapter.updateData(universities);
             updateNoUniversitiesView();
+            updateStats();
         }
     }
 
     private void filterByCountry() {
-        List<University> filtered;
-        if (countryFilter.equals("All")) {
-            filtered = universities;
+        List<University> filtered = new ArrayList<>();
+        if (countryFilter.equals("All") || countryFilter.isEmpty()) {
+            filtered.addAll(universities);
         } else {
-            filtered = universities.stream()
+            filtered.addAll(universities.stream()
                     .filter(u -> u.getCountry() != null && u.getCountry().equalsIgnoreCase(countryFilter))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList()));
         }
         adapter.updateData(filtered);
         updateStats();
@@ -243,7 +258,7 @@ public class UniversityFragment extends Fragment {
     private void applyFilters() {
         List<University> filteredUniversities = new ArrayList<>(universities);
 
-        if (!countryFilter.equals("All")) {
+        if (!countryFilter.equals("All") && !countryFilter.isEmpty()) {
             filteredUniversities = filteredUniversities.stream()
                     .filter(u -> u.getCountry() != null && u.getCountry().equalsIgnoreCase(countryFilter))
                     .collect(Collectors.toList());
@@ -253,23 +268,24 @@ public class UniversityFragment extends Fragment {
             switch (selectedFilter.toLowerCase()) {
                 case "top ranked":
                     filteredUniversities = filteredUniversities.stream()
-                            .filter(u -> u.getRanking() != null && u.getRanking().contains("Top"))
+                            .filter(u -> u.getRanking() != null && u.getRanking().toLowerCase().contains("top"))
                             .collect(Collectors.toList());
                     break;
                 case "sort a-z":
-                    filteredUniversities.sort((u1, u2) -> u1.getName().compareToIgnoreCase(u2.getName()));
-                    break;
+                    adapter.sortByName(true);
+                    updateStats();
+                    updateNoUniversitiesView();
+                    return;
                 case "sort z-a":
-                    filteredUniversities.sort((u1, u2) -> u2.getName().compareToIgnoreCase(u1.getName()));
-                    break;
+                    adapter.sortByName(false);
+                    updateStats();
+                    updateNoUniversitiesView();
+                    return;
                 case "sort grade":
-                    filteredUniversities.sort((u1, u2) -> {
-                        if (u1.getGrade() == null || u2.getGrade() == null) {
-                            return 0;
-                        }
-                        return u1.getGrade().compareToIgnoreCase(u2.getGrade());
-                    });
-                    break;
+                    adapter.sortByGrade(true);
+                    updateStats();
+                    updateNoUniversitiesView();
+                    return;
             }
         }
         adapter.updateData(filteredUniversities);
@@ -284,8 +300,8 @@ public class UniversityFragment extends Fragment {
             return;
         }
         int totalCount = adapter.getItemCount();
-        int topRanked = (int) universities.stream()
-                .filter(u -> u.getRanking() != null && u.getRanking().contains("Top"))
+        long topRanked = universities.stream()
+                .filter(u -> u.getRanking() != null && u.getRanking().toLowerCase().contains("top"))
                 .count();
         universityCount.setText(String.valueOf(totalCount));
         topRankedCount.setText(String.valueOf(topRanked));

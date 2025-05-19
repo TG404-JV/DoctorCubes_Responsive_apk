@@ -1,127 +1,163 @@
 package com.tvm.doctorcube.university.model;
 
 import android.content.Context;
-import android.content.res.AssetManager;
+import android.util.Log;
 
 import com.tvm.doctorcube.R;
+import com.tvm.doctorcube.home.model.Country;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class UniversityData {
-    private static List<University> universities = null;
-    private static final Map<String, Integer> FLAG_RESOURCE_MAP = new HashMap<>();
 
-    static {
-        FLAG_RESOURCE_MAP.put("China", R.drawable.flag_china);
-        FLAG_RESOURCE_MAP.put("Russia", R.drawable.flag_russia);
-        FLAG_RESOURCE_MAP.put("Georgia", R.drawable.flag_georgia);
-        FLAG_RESOURCE_MAP.put("Kazakhstan", R.drawable.flag_kazakhstan);
-        FLAG_RESOURCE_MAP.put("Nepal", R.drawable.flag_nepal);
-        FLAG_RESOURCE_MAP.put("Uzbekistan", R.drawable.flag_uzbekistan);
-        // Add more as needed
-    }
-
-    public static synchronized List<University> getUniversities(Context context) {
-        if (universities == null) {
-            universities = loadUniversitiesFromJson(context);
-        }
-        return new ArrayList<>(universities);
-    }
-
-    private static List<University> loadUniversitiesFromJson(Context context) {
+    public static List<University> getUniversities(Context context) {
+        List<University> universities = new ArrayList<>();
         try {
-            String jsonString = readJsonFromAssets(context, "universities.json");
-            if (jsonString == null) {
-                return new ArrayList<>();
-            }
+            // Read JSON file
+            InputStream is = context.getResources().openRawResource(R.raw.universities);
+            byte[] buffer = new byte[is.available()];
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, "UTF-8");
 
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONObject countriesObject = jsonObject.getJSONObject("countries");
-            List<University> universityList = new ArrayList<>();
+            // Parse JSON
+            JSONObject jsonObject = new JSONObject(json);
+            JSONObject countries = jsonObject.getJSONObject("countries");
 
-            // Use keys() to get an Iterator<String> for the country keys
-            Iterator<String> countryIterator = countriesObject.keys();
-            while (countryIterator.hasNext()) {
-                String country = countryIterator.next();
-                JSONArray universitiesArray = countriesObject.getJSONArray(country);
-                for (int i = 0; i < universitiesArray.length(); i++) {
-                    JSONObject uniJson = universitiesArray.getJSONObject(i);
+            // Iterate through countries
+            String[] countryNames = {"Russia", "Uzbekistan", "Georgia", "China", "Kazakhstan"};
+            for (String country : countryNames) {
+                if (countries.has(country)) {
+                    JSONArray uniArray = countries.getJSONArray(country);
+                    for (int i = 0; i < uniArray.length(); i++) {
+                        JSONObject uni = uniArray.getJSONObject(i);
+                        try {
+                            String id = uni.getString("name").toLowerCase().replace(" ", "_") + "_" + country.toLowerCase();
+                            String name = uni.optString("name", "Unknown University");
+                            String city = uni.optString("city", "Unknown City");
+                            String program = uni.optString("program", "General Medicine (MBBS)");
+                            String degree = uni.optString("degree", "MBBS");
+                            String duration = uni.optString("duration", "Unknown");
+                            String rating = uni.optString("rating", "N/A");
+                            String intake = uni.optString("intake", "September");
+                            String medium = uni.optString("medium", "English");
+                            String type = uni.optString("type", "Public");
+                            String imageResourceId = uni.optString("imageResourceId", "university_campus");
+                            String logoResourceId = uni.optString("logoResourceId", "university_campus");
+                            String worldRanking = uni.optString("worldRanking", "N/A");
+                            String scholarship = uni.optString("scholarship", "Not Available");
+                            String description = uni.optString("description", "No description available.");
+                            String established = uni.optString("established", "N/A");
+                            String detailedRanking = uni.optString("ranking", "N/A");
+                            String address = uni.optString("address", "N/A");
+                            String phone = uni.optString("phone", "N/A");
+                            String email = uni.optString("email", "N/A");
+                            String admissionRequirements = uni.optString("admissionRequirements", "N/A");
 
-                    University university = new University();
-                    university.setId(country.toLowerCase() + "_" + uniJson.optString("name", "").replace(" ", "_").toLowerCase());
-                    university.setName(uniJson.optString("name", ""));
-                    university.setCity(uniJson.optString("city", ""));
-                    university.setCountry(country);
-                    int imageResId = getDrawableResourceId(context, uniJson.optString("imageResourceId", ""));
-                    university.setLogoResourceId(imageResId);
-                    university.setBannerResourceId(imageResId); // Use same image for simplicity
-                    university.setFlagResourceId(FLAG_RESOURCE_MAP.getOrDefault(country, R.drawable.icon_university));
-                    university.setDescription(uniJson.optString("description", ""));
-                    university.setEstablished(uniJson.optString("established", ""));
-                    university.setRanking(uniJson.optString("ranking", ""));
-                    university.setGrade(uniJson.optString("rating", ""));
-                    university.setAddress(uniJson.optString("address", ""));
-                    university.setPhone(uniJson.optString("phone", ""));
-                    university.setEmail(uniJson.optString("email", ""));
-                    university.setAdmissionRequirements(uniJson.optString("admissionRequirements", ""));
-                    university.setCourseName(uniJson.optString("program", ""));
-                    university.setDegreeType(uniJson.optString("degree", ""));
-                    university.setDuration(uniJson.optString("duration", ""));
-                    university.setIntake(uniJson.optString("intake", ""));
-                    university.setLanguage(uniJson.optString("medium", ""));
-                    university.setUniversityType(uniJson.optString("type", ""));
-                    university.setWorldRanking(uniJson.optString("worldRanking", ""));
-                    university.setScholarshipInfo(uniJson.optString("scholarship", ""));
-                    university.setField("Medicine"); // Default, as not in JSON
-
-                    universityList.add(university);
+                            University university = new University(
+                                    id,
+                                    name,
+                                    city,
+                                    country,
+                                    program,
+                                    degree,
+                                    duration,
+                                    rating,
+                                    intake,
+                                    medium,
+                                    type,
+                                    getDrawableResourceId(context, imageResourceId),
+                                    getDrawableResourceId(context, logoResourceId),
+                                    getDrawableResourceId(context, "flag_" + country.toLowerCase()),
+                                    "Medical",
+                                    worldRanking,
+                                    scholarship
+                            );
+                            university.setDescription(description);
+                            university.setEstablished(established);
+                            university.setDetailedRanking(detailedRanking);
+                            university.setAddress(address);
+                            university.setPhone(phone);
+                            university.setEmail(email);
+                            university.setAdmissionRequirements(admissionRequirements);
+                            universities.add(university);
+                        } catch (Exception e) {
+                            Log.e("UniversityData", "Error parsing university in " + country + ": " + uni.toString(), e);
+                        }
+                    }
+                } else {
+                    Log.w("UniversityData", "Country not found in JSON: " + country);
                 }
             }
-
-            return universityList;
         } catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
+            Log.e("UniversityData", "Error loading universities", e);
         }
+        Log.d("UniversityData", "Loaded " + universities.size() + " universities");
+        return universities;
     }
-    private static String readJsonFromAssets(Context context, String fileName) {
-        try {
-            AssetManager assetManager = context.getAssets();
-            InputStream inputStream = assetManager.open(fileName);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
+
+    public static List<Country> getCountries(Context context) {
+        List<University> allUniversities = getUniversities(context);
+        Map<String, List<University>> countryMap = new HashMap<>();
+        for (University university : allUniversities) {
+            String countryName = university.getCountry();
+            if (countryName != null && !countryName.isEmpty()) {
+                countryMap.computeIfAbsent(countryName, k -> new ArrayList<>()).add(university);
             }
-            reader.close();
-            inputStream.close();
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
+
+        List<Country> countries = new ArrayList<>();
+        int[] flagResources = {
+                R.drawable.flag_russia, R.drawable.flag_uzbekistan, R.drawable.flag_georgia,
+                R.drawable.flag_china, R.drawable.flag_kazakhstan
+        };
+        String[] countryNames = {"Russia", "Uzbekistan", "Georgia", "China", "Kazakhstan"};
+
+        for (int i = 0; i < countryNames.length; i++) {
+            String countryName = countryNames[i];
+            List<University> unis = countryMap.getOrDefault(countryName, new ArrayList<>());
+            if (!unis.isEmpty()) {
+                float averageRating = calculateAverageRating(unis);
+                countries.add(new Country(countryName, unis, averageRating, flagResources[i]));
+            }
+        }
+        Log.d("UniversityData", "Loaded " + countries.size() + " countries");
+        return countries;
     }
 
-    private static int getDrawableResourceId(Context context, String imageResourceId) {
-        if (imageResourceId.isEmpty()) {
-            return R.drawable.icon_university;
+    private static float calculateAverageRating(List<University> universities) {
+        if (universities.isEmpty()) return 0f;
+        float total = 0f;
+        Map<String, Float> ratingMap = new HashMap<>();
+        ratingMap.put("A+", 4.3f); ratingMap.put("A", 4.0f); ratingMap.put("A-", 3.7f);
+        ratingMap.put("B+", 3.3f); ratingMap.put("B", 3.0f); ratingMap.put("B-", 2.7f);
+        ratingMap.put("C+", 2.3f); ratingMap.put("C", 2.0f); ratingMap.put("C-", 1.7f);
+        ratingMap.put("D", 1.0f); ratingMap.put("F", 0.0f);
+
+        for (University university : universities) {
+            total += ratingMap.getOrDefault(university.getGrade(), 0f);
         }
+        return total / universities.size();
+    }
+
+    private static int getDrawableResourceId(Context context, String name) {
         try {
-            return context.getResources().getIdentifier(imageResourceId, "drawable", context.getPackageName());
+            int resId = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
+            if (resId == 0) {
+                Log.w("UniversityData", "Drawable not found: " + name);
+                return R.drawable.university_campus;
+            }
+            return resId;
         } catch (Exception e) {
-            e.printStackTrace();
-            return R.drawable.icon_university;
+            Log.e("UniversityData", "Error getting drawable: " + name, e);
+            return R.drawable.university_campus;
         }
     }
 }

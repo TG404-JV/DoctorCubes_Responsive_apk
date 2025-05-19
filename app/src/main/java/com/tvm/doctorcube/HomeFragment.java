@@ -35,8 +35,10 @@ import com.tvm.doctorcube.home.adapter.FeaturesAdapter;
 import com.tvm.doctorcube.home.adapter.TestimonialsSliderAdapter;
 import com.tvm.doctorcube.home.adapter.UniversityListAdapter;
 import com.tvm.doctorcube.home.adapter.UpcomingEventAdapter;
+import com.tvm.doctorcube.home.adapter.CountryAdapter;
 import com.tvm.doctorcube.home.data.FeatureData;
 import com.tvm.doctorcube.home.data.Testimonial;
+import com.tvm.doctorcube.home.model.Country;
 import com.tvm.doctorcube.home.model.Feature;
 import com.tvm.doctorcube.home.model.UpcomingEvent;
 import com.tvm.doctorcube.university.model.University;
@@ -46,12 +48,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureClickListener, UpcomingEventAdapter.OnItemClickListener {
+public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureClickListener, UpcomingEventAdapter.OnItemClickListener, CountryAdapter.OnCountryClickListener {
 
-    private RecyclerView featuresRecyclerView, universitiesRecyclerView, recyclerView;
+    private RecyclerView featuresRecyclerView, universitiesRecyclerView, recyclerView, countryRecyclerView;
     private FeaturesAdapter featuresAdapter;
     private UniversityListAdapter universityListAdapter;
     private UpcomingEventAdapter eventAdapter;
+    private CountryAdapter countryAdapter;
     private ViewPager2 testimonialsViewPager;
     private TestimonialsSliderAdapter testimonialsAdapter;
     private Handler sliderHandler = new Handler();
@@ -108,7 +111,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         setupFeaturesRecyclerView(view);
         setupUniversitiesRecyclerView(view);
         setupTestimonialsSlider(view);
-        setupCountrySelectionListeners(view);
+        setupCountryRecyclerView(view);
         setupSearchBar();
         setupCategoryButtons();
         setupEventListeners();
@@ -178,6 +181,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     private void navigateToUniversityDetails(University university) {
         Bundle args = new Bundle();
         args.putSerializable("UNIVERSITY", university);
+        args.putString("universityId", university.getId());
         navController.navigate(R.id.action_homeFragment_to_universityDetailsFragment, args);
     }
 
@@ -214,31 +218,19 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         });
     }
 
-    private void setupCountrySelectionListeners(View view) {
-        CardView russiaLayout = view.findViewById(R.id.country_russia_card);
-        CardView georgiaLayout = view.findViewById(R.id.country_georgia_card);
-        CardView kazakhstanLayout = view.findViewById(R.id.country_kazakhstan_card);
-        CardView nepalLayout = view.findViewById(R.id.country_nepal_card);
-        CardView chinaLayout = view.findViewById(R.id.country_china_card);
-        CardView uzbekistanLayout = view.findViewById(R.id.country_uzbekistan_card);
-
-        if (russiaLayout != null)
-            russiaLayout.setOnClickListener(v -> navigateToUniversities("Russia"));
-        if (georgiaLayout != null)
-            georgiaLayout.setOnClickListener(v -> navigateToUniversities("Georgia"));
-        if (kazakhstanLayout != null)
-            kazakhstanLayout.setOnClickListener(v -> navigateToUniversities("Kazakhstan"));
-        if (nepalLayout != null)
-            nepalLayout.setOnClickListener(v -> navigateToUniversities("Nepal"));
-        if (chinaLayout != null)
-            chinaLayout.setOnClickListener(v -> navigateToUniversities("China"));
-        if (uzbekistanLayout != null)
-            uzbekistanLayout.setOnClickListener(v -> navigateToUniversities("Uzbekistan"));
+    private void setupCountryRecyclerView(View view) {
+        countryRecyclerView = view.findViewById(R.id.country_recycler_view);
+        if (countryRecyclerView == null) return;
+        countryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        List<Country> countries = UniversityData.getCountries(requireContext());
+        countryAdapter = new CountryAdapter(countries, this);
+        countryRecyclerView.setAdapter(countryAdapter);
     }
 
-    private void navigateToUniversities(String country) {
+    @Override
+    public void onCountryClick(Country country) {
         Bundle args = new Bundle();
-        args.putString("COUNTRY_NAME", country);
+        args.putString("COUNTRY_NAME", country.getName());
         navController.navigate(R.id.action_homeFragment_to_universityFragment, args);
     }
 
@@ -335,7 +327,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         switch (item.getType()) {
             case "University":
                 University university = (University) item.getData();
-                navigateToUniversities(university.getCountry());
+                navigateToUniversityDetails(university);
                 break;
             case "Event":
                 recyclerView.smoothScrollToPosition(item.getSectionPosition());
@@ -368,7 +360,9 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         }
 
         if (universityButton != null) {
-            universityButton.setOnClickListener(v -> navigateToUniversities("All"));
+            universityButton.setOnClickListener(v -> {
+                navController.navigate(R.id.action_homeFragment_to_universityFragment);
+            });
         }
     }
 
@@ -394,7 +388,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         if (getActivity() == null) return;
 
         Bundle args = new Bundle();
-        args.putSerializable("FEATURE",  feature);
+        args.putSerializable("FEATURE", feature);
         navController.navigate(R.id.action_homeFragment_to_featuresFragment, args);
     }
 
@@ -426,6 +420,8 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
             sliderHandler = null;
         }
     }
+
+
 
     public static class SearchItem {
         private String title;

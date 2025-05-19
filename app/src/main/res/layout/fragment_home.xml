@@ -228,12 +228,16 @@
                     style="@style/MedicalSectionTitle"
                     android:text="@string/countries_to_study" />
 
-                <include
-                    layout="@layout/item_country_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/country_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
-
             <LinearLayout
                 style="@style/MedicalSectionContainer"
                 android:layout_width="match_parent"

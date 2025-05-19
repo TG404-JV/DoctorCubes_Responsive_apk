@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tvm.doctorcube.CustomToast;
@@ -32,16 +31,15 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
     private List<University> universities;
     private List<University> originalUniversities;
     private final Context context;
-
-    private  NavController navController;
+    private final NavController navController;
     private final OnItemClickListener listener;
 
-    public UniversityAdapter(Context context, List<University> universities, OnItemClickListener listener,NavController navController) {
+    public UniversityAdapter(Context context, List<University> universities, OnItemClickListener listener, NavController navController) {
         this.context = context;
         this.universities = new ArrayList<>(universities);
         this.originalUniversities = new ArrayList<>(universities);
         this.listener = listener;
-        this.navController=navController;
+        this.navController = navController;
     }
 
     @NonNull
@@ -55,46 +53,71 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
     @Override
     public void onBindViewHolder(@NonNull UniversityViewHolder holder, int position) {
         University university = universities.get(position);
+        if (university == null) {
+            Log.e("UniversityAdapter", "University at position " + position + " is null");
+            return;
+        }
 
-        // Bind data
-        holder.universityBanner.setImageResource(university.getBannerResourceId());
-        holder.universityLogo.setImageResource(university.getLogoResourceId());
-        holder.universityType.setText(university.getUniversityType());
-        holder.countryFlag.setImageResource(university.getFlagResourceId());
-        holder.countryName.setText(university.getCountry());
-        holder.universityName.setText(university.getName());
-        holder.courseName.setText(university.getCourseName());
-        holder.degreeType.setText(university.getDegreeType());
-        holder.field.setText(university.getField());
-        holder.rankingTag.setText(university.getRanking());
-        holder.duration.setText(university.getDuration());
-        holder.grade.setText(university.getGrade());
-        holder.language.setText(university.getLanguage());
-        holder.intake.setText(university.getIntake());
-        holder.scholarshipText.setText(university.getScholarshipInfo());
+        // Bind data with validation
+        try {
+            holder.universityBanner.setImageResource(university.getBannerResourceId() != 0 ? university.getBannerResourceId() : R.drawable.university_campus);
+            holder.universityLogo.setImageResource(university.getLogoResourceId() != 0 ? university.getLogoResourceId() : R.drawable.university_campus);
+            holder.universityType.setText(university.getUniversityType() != null ? university.getUniversityType() : "N/A");
+            holder.countryFlag.setImageResource(university.getFlagResourceId() != 0 ? university.getFlagResourceId() : R.drawable.icon_university);
+            holder.countryName.setText(university.getCountry() != null ? university.getCountry() : "N/A");
+            holder.universityName.setText(university.getName() != null ? university.getName() : "Unknown University");
+            holder.courseName.setText(university.getCourseName() != null ? university.getCourseName() : "N/A");
+            holder.degreeType.setText(university.getDegreeType() != null ? university.getDegreeType() : "N/A");
+            holder.field.setText(university.getField() != null ? university.getField() : "N/A");
+            holder.rankingTag.setText(university.getRanking() != null ? university.getRanking() : "N/A");
+            holder.duration.setText(university.getDuration() != null ? university.getDuration() : "N/A");
+            holder.grade.setText(university.getGrade() != null ? university.getGrade() : "N/A");
+            holder.language.setText(university.getLanguage() != null ? university.getLanguage() : "N/A");
+            holder.intake.setText(university.getIntake() != null ? university.getIntake() : "N/A");
+            holder.scholarshipText.setText(university.getScholarshipInfo() != null ? university.getScholarshipInfo() : "N/A");
+        } catch (Exception e) {
+            Log.e("UniversityAdapter", "Error binding data for " + university.getName(), e);
+        }
 
         SocialActions openSocial = new SocialActions();
 
-        // Card click to navigate to UniversityDetailsFragment
-        holder.university_card_container.setOnClickListener(v -> listener.onItemClick(university));
+        // Card click
+        holder.university_card_container.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(university);
+            }
+        });
 
         // Call Button
-        holder.btnCall.setOnClickListener(v -> openSocial.makeDirectCall(context));
+        holder.btnCall.setOnClickListener(v -> {
+            try {
+                openSocial.makeDirectCall(context);
+            } catch (Exception e) {
+                Log.e("UniversityAdapter", "Error initiating call", e);
+                CustomToast.showToast((Activity) context, "Failed to initiate call");
+            }
+        });
 
         // WhatsApp Button
-        holder.btnWhatsapp.setOnClickListener(v -> openSocial.openWhatsApp(context));
+        holder.btnWhatsapp.setOnClickListener(v -> {
+            try {
+                openSocial.openWhatsApp(context);
+            } catch (Exception e) {
+                Log.e("UniversityAdapter", "Error opening WhatsApp", e);
+                CustomToast.showToast((Activity) context, "Failed to open WhatsApp");
+            }
+        });
 
         // Apply Button
         holder.btnApply.setOnClickListener(v -> {
             try {
                 Bundle args = new Bundle();
                 args.putSerializable("UNIVERSITY", university);
-                // Assuming University has an id field; replace with actual field if different
-                args.putString("universityId", university.getId()); // Add this if navigation expects an Int
-                Log.d("UniversityAdapter", "Navigating with args: university=" + university.getName() + ", universityId=" + university.getId());
+                args.putString("universityId", university.getId());
+                Log.d("UniversityAdapter", "Navigating to details for: " + university.getName() + ", ID: " + university.getId());
                 navController.navigate(R.id.action_universityFragment_to_universityDetailsBottomSheet, args);
             } catch (Exception e) {
-                Log.e("UniversityAdapter", "Navigation failed: " + e.getMessage());
+                Log.e("UniversityAdapter", "Navigation failed for " + university.getName() + ": " + e.getMessage());
                 CustomToast.showToast((Activity) context, "Failed to navigate to university details");
             }
         });
@@ -117,8 +140,9 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
         } else {
             String searchQuery = query.toLowerCase(Locale.getDefault()).trim();
             for (University university : originalUniversities) {
-                if (university.getName().toLowerCase(Locale.getDefault()).contains(searchQuery) ||
-                        university.getCourseName().toLowerCase(Locale.getDefault()).contains(searchQuery)) {
+                if (university != null &&
+                        ((university.getName() != null && university.getName().toLowerCase(Locale.getDefault()).contains(searchQuery)) ||
+                                (university.getCourseName() != null && university.getCourseName().toLowerCase(Locale.getDefault()).contains(searchQuery)))) {
                     universities.add(university);
                 }
             }
@@ -128,32 +152,32 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
 
     public void updateData(List<University> newUniversities) {
         this.universities.clear();
-        this.universities.addAll(newUniversities);
+        this.universities.addAll(newUniversities != null ? newUniversities : new ArrayList<>());
         this.originalUniversities.clear();
-        this.originalUniversities.addAll(newUniversities);
+        this.originalUniversities.addAll(newUniversities != null ? newUniversities : new ArrayList<>());
         notifyDataSetChanged();
     }
 
     public void sortByName(final boolean ascending) {
-        universities.sort((u1, u2) -> ascending
-                ? u1.getName().compareToIgnoreCase(u2.getName())
-                : u2.getName().compareToIgnoreCase(u1.getName()));
+        universities.sort((u1, u2) -> {
+            String name1 = u1.getName() != null ? u1.getName() : "";
+            String name2 = u2.getName() != null ? u2.getName() : "";
+            return ascending ? name1.compareToIgnoreCase(name2) : name2.compareToIgnoreCase(name1);
+        });
         notifyDataSetChanged();
     }
 
     public void sortByGrade(final boolean descending) {
         List<String> gradeOrder = Arrays.asList("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F");
-
         universities.sort((u1, u2) -> {
-            int index1 = gradeOrder.indexOf(u1.getGrade());
-            int index2 = gradeOrder.indexOf(u2.getGrade());
-
+            String grade1 = u1.getGrade() != null ? u1.getGrade() : "F";
+            String grade2 = u2.getGrade() != null ? u2.getGrade() : "F";
+            int index1 = gradeOrder.indexOf(grade1);
+            int index2 = gradeOrder.indexOf(grade2);
             if (index1 == -1) index1 = gradeOrder.size();
             if (index2 == -1) index2 = gradeOrder.size();
-
             return descending ? Integer.compare(index2, index1) : Integer.compare(index1, index2);
         });
-
         notifyDataSetChanged();
     }
 
