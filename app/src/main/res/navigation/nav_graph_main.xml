@@ -9,16 +9,23 @@
         android:id="@+id/homeFragment"
         android:name="com.tvm.doctorcube.HomeFragment"
         android:label="HomeFragment">
+        <deepLink
+            android:id="@+id/deep_link_home"
+            app:uri="doctorcube://app/home" />
         <action
             android:id="@+id/action_homeFragment_to_studyMaterialFragment"
             app:destination="@id/studyMaterialFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_universityFragment"
             app:destination="@id/universityFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit">
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right">
             <argument
                 android:name="COUNTRY_NAME"
                 app:argType="string"
@@ -27,8 +34,10 @@
         <action
             android:id="@+id/action_homeFragment_to_universityDetailsFragment"
             app:destination="@id/universityDetailsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit">
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right">
             <argument
                 android:name="UNIVERSITY_NAME"
                 app:argType="string" />
@@ -38,38 +47,77 @@
         </action>
         <action
             android:id="@+id/action_homeFragment_to_eventDetailsBottomSheet"
-            app:destination="@id/eventDetailsBottomSheet" />
+            app:destination="@id/eventDetailsBottomSheet"
+            app:enterAnim="@anim/bottom_sheet_slide_up"
+            app:exitAnim="@anim/bottom_sheet_slide_down"
+            app:popEnterAnim="@anim/bottom_sheet_slide_up"
+            app:popExitAnim="@anim/bottom_sheet_slide_down" />
         <action
             android:id="@+id/action_homeFragment_to_fragmentUpcomingEvents"
-            app:destination="@id/fragmentUpcomingEvents" />
+            app:destination="@id/fragmentUpcomingEvents"
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_featuresFragment"
-            app:destination="@id/featuresFragment" />
+            app:destination="@id/featuresFragment"
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/studyMaterialFragment"
         android:name="com.tvm.doctorcube.StudyMaterialFragment"
         android:label="fragment_study_material"
-        tools:layout="@layout/fragment_study_material" />
+        tools:layout="@layout/fragment_study_material">
+        <deepLink
+            android:id="@+id/deep_link_study"
+            app:uri="doctorcube://app/study" />
+    </fragment>
     <fragment
         android:id="@+id/settingsHome"
         android:name="com.tvm.doctorcube.settings.SettingsHome"
-        android:label="SettingsHome" >
+        android:label="SettingsHome">
+        <deepLink
+            android:id="@+id/deep_link_settings"
+            app:uri="doctorcube://app/settings" />
         <action
             android:id="@+id/action_settingsHome_to_fragmentEditDetails"
-            app:destination="@id/fragmentEditDetails" />
+            app:destination="@id/fragmentEditDetails"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_settingsHome_to_notificationPref"
-            app:destination="@id/notificationPref" />
+            app:destination="@id/notificationPref"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_settingsHome_to_fragmentAbout"
-            app:destination="@id/fragmentAbout" />
+            app:destination="@id/fragmentAbout"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_settingsHome_to_fragmentPrivacy"
-            app:destination="@id/fragmentPrivacy" />
+            app:destination="@id/fragmentPrivacy"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_settingsHome_to_fragmentFAQ"
-            app:destination="@id/fragmentFAQ" />
+            app:destination="@id/fragmentFAQ"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <fragment
         android:id="@+id/universityFragment"
@@ -82,8 +130,10 @@
         <action
             android:id="@+id/action_universityFragment_to_universityDetailsFragment"
             app:destination="@id/universityDetailsFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit">
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right">
             <argument
                 android:name="UNIVERSITY_NAME"
                 app:argType="string" />
@@ -93,8 +143,11 @@
         </action>
         <action
             android:id="@+id/action_universityFragment_to_universityDetailsBottomSheet"
-            app:destination="@id/universityDetailsBottomSheet" />
-
+            app:destination="@id/universityDetailsBottomSheet"
+            app:enterAnim="@anim/bottom_sheet_slide_up"
+            app:exitAnim="@anim/bottom_sheet_slide_down"
+            app:popEnterAnim="@anim/bottom_sheet_slide_up"
+            app:popExitAnim="@anim/bottom_sheet_slide_down" />
     </fragment>
     <fragment
         android:id="@+id/universityDetailsFragment"
@@ -108,8 +161,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_universityDetailsFragment_to_universityDetailsBottomSheet"
-            app:destination="@id/universityDetailsBottomSheet" />
-
+            app:destination="@id/universityDetailsBottomSheet"
+            app:enterAnim="@anim/bottom_sheet_slide_up"
+            app:exitAnim="@anim/bottom_sheet_slide_down"
+            app:popEnterAnim="@anim/bottom_sheet_slide_up"
+            app:popExitAnim="@anim/bottom_sheet_slide_down" />
     </fragment>
     <fragment
         android:id="@+id/fragmentEditDetails"
@@ -142,23 +198,31 @@
     <dialog
         android:id="@+id/eventDetailsBottomSheet"
         android:name="com.tvm.doctorcube.home.EventDetailsBottomSheet"
-        android:label="EventDetailsBottomSheet" >
+        android:label="EventDetailsBottomSheet">
         <action
             android:id="@+id/action_eventDetailsBottomSheet_to_fragmentUpcomingEvents"
-            app:destination="@id/fragmentUpcomingEvents" />
+            app:destination="@id/fragmentUpcomingEvents"
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right" />
     </dialog>
     <fragment
         android:id="@+id/featuresFragment"
         android:name="com.tvm.doctorcube.home.FeaturesFragment"
-        android:label="FeaturesFragment" >
+        android:label="FeaturesFragment">
         <action
             android:id="@+id/action_featuresFragment_self"
-            app:destination="@id/featuresFragment" />
+            app:destination="@id/featuresFragment"
+            app:enterAnim="@anim/fragment_slide_in_right"
+            app:exitAnim="@anim/fragment_slide_out_left"
+            app:popEnterAnim="@anim/fragment_slide_in_left"
+            app:popExitAnim="@anim/fragment_slide_out_right" />
     </fragment>
     <dialog
         android:id="@+id/universityDetailsBottomSheet"
         android:name="com.tvm.doctorcube.university.UniversityDetailsBottomSheet"
-        android:label="UniversityDetailsBottomSheet" >
+        android:label="UniversityDetailsBottomSheet">
         <argument
             android:name="UNIVERSITY"
             app:argType="com.tvm.doctorcube.university.model.University" />
@@ -167,5 +231,4 @@
             app:argType="string"
             app:nullable="true" />
     </dialog>
-
 </navigation>

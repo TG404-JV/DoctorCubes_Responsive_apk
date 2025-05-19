@@ -375,7 +375,7 @@
                 android:textAllCaps="false"
                 android:background="@drawable/button_primary"
                 android:textColor="@color/white"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cancel"
@@ -387,7 +387,7 @@
                 android:layout_marginStart="12dp"
                 android:background="@drawable/button_secondary"
                 android:textColor="@color/text_primary"
-                android:visibility="visible" />
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

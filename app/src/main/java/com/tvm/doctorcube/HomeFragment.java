@@ -1,18 +1,25 @@
 package com.tvm.doctorcube;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewGroup ;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -48,22 +55,24 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureClickListener, UpcomingEventAdapter.OnItemClickListener, CountryAdapter.OnCountryClickListener {
 
-    private RecyclerView featuresRecyclerView, universitiesRecyclerView, recyclerView, countryRecyclerView;
+    private static final String TAG = "HomeFragment";
+    private static final int AUTO_SLIDE_INTERVAL = 3000;
+
+    private RecyclerView featuresRecyclerView, universitiesRecyclerView, eventsRecyclerView, countryRecyclerView;
     private FeaturesAdapter featuresAdapter;
     private UniversityListAdapter universityListAdapter;
     private UpcomingEventAdapter eventAdapter;
     private CountryAdapter countryAdapter;
     private ViewPager2 testimonialsViewPager;
     private TestimonialsSliderAdapter testimonialsAdapter;
-    private Handler sliderHandler = new Handler();
+    private Handler sliderHandler;
     private Runnable testimonialsSliderRunnable;
-    private final int AUTO_SLIDE_INTERVAL = 3000;
 
     private EditText searchEditText;
-    private List<University> fullUniversityList;
+    private ImageView clearSearchButton;
     private RecyclerView searchResultsRecyclerView;
     private SearchResultsAdapter searchResultsAdapter;
-    private List<SearchItem> fullSearchList = new ArrayList<>();
+    private List<SearchItem> fullSearchList;
     private SearchUtils<SearchItem> searchUtils;
 
     private MaterialCardView studyButton, examButton, universityButton;
@@ -73,6 +82,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     private NavController navController;
     private DatabaseReference databaseReference;
     private List<UpcomingEvent> eventList;
+    private List<University> fullUniversityList;
 
     @Nullable
     @Override
@@ -86,60 +96,89 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
 
         navController = Navigation.findNavController(view);
         databaseReference = FirebaseDatabase.getInstance().getReference("UpcomingEvents");
+        sliderHandler = new Handler(Looper.getMainLooper());
+        fullSearchList = new ArrayList<>();
 
         // Initialize views
+        initializeViews(view);
+
+        // Setup back press handling
+        setupBackPressHandling();
+
+        // Setup social actions
+        setupSocialActions(view);
+
+        // Setup UI components
+        setupEventsRecyclerView();
+        setupFeaturesRecyclerView();
+        setupUniversitiesRecyclerView();
+        setupTestimonialsSlider();
+        setupCountryRecyclerView();
+        setupSearchBar();
+        setupCategoryButtons();
+        setupEventListeners();
+
+        // Apply animations
+        animateViews();
+    }
+
+    private void initializeViews(View view) {
         searchEditText = view.findViewById(R.id.searchEditText);
+        clearSearchButton = view.findViewById(R.id.clearSearchButton);
         searchResultsRecyclerView = view.findViewById(R.id.search_results);
         studyButton = view.findViewById(R.id.studyButton);
         examButton = view.findViewById(R.id.examButton);
         universityButton = view.findViewById(R.id.universityButton);
         seeAllEventsButton = view.findViewById(R.id.see_all_events);
         inviteButton = view.findViewById(R.id.invite_button);
-        recyclerView = view.findViewById(R.id.recyclerView);
-        SocialActions socialActions = new SocialActions();
+        eventsRecyclerView = view.findViewById(R.id.recyclerView);
 
-        // Debug view initialization
-        if (searchEditText == null) {
-            Log.e("HomeFragment", "searchEditText is null. Check R.id.searchEditText in fragment_home.xml");
-        }
-        if (searchResultsRecyclerView == null) {
-            Log.e("HomeFragment", "searchResultsRecyclerView is null. Check R.id.search_results in fragment_home.xml");
-        }
-
-        // Ensure search results are hidden initially
-        if (searchResultsRecyclerView != null) {
+        // Validate views
+        if (searchEditText == null || clearSearchButton == null || searchResultsRecyclerView == null) {
+            Log.e(TAG, "Search UI components missing");
+        } else {
             searchResultsRecyclerView.setVisibility(View.GONE);
+            searchResultsRecyclerView.setAlpha(0f);
         }
+    }
 
+    private void setupBackPressHandling() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (searchEditText != null && searchEditText.hasFocus()) {
+                    clearSearchState();
+                } else {
+                    setEnabled(false);
+                    requireActivity().onBackPressed();
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    private void setupSocialActions(View view) {
+        SocialActions socialActions = new SocialActions();
         View whatsappButton = view.findViewById(R.id.whatsapp_button);
+        View callNowButton = view.findViewById(R.id.call_now_button);
+
         if (whatsappButton != null) {
             whatsappButton.setOnClickListener(v -> socialActions.openWhatsApp(requireActivity()));
         }
-        View callNowButton = view.findViewById(R.id.call_now_button);
         if (callNowButton != null) {
             callNowButton.setOnClickListener(v -> socialActions.makeDirectCall(requireActivity()));
         }
-
-        setUpComingEvents();
-        setupFeaturesRecyclerView(view);
-        setupUniversitiesRecyclerView(view);
-        setupTestimonialsSlider(view);
-        setupCountryRecyclerView(view);
-        setupSearchBar();
-        setupCategoryButtons();
-        setupEventListeners();
     }
 
-    private void setUpComingEvents() {
-        if (recyclerView == null) {
-            Log.e("HomeFragment", "recyclerView is null");
+    private void setupEventsRecyclerView() {
+        if (eventsRecyclerView == null) {
+            Log.e(TAG, "eventsRecyclerView is null");
             return;
         }
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
+        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         eventList = new ArrayList<>();
         eventAdapter = new UpcomingEventAdapter(eventList, this);
-        recyclerView.setAdapter(eventAdapter);
+        eventsRecyclerView.setAdapter(eventAdapter);
 
         databaseReference.child("this_month").addValueEventListener(new ValueEventListener() {
             @Override
@@ -153,11 +192,12 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 }
                 eventAdapter.notifyDataSetChanged();
                 updateSearchList();
+                animateRecyclerView(eventsRecyclerView);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("HomeFragment", "Failed to load events: " + error.getMessage());
+                Log.e(TAG, "Failed to load events: " + error.getMessage());
                 CustomToast.showToast(requireActivity(), "Failed to load events");
             }
         });
@@ -165,6 +205,10 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
 
     @Override
     public void onItemClick(int position, UpcomingEvent event) {
+        if (event == null) {
+            Log.e(TAG, "Event is null at position: " + position);
+            return;
+        }
         Bundle args = new Bundle();
         args.putString("imageUrl", event.getImageUrl());
         args.putString("eventTitle", event.getTitle());
@@ -173,42 +217,44 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         try {
             navController.navigate(R.id.action_homeFragment_to_eventDetailsBottomSheet, args);
         } catch (Exception e) {
-            Log.e("HomeFragment", "Navigation to event details failed: " + e.getMessage());
+            Log.e(TAG, "Navigation to event details failed: " + e.getMessage());
         }
     }
 
-    private void setupFeaturesRecyclerView(View view) {
-        featuresRecyclerView = view.findViewById(R.id.features_recycler_view);
+    private void setupFeaturesRecyclerView() {
+        featuresRecyclerView = requireView().findViewById(R.id.features_recycler_view);
         if (featuresRecyclerView == null) {
-            Log.e("HomeFragment", "featuresRecyclerView is null");
+            Log.e(TAG, "featuresRecyclerView is null");
             return;
         }
         featuresRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         List<Feature> features = FeatureData.getInstance().getFeatures(requireContext());
         featuresAdapter = new FeaturesAdapter(features, this);
         featuresRecyclerView.setAdapter(featuresAdapter);
+        animateRecyclerView(featuresRecyclerView);
     }
 
-    private void setupUniversitiesRecyclerView(View view) {
-        universitiesRecyclerView = view.findViewById(R.id.universities_recycler_view);
+    private void setupUniversitiesRecyclerView() {
+        universitiesRecyclerView = requireView().findViewById(R.id.universities_recycler_view);
         if (universitiesRecyclerView == null) {
-            Log.e("HomeFragment", "universitiesRecyclerView is null");
+            Log.e(TAG, "universitiesRecyclerView is null");
             return;
         }
         universitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         fullUniversityList = UniversityData.getUniversities(requireContext());
-        if (getContext() != null && fullUniversityList != null && !fullUniversityList.isEmpty()) {
-            universityListAdapter = new UniversityListAdapter(getContext(), new ArrayList<>(fullUniversityList), this::navigateToUniversityDetails);
+        if (fullUniversityList != null && !fullUniversityList.isEmpty()) {
+            universityListAdapter = new UniversityListAdapter(requireContext(), new ArrayList<>(fullUniversityList), this::navigateToUniversityDetails);
             universitiesRecyclerView.setAdapter(universityListAdapter);
             updateSearchList();
+            animateRecyclerView(universitiesRecyclerView);
         } else {
-            Log.w("HomeFragment", "University list is null or empty");
+            Log.w(TAG, "University list is null or empty");
         }
     }
 
     private void navigateToUniversityDetails(University university) {
         if (university == null) {
-            Log.e("HomeFragment", "Attempted to navigate with null university");
+            Log.e(TAG, "University is null");
             return;
         }
         Bundle args = new Bundle();
@@ -217,14 +263,14 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         try {
             navController.navigate(R.id.action_homeFragment_to_universityDetailsFragment, args);
         } catch (Exception e) {
-            Log.e("HomeFragment", "Navigation to university details failed: " + e.getMessage());
+            Log.e(TAG, "Navigation to university details failed: " + e.getMessage());
         }
     }
 
-    private void setupTestimonialsSlider(View view) {
-        testimonialsViewPager = view.findViewById(R.id.testimonials_viewpager);
+    private void setupTestimonialsSlider() {
+        testimonialsViewPager = requireView().findViewById(R.id.testimonials_viewpager);
         if (testimonialsViewPager == null) {
-            Log.e("HomeFragment", "testimonialsViewPager is null");
+            Log.e(TAG, "testimonialsViewPager is null");
             return;
         }
 
@@ -238,11 +284,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
 
         testimonialsSliderRunnable = () -> {
             int currentPosition = testimonialsViewPager.getCurrentItem();
-            if (currentPosition == testimonialsAdapter.getItemCount() - 1) {
-                testimonialsViewPager.setCurrentItem(0);
-            } else {
-                testimonialsViewPager.setCurrentItem(currentPosition + 1);
-            }
+            testimonialsViewPager.setCurrentItem(currentPosition == testimonialsAdapter.getItemCount() - 1 ? 0 : currentPosition + 1);
             sliderHandler.postDelayed(testimonialsSliderRunnable, AUTO_SLIDE_INTERVAL);
         };
         startTestimonialsAutoSlide();
@@ -255,24 +297,27 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 sliderHandler.postDelayed(testimonialsSliderRunnable, AUTO_SLIDE_INTERVAL);
             }
         });
+
+        animateViewPager();
     }
 
-    private void setupCountryRecyclerView(View view) {
-        countryRecyclerView = view.findViewById(R.id.country_recycler_view);
+    private void setupCountryRecyclerView() {
+        countryRecyclerView = requireView().findViewById(R.id.country_recycler_view);
         if (countryRecyclerView == null) {
-            Log.e("HomeFragment", "countryRecyclerView is null");
+            Log.e(TAG, "countryRecyclerView is null");
             return;
         }
         countryRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         List<Country> countries = UniversityData.getCountries(requireContext());
         countryAdapter = new CountryAdapter(countries, this);
         countryRecyclerView.setAdapter(countryAdapter);
+        animateRecyclerView(countryRecyclerView);
     }
 
     @Override
     public void onCountryClick(Country country) {
         if (country == null) {
-            Log.e("HomeFragment", "Country is null");
+            Log.e(TAG, "Country is null");
             return;
         }
         Bundle args = new Bundle();
@@ -280,22 +325,37 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         try {
             navController.navigate(R.id.action_homeFragment_to_universityFragment, args);
         } catch (Exception e) {
-            Log.e("HomeFragment", "Navigation to university fragment failed: " + e.getMessage());
+            Log.e(TAG, "Navigation to university fragment failed: " + e.getMessage());
         }
     }
 
     private void setupSearchBar() {
-        if (searchEditText == null || searchResultsRecyclerView == null) {
-            Log.e("HomeFragment", "Search UI components missing: searchEditText=" + (searchEditText == null) + ", searchResultsRecyclerView=" + (searchResultsRecyclerView == null));
+        if (searchEditText == null || searchResultsRecyclerView == null || clearSearchButton == null) {
+            Log.e(TAG, "Search UI components missing");
             return;
         }
 
-        // Initialize adapter if null
-        if (searchResultsAdapter == null) {
-            searchResultsAdapter = new SearchResultsAdapter(new ArrayList<>(), item -> navigateToSection(item));
-            searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            searchResultsRecyclerView.setAdapter(searchResultsAdapter);
-        }
+        // Initialize adapter
+        searchResultsAdapter = new SearchResultsAdapter(new ArrayList<>(), this::navigateToSection);
+        searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        searchResultsRecyclerView.setAdapter(searchResultsAdapter);
+
+        // Setup clear search button
+        clearSearchButton.setOnClickListener(v -> clearSearchState());
+
+        // TextWatcher for clear button visibility
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                clearSearchButton.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         // Initialize SearchUtils
         searchUtils = new SearchUtils<>(
@@ -305,15 +365,14 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 new SearchUtils.SearchCallback<>() {
                     @Override
                     public void onSearchResults(List<SearchItem> filteredList) {
-                        if (searchResultsAdapter != null) {
-                            searchResultsAdapter.updateData(filteredList);
-                            // Only show results if search bar has text or is focused
-                            boolean shouldShowResults = searchEditText.isFocused() || (searchEditText.getText().length() > 0);
-                            searchResultsRecyclerView.setVisibility(shouldShowResults && !filteredList.isEmpty() ? View.VISIBLE : View.GONE);
-                            Log.d("HomeFragment", "Search results updated: " + filteredList.size() + " items, visible=" + shouldShowResults);
+                        searchResultsAdapter.updateData(filteredList);
+                        boolean shouldShowResults = searchEditText.isFocused() || !searchEditText.getText().toString().isEmpty();
+                        if (shouldShowResults && !filteredList.isEmpty()) {
+                            animateSearchResultsIn();
                         } else {
-                            Log.w("HomeFragment", "searchResultsAdapter is null in onSearchResults");
+                            animateSearchResultsOut();
                         }
+                        Log.d(TAG, "Search results updated: " + filteredList.size() + " items");
                     }
 
                     @Override
@@ -324,23 +383,39 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         );
         searchUtils.setupSearchBar();
 
-        // Focus listener to control visibility
+        // Focus listener
         searchEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus && searchResultsAdapter != null) {
-                String query = searchEditText.getText().toString();
-                searchUtils.filter(query); // Trigger filter to update results
-                searchResultsRecyclerView.setVisibility(query.isEmpty() ? View.GONE : View.VISIBLE);
+            String query = searchEditText.getText().toString();
+            searchUtils.filter(query);
+            if (hasFocus && !query.isEmpty()) {
+                animateSearchResultsIn();
             } else if (!hasFocus) {
-                searchResultsRecyclerView.setVisibility(View.GONE);
+                animateSearchResultsOut();
             }
-            Log.d("HomeFragment", "Search bar focus changed: hasFocus=" + hasFocus);
         });
+    }
+
+    private void clearSearchState() {
+        if (searchEditText != null) {
+            searchEditText.setText("");
+            searchEditText.clearFocus();
+        }
+        hideKeyboard();
+        animateSearchResultsOut();
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null && searchEditText != null) {
+            imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+        }
     }
 
     private void updateSearchList() {
         fullSearchList.clear();
 
-        if (fullUniversityList != null && !fullUniversityList.isEmpty()) {
+        // Universities
+        if (fullUniversityList != null) {
             for (int i = 0; i < fullUniversityList.size(); i++) {
                 University uni = fullUniversityList.get(i);
                 if (uni != null && uni.getName() != null && uni.getCountry() != null) {
@@ -352,12 +427,10 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     ));
                 }
             }
-            Log.d("HomeFragment", "Added " + fullUniversityList.size() + " universities to search list");
-        } else {
-            Log.w("HomeFragment", "University list is null or empty");
         }
 
-        if (eventList != null && !eventList.isEmpty()) {
+        // Events
+        if (eventList != null) {
             for (int i = 0; i < eventList.size(); i++) {
                 UpcomingEvent event = eventList.get(i);
                 if (event != null && event.getTitle() != null && event.getLocation() != null) {
@@ -369,13 +442,11 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     ));
                 }
             }
-            Log.d("HomeFragment", "Added " + eventList.size() + " events to search list");
-        } else {
-            Log.w("HomeFragment", "Event list is null or empty");
         }
 
+        // Features
         List<Feature> features = FeatureData.getInstance().getFeatures(requireContext());
-        if (features != null && !features.isEmpty()) {
+        if (features != null) {
             for (int i = 0; i < features.size(); i++) {
                 Feature feature = features.get(i);
                 if (feature != null && feature.getTitle() != null) {
@@ -387,11 +458,11 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     ));
                 }
             }
-            Log.d("HomeFragment", "Added " + features.size() + " features to search list");
         }
 
+        // Testimonials
         List<Testimonial> testimonials = testimonialsAdapter != null ? testimonialsAdapter.getTestimonials() : new ArrayList<>();
-        if (testimonials != null && !testimonials.isEmpty()) {
+        if (testimonials != null) {
             for (int i = 0; i < testimonials.size(); i++) {
                 Testimonial testimonial = testimonials.get(i);
                 if (testimonial != null && testimonial.getName() != null && testimonial.getUniversity() != null) {
@@ -403,34 +474,28 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     ));
                 }
             }
-            Log.d("HomeFragment", "Added " + testimonials.size() + " testimonials to search list");
         }
 
         if (searchResultsAdapter != null) {
             searchResultsAdapter.updateData(fullSearchList);
-            Log.d("HomeFragment", "Search list updated with " + fullSearchList.size() + " items");
-        } else {
-            Log.w("HomeFragment", "searchResultsAdapter is null in updateSearchList");
+            Log.d(TAG, "Search list updated with " + fullSearchList.size() + " items");
         }
     }
 
     private void navigateToSection(SearchItem item) {
         if (item == null) {
-            Log.e("HomeFragment", "Search item is null");
+            Log.e(TAG, "Search item is null");
             return;
         }
 
         try {
             switch (item.getType()) {
                 case "University":
-                    University university = (University) item.getData();
-                    navigateToUniversityDetails(university);
+                    navigateToUniversityDetails((University) item.getData());
                     break;
                 case "Event":
-                    if (recyclerView != null) {
-                        recyclerView.smoothScrollToPosition(item.getSectionPosition());
-                    } else {
-                        Log.w("HomeFragment", "Event recyclerView is null");
+                    if (eventsRecyclerView != null) {
+                        eventsRecyclerView.smoothScrollToPosition(item.getSectionPosition());
                     }
                     break;
                 case "Feature":
@@ -439,50 +504,41 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 case "Testimonial":
                     if (testimonialsViewPager != null) {
                         testimonialsViewPager.setCurrentItem(item.getSectionPosition(), true);
-                    } else {
-                        Log.w("HomeFragment", "Testimonials ViewPager is null");
                     }
                     break;
             }
-
-            // Reset search state
-            if (searchEditText != null) {
-                searchEditText.setText("");
-                searchEditText.clearFocus();
-            }
-            if (searchResultsRecyclerView != null) {
-                searchResultsRecyclerView.setVisibility(View.GONE);
-            }
-            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+            clearSearchState();
         } catch (Exception e) {
-            Log.e("HomeFragment", "Error navigating to section: " + item.getType(), e);
+            Log.e(TAG, "Error navigating to section: " + item.getType(), e);
         }
     }
 
     private void setupCategoryButtons() {
         if (studyButton != null) {
             studyButton.setOnClickListener(v -> {
+                animateButtonClick(studyButton);
                 try {
                     navController.navigate(R.id.action_homeFragment_to_studyMaterialFragment);
                 } catch (Exception e) {
-                    Log.e("HomeFragment", "Navigation to study material failed: " + e.getMessage());
+                    Log.e(TAG, "Navigation to study material failed: " + e.getMessage());
                 }
             });
         }
 
         if (examButton != null) {
             examButton.setOnClickListener(v -> {
+                animateButtonClick(examButton);
                 CustomToast.showToast(requireActivity(), "Coming Soon");
             });
         }
 
         if (universityButton != null) {
             universityButton.setOnClickListener(v -> {
+                animateButtonClick(universityButton);
                 try {
                     navController.navigate(R.id.action_homeFragment_to_universityFragment);
                 } catch (Exception e) {
-                    Log.e("HomeFragment", "Navigation to university fragment failed: " + e.getMessage());
+                    Log.e(TAG, "Navigation to university fragment failed: " + e.getMessage());
                 }
             });
         }
@@ -494,7 +550,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 try {
                     navController.navigate(R.id.action_homeFragment_to_fragmentUpcomingEvents);
                 } catch (Exception e) {
-                    Log.e("HomeFragment", "Navigation to events fragment failed: " + e.getMessage());
+                    Log.e(TAG, "Navigation to events fragment failed: " + e.getMessage());
                 }
             });
         }
@@ -507,7 +563,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     shareIntent.putExtra(Intent.EXTRA_TEXT, "Join me on DoctorCube to explore study abroad opportunities! Get $20 for a ticket: [Your Referral Link]");
                     startActivity(Intent.createChooser(shareIntent, "Invite Friends"));
                 } catch (Exception e) {
-                    Log.e("HomeFragment", "Error sharing invite: " + e.getMessage());
+                    Log.e(TAG, "Error sharing invite: " + e.getMessage());
                 }
             });
         }
@@ -515,17 +571,16 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
 
     @Override
     public void onFeatureClick(Feature feature) {
-        if (getActivity() == null || feature == null) {
-            Log.e("HomeFragment", "Activity or feature is null");
+        if (feature == null) {
+            Log.e(TAG, "Feature is null");
             return;
         }
-
         Bundle args = new Bundle();
         args.putSerializable("FEATURE", feature);
         try {
             navController.navigate(R.id.action_homeFragment_to_featuresFragment, args);
         } catch (Exception e) {
-            Log.e("HomeFragment", "Navigation to features fragment failed: " + e.getMessage());
+            Log.e(TAG, "Navigation to features fragment failed: " + e.getMessage());
         }
     }
 
@@ -535,26 +590,106 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         }
     }
 
+    private void animateViews() {
+        if (studyButton != null) {
+            animateViewFadeIn(studyButton, 0);
+        }
+        if (examButton != null) {
+            animateViewFadeIn(examButton, 100);
+        }
+        if (universityButton != null) {
+            animateViewFadeIn(universityButton, 200);
+        }
+    }
+
+    private void animateViewFadeIn(View view, long delay) {
+        view.setAlpha(0f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f);
+        ObjectAnimator slideUp = ObjectAnimator.ofFloat(view, "translationY", 50f, 0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(fadeIn, slideUp);
+        animatorSet.setDuration(500);
+        animatorSet.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+        animatorSet.setStartDelay(delay);
+        animatorSet.start();
+    }
+
+    private void animateRecyclerView(RecyclerView recyclerView) {
+        recyclerView.setAlpha(0f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f);
+        ObjectAnimator slideIn = ObjectAnimator.ofFloat(recyclerView, "translationX", 100f, 0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(fadeIn, slideIn);
+        animatorSet.setDuration(500);
+        animatorSet.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+        animatorSet.start();
+    }
+
+    private void animateViewPager() {
+        if (testimonialsViewPager != null) {
+            testimonialsViewPager.setAlpha(0f);
+            ObjectAnimator fadeIn = ObjectAnimator.ofFloat(testimonialsViewPager, "alpha", 0f, 1f);
+            fadeIn.setDuration(500);
+            fadeIn.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+            fadeIn.start();
+        }
+    }
+
+    private void animateSearchResultsIn() {
+        if (searchResultsRecyclerView != null && searchResultsRecyclerView.getVisibility() != View.VISIBLE) {
+            searchResultsRecyclerView.setVisibility(View.VISIBLE);
+            ObjectAnimator fadeIn = ObjectAnimator.ofFloat(searchResultsRecyclerView, "alpha", 0f, 1f);
+            ObjectAnimator slideDown = ObjectAnimator.ofFloat(searchResultsRecyclerView, "translationY", -50f, 0f);
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(fadeIn, slideDown);
+            animatorSet.setDuration(300);
+            animatorSet.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+            animatorSet.start();
+        }
+    }
+
+    private void animateSearchResultsOut() {
+        if (searchResultsRecyclerView != null && searchResultsRecyclerView.getVisibility() == View.VISIBLE) {
+            ObjectAnimator fadeOut = ObjectAnimator.ofFloat(searchResultsRecyclerView, "alpha", 1f, 0f);
+            ObjectAnimator slideUp = ObjectAnimator.ofFloat(searchResultsRecyclerView, "translationY", 0f, -50f);
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(fadeOut, slideUp);
+            animatorSet.setDuration(300);
+            animatorSet.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+            animatorSet.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    searchResultsRecyclerView.setVisibility(View.GONE);
+                }
+                @Override
+                public void onAnimationStart(Animator animation) {}
+                @Override
+                public void onAnimationCancel(Animator animation) {}
+                @Override
+                public void onAnimationRepeat(Animator animation) {}
+            });
+            animatorSet.start();
+        }
+    }
+
+    private void animateButtonClick(View view) {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1f, 0.9f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1f, 0.9f, 1f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.setDuration(200);
+        animatorSet.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator());
+        animatorSet.start();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         startTestimonialsAutoSlide();
-        // Reset search state
-        if (searchEditText != null && searchResultsRecyclerView != null) {
-            searchEditText.setText("");
-            searchEditText.clearFocus();
-            searchResultsRecyclerView.setVisibility(View.GONE);
-            if (searchResultsAdapter == null) {
-                searchResultsAdapter = new SearchResultsAdapter(new ArrayList<>(), item -> navigateToSection(item));
-                searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                searchResultsRecyclerView.setAdapter(searchResultsAdapter);
-            }
-            updateSearchList();
-            setupSearchBar();
-            Log.d("HomeFragment", "Search state reset in onResume");
-        } else {
-            Log.w("HomeFragment", "Cannot reset search state: UI components missing");
-        }
+        clearSearchState();
+        updateSearchList();
+        setupSearchBar();
+        Log.d(TAG, "Search state reset in onResume");
     }
 
     @Override
@@ -563,28 +698,21 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         if (sliderHandler != null) {
             sliderHandler.removeCallbacks(testimonialsSliderRunnable);
         }
-        // Clear search state
-        if (searchEditText != null) {
-            searchEditText.setText("");
-            searchEditText.clearFocus();
-        }
-        if (searchResultsRecyclerView != null) {
-            searchResultsRecyclerView.setVisibility(View.GONE);
-        }
+        clearSearchState();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Clean up SearchUtils and adapter
         if (searchUtils != null) {
             searchUtils.clear();
             searchUtils = null;
         }
         searchResultsAdapter = null;
         searchEditText = null;
+        clearSearchButton = null;
         searchResultsRecyclerView = null;
-        Log.d("HomeFragment", "Cleared search components in onDestroyView");
+        Log.d(TAG, "Cleared search components in onDestroyView");
     }
 
     @Override
@@ -597,10 +725,10 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     }
 
     public static class SearchItem {
-        private String title;
-        private String type;
-        private Object data;
-        private int sectionPosition;
+        private final String title;
+        private final String type;
+        private final Object data;
+        private final int sectionPosition;
 
         public SearchItem(String title, String type, Object data, int sectionPosition) {
             this.title = title;
@@ -626,7 +754,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         }
     }
 
-    class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ViewHolder> {
+    static class SearchResultsAdapter extends RecyclerView.Adapter<SearchResultsAdapter.ViewHolder> {
         private List<SearchItem> searchItems;
         private final OnItemClickListener listener;
 
@@ -638,7 +766,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         public void updateData(List<SearchItem> newItems) {
             this.searchItems = newItems != null ? newItems : new ArrayList<>();
             notifyDataSetChanged();
-            Log.d("HomeFragment", "SearchResultsAdapter updated with " + searchItems.size() + " items");
+            Log.d(TAG, "SearchResultsAdapter updated with " + searchItems.size() + " items");
         }
 
         @NonNull
@@ -653,7 +781,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             SearchItem item = searchItems.get(position);
             if (item == null) {
-                Log.w("HomeFragment", "SearchItem at position " + position + " is null");
+                Log.w(TAG, "SearchItem at position " + position + " is null");
                 return;
             }
 
@@ -663,13 +791,13 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     holder.iconView.setImageResource(R.drawable.icon_university);
                     break;
                 case "Event":
-                    holder.iconView.setImageResource(R.drawable.ic_search);
+                    holder.iconView.setImageResource(R.drawable.ic_event);
                     break;
                 case "Feature":
-                    holder.iconView.setImageResource(R.drawable.ic_search);
+                    holder.iconView.setImageResource(R.drawable.ic_feature);
                     break;
                 case "Testimonial":
-                    holder.iconView.setImageResource(R.drawable.ic_search);
+                    holder.iconView.setImageResource(R.drawable.ic_testimonal);
                     break;
                 default:
                     holder.iconView.setImageResource(R.drawable.ic_search);
@@ -682,16 +810,16 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
             return searchItems.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
-            TextView textView;
-            ImageView iconView;
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            final TextView textView;
+            final ImageView iconView;
 
             ViewHolder(View itemView) {
                 super(itemView);
                 textView = itemView.findViewById(R.id.result_text);
                 iconView = itemView.findViewById(R.id.result_icon);
                 if (textView == null || iconView == null) {
-                    Log.e("HomeFragment", "Search result item views missing: textView=" + (textView == null) + ", iconView=" + (iconView == null));
+                    Log.e(TAG, "Search result item views missing");
                 }
             }
         }
