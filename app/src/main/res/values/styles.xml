@@ -342,7 +342,6 @@
 
 
 
-
     <style name="InviteFriendsTitleTextStyle">
         <item name="android:textColor">@color/text_primary_color</item>
         <item name="android:textSize">18sp</item>

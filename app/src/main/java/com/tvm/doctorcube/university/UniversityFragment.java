@@ -7,12 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UniversityFragment extends Fragment {
+public class UniversityFragment extends Fragment implements UniversityAdapter.OnItemClickListener {
 
     private static final String ARG_COUNTRY_NAME = "COUNTRY_NAME";
     private RecyclerView recyclerView;
@@ -43,13 +43,13 @@ public class UniversityFragment extends Fragment {
     private EditText searchEditText;
     private TextView countryNameTitle, noUniversitiesText, universityCount, topRankedCount;
     private MaterialButton clearFiltersBtn, filterBtn;
-    private Spinner filterSpinner;
     private AppBarLayout appBarLayout;
     private ProgressBar progressBar;
     private NavController navController;
     private String countryFilter = "All";
     private String selectedFilter = "None";
     private ImageButton backBtn;
+    private PopupWindow filterPopupWindow;
 
     public UniversityFragment() {
     }
@@ -89,7 +89,6 @@ public class UniversityFragment extends Fragment {
         universityCount = view.findViewById(R.id.university_count);
         topRankedCount = view.findViewById(R.id.top_ranked_count);
         clearFiltersBtn = view.findViewById(R.id.clear_filters_btn);
-        filterSpinner = view.findViewById(R.id.filter_spinner);
         appBarLayout = view.findViewById(R.id.appBarLayout);
         progressBar = view.findViewById(R.id.progressBar);
         backBtn = view.findViewById(R.id.backBtn);
@@ -98,14 +97,8 @@ public class UniversityFragment extends Fragment {
 
         // Set country title
         if (countryNameTitle != null) {
-            countryNameTitle.setText(countryFilter.equals("All") ? "All Universities" : "Universities in " + countryFilter);
+            countryNameTitle.setText(countryFilter.equals("All") ? getString(R.string.all_universities) : getString(R.string.universities_in, countryFilter));
         }
-
-        // Verify critical components
-      /*  if (filterBtn == null || filterSpinner == unimportant) {
-            Log.e("UniversityFragment", "Critical UI components missing");
-            return;
-        }*/
 
         // Show loading state
         if (progressBar != null) {
@@ -120,7 +113,6 @@ public class UniversityFragment extends Fragment {
         loadUniversityData();
 
         // Setup listeners
-        setupFilterSpinner();
         setupSearch();
         setupFilterButton();
         setupClearFilters();
@@ -130,11 +122,12 @@ public class UniversityFragment extends Fragment {
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         universities = new ArrayList<>();
-        adapter = new UniversityAdapter(requireContext(), universities, this::navigateToUniversityDetails, navController);
+        adapter = new UniversityAdapter(requireContext(), universities, this, navController);
         recyclerView.setAdapter(adapter);
     }
 
-    private void navigateToUniversityDetails(University university) {
+    @Override
+    public void onItemClick(University university) {
         if (university == null) {
             Log.e("UniversityFragment", "Attempted to navigate with null university");
             return;
@@ -143,31 +136,10 @@ public class UniversityFragment extends Fragment {
             Bundle args = new Bundle();
             args.putSerializable("UNIVERSITY", university);
             args.putString("universityId", university.getId());
-            navController.navigate(R.id.action_universityFragment_to_universityDetailsFragment, args);
+            navController.navigate(R.id.action_universityFragment_to_universityDetailsBottomSheet, args);
         } catch (Exception e) {
             Log.e("UniversityFragment", "Navigation failed for " + university.getName(), e);
         }
-    }
-
-    private void setupFilterSpinner() {
-        String[] filterOptions = {"None", "Top Ranked", "Sort A-Z", "Sort Z-A", "Sort Grade"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, filterOptions);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterSpinner.setAdapter(spinnerAdapter);
-
-        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedFilter = filterOptions[position];
-                applyFilters();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                selectedFilter = "None";
-                applyFilters();
-            }
-        });
     }
 
     private void setupSearch() {
@@ -192,20 +164,76 @@ public class UniversityFragment extends Fragment {
     }
 
     private void setupFilterButton() {
-        filterBtn.setOnClickListener(v -> {
-            int visibility = filterSpinner.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE;
-            filterSpinner.setVisibility(visibility);
+        filterBtn.setOnClickListener(v -> showFilterPopup());
+    }
+
+    private void showFilterPopup() {
+        if (filterBtn == null) {
+            Log.e("UniversityFragment", "Filter button is null");
+            return;
+        }
+
+        // Inflate the popup layout
+        View popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_filter_list, null);
+
+        // Initialize ListView
+        ListView filterListView = popupView.findViewById(R.id.filter_list_view);
+        String[] filterOptions = {
+                getString(R.string.filter_none),
+                getString(R.string.filter_top_ranked),
+                getString(R.string.filter_public),
+                getString(R.string.filter_private),
+                getString(R.string.filter_english),
+                getString(R.string.filter_scholarship),
+                getString(R.string.filter_sort_az),
+                getString(R.string.filter_sort_za),
+                getString(R.string.filter_sort_grade)
+        };
+        ArrayAdapter<String> popupAdapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_list_item_1, filterOptions) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                textView.setTextColor(selectedFilter.equals(filterOptions[position]) ?
+                        requireContext().getResources().getColor(R.color.primary_color) :
+                        requireContext().getResources().getColor(R.color.text_primary_color));
+                return view;
+            }
+        };
+        filterListView.setAdapter(popupAdapter);
+
+        // Create PopupWindow
+        filterPopupWindow = new PopupWindow(popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true);
+        filterPopupWindow.setElevation(8f);
+        filterPopupWindow.setBackgroundDrawable(null); // Transparent background
+        filterPopupWindow.setOutsideTouchable(true); // Dismiss on outside click
+        filterPopupWindow.setTouchable(true);
+
+        // Handle filter selection
+        filterListView.setOnItemClickListener((parent, view, position, id) -> {
+            selectedFilter = filterOptions[position];
+            applyFilters();
+            filterPopupWindow.dismiss();
         });
+
+        // Show PopupWindow below filterBtn
+        filterPopupWindow.showAsDropDown(filterBtn, 0, 0);
     }
 
     private void setupClearFilters() {
         clearFiltersBtn.setOnClickListener(v -> {
-            filterSpinner.setSelection(0);
-            selectedFilter = "None";
+            selectedFilter = getString(R.string.filter_none);
             searchEditText.setText("");
             filterByCountry();
-            filterSpinner.setVisibility(View.GONE);
             updateStats();
+            if (filterPopupWindow != null && filterPopupWindow.isShowing()) {
+                filterPopupWindow.dismiss();
+            }
         });
     }
 
@@ -251,6 +279,7 @@ public class UniversityFragment extends Fragment {
                     .collect(Collectors.toList()));
         }
         adapter.updateData(filtered);
+        applyFilters(); // Apply any selected filter after country filter
         updateStats();
         updateNoUniversitiesView();
     }
@@ -258,36 +287,59 @@ public class UniversityFragment extends Fragment {
     private void applyFilters() {
         List<University> filteredUniversities = new ArrayList<>(universities);
 
+        // Apply country filter
         if (!countryFilter.equals("All") && !countryFilter.isEmpty()) {
             filteredUniversities = filteredUniversities.stream()
                     .filter(u -> u.getCountry() != null && u.getCountry().equalsIgnoreCase(countryFilter))
                     .collect(Collectors.toList());
         }
 
-        if (!selectedFilter.equals("None")) {
-            switch (selectedFilter.toLowerCase()) {
-                case "top ranked":
-                    filteredUniversities = filteredUniversities.stream()
-                            .filter(u -> u.getRanking() != null && u.getRanking().toLowerCase().contains("top"))
-                            .collect(Collectors.toList());
-                    break;
-                case "sort a-z":
-                    adapter.sortByName(true);
-                    updateStats();
-                    updateNoUniversitiesView();
-                    return;
-                case "sort z-a":
-                    adapter.sortByName(false);
-                    updateStats();
-                    updateNoUniversitiesView();
-                    return;
-                case "sort grade":
-                    adapter.sortByGrade(true);
-                    updateStats();
-                    updateNoUniversitiesView();
-                    return;
-            }
+        // Apply selected filter
+        switch (selectedFilter.toLowerCase()) {
+            case "none":
+                break;
+            case "top ranked":
+                filteredUniversities = filteredUniversities.stream()
+                        .filter(u -> u.getRanking() != null && u.getRanking().toLowerCase().contains("top"))
+                        .collect(Collectors.toList());
+                break;
+            case "public universities":
+                filteredUniversities = filteredUniversities.stream()
+                        .filter(u -> u.getUniversityType() != null && u.getUniversityType().equalsIgnoreCase("Public"))
+                        .collect(Collectors.toList());
+                break;
+            case "private universities":
+                filteredUniversities = filteredUniversities.stream()
+                        .filter(u -> u.getUniversityType() != null && u.getUniversityType().equalsIgnoreCase("Private"))
+                        .collect(Collectors.toList());
+                break;
+            case "english medium":
+                filteredUniversities = filteredUniversities.stream()
+                        .filter(u -> u.getLanguage() != null && u.getLanguage().contains("English"))
+                        .collect(Collectors.toList());
+                break;
+            case "scholarship available":
+                filteredUniversities = filteredUniversities.stream()
+                        .filter(u -> u.getScholarshipInfo() != null && u.getScholarshipInfo().equalsIgnoreCase("Available"))
+                        .collect(Collectors.toList());
+                break;
+            case "sort a-z":
+                adapter.sortByName(true);
+                updateStats();
+                updateNoUniversitiesView();
+                return;
+            case "sort z-a":
+                adapter.sortByName(false);
+                updateStats();
+                updateNoUniversitiesView();
+                return;
+            case "sort by grade":
+                adapter.sortByGrade(false); // Ascending order (A+ to F)
+                updateStats();
+                updateNoUniversitiesView();
+                return;
         }
+
         adapter.updateData(filteredUniversities);
         updateStats();
         updateNoUniversitiesView();
@@ -315,6 +367,14 @@ public class UniversityFragment extends Fragment {
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             emptyStateContainer.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (filterPopupWindow != null && filterPopupWindow.isShowing()) {
+            filterPopupWindow.dismiss();
         }
     }
 }

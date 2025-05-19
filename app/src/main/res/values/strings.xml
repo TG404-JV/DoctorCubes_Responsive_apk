@@ -780,4 +780,30 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="select_event_image">select event image</string>
     <string name="event_image_preview">event image preview</string>
     <string name="event_attendees">event image preview</string>
+
+
+
+    <string name="all_universities">All Universities</string>
+    <string name="universities_in">Universities in %1$s</string>
+
+    <!-- Button Strings -->
+    <string name="filter_button">Filter universities</string>
+
+    <!-- Filter Options -->
+    <string name="filter_none">None</string>
+    <string name="filter_top_ranked">Top Ranked</string>
+    <string name="filter_public">Public Universities</string>
+    <string name="filter_private">Private Universities</string>
+    <string name="filter_english">English Medium</string>
+    <string name="filter_scholarship">Scholarship Available</string>
+    <string name="filter_sort_az">Sort A-Z</string>
+    <string name="filter_sort_za">Sort Z-A</string>
+    <string name="filter_sort_grade">Sort by Grade</string>
+
+    <!-- Toast Messages -->
+    <string name="failed_navigate_details">Failed to navigate to university details</string>
+    <string name="failed_initiate_call">Failed to initiate call</string>
+    <string name="failed_open_whatsapp">Failed to open WhatsApp</string>
+    <string name="brochure_not_implemented">Brochure download not implemented yet</string>
+
 </resources>

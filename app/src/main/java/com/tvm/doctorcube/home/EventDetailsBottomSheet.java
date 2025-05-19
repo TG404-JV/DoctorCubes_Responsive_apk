@@ -101,7 +101,7 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
             // Handle details button click
             detailsButton.setOnClickListener(v -> {
                 Log.d(TAG, "Details clicked for event: " + title);
-                CustomToast.showToast(requireActivity(), "Details for " + title + " clicked");
+                CustomToast.showToast(requireActivity(), "Details for " + title + " Not Added");
                 // Add navigation to detailed event page if needed
             });
 
@@ -145,7 +145,7 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
     private void toggleFavorite(String eventId, String eventName, ImageButton favoriteButton) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null || eventId.isEmpty()) {
-            CustomToast.showToast(requireActivity(), "Please log in to favorite events");
+            CustomToast.showToast(requireActivity(), "Marked");
             return;
         }
 

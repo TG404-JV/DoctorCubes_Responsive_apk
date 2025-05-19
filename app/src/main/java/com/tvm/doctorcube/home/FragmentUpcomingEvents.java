@@ -35,7 +35,6 @@ public class FragmentUpcomingEvents extends Fragment {
     private ImageView featuredEventImage;
     private RecyclerView rvThisMonthEvents, rvUpcomingEvents;
     private MaterialButton btnFilter, btnRegister, btnRemind, btnViewAll;
-    private ChipGroup categoryChipGroup;
     private UpcomingEventAdapter thisMonthAdapter, upcomingAdapter;
     private List<UpcomingEvent> thisMonthEvents = new ArrayList<>();
     private List<UpcomingEvent> upcomingEvents = new ArrayList<>();
@@ -57,7 +56,6 @@ public class FragmentUpcomingEvents extends Fragment {
         btnRegister = view.findViewById(R.id.btnRegister);
         btnRemind = view.findViewById(R.id.btnRemind);
         btnViewAll = view.findViewById(R.id.btnViewAll);
-        categoryChipGroup = view.findViewById(R.id.categoryChipGroup);
 
         // Set current month
         tvCurrentMonth.setText("May 2025");
@@ -79,15 +77,7 @@ public class FragmentUpcomingEvents extends Fragment {
         loadThisMonthEvents();
         loadUpcomingEvents();
 
-        // Setup chip group filter
-        categoryChipGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            String category = "All";
-            if (checkedId != -1) {
-                Chip chip = group.findViewById(checkedId);
-                category = chip.getText().toString();
-            }
-            filterEvents(category);
-        });
+
 
         // Handle featured event registration
         btnRegister.setOnClickListener(v -> {
@@ -105,7 +95,7 @@ public class FragmentUpcomingEvents extends Fragment {
         // Handle view all button
         btnViewAll.setOnClickListener(v -> {
             // Navigate to a new fragment/activity showing all events
-            CustomToast.showToast(requireActivity(), "View all events clicked");
+            CustomToast.showToast(requireActivity(), "No Upcoming Events Available");
         });
 
         return view;

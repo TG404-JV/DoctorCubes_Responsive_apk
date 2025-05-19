@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/background_color">
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,77 +33,9 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
-
-
             </LinearLayout>
 
             <!-- Events Category Chips -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:layout_marginBottom="16dp">
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/categoryChipGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:singleSelection="true"
-                    app:selectionRequired="false"
-                    app:singleLine="true">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipAll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="All"
-                        android:checked="true"
-                        app:chipBackgroundColor="@color/button_secondary"
-                        app:chipStrokeColor="@color/button_outline"
-                        app:chipStrokeWidth="1dp"
-                        android:textColor="@color/text_primary_color"/>
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipWebinars"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Webinars"
-                        app:chipBackgroundColor="@color/button_secondary"
-                        app:chipStrokeColor="@color/button_outline"
-                        app:chipStrokeWidth="1dp"
-                        android:textColor="@color/text_primary_color"/>
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipCounseling"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Counseling"
-                        app:chipBackgroundColor="@color/button_secondary"
-                        app:chipStrokeColor="@color/button_outline"
-                        app:chipStrokeWidth="1dp"
-                        android:textColor="@color/text_primary_color"/>
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipAdmissions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Admissions"
-                        app:chipBackgroundColor="@color/button_secondary"
-                        app:chipStrokeColor="@color/button_outline"
-                        app:chipStrokeWidth="1dp"
-                        android:textColor="@color/text_primary_color"/>
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipWorkshops"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Workshops"
-                        app:chipBackgroundColor="@color/button_secondary"
-                        app:chipStrokeColor="@color/button_outline"
-                        app:chipStrokeWidth="1dp"
-                        android:textColor="@color/text_primary_color"/>
-                </com.google.android.material.chip.ChipGroup>
-            </HorizontalScrollView>
 
             <!-- Featured Event Card -->
             <androidx.cardview.widget.CardView
@@ -264,7 +195,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
                 tools:listitem="@layout/item_event" />
 
             <!-- Upcoming Events Title -->
