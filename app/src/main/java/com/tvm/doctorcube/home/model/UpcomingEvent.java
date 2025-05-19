@@ -1,7 +1,9 @@
 package com.tvm.doctorcube.home.model;
 
-public class UpcomingEvent {
-    private String thisMonth;
+import java.io.Serializable;
+
+public class UpcomingEvent implements Serializable {
+    private String eventId;
     private String title;
     private String category;
     private String date;
@@ -12,12 +14,12 @@ public class UpcomingEvent {
     private boolean premium;
     private boolean featured;
 
-    // Default constructor for Firestore
+    // Default constructor for Firebase
     public UpcomingEvent() {}
 
-    public UpcomingEvent(String thisMonth, String title, String category, String date, String time,
+    public UpcomingEvent(String eventId, String title, String category, String date, String time,
                          String location, String attendees, String imageUrl, boolean premium, boolean featured) {
-        this.thisMonth = thisMonth;
+        this.eventId = eventId;
         this.title = title;
         this.category = category;
         this.date = date;
@@ -29,22 +31,9 @@ public class UpcomingEvent {
         this.featured = featured;
     }
 
-    public UpcomingEvent(String title, String date, String time, String location, String category, String imageUrl, String attendees, boolean isPremium, boolean isFeatured) {
-        this.title = title;
-        this.date = date;
-        this.time = time;
-        this.location = location;
-        this.category = category;
-        this.imageUrl = imageUrl;
-        this.attendees = attendees;
-        this.premium = isPremium;
-        this.featured = isFeatured;
-    }
-
-
-    // Getters and setters
-    public String getThisMonth() { return thisMonth; }
-    public void setThisMonth(String thisMonth) { this.thisMonth = thisMonth; }
+    // Getters and Setters
+    public String getEventId() { return eventId; }
+    public void setEventId(String eventId) { this.eventId = eventId; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public String getCategory() { return category; }

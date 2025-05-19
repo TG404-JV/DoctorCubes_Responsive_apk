@@ -19,7 +19,8 @@
             android:layout_marginBottom="16dp"
             android:hint="@string/event_title"
             app:counterEnabled="true"
-            app:counterMaxLength="100">
+            app:counterMaxLength="100"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEventTitle"
@@ -34,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="@string/event_date">
+            android:hint="@string/event_date"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEventDate"
@@ -50,7 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="@string/event_start_time">
+            android:hint="@string/event_start_time"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etStartTime"
@@ -66,7 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="@string/event_end_time">
+            android:hint="@string/event_end_time"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEndTime"
@@ -84,7 +88,8 @@
             android:layout_marginBottom="16dp"
             android:hint="@string/event_location"
             app:counterEnabled="true"
-            app:counterMaxLength="200">
+            app:counterMaxLength="200"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEventLocation"
@@ -108,12 +113,12 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Event Type (Featured, This Month, Upcoming) -->
+        <!-- Event Type -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="event type"
+            android:hint="@string/event_type"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <Spinner
@@ -128,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="select event image"
+            android:text="@string/select_event_image"
             android:textAllCaps="false"
             app:cornerRadius="8dp" />
 
@@ -138,7 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginBottom="16dp"
-            android:contentDescription="event image preview"
+            android:contentDescription="@string/event_image_preview"
             android:scaleType="centerCrop"
             android:visibility="gone" />
 
@@ -147,9 +152,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="event_attendees"
+            android:hint="@string/event_attendees"
             app:counterEnabled="true"
-            app:counterMaxLength="50">
+            app:counterMaxLength="50"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etAttendees"
@@ -167,6 +173,15 @@
             android:layout_marginBottom="16dp"
             android:text="@string/is_premium_event"
             android:textColor="@color/text_primary_color" />
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp" />
 
         <!-- Submit Button -->
         <com.google.android.material.button.MaterialButton

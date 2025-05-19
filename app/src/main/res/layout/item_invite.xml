@@ -71,13 +71,17 @@
             app:layout_constraintStart_toEndOf="@+id/text_container"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/person_illustration"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:contentDescription="Person waving"
+                android:scaleType="centerCrop"
+                android:padding="10dp"
                 android:backgroundTint="#00000000"
-                android:src="@drawable/ic_waving_bg" />
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/anim_invite"/>
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

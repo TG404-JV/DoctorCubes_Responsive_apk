@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     private RecyclerView searchResultsRecyclerView;
     private SearchResultsAdapter searchResultsAdapter;
     private List<SearchItem> fullSearchList = new ArrayList<>();
+    private SearchUtils<SearchItem> searchUtils;
 
     private MaterialCardView studyButton, examButton, universityButton;
     private TextView seeAllEventsButton;
@@ -103,6 +104,11 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         }
         if (searchResultsRecyclerView == null) {
             Log.e("HomeFragment", "searchResultsRecyclerView is null. Check R.id.search_results in fragment_home.xml");
+        }
+
+        // Ensure search results are hidden initially
+        if (searchResultsRecyclerView != null) {
+            searchResultsRecyclerView.setVisibility(View.GONE);
         }
 
         View whatsappButton = view.findViewById(R.id.whatsapp_button);
@@ -284,22 +290,30 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
             return;
         }
 
-        SearchUtils<SearchItem> searchUtils = new SearchUtils<>(
+        // Initialize adapter if null
+        if (searchResultsAdapter == null) {
+            searchResultsAdapter = new SearchResultsAdapter(new ArrayList<>(), item -> navigateToSection(item));
+            searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            searchResultsRecyclerView.setAdapter(searchResultsAdapter);
+        }
+
+        // Initialize SearchUtils
+        searchUtils = new SearchUtils<>(
                 getActivity(),
                 searchEditText,
                 fullSearchList,
                 new SearchUtils.SearchCallback<>() {
                     @Override
                     public void onSearchResults(List<SearchItem> filteredList) {
-                        if (searchResultsAdapter == null) {
-                            searchResultsAdapter = new SearchResultsAdapter(filteredList, item -> navigateToSection(item));
-                            searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                            searchResultsRecyclerView.setAdapter(searchResultsAdapter);
-                        } else {
+                        if (searchResultsAdapter != null) {
                             searchResultsAdapter.updateData(filteredList);
+                            // Only show results if search bar has text or is focused
+                            boolean shouldShowResults = searchEditText.isFocused() || (searchEditText.getText().length() > 0);
+                            searchResultsRecyclerView.setVisibility(shouldShowResults && !filteredList.isEmpty() ? View.VISIBLE : View.GONE);
+                            Log.d("HomeFragment", "Search results updated: " + filteredList.size() + " items, visible=" + shouldShowResults);
+                        } else {
+                            Log.w("HomeFragment", "searchResultsAdapter is null in onSearchResults");
                         }
-                        searchResultsRecyclerView.setVisibility(filteredList.isEmpty() && searchEditText.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
-                        Log.d("HomeFragment", "Search results updated: " + filteredList.size() + " items");
                     }
 
                     @Override
@@ -310,13 +324,16 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         );
         searchUtils.setupSearchBar();
 
+        // Focus listener to control visibility
         searchEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus && searchEditText.getText().toString().isEmpty()) {
+            if (hasFocus && searchResultsAdapter != null) {
+                String query = searchEditText.getText().toString();
+                searchUtils.filter(query); // Trigger filter to update results
+                searchResultsRecyclerView.setVisibility(query.isEmpty() ? View.GONE : View.VISIBLE);
+            } else if (!hasFocus) {
                 searchResultsRecyclerView.setVisibility(View.GONE);
-            } else if (hasFocus && searchResultsAdapter != null) {
-                searchResultsRecyclerView.setVisibility(View.VISIBLE);
-                searchResultsAdapter.updateData(fullSearchList);
             }
+            Log.d("HomeFragment", "Search bar focus changed: hasFocus=" + hasFocus);
         });
     }
 
@@ -391,8 +408,10 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
 
         if (searchResultsAdapter != null) {
             searchResultsAdapter.updateData(fullSearchList);
+            Log.d("HomeFragment", "Search list updated with " + fullSearchList.size() + " items");
+        } else {
+            Log.w("HomeFragment", "searchResultsAdapter is null in updateSearchList");
         }
-        Log.d("HomeFragment", "Search list updated with " + fullSearchList.size() + " items");
     }
 
     private void navigateToSection(SearchItem item) {
@@ -426,8 +445,14 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     break;
             }
 
-            searchEditText.clearFocus();
-            searchResultsRecyclerView.setVisibility(View.GONE);
+            // Reset search state
+            if (searchEditText != null) {
+                searchEditText.setText("");
+                searchEditText.clearFocus();
+            }
+            if (searchResultsRecyclerView != null) {
+                searchResultsRecyclerView.setVisibility(View.GONE);
+            }
             InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
         } catch (Exception e) {
@@ -514,7 +539,22 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     public void onResume() {
         super.onResume();
         startTestimonialsAutoSlide();
-        updateSearchList();
+        // Reset search state
+        if (searchEditText != null && searchResultsRecyclerView != null) {
+            searchEditText.setText("");
+            searchEditText.clearFocus();
+            searchResultsRecyclerView.setVisibility(View.GONE);
+            if (searchResultsAdapter == null) {
+                searchResultsAdapter = new SearchResultsAdapter(new ArrayList<>(), item -> navigateToSection(item));
+                searchResultsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                searchResultsRecyclerView.setAdapter(searchResultsAdapter);
+            }
+            updateSearchList();
+            setupSearchBar();
+            Log.d("HomeFragment", "Search state reset in onResume");
+        } else {
+            Log.w("HomeFragment", "Cannot reset search state: UI components missing");
+        }
     }
 
     @Override
@@ -523,6 +563,28 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         if (sliderHandler != null) {
             sliderHandler.removeCallbacks(testimonialsSliderRunnable);
         }
+        // Clear search state
+        if (searchEditText != null) {
+            searchEditText.setText("");
+            searchEditText.clearFocus();
+        }
+        if (searchResultsRecyclerView != null) {
+            searchResultsRecyclerView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Clean up SearchUtils and adapter
+        if (searchUtils != null) {
+            searchUtils.clear();
+            searchUtils = null;
+        }
+        searchResultsAdapter = null;
+        searchEditText = null;
+        searchResultsRecyclerView = null;
+        Log.d("HomeFragment", "Cleared search components in onDestroyView");
     }
 
     @Override
@@ -576,6 +638,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         public void updateData(List<SearchItem> newItems) {
             this.searchItems = newItems != null ? newItems : new ArrayList<>();
             notifyDataSetChanged();
+            Log.d("HomeFragment", "SearchResultsAdapter updated with " + searchItems.size() + " items");
         }
 
         @NonNull
@@ -589,7 +652,10 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             SearchItem item = searchItems.get(position);
-            if (item == null) return;
+            if (item == null) {
+                Log.w("HomeFragment", "SearchItem at position " + position + " is null");
+                return;
+            }
 
             holder.textView.setText(item.getTitle());
             switch (item.getType()) {
@@ -597,13 +663,13 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                     holder.iconView.setImageResource(R.drawable.icon_university);
                     break;
                 case "Event":
-                    holder.iconView.setImageResource(R.drawable.ic_notes);
+                    holder.iconView.setImageResource(R.drawable.ic_search);
                     break;
                 case "Feature":
                     holder.iconView.setImageResource(R.drawable.ic_search);
                     break;
                 case "Testimonial":
-                    holder.iconView.setImageResource(R.drawable.icon_university);
+                    holder.iconView.setImageResource(R.drawable.ic_search);
                     break;
                 default:
                     holder.iconView.setImageResource(R.drawable.ic_search);

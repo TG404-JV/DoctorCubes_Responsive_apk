@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,8 +22,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tvm.doctorcube.CustomToast;
 import com.tvm.doctorcube.R;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.tvm.doctorcube.authentication.datamanager.EncryptedSharedPreferencesManager;
+import com.tvm.doctorcube.home.model.UpcomingEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,21 +32,19 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
 
     public static final String TAG = "EventDetailsBottomSheet";
 
-    public static EventDetailsBottomSheet newInstance(String eventId, String imageUrl, String title, String category,
-                                                      String date, String time, String location, String attendees,
-                                                      boolean premium, boolean featured) {
+    public static EventDetailsBottomSheet newInstance(UpcomingEvent event) {
         EventDetailsBottomSheet fragment = new EventDetailsBottomSheet();
         Bundle args = new Bundle();
-        args.putString("eventId", eventId);
-        args.putString("imageUrl", imageUrl);
-        args.putString("eventTitle", title);
-        args.putString("eventCategory", category);
-        args.putString("eventDate", date);
-        args.putString("eventTime", time);
-        args.putString("eventLocation", location);
-        args.putString("eventAttendees", attendees);
-        args.putBoolean("premium", premium);
-        args.putBoolean("featured", featured);
+        args.putString("eventId", event.getEventId());
+        args.putString("imageUrl", event.getImageUrl());
+        args.putString("eventTitle", event.getTitle());
+        args.putString("eventCategory", event.getCategory());
+        args.putString("eventDate", event.getDate());
+        args.putString("eventTime", event.getTime());
+        args.putString("eventLocation", event.getLocation());
+        args.putString("eventAttendees", event.getAttendees());
+        args.putBoolean("premium", event.isPremium());
+        args.putBoolean("featured", event.isFeatured());
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,21 +74,17 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
             String date = args.getString("eventDate", "Unknown Date");
             String time = args.getString("eventTime", "");
             String location = args.getString("eventLocation", "Unknown Location");
-            String attendees = args.getString("eventAttendees", "Unknown Attendees");
+            String attendees = args.getString("eventAttendees", "0");
             boolean premium = args.getBoolean("premium", false);
             boolean featured = args.getBoolean("featured", false);
 
             // Load image with Glide
-            if (imageUrl != null && !imageUrl.isEmpty()) {
-                Glide.with(this)
-                        .load(imageUrl)
-                        .placeholder(R.drawable.ic_profile)
-                        .error(R.drawable.date_badge_premium_bg)
-                        .centerCrop()
-                        .into(eventImage);
-            } else {
-                eventImage.setImageResource(R.drawable.date_badge_premium_bg);
-            }
+            Glide.with(this)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_profile)
+                    .error(R.drawable.date_badge_premium_bg)
+                    .centerCrop()
+                    .into(eventImage);
 
             // Set text fields
             eventCategory.setText(category.toUpperCase());
@@ -107,7 +102,7 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
             detailsButton.setOnClickListener(v -> {
                 Log.d(TAG, "Details clicked for event: " + title);
                 CustomToast.showToast(requireActivity(), "Details for " + title + " clicked");
-                // Extend with navigation or more details if needed
+                // Add navigation to detailed event page if needed
             });
 
             // Handle register button click
@@ -120,8 +115,6 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
             eventLocation.setText("Unknown Location");
             eventImage.setImageResource(R.drawable.date_badge_premium_bg);
         }
-
-        // Handle close button click
 
         return view;
     }
@@ -140,11 +133,8 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
                 .document(eventId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        favoriteButton.setImageResource(R.drawable.ic_bookmark_filled);
-                    } else {
-                        favoriteButton.setImageResource(R.drawable.ic_bookmark_border);
-                    }
+                    favoriteButton.setImageResource(documentSnapshot.exists() ?
+                            R.drawable.ic_bookmark_filled : R.drawable.ic_bookmark_border);
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Error checking favorite status: ", e);
@@ -160,11 +150,10 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
         }
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = user.getUid();
-        String favoriteDocPath = "users/" + userId + "/favorites/" + eventId;
+        String favoriteDocPath = "users/" + user.getUid() + "/favorites/" + eventId;
 
         db.collection("users")
-                .document(userId)
+                .document(user.getUid())
                 .collection("favorites")
                 .document(eventId)
                 .get()
@@ -224,32 +213,51 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
             return;
         }
 
-        Map<String, Object> registration = new HashMap<>();
-        registration.put("userName", userName);
-        registration.put("userEmail", userEmail);
-        registration.put("userId", user.getUid());
-        registration.put("eventId", eventId);
-        registration.put("eventName", title);
-        registration.put("eventCategory", category);
-        registration.put("eventImageUrl", imageUrl);
-        registration.put("eventDate", date);
-        registration.put("eventTime", time);
-        registration.put("eventLocation", location);
-        registration.put("eventAttendees", attendees);
-        registration.put("premium", premium);
-        registration.put("featured", featured);
-        registration.put("timestamp", FieldValue.serverTimestamp());
-
+        // Check if already registered
         FirebaseFirestore.getInstance()
                 .collection("event_registrations")
-                .add(registration)
-                .addOnSuccessListener(documentReference -> {
-                    CustomToast.showToast(requireActivity(), "Successfully registered for " + title);
-                    dismiss();
+                .whereEqualTo("userId", user.getUid())
+                .whereEqualTo("eventId", eventId)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        CustomToast.showToast(requireActivity(), "You are already registered for " + title);
+                        dismiss();
+                        return;
+                    }
+
+                    // Register the user
+                    Map<String, Object> registration = new HashMap<>();
+                    registration.put("userName", userName);
+                    registration.put("userEmail", userEmail);
+                    registration.put("userId", user.getUid());
+                    registration.put("eventId", eventId);
+                    registration.put("eventName", title);
+                    registration.put("eventCategory", category);
+                    registration.put("eventImageUrl", imageUrl);
+                    registration.put("eventDate", date);
+                    registration.put("eventTime", time);
+                    registration.put("eventLocation", location);
+                    registration.put("eventAttendees", attendees);
+                    registration.put("premium", premium);
+                    registration.put("featured", featured);
+                    registration.put("timestamp", FieldValue.serverTimestamp());
+
+                    FirebaseFirestore.getInstance()
+                            .collection("event_registrations")
+                            .add(registration)
+                            .addOnSuccessListener(documentReference -> {
+                                CustomToast.showToast(requireActivity(), "Successfully registered for " + title);
+                                dismiss();
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e(TAG, "Failed to register for event: ", e);
+                                CustomToast.showToast(requireActivity(), "Registration failed: " + e.getMessage());
+                            });
                 })
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Failed to register for event: ", e);
-                    CustomToast.showToast(requireActivity(), "Registration failed: " + e.getMessage());
+                    Log.e(TAG, "Error checking registration status: ", e);
+                    CustomToast.showToast(requireActivity(), "Failed to check registration status");
                 });
     }
 }

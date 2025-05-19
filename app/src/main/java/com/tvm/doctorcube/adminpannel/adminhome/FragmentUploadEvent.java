@@ -11,9 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -21,7 +18,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.tvm.doctorcube.R;
+import com.tvm.doctorcube.databinding.FragmentUploadEventBinding;
 import com.tvm.doctorcube.home.model.UpcomingEvent;
 
 import java.text.ParseException;
@@ -43,11 +40,7 @@ import java.util.UUID;
 
 public class FragmentUploadEvent extends Fragment {
 
-    private TextInputEditText etEventTitle, etEventDate, etStartTime, etEndTime, etEventLocation, etAttendees;
-    private Spinner spinnerCategory, spinnerEventType;
-    private CheckBox cbPremium;
-    private MaterialButton btnSubmit, btnSelectImage;
-    private ImageView ivImagePreview;
+    private FragmentUploadEventBinding binding;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     private Calendar calendar;
@@ -56,22 +49,9 @@ public class FragmentUploadEvent extends Fragment {
     private boolean isUploading = false;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_upload_event, container, false);
-
-        // Initialize views
-        etEventTitle = view.findViewById(R.id.etEventTitle);
-        etEventDate = view.findViewById(R.id.etEventDate);
-        etStartTime = view.findViewById(R.id.etStartTime);
-        etEndTime = view.findViewById(R.id.etEndTime);
-        etEventLocation = view.findViewById(R.id.etEventLocation);
-        etAttendees = view.findViewById(R.id.etAttendees);
-        spinnerCategory = view.findViewById(R.id.spinnerCategory);
-        spinnerEventType = view.findViewById(R.id.spinnerEventType);
-        cbPremium = view.findViewById(R.id.cbPremium);
-        btnSubmit = view.findViewById(R.id.btnSubmit);
-        btnSelectImage = view.findViewById(R.id.btnSelectImage);
-        ivImagePreview = view.findViewById(R.id.ivImagePreview);
+    public View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstanceState) {
+        // Inflate the layout using View Binding
+        binding = FragmentUploadEventBinding.inflate(inflater, container, false);
 
         // Initialize Firebase
         databaseReference = FirebaseDatabase.getInstance().getReference("UpcomingEvents");
@@ -84,69 +64,64 @@ public class FragmentUploadEvent extends Fragment {
         String[] categories = {"Webinars", "Counseling", "Admissions", "Workshops"};
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, categories);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(categoryAdapter);
+        binding.spinnerCategory.setAdapter(categoryAdapter);
 
         // Setup event type spinner
         String[] eventTypes = {"Featured", "This Month", "Upcoming"};
         ArrayAdapter<String> eventTypeAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, eventTypes);
         eventTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerEventType.setAdapter(eventTypeAdapter);
+        binding.spinnerEventType.setAdapter(eventTypeAdapter);
 
         // Setup image picker
         imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                 selectedImageUri = result.getData().getData();
-                ivImagePreview.setImageURI(selectedImageUri);
-                ivImagePreview.setVisibility(View.VISIBLE);
+                binding.ivImagePreview.setImageURI(selectedImageUri);
+                binding.ivImagePreview.setVisibility(View.VISIBLE);
             }
         });
 
         // Setup date picker
-        etEventDate.setOnClickListener(v -> {
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
-                    (view1, year1, month1, dayOfMonth) -> {
-                        String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
-                        etEventDate.setText(date);
-                    }, year, month, day);
-            datePickerDialog.show();
-        });
+        binding.etEventDate.setOnClickListener(v -> showDatePicker());
 
         // Setup time pickers
-        etStartTime.setOnClickListener(v -> {
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
-                    (view1, hourOfDay, minute1) -> {
-                        String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1);
-                        etStartTime.setText(time);
-                    }, hour, minute, true);
-            timePickerDialog.show();
-        });
-
-        etEndTime.setOnClickListener(v -> {
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
-                    (view1, hourOfDay, minute1) -> {
-                        String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1);
-                        etEndTime.setText(time);
-                    }, hour, minute, true);
-            timePickerDialog.show();
-        });
+        binding.etStartTime.setOnClickListener(v -> showTimePicker(binding.etStartTime));
+        binding.etEndTime.setOnClickListener(v -> showTimePicker(binding.etEndTime));
 
         // Image selection
-        btnSelectImage.setOnClickListener(v -> {
+        binding.btnSelectImage.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             imagePickerLauncher.launch(intent);
         });
 
         // Submit button
-        btnSubmit.setOnClickListener(v -> checkAdminAndUpload());
+        binding.btnSubmit.setOnClickListener(v -> checkAdminAndUpload());
 
-        return view;
+        return binding.getRoot();
+    }
+
+    private void showDatePicker() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                (view, year1, month1, dayOfMonth) -> {
+                    String date = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
+                    binding.etEventDate.setText(date);
+                }, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000); // Prevent past dates
+        datePickerDialog.show();
+    }
+
+    private void showTimePicker(@NonNull TextInputEditText editText) {
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),
+                (view, hourOfDay, minute1) -> {
+                    String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1);
+                    editText.setText(time);
+                }, hour, minute, true);
+        timePickerDialog.show();
     }
 
     private void checkAdminAndUpload() {
@@ -156,13 +131,16 @@ public class FragmentUploadEvent extends Fragment {
         }
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseDatabase.getInstance().getReference("users").child(uid).child("role")
+        FirebaseDatabase.getInstance().getReference("Users").child(uid).child("role")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                        String role = snapshot.getValue(String.class);
+                        if ("admin".equalsIgnoreCase(role) || "superadmin".equalsIgnoreCase(role)) {
                             uploadEvent();
-
+                        } else {
+                            Toast.makeText(requireContext(), "Only admins can upload events", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -175,67 +153,26 @@ public class FragmentUploadEvent extends Fragment {
     private void uploadEvent() {
         if (isUploading) return;
         isUploading = true;
-        btnSubmit.setEnabled(false);
+        binding.btnSubmit.setEnabled(false);
+        binding.btnSubmit.setText("Uploading...");
 
         // Get input values
-        String title = etEventTitle.getText() != null ? etEventTitle.getText().toString().trim() : "";
-        String date = etEventDate.getText() != null ? etEventDate.getText().toString().trim() : "";
-        String startTime = etStartTime.getText() != null ? etStartTime.getText().toString().trim() : "";
-        String endTime = etEndTime.getText() != null ? etEndTime.getText().toString().trim() : "";
-        String location = etEventLocation.getText() != null ? etEventLocation.getText().toString().trim() : "";
-        String category = spinnerCategory.getSelectedItem().toString();
-        String eventType = spinnerEventType.getSelectedItem().toString();
-        String attendees = etAttendees.getText() != null ? etAttendees.getText().toString().trim() : "";
-        boolean isPremium = cbPremium.isChecked();
+        String title = binding.etEventTitle.getText() != null ? binding.etEventTitle.getText().toString().trim() : "";
+        String date = binding.etEventDate.getText() != null ? binding.etEventDate.getText().toString().trim() : "";
+        String startTime = binding.etStartTime.getText() != null ? binding.etStartTime.getText().toString().trim() : "";
+        String endTime = binding.etEndTime.getText() != null ? binding.etEndTime.getText().toString().trim() : "";
+        String location = binding.etEventLocation.getText() != null ? binding.etEventLocation.getText().toString().trim() : "";
+        String category = binding.spinnerCategory.getSelectedItem().toString();
+        String eventType = binding.spinnerEventType.getSelectedItem().toString();
+        String attendees = binding.etAttendees.getText() != null ? binding.etAttendees.getText().toString().trim() : "";
+        boolean isPremium = binding.cbPremium.isChecked();
         boolean isFeatured = eventType.equals("Featured");
 
         // Validate inputs
-        if (title.isEmpty()) {
-            etEventTitle.setError("Title is required");
+        if (!validateInputs(title, date, startTime, endTime, location, attendees)) {
             isUploading = false;
-            btnSubmit.setEnabled(true);
-            return;
-        }
-        if (date.isEmpty() || !isValidDate(date)) {
-            etEventDate.setError("Valid date is required (YYYY-MM-DD)");
-            isUploading = false;
-            btnSubmit.setEnabled(true);
-            return;
-        }
-        if (startTime.isEmpty() || !isValidTime(startTime)) {
-            etStartTime.setError("Valid start time is required (HH:MM)");
-            isUploading = false;
-            btnSubmit.setEnabled(true);
-            return;
-        }
-        if (endTime.isEmpty() || !isValidTime(endTime)) {
-            etEndTime.setError("Valid end time is required (HH:MM)");
-            isUploading = false;
-            btnSubmit.setEnabled(true);
-            return;
-        }
-        if (!isEndTimeAfterStartTime(startTime, endTime)) {
-            etEndTime.setError("End time must be after start time");
-            isUploading = false;
-            btnSubmit.setEnabled(true);
-            return;
-        }
-        if (location.isEmpty()) {
-            etEventLocation.setError("Location is required");
-            isUploading = false;
-            btnSubmit.setEnabled(true);
-            return;
-        }
-        if (attendees.isEmpty()) {
-            etAttendees.setError("Attendees information is required");
-            isUploading = false;
-            btnSubmit.setEnabled(true);
-            return;
-        }
-        if (selectedImageUri == null) {
-            Toast.makeText(requireContext(), "Please select an event image", Toast.LENGTH_SHORT).show();
-            isUploading = false;
-            btnSubmit.setEnabled(true);
+            binding.btnSubmit.setEnabled(true);
+            binding.btnSubmit.setText("Submit");
             return;
         }
 
@@ -254,38 +191,92 @@ public class FragmentUploadEvent extends Fragment {
                 })
                 .addOnSuccessListener(downloadUri -> {
                     // Create event object
-                    UpcomingEvent event = new UpcomingEvent(title, date, time, location, category, downloadUri.toString(), attendees, isPremium, isFeatured);
+                    String eventId = databaseReference.push().getKey();
+                    if (eventId == null) {
+                        Toast.makeText(requireContext(), "Failed to generate event ID", Toast.LENGTH_SHORT).show();
+                        isUploading = false;
+                        binding.btnSubmit.setEnabled(true);
+                        binding.btnSubmit.setText("Submit");
+                        return;
+                    }
+
+                    UpcomingEvent event = new UpcomingEvent(
+                            eventId, title, category, date, time, location, attendees,
+                            downloadUri.toString(), isPremium, isFeatured
+                    );
 
                     // Determine Firebase path
                     String path = eventType.equals("Featured") ? "featured" :
                             (eventType.equals("This Month") || isThisMonthEvent(date)) ? "this_month" : "upcoming";
 
                     // Upload to Firebase Database
-                    String eventId = databaseReference.child(path).push().getKey();
-                    if (eventId != null) {
-                        databaseReference.child(path).child(eventId).setValue(event)
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(requireContext(), "Event uploaded successfully", Toast.LENGTH_SHORT).show();
-                                    clearForm();
-                                    isUploading = false;
-                                    btnSubmit.setEnabled(true);
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(requireContext(), "Failed to upload event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    isUploading = false;
-                                    btnSubmit.setEnabled(true);
-                                });
-                    } else {
-                        Toast.makeText(requireContext(), "Failed to generate event ID", Toast.LENGTH_SHORT).show();
-                        isUploading = false;
-                        btnSubmit.setEnabled(true);
-                    }
+                    databaseReference.child(path).child(eventId).setValue(event)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(requireContext(), "Event uploaded successfully", Toast.LENGTH_SHORT).show();
+                                clearForm();
+                                isUploading = false;
+                                binding.btnSubmit.setEnabled(true);
+                                binding.btnSubmit.setText("Submit");
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(requireContext(), "Failed to upload event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                isUploading = false;
+                                binding.btnSubmit.setEnabled(true);
+                                binding.btnSubmit.setText("Submit");
+                            });
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(requireContext(), "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     isUploading = false;
-                    btnSubmit.setEnabled(true);
+                    binding.btnSubmit.setEnabled(true);
+                    binding.btnSubmit.setText("Submit");
                 });
+    }
+
+    private boolean validateInputs(String title, String date, String startTime, String endTime, String location, String attendees) {
+        if (title.isEmpty()) {
+            binding.etEventTitle.setError("Title is required");
+            return false;
+        }
+        if (date.isEmpty() || !isValidDate(date)) {
+            binding.etEventDate.setError("Valid date is required (YYYY-MM-DD)");
+            return false;
+        }
+        if (startTime.isEmpty() || !isValidTime(startTime)) {
+            binding.etStartTime.setError("Valid start time is required (HH:MM)");
+            return false;
+        }
+        if (endTime.isEmpty() || !isValidTime(endTime)) {
+            binding.etEndTime.setError("Valid end time is required (HH:MM)");
+            return false;
+        }
+        if (!isEndTimeAfterStartTime(startTime, endTime)) {
+            binding.etEndTime.setError("End time must be after start time");
+            return false;
+        }
+        if (location.isEmpty()) {
+            binding.etEventLocation.setError("Location is required");
+            return false;
+        }
+        if (attendees.isEmpty()) {
+            binding.etAttendees.setError("Attendees information is required");
+            return false;
+        }
+        try {
+            int attendeesCount = Integer.parseInt(attendees);
+            if (attendeesCount <= 0) {
+                binding.etAttendees.setError("Attendees must be a positive number");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            binding.etAttendees.setError("Attendees must be a valid number");
+            return false;
+        }
+        if (selectedImageUri == null) {
+            Toast.makeText(requireContext(), "Please select an event image", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private boolean isValidDate(String date) {
@@ -326,7 +317,6 @@ public class FragmentUploadEvent extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date eventDate = sdf.parse(date);
             Calendar eventCal = Calendar.getInstance();
-            assert eventDate != null;
             eventCal.setTime(eventDate);
 
             Calendar currentCal = Calendar.getInstance();
@@ -338,17 +328,29 @@ public class FragmentUploadEvent extends Fragment {
     }
 
     private void clearForm() {
-        etEventTitle.setText("");
-        etEventDate.setText("");
-        etStartTime.setText("");
-        etEndTime.setText("");
-        etEventLocation.setText("");
-        etAttendees.setText("");
-        cbPremium.setChecked(false);
-        spinnerCategory.setSelection(0);
-        spinnerEventType.setSelection(0);
+        binding.etEventTitle.setText("");
+        binding.etEventDate.setText("");
+        binding.etStartTime.setText("");
+        binding.etEndTime.setText("");
+        binding.etEventLocation.setText("");
+        binding.etAttendees.setText("");
+        binding.cbPremium.setChecked(false);
+        binding.spinnerCategory.setSelection(0);
+        binding.spinnerEventType.setSelection(0);
         selectedImageUri = null;
-        ivImagePreview.setImageDrawable(null);
-        ivImagePreview.setVisibility(View.GONE);
+        binding.ivImagePreview.setImageDrawable(null);
+        binding.ivImagePreview.setVisibility(View.GONE);
+        binding.etEventTitle.setError(null);
+        binding.etEventDate.setError(null);
+        binding.etStartTime.setError(null);
+        binding.etEndTime.setError(null);
+        binding.etEventLocation.setError(null);
+        binding.etAttendees.setError(null);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // Prevent memory leaks
     }
 }

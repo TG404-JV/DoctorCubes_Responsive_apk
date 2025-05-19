@@ -182,6 +182,8 @@
 
     <color name="background_white">#FAFAFA</color>
     <color name="white">#FFFFFF</color>
+    <color name="blue">#2196F3</color> <!-- For "Call Us" border -->
+    <color name="green">#25D366</color> <!-- For "Chat on WhatsApp" border -->
 
     <!-- Medical Theme Colors -->
     <color name="medical_primary">#1E88E5</color>       <!-- Medical Blue -->

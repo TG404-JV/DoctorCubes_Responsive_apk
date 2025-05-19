@@ -3,6 +3,7 @@ package com.tvm.doctorcube.communication;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class SearchUtils<T> {
     private final EditText searchEditText;
     private final List<T> fullList;
     private final SearchCallback<T> callback;
+    private TextWatcher textWatcher;
 
     public SearchUtils(Activity activity, EditText searchEditText, List<T> fullList, SearchCallback<T> callback) {
         this.activity = activity;
@@ -24,10 +26,16 @@ public class SearchUtils<T> {
 
     public void setupSearchBar() {
         if (searchEditText == null || callback == null) {
+            Log.w("SearchUtils", "Cannot setup search bar: searchEditText or callback is null");
             return;
         }
 
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        // Remove existing TextWatcher
+        if (textWatcher != null) {
+            searchEditText.removeTextChangedListener(textWatcher);
+        }
+
+        textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -40,22 +48,34 @@ public class SearchUtils<T> {
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
             }
-        });
+        };
+        searchEditText.addTextChangedListener(textWatcher);
+        Log.d("SearchUtils", "TextWatcher attached to searchEditText");
     }
 
-    private void filter(String query) {
+    public void filter(String query) {
         List<T> filteredList = new ArrayList<>();
         if (query == null || query.trim().isEmpty()) {
-            filteredList.addAll(fullList);
-        } else {
-            String searchQuery = query.toLowerCase(Locale.getDefault()).trim();
-            for (T item : fullList) {
-                if (item != null && callback.getSearchText(item).toLowerCase(Locale.getDefault()).contains(searchQuery)) {
-                    filteredList.add(item);
-                }
+            // Return empty list for empty query to hide results
+            callback.onSearchResults(filteredList);
+            return;
+        }
+        String searchQuery = query.toLowerCase(Locale.getDefault()).trim();
+        for (T item : fullList) {
+            if (item != null && callback.getSearchText(item).toLowerCase(Locale.getDefault()).contains(searchQuery)) {
+                filteredList.add(item);
             }
         }
         callback.onSearchResults(filteredList);
+        Log.d("SearchUtils", "Filtered list with " + filteredList.size() + " items for query: " + query);
+    }
+
+    public void clear() {
+        if (searchEditText != null && textWatcher != null) {
+            searchEditText.removeTextChangedListener(textWatcher);
+            textWatcher = null;
+            Log.d("SearchUtils", "TextWatcher cleared");
+        }
     }
 
     public interface SearchCallback<T> {

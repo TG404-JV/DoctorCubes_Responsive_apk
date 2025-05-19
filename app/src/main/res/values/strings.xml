@@ -776,4 +776,8 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="last_updated_label">Last Updated:</string>
     <string name="default_last_updated">27/04/25</string>
     <string name="profile_picture">Profile picture</string>
+    <string name="event_type">event type</string>
+    <string name="select_event_image">select event image</string>
+    <string name="event_image_preview">event image preview</string>
+    <string name="event_attendees">event image preview</string>
 </resources>

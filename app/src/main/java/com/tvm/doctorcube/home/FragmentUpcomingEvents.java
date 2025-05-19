@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
@@ -38,6 +40,7 @@ public class FragmentUpcomingEvents extends Fragment {
     private List<UpcomingEvent> thisMonthEvents = new ArrayList<>();
     private List<UpcomingEvent> upcomingEvents = new ArrayList<>();
     private DatabaseReference databaseReference;
+    private UpcomingEvent featuredEvent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class FragmentUpcomingEvents extends Fragment {
         btnRemind = view.findViewById(R.id.btnRemind);
         btnViewAll = view.findViewById(R.id.btnViewAll);
         categoryChipGroup = view.findViewById(R.id.categoryChipGroup);
+
+        // Set current month
+        tvCurrentMonth.setText("May 2025");
 
         // Initialize Firebase
         databaseReference = FirebaseDatabase.getInstance().getReference("UpcomingEvents");
@@ -83,6 +89,25 @@ public class FragmentUpcomingEvents extends Fragment {
             filterEvents(category);
         });
 
+        // Handle featured event registration
+        btnRegister.setOnClickListener(v -> {
+            if (featuredEvent != null) {
+                EventDetailsBottomSheet bottomSheet = EventDetailsBottomSheet.newInstance(featuredEvent);
+                bottomSheet.show(getParentFragmentManager(), EventDetailsBottomSheet.TAG);
+            } else {
+                CustomToast.showToast(requireActivity(), "No featured event available");
+            }
+        });
+
+        // Handle remind button (optional: implement reminder logic)
+        btnRemind.setOnClickListener(v -> CustomToast.showToast(requireActivity(), "Reminder set for featured event"));
+
+        // Handle view all button
+        btnViewAll.setOnClickListener(v -> {
+            // Navigate to a new fragment/activity showing all events
+            CustomToast.showToast(requireActivity(), "View all events clicked");
+        });
+
         return view;
     }
 
@@ -91,14 +116,13 @@ public class FragmentUpcomingEvents extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    UpcomingEvent event = data.getValue(UpcomingEvent.class);
-                    if (event != null) {
-                        featuredEventTitle.setText(event.getTitle());
-                        featuredEventTime.setText(event.getDate() + " • " + event.getTime());
-                        featuredEventLocation.setText(event.getLocation());
-                        // Load featured event image
+                    featuredEvent = data.getValue(UpcomingEvent.class);
+                    if (featuredEvent != null) {
+                        featuredEventTitle.setText(featuredEvent.getTitle());
+                        featuredEventTime.setText(featuredEvent.getDate() + " • " + featuredEvent.getTime());
+                        featuredEventLocation.setText(featuredEvent.getLocation());
                         Glide.with(featuredEventImage.getContext())
-                                .load(event.getImageUrl())
+                                .load(featuredEvent.getImageUrl())
                                 .placeholder(R.drawable.ic_profile)
                                 .error(R.drawable.date_badge_premium_bg)
                                 .into(featuredEventImage);
@@ -164,12 +188,12 @@ public class FragmentUpcomingEvents extends Fragment {
             filteredUpcoming.addAll(upcomingEvents);
         } else {
             for (UpcomingEvent event : thisMonthEvents) {
-                if (event.getCategory().equals(category)) {
+                if (event.getCategory().equalsIgnoreCase(category)) {
                     filteredThisMonth.add(event);
                 }
             }
             for (UpcomingEvent event : upcomingEvents) {
-                if (event.getCategory().equals(category)) {
+                if (event.getCategory().equalsIgnoreCase(category)) {
                     filteredUpcoming.add(event);
                 }
             }
