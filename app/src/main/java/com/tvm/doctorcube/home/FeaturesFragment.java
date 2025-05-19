@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -41,7 +40,6 @@ public class FeaturesFragment extends Fragment {
     private RecyclerView rvBenefits, rvSteps, rvRelatedFeatures;
     private MaterialButton btnContact;
     private FloatingActionButton fabContact;
-    private Toolbar toolbar;
     private NavController navController;
 
     private Feature feature;
@@ -65,10 +63,7 @@ public class FeaturesFragment extends Fragment {
         rvSteps = view.findViewById(R.id.rvSteps);
         rvRelatedFeatures = view.findViewById(R.id.rvRelatedFeatures);
         btnContact = view.findViewById(R.id.btnContact);
-        fabContact = view.findViewById(R.id.fabContact);
-        toolbar = view.findViewById(R.id.toolbar);
 
-        toolbar.setNavigationOnClickListener(v -> navController.navigateUp());
 
         if (getArguments() != null) {
             feature = (Feature) getArguments().getSerializable("FEATURE");
@@ -83,8 +78,7 @@ public class FeaturesFragment extends Fragment {
         loadFeatureData();
 
 
-        /*btnContact.setOnClickListener(v -> communicationUtils.openWhatsApp(requireActivity()));
-        fabContact.setOnClickListener(v -> CommunicationUtils.openWhatsApp(requireActivity()));*/
+
     }
 
     private void loadFeatureData() {

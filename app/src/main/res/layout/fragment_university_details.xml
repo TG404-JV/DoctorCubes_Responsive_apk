@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedTitleTextColor="@color/white"
-            app:contentScrim="@color/primary_color"
+            app:contentScrim="@color/gradient_primary_start"
             app:expandedTitleMarginEnd="@dimen/_64sdp"
             app:expandedTitleMarginStart="@dimen/_16sdp"
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Large"
@@ -38,12 +38,6 @@
                 android:background="#40000000"
                 app:layout_collapseMode="parallax" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

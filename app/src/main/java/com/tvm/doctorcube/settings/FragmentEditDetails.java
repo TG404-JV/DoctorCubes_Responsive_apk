@@ -11,25 +11,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
@@ -68,11 +68,13 @@ public class FragmentEditDetails extends Fragment {
 
     // Views
     private ImageView profileImageView;
-    private TextInputLayout emailLayout, fullNameLayout, phoneLayout;
-    private TextInputEditText emailEditText, fullNameEditText, phoneEditText;
-    private MaterialButton saveButton, changePasswordButton;
+    private TextView applicationIdTextView, lastCallDateTextView, lastUpdatedTextView;
+    private TextInputLayout nameLayout, emailLayout, phoneLayout, cityLayout, stateLayout, countryLayout, neetScoreLayout;
+    private TextInputEditText editName, editEmail, editPhone, editCity, editState, editCountry, editNeetScore;
+    private SwitchMaterial switchNeetScore, switchPassport, switchAdmitted;
+    private Button btnEditProfile;
+   private MaterialButton btnSave, btnCancel;
     private ProgressBar progressBar;
-    private Toolbar fragmentToolbar;
     private NavController navController;
 
     // User data
@@ -154,25 +156,34 @@ public class FragmentEditDetails extends Fragment {
     }
 
     private void initViews(View view) {
-        fragmentToolbar = view.findViewById(R.id.toolbar);
-        if (fragmentToolbar != null) {
-            fragmentToolbar.setNavigationOnClickListener(v -> navigateToHome());
-        }
-
-        profileImageView = view.findViewById(R.id.profileImageView);
-        emailLayout = view.findViewById(R.id.emailLayout);
-        fullNameLayout = view.findViewById(R.id.fullNameLayout);
-        phoneLayout = view.findViewById(R.id.phoneLayout);
-        emailEditText = view.findViewById(R.id.emailEditText);
-        fullNameEditText = view.findViewById(R.id.fullNameEditText);
-        phoneEditText = view.findViewById(R.id.phoneEditText);
-        saveButton = view.findViewById(R.id.saveButton);
-        changePasswordButton = view.findViewById(R.id.changePasswordButton);
+        profileImageView = view.findViewById(R.id.profile_image);
+        applicationIdTextView = view.findViewById(R.id.application_id);
+        nameLayout = view.findViewById(R.id.name_layout);
+        emailLayout = view.findViewById(R.id.email_layout);
+        phoneLayout = view.findViewById(R.id.phone_layout);
+        cityLayout = view.findViewById(R.id.city_layout);
+        stateLayout = view.findViewById(R.id.state_layout);
+        countryLayout = view.findViewById(R.id.country_layout);
+        neetScoreLayout = view.findViewById(R.id.neet_score_layout);
+        editName = view.findViewById(R.id.edit_name);
+        editEmail = view.findViewById(R.id.edit_email);
+        editPhone = view.findViewById(R.id.edit_phone);
+        editCity = view.findViewById(R.id.edit_city);
+        editState = view.findViewById(R.id.edit_state);
+        editCountry = view.findViewById(R.id.edit_country);
+        editNeetScore = view.findViewById(R.id.edit_neet_score);
+        switchNeetScore = view.findViewById(R.id.switch_neet_score);
+        switchPassport = view.findViewById(R.id.switch_passport);
+        switchAdmitted = view.findViewById(R.id.switch_admitted);
+        btnEditProfile = view.findViewById(R.id.btn_edit_profile);
+        btnSave = view.findViewById(R.id.btn_save);
+        btnCancel = view.findViewById(R.id.btn_cancel);
+        lastCallDateTextView = view.findViewById(R.id.text_last_call_date);
+        lastUpdatedTextView = view.findViewById(R.id.text_last_updated);
         progressBar = view.findViewById(R.id.progressBar);
 
-        // Set initial state of EditTexts to uneditable
-        setEditTextNonEditable();
-        saveButton.setText(R.string.edit_details);
+        // Set initial state of EditTexts and Switches to uneditable
+        setFieldsNonEditable();
 
         // Set listeners
         profileImageView.setOnClickListener(v -> {
@@ -180,70 +191,84 @@ public class FragmentEditDetails extends Fragment {
                 selectImage();
             }
         });
-        saveButton.setOnClickListener(v -> {
+        btnEditProfile.setOnClickListener(v -> enableEditing());
+        btnSave.setOnClickListener(v -> saveUserData());
+        btnCancel.setOnClickListener(v -> {
+            isEditing = false;
+            setFieldsNonEditable();
+            loadUserData(); // Reload to reset changes
+        });
+        switchNeetScore.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isEditing) {
-                saveUserData();
-            } else {
-                enableEditing();
+                neetScoreLayout.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                if (!isChecked) {
+                    editNeetScore.setText("");
+                }
             }
         });
-        changePasswordButton.setOnClickListener(v -> showChangePasswordDialog());
     }
 
-    private final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+    private void setFieldsEditable() {
+        editName.setEnabled(true);
+        editEmail.setEnabled(true);
+        editPhone.setEnabled(true);
+        editCity.setEnabled(true);
+        editState.setEnabled(true);
+        editCountry.setEnabled(true);
+        switchNeetScore.setEnabled(true);
+        switchPassport.setEnabled(true);
+        switchAdmitted.setEnabled(true);
+        editNeetScore.setEnabled(switchNeetScore.isChecked());
+        btnSave.setVisibility(View.VISIBLE);
+        btnCancel.setVisibility(View.VISIBLE);
+        btnEditProfile.setVisibility(View.GONE);
+    }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
-            isEditing = !Objects.requireNonNull(emailEditText.getText()).toString().equals(prefs.getString("email", ""))
-                    || !Objects.requireNonNull(fullNameEditText.getText()).toString().equals(prefs.getString("name", ""))
-                    || !Objects.requireNonNull(phoneEditText.getText()).toString().equals(prefs.getString("phone", ""));
-            saveButton.setText(isEditing ? R.string.save_changes : R.string.edit_details);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {}
-    };
+    private void setFieldsNonEditable() {
+        editName.setEnabled(false);
+        editEmail.setEnabled(false);
+        editPhone.setEnabled(false);
+        editCity.setEnabled(false);
+        editState.setEnabled(false);
+        editCountry.setEnabled(false);
+        switchNeetScore.setEnabled(false);
+        switchPassport.setEnabled(false);
+        switchAdmitted.setEnabled(false);
+        editNeetScore.setEnabled(false);
+        btnSave.setVisibility(View.GONE);
+        btnCancel.setVisibility(View.GONE);
+        btnEditProfile.setVisibility(View.VISIBLE);
+    }
 
     private void enableEditing() {
-        setEditTextEditable();
-        saveButton.setText(R.string.save_changes);
         isEditing = true;
-    }
-
-    private void setEditTextEditable() {
-        emailEditText.setFocusableInTouchMode(true);
-        fullNameEditText.setFocusableInTouchMode(true);
-        phoneEditText.setFocusableInTouchMode(true);
-        emailEditText.setFocusable(true);
-        fullNameEditText.setFocusable(true);
-        phoneEditText.setFocusable(true);
-        emailEditText.requestFocus();
-    }
-
-    private void setEditTextNonEditable() {
-        emailEditText.setFocusable(false);
-        fullNameEditText.setFocusable(false);
-        phoneEditText.setFocusable(false);
-        emailEditText.setFocusableInTouchMode(false);
-        fullNameEditText.setFocusableInTouchMode(false);
-        phoneEditText.setFocusableInTouchMode(false);
+        setFieldsEditable();
     }
 
     private void loadUserData() {
         showLoading(true);
         EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
 
+        // Try loading from SharedPreferences first
         String email = prefs.getString("email", "");
-        String fullName = prefs.getString("name", "");
-        String phone = prefs.getString("phone", "");
+        String name = prefs.getString("name", "");
+        String phone = prefs.getString("mobile", "");
+        String city = prefs.getString("city", "");
+        String state = prefs.getString("state", "");
+        String country = prefs.getString("country", "");
+        boolean hasNeetScore = prefs.getBoolean("hasNeetScore", false);
+        String neetScore = prefs.getString("neetScore", "");
+        boolean hasPassport = prefs.getBoolean("hasPassport", false);
+        boolean isAdmitted = prefs.getBoolean("isAdmitted", false);
+        String lastCallDate = prefs.getString("lastCallDate", "");
+        String lastUpdated = prefs.getString("lastUpdatedDate", "");
+        String applicationId = prefs.getString("userId", "");
         firestoreImageUrl = prefs.getString("imageUrl", "");
         localImagePath = prefs.getString("FilePath", "");
 
-        boolean hasLocalData = !email.isEmpty() || !fullName.isEmpty() || !phone.isEmpty();
+        boolean hasLocalData = !email.isEmpty() || !name.isEmpty() || !phone.isEmpty();
 
+        // Load profile image
         if (localImagePath != null && !localImagePath.isEmpty()) {
             File localFile = new File(localImagePath);
             if (localFile.exists()) {
@@ -252,24 +277,35 @@ public class FragmentEditDetails extends Fragment {
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true)
                         .circleCrop()
-                        .placeholder(R.drawable.logo_doctor_cubes_white)
-                        .error(R.drawable.logo_doctor_cubes_white)
+                        .placeholder(R.drawable.logo_doctor_cubes_dark)
+                        .error(R.drawable.logo_doctor_cubes_dark)
                         .into(profileImageView);
             } else if (!firestoreImageUrl.isEmpty()) {
                 Glide.with(this)
                         .load(firestoreImageUrl)
                         .diskCacheStrategy(DiskCacheStrategy.DATA)
                         .circleCrop()
-                        .placeholder(R.drawable.logo_doctor_cubes_white)
-                        .error(R.drawable.logo_doctor_cubes_white)
+                        .placeholder(R.drawable.logo_doctor_cubes_dark)
+                        .error(R.drawable.logo_doctor_cubes_dark)
                         .into(profileImageView);
             }
         }
 
         if (hasLocalData) {
-            emailEditText.setText(email);
-            fullNameEditText.setText(fullName);
-            phoneEditText.setText(phone);
+            applicationIdTextView.setText(applicationId);
+            editName.setText(name);
+            editEmail.setText(email);
+            editPhone.setText(phone);
+            editCity.setText(city);
+            editState.setText(state);
+            editCountry.setText(country);
+            switchNeetScore.setChecked(hasNeetScore);
+            neetScoreLayout.setVisibility(hasNeetScore ? View.VISIBLE : View.GONE);
+            editNeetScore.setText(neetScore);
+            switchPassport.setChecked(hasPassport);
+            switchAdmitted.setChecked(isAdmitted);
+            lastCallDateTextView.setText(lastCallDate.isEmpty() ? getString(R.string.not_called_yet) : lastCallDate);
+            lastUpdatedTextView.setText(lastUpdated.isEmpty() ? getString(R.string.default_last_updated) : lastUpdated);
             showLoading(false);
         } else {
             fetchUserDataFromFirestore();
@@ -282,40 +318,15 @@ public class FragmentEditDetails extends Fragment {
             CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
             return;
         }
+
+        // Fetch user data
         mFirestore.collection("Users").document(userId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        String email = documentSnapshot.getString("email");
-                        String fullName = documentSnapshot.getString("name");
-                        String phone = documentSnapshot.getString("mobile");
-                        firestoreImageUrl = documentSnapshot.getString("imageUrl");
-
-                        email = email != null ? email : getString(R.string.default_email);
-                        fullName = fullName != null ? fullName : getString(R.string.default_name);
-                        phone = phone != null ? phone : getString(R.string.sample_phone);
-
-                        emailEditText.setText(email);
-                        fullNameEditText.setText(fullName);
-                        phoneEditText.setText(phone);
-
-                        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
-                        prefs.putString("email", email);
-                        prefs.putString("name", fullName);
-                        prefs.putString("phone", phone);
-                        prefs.putString("imageUrl", firestoreImageUrl != null ? firestoreImageUrl : "");
-
-                        if (firestoreImageUrl != null && !firestoreImageUrl.isEmpty()) {
-                            Glide.with(this)
-                                    .load(firestoreImageUrl)
-                                    .diskCacheStrategy(DiskCacheStrategy.DATA)
-                                    .circleCrop()
-                                    .placeholder(R.drawable.logo_doctor_cubes_white)
-                                    .error(R.drawable.logo_doctor_cubes_white)
-                                    .into(profileImageView);
-                            saveImageToLocalStorage(firestoreImageUrl);
-                        }
-
+                        Map<String, Object> userData = documentSnapshot.getData();
+                        saveToSharedPreferences(userData);
+                        updateUI(userData);
                         showLoading(false);
                     } else {
                         showLoading(false);
@@ -327,6 +338,81 @@ public class FragmentEditDetails extends Fragment {
                     showLoading(false);
                     CustomToast.showToast(requireActivity(), "Failed to load profile");
                 });
+
+        // Fetch application submission data
+        mFirestore.collection("app_submissions").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Map<String, Object> appData = documentSnapshot.getData();
+                        saveToSharedPreferences(appData);
+                        updateUI(appData);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error fetching application data: ", e);
+                });
+    }
+
+    private void saveToSharedPreferences(Map<String, Object> data) {
+        if (data == null) return;
+
+        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
+        if (data.containsKey("email")) prefs.putString("email", (String) data.get("email"));
+        if (data.containsKey("name")) prefs.putString("name", (String) data.get("name"));
+        if (data.containsKey("mobile")) prefs.putString("mobile", (String) data.get("mobile"));
+        if (data.containsKey("city")) prefs.putString("city", (String) data.get("city"));
+        if (data.containsKey("state")) prefs.putString("state", (String) data.get("state"));
+        if (data.containsKey("country")) prefs.putString("country", (String) data.get("country"));
+        if (data.containsKey("hasNeetScore")) prefs.putBoolean("hasNeetScore", (Boolean) data.get("hasNeetScore"));
+        if (data.containsKey("neetScore")) prefs.putString("neetScore", (String) data.get("neetScore"));
+        if (data.containsKey("hasPassport")) prefs.putBoolean("hasPassport", (Boolean) data.get("hasPassport"));
+        if (data.containsKey("isAdmitted")) prefs.putBoolean("isAdmitted", (Boolean) data.get("isAdmitted"));
+        if (data.containsKey("lastCallDate")) prefs.putString("lastCallDate", (String) data.get("lastCallDate"));
+        if (data.containsKey("lastUpdatedDate")) prefs.putString("lastUpdatedDate", (String) data.get("lastUpdatedDate"));
+        if (data.containsKey("userId")) prefs.putString("userId", (String) data.get("userId"));
+        if (data.containsKey("imageUrl")) {
+            prefs.putString("imageUrl", (String) data.get("imageUrl"));
+            firestoreImageUrl = (String) data.get("imageUrl");
+        }
+    }
+
+    private void updateUI(Map<String, Object> data) {
+        if (data == null) return;
+
+        if (data.containsKey("userId")) applicationIdTextView.setText((String) data.get("userId"));
+        if (data.containsKey("name")) editName.setText((String) data.get("name"));
+        if (data.containsKey("email")) editEmail.setText((String) data.get("email"));
+        if (data.containsKey("mobile")) editPhone.setText((String) data.get("mobile"));
+        if (data.containsKey("city")) editCity.setText((String) data.get("city"));
+        if (data.containsKey("state")) editState.setText((String) data.get("state"));
+        if (data.containsKey("country")) editCountry.setText((String) data.get("country"));
+        if (data.containsKey("hasNeetScore")) {
+            boolean hasNeetScore = (Boolean) data.get("hasNeetScore");
+            switchNeetScore.setChecked(hasNeetScore);
+            neetScoreLayout.setVisibility(hasNeetScore ? View.VISIBLE : View.GONE);
+        }
+        if (data.containsKey("neetScore")) editNeetScore.setText((String) data.get("neetScore"));
+        if (data.containsKey("hasPassport")) switchPassport.setChecked((Boolean) data.get("hasPassport"));
+        if (data.containsKey("isAdmitted")) switchAdmitted.setChecked((Boolean) data.get("isAdmitted"));
+        if (data.containsKey("lastCallDate")) {
+            String lastCallDate = (String) data.get("lastCallDate");
+            lastCallDateTextView.setText(lastCallDate.isEmpty() ? getString(R.string.not_called_yet) : lastCallDate);
+        }
+        if (data.containsKey("lastUpdatedDate")) {
+            String lastUpdated = (String) data.get("lastUpdatedDate");
+            lastUpdatedTextView.setText(lastUpdated.isEmpty() ? getString(R.string.default_last_updated) : lastUpdated);
+        }
+        if (data.containsKey("imageUrl") && !((String) data.get("imageUrl")).isEmpty()) {
+            Glide.with(this)
+                    .load((String) data.get("imageUrl"))
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .circleCrop()
+                    .placeholder(R.drawable.logo_doctor_cubes_dark)
+                    .error(R.drawable.logo_doctor_cubes_dark)
+                    .into(profileImageView);
+            saveImageToLocalStorage((String) data.get("imageUrl"));
+        }
     }
 
     private void selectImage() {
@@ -372,9 +458,6 @@ public class FragmentEditDetails extends Fragment {
             localImagePath = outputFile.getAbsolutePath();
             EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireContext());
             prefs.putString("FilePath", localImagePath);
-        } catch (IOException e) {
-            Log.e(TAG, "Error saving image to local storage: ", e);
-            throw e;
         }
     }
 
@@ -412,55 +495,107 @@ public class FragmentEditDetails extends Fragment {
             return;
         }
 
-        String email = emailEditText.getText().toString().trim();
-        String fullName = fullNameEditText.getText().toString().trim();
-        String phone = phoneEditText.getText().toString().trim();
+        String name = editName.getText().toString().trim();
+        String email = editEmail.getText().toString().trim();
+        String phone = editPhone.getText().toString().trim();
+        String city = editCity.getText().toString().trim();
+        String state = editState.getText().toString().trim();
+        String country = editCountry.getText().toString().trim();
+        boolean hasNeetScore = switchNeetScore.isChecked();
+        String neetScore = hasNeetScore ? editNeetScore.getText().toString().trim() : "";
+        boolean hasPassport = switchPassport.isChecked();
+        boolean isAdmitted = switchAdmitted.isChecked();
 
-        if (email.isEmpty()) {
-            emailLayout.setError("Email cannot be empty");
+        // Validation
+        if (name.isEmpty()) {
+            nameLayout.setError("Name cannot be empty");
             return;
         }
-        if (fullName.isEmpty()) {
-            fullNameLayout.setError("Name cannot be empty");
+        if (email.isEmpty()) {
+            emailLayout.setError("Email cannot be empty");
             return;
         }
         if (phone.isEmpty()) {
             phoneLayout.setError("Phone cannot be empty");
             return;
         }
-
-        emailLayout.setError(null);
-        fullNameLayout.setError(null);
-        phoneLayout.setError(null);
-        showLoading(true);
-
-        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
-        prefs.putString("email", email);
-        prefs.putString("name", fullName);
-        prefs.putString("phone", phone);
-
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("email", email);
-        updates.put("name", fullName);
-        updates.put("mobile", phone);
-
-        if (isImageChanged && selectedImageBitmap != null) {
-            uploadImageToFirebaseStorage(selectedImageBitmap, updates);
-        } else {
-            updates.put("imageUrl", firestoreImageUrl != null ? firestoreImageUrl : "");
-            updateUserData(updates);
+        if (city.isEmpty()) {
+            cityLayout.setError("City cannot be empty");
+            return;
+        }
+        if (state.isEmpty()) {
+            stateLayout.setError("State cannot be empty");
+            return;
+        }
+        if (country.isEmpty()) {
+            countryLayout.setError("Country cannot be empty");
+            return;
+        }
+        if (hasNeetScore && neetScore.isEmpty()) {
+            neetScoreLayout.setError("NEET score cannot be empty");
+            return;
         }
 
-        isEditing = false;
-        saveButton.setText(R.string.edit_details);
-        setEditTextNonEditable();
+        // Clear errors
+        nameLayout.setError(null);
+        emailLayout.setError(null);
+        phoneLayout.setError(null);
+        cityLayout.setError(null);
+        stateLayout.setError(null);
+        countryLayout.setError(null);
+        neetScoreLayout.setError(null);
+
+        showLoading(true);
+
+        // Save to SharedPreferences
+        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
+        prefs.putString("name", name);
+        prefs.putString("email", email);
+        prefs.putString("mobile", phone);
+        prefs.putString("city", city);
+        prefs.putString("state", state);
+        prefs.putString("country", country);
+        prefs.putBoolean("hasNeetScore", hasNeetScore);
+        prefs.putString("neetScore", neetScore);
+        prefs.putBoolean("hasPassport", hasPassport);
+        prefs.putBoolean("isAdmitted", isAdmitted);
+        prefs.putString("userId", userId);
+        prefs.putString("lastCallDate", lastCallDateTextView.getText().toString());
+        prefs.putString("lastUpdatedDate", lastUpdatedTextView.getText().toString());
+
+        // Prepare Firestore updates
+        Map<String, Object> userUpdates = new HashMap<>();
+        userUpdates.put("name", name);
+        userUpdates.put("email", email);
+        userUpdates.put("mobile", phone);
+
+        Map<String, Object> appUpdates = new HashMap<>();
+        appUpdates.put("city", city);
+        appUpdates.put("state", state);
+        appUpdates.put("country", country);
+        appUpdates.put("hasNeetScore", hasNeetScore);
+        appUpdates.put("neetScore", neetScore);
+        appUpdates.put("hasPassport", hasPassport);
+        appUpdates.put("isAdmitted", isAdmitted);
+        appUpdates.put("email", email);
+        appUpdates.put("mobile", phone);
+        appUpdates.put("name", name);
+        appUpdates.put("userId", userId);
+
+        if (isImageChanged && selectedImageBitmap != null) {
+            uploadImageToFirebaseStorage(selectedImageBitmap, userUpdates, appUpdates);
+        } else {
+            userUpdates.put("imageUrl", firestoreImageUrl != null ? firestoreImageUrl : "");
+            appUpdates.put("imageUrl", firestoreImageUrl != null ? firestoreImageUrl : "");
+            updateUserData(userUpdates, appUpdates);
+        }
     }
 
-    private void uploadImageToFirebaseStorage(Bitmap bitmap, Map<String, Object> updates) {
+    private void uploadImageToFirebaseStorage(Bitmap bitmap, Map<String, Object> userUpdates, Map<String, Object> appUpdates) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null || !currentUser.getUid().equals(userId)) {
             showLoading(false);
-            Log.e(TAG, "Authentication error: currentUser=" + (currentUser != null ? currentUser.getUid() : "null") + ", userId=" + userId);
+            Log.e(TAG, "Authentication error");
             CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
             navigateToLogin();
             return;
@@ -468,8 +603,6 @@ public class FragmentEditDetails extends Fragment {
 
         currentUser.getIdToken(true)
                 .addOnSuccessListener(result -> {
-                    Log.d(TAG, "Auth token refreshed for userId: " + userId);
-                    // Corrected storage path: added "/profile.jpg"
                     StorageReference storageRef = mStorage.getReference().child("profile_images/" + userId + "/profile.jpg");
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
@@ -479,10 +612,11 @@ public class FragmentEditDetails extends Fragment {
                             .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl()
                                     .addOnSuccessListener(uri -> {
                                         String imageUrl = uri.toString();
-                                        updates.put("imageUrl", imageUrl);
+                                        userUpdates.put("imageUrl", imageUrl);
+                                        appUpdates.put("imageUrl", imageUrl);
                                         EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireContext());
                                         prefs.putString("imageUrl", imageUrl);
-                                        updateUserData(updates);
+                                        updateUserData(userUpdates, appUpdates);
                                         CustomToast.showToast(requireActivity(), getString(R.string.profile_image_updated));
                                     })
                                     .addOnFailureListener(e -> {
@@ -493,12 +627,7 @@ public class FragmentEditDetails extends Fragment {
                             .addOnFailureListener(e -> {
                                 showLoading(false);
                                 Log.e(TAG, "Error uploading image: ", e);
-                                if (e instanceof com.google.firebase.storage.StorageException && ((com.google.firebase.storage.StorageException) e).getErrorCode() == com.google.firebase.storage.StorageException.ERROR_NOT_AUTHORIZED) {
-                                    CustomToast.showToast(requireActivity(), "Permission denied. Please sign in again.");
-                                    navigateToLogin();
-                                } else {
-                                    CustomToast.showToast(requireActivity(), getString(R.string.error_image_upload));
-                                }
+                                CustomToast.showToast(requireActivity(), getString(R.string.error_image_upload));
                             });
                 })
                 .addOnFailureListener(e -> {
@@ -509,19 +638,33 @@ public class FragmentEditDetails extends Fragment {
                 });
     }
 
-    private void updateUserData(Map<String, Object> updates) {
+    private void updateUserData(Map<String, Object> userUpdates, Map<String, Object> appUpdates) {
         if (userId == null) {
             showLoading(false);
             CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
             navigateToLogin();
             return;
         }
+
+        // Update Users collection
         mFirestore.collection("Users").document(userId)
-                .update(updates)
+                .update(userUpdates)
                 .addOnSuccessListener(aVoid -> {
-                    showLoading(false);
-                    CustomToast.showToast(requireActivity(), "Profile updated successfully");
-                    isImageChanged = false;
+                    // Update app_submissions collection
+                    mFirestore.collection("app_submissions").document(userId)
+                            .set(appUpdates)
+                            .addOnSuccessListener(aVoid1 -> {
+                                showLoading(false);
+                                CustomToast.showToast(requireActivity(), "Profile updated successfully");
+                                isImageChanged = false;
+                                isEditing = false;
+                                setFieldsNonEditable();
+                            })
+                            .addOnFailureListener(e -> {
+                                showLoading(false);
+                                Log.e(TAG, "Error updating application data in Firestore: ", e);
+                                CustomToast.showToast(requireActivity(), "Failed to update profile");
+                            });
                 })
                 .addOnFailureListener(e -> {
                     showLoading(false);
@@ -554,7 +697,7 @@ public class FragmentEditDetails extends Fragment {
 
         final AlertDialog dialog = builder.create();
 
-        newPasswordEditText.addTextChangedListener(new TextWatcher() {
+        newPasswordEditText.addTextChangedListener(new android.text.TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -562,7 +705,7 @@ public class FragmentEditDetails extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(android.text.Editable s) {
                 String password = s.toString();
                 if (!password.isEmpty()) {
                     if (password.length() < 8) {
@@ -578,7 +721,7 @@ public class FragmentEditDetails extends Fragment {
             }
         });
 
-        confirmPasswordEditText.addTextChangedListener(new TextWatcher() {
+        confirmPasswordEditText.addTextChangedListener(new android.text.TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -586,7 +729,7 @@ public class FragmentEditDetails extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(android.text.Editable s) {
                 String confirmPassword = s.toString();
                 String newPassword = newPasswordEditText.getText().toString();
                 if (!confirmPassword.isEmpty() && !confirmPassword.equals(newPassword)) {
@@ -803,9 +946,10 @@ public class FragmentEditDetails extends Fragment {
     private void showLoading(boolean isLoading) {
         if (isAdded()) {
             mainHandler.post(() -> {
-                progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-                saveButton.setEnabled(!isLoading);
-                changePasswordButton.setEnabled(!isLoading);
+              //  progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+                btnEditProfile.setEnabled(!isLoading);
+                btnSave.setEnabled(!isLoading);
+                btnCancel.setEnabled(!isLoading);
             });
         }
     }
@@ -813,7 +957,7 @@ public class FragmentEditDetails extends Fragment {
     private void navigateToHome() {
         if (navController != null && navController.getCurrentDestination() != null) {
             try {
-                //navController.navigate(R.id.action_fragmentEditDetails_to_settingsHome);
+               // navController.navigate(R.id.action_fragmentEditDetails_to_settingsHome);
             } catch (Exception e) {
                 Log.e(TAG, "Navigation error: ", e);
                 CustomToast.showToast(requireActivity(), getString(R.string.error_navigation));
@@ -824,7 +968,7 @@ public class FragmentEditDetails extends Fragment {
     private void navigateToLogin() {
         if (navController != null && navController.getCurrentDestination() != null) {
             try {
-              //  navController.navigate(R.id.action_fragmentEditDetails_to_loginFragment);
+               // navController.navigate(R.id.action_fragmentEditDetails_to_loginFragment);
             } catch (Exception e) {
                 Log.e(TAG, "Navigation error: ", e);
                 CustomToast.showToast(requireActivity(), getString(R.string.error_navigation));

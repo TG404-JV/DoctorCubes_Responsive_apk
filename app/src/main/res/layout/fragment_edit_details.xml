@@ -1,27 +1,77 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color">
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/profileCard"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/card_background"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ScrollView
+        <!-- Profile Header Banner -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="180dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/gradient_toolbar_background" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"
+                app:cardCornerRadius="45dp"
+                app:cardElevation="4dp">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logo_doctor_cubes_dark"
+                    android:contentDescription="@string/profile_picture" />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
+        <!-- App Title and ID -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hi Student"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <TextView
+                android:id="@+id/application_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_application_id"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Edit Profile Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,130 +79,316 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <!-- Card Header with Edit Button -->
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/profileImageView"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:background="@drawable/circle_background"
-                        android:padding="2dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_doctor"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:shapeAppearance="@style/ShapeAppearanceOverlay.Circle" />
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:background="@drawable/circular_background"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_camera"
-                        app:layout_constraintBottom_toBottomOf="@id/profileImageView"
-                        app:layout_constraintEnd_toEndOf="@id/profileImageView"
-                        app:tint="@color/primary_light_color" />
+                    android:layout_marginBottom="16dp">
 
                     <TextView
-                        style="@style/CaptionTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/tap_to_change_profile_photo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/profileImageView" />
+                        android:text="@string/personal_information"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <Button
+                        android:id="@+id/btn_edit_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="@string/edit_profile"
+                        android:textAllCaps="false"
+                        android:drawableStart="@drawable/ic_edit"
+                        android:drawablePadding="8dp"
+                        android:layout_alignParentEnd="true"
+                        style="@style/Widget.MaterialComponents.Button.TextButton" />
+                </RelativeLayout>
 
+                <!-- Name Field -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/fullNameLayout"
-                    style="@style/MedicalTextInputStyle"
+                    android:id="@+id/name_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="@string/full_name">
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/full_name"
+                    app:startIconDrawable="@drawable/ic_person"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fullNameEditText"
+                        android:id="@+id/edit_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
-                        android:textColor="@color/text_primary_color" />
-
+                        android:enabled="false"
+                        tools:text="satish wankhede" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Email Field -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/emailLayout"
-                    style="@style/MedicalTextInputStyle"
+                    android:id="@+id/email_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="@string/enter_email">
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/email_address"
+                    app:startIconDrawable="@drawable/ic_email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/emailEditText"
+                        android:id="@+id/edit_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:textColor="@color/text_primary_color" />
-
+                        android:enabled="false"
+                        tools:text="wankhedesatish385555@gmail.com" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Phone Field -->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/phoneLayout"
-                    style="@style/MedicalTextInputStyle"
+                    android:id="@+id/phone_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="@string/phone_number">
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/mobile_number"
+                    app:startIconDrawable="@drawable/ic_phone"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phoneEditText"
+                        android:id="@+id/edit_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone"
-                        android:textColor="@color/text_primary_color" />
-
+                        android:enabled="false"
+                        tools:text="9309917269" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/changePasswordButton"
-                    style="@style/MedicalSecondaryButton"
+                <!-- Location Information -->
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/change_password"
-                    app:icon="@drawable/ic_lock"
-                    app:iconGravity="textStart"
-                    app:iconTint="@color/primary_color" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/location_information"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/saveButton"
-                    style="@style/MedicalPrimaryButton"
+                <!-- City Field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/city_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="@string/save_changes" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/city"
+                    app:startIconDrawable="@drawable/ic_location_city"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:enabled="false"
+                        tools:text="aurgabd" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- State Field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/state_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/state"
+                    app:startIconDrawable="@drawable/ic_map"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:enabled="false"
+                        tools:text="mrashtra pj" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Country Field -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/country_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/country"
+                    app:startIconDrawable="@drawable/ic_globe"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:enabled="false"
+                        tools:text="Nepal" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Application Information -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/application_information"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- NEET Score -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp">
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switch_neet_score"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/have_neet_score"
+                        android:checked="false"
+                        android:enabled="false" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/neet_score_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="@string/neet_score"
+                        android:visibility="gone"
+                        app:startIconDrawable="@drawable/ic_assessment"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_neet_score"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:enabled="false"
+                            tools:text="" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Passport Status -->
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_passport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/have_passport"
+                    android:layout_marginTop="16dp"
+                    android:checked="false"
+                    android:enabled="false" />
+
+                <!-- Admission Status -->
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_admitted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/admitted"
+                    android:layout_marginTop="16dp"
+                    android:checked="false"
+                    android:enabled="false" />
+
+                <!-- Status Information -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/status_information"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/last_call_date_label"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/text_last_call_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/not_called_yet"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/last_updated_label"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:id="@+id/text_last_updated"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/default_last_updated"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        </ScrollView>
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-    </androidx.cardview.widget.CardView>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save_changes"
+                android:textAllCaps="false"
+                android:background="@drawable/button_primary"
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/primary_color"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/button_secondary"
+                android:textColor="@color/text_primary"
+                android:visibility="gone" />
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

@@ -339,16 +339,9 @@
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textSize">14sp</item>
     </style>
-    <style name="QATextView_Question">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/text_primary_color</item>
-    </style>
 
-    <style name="QATextView_Answer">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/primary_color</item>
-    </style>
+
+
 
     <style name="InviteFriendsTitleTextStyle">
         <item name="android:textColor">@color/text_primary_color</item>
@@ -550,6 +543,29 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <!-- Question Answer Text Styles -->
+    <style name="QATextView_Base">
+        <item name="android:textDirection">locale</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:hyphenationFrequency">normal</item>
+        <item name="android:breakStrategy">high_quality</item>
+    </style>
 
+    <style name="QATextView_Question" parent="QATextView_Base">
+        <item name="android:textColor">@color/text_primary_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+
+    <style name="QATextView_Answer" parent="QATextView_Base">
+        <item name="android:textColor">@color/text_secondary_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+        <item name="android:paddingTop">12dp</item>
+    </style>
 
 </resources>
