@@ -366,7 +366,7 @@
             android:orientation="horizontal"
             android:padding="16dp">
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -375,9 +375,9 @@
                 android:textAllCaps="false"
                 android:background="@drawable/button_primary"
                 android:textColor="@color/white"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -387,7 +387,7 @@
                 android:layout_marginStart="12dp"
                 android:background="@drawable/button_secondary"
                 android:textColor="@color/text_primary"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </LinearLayout>
 
     </LinearLayout>

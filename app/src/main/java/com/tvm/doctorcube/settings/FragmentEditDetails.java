@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -73,7 +74,7 @@ public class FragmentEditDetails extends Fragment {
     private TextInputEditText editName, editEmail, editPhone, editCity, editState, editCountry, editNeetScore;
     private SwitchMaterial switchNeetScore, switchPassport, switchAdmitted;
     private Button btnEditProfile;
-   private MaterialButton btnSave, btnCancel;
+   private AppCompatButton btnSave, btnCancel;
     private ProgressBar progressBar;
     private NavController navController;
 
