@@ -23,58 +23,54 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tvm.doctorcube.communication.CommunicationUtils;
 import com.tvm.doctorcube.communication.SearchUtils;
-import com.tvm.doctorcube.home.adapter.EventAdapter;
 import com.tvm.doctorcube.home.adapter.FeaturesAdapter;
 import com.tvm.doctorcube.home.adapter.TestimonialsSliderAdapter;
 import com.tvm.doctorcube.home.adapter.UniversityListAdapter;
+import com.tvm.doctorcube.home.adapter.UpcomingEventAdapter;
 import com.tvm.doctorcube.home.data.FeatureData;
 import com.tvm.doctorcube.home.data.Testimonial;
-import com.tvm.doctorcube.home.model.Event;
 import com.tvm.doctorcube.home.model.Feature;
+import com.tvm.doctorcube.home.model.UpcomingEvent;
 import com.tvm.doctorcube.university.model.University;
 import com.tvm.doctorcube.university.model.UniversityData;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.card.MaterialCardView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureClickListener, EventAdapter.OnItemClickListener {
+public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureClickListener, UpcomingEventAdapter.OnItemClickListener {
 
-    private RecyclerView featuresRecyclerView;
+    private RecyclerView featuresRecyclerView, universitiesRecyclerView, recyclerView;
     private FeaturesAdapter featuresAdapter;
-    private RecyclerView universitiesRecyclerView;
     private UniversityListAdapter universityListAdapter;
+    private UpcomingEventAdapter eventAdapter;
     private ViewPager2 testimonialsViewPager;
     private TestimonialsSliderAdapter testimonialsAdapter;
     private Handler sliderHandler = new Handler();
     private Runnable testimonialsSliderRunnable;
     private final int AUTO_SLIDE_INTERVAL = 3000;
 
-    // Search bar components
     private EditText searchEditText;
     private List<University> fullUniversityList;
     private RecyclerView searchResultsRecyclerView;
     private SearchResultsAdapter searchResultsAdapter;
-    private List<SearchItem> fullSearchList;
+    private List<SearchItem> fullSearchList = new ArrayList<>();
 
-    // Category buttons
     private MaterialCardView studyButton, examButton, universityButton;
-
-    // Upcoming Events "SEE ALL" button
     private TextView seeAllEventsButton;
-
-    // University count
-
-    // Invite Friends button
     private AppCompatButton inviteButton;
 
-    private RecyclerView recyclerView;
-    private EventAdapter adapter;
-    private List<Event> eventList;
     private NavController navController;
+    private DatabaseReference databaseReference;
+    private List<UpcomingEvent> eventList;
 
     @Nullable
     @Override
@@ -86,10 +82,9 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize NavController
         navController = Navigation.findNavController(view);
+        databaseReference = FirebaseDatabase.getInstance().getReference("UpcomingEvents");
 
-        // Initialize UI components
         searchEditText = view.findViewById(R.id.searchEditText);
         searchResultsRecyclerView = view.findViewById(R.id.search_results);
         studyButton = view.findViewById(R.id.studyButton);
@@ -100,7 +95,6 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         recyclerView = view.findViewById(R.id.recyclerView);
         SocialActions socialActions = new SocialActions();
 
-        // Setup click listeners
         View whatsappButton = view.findViewById(R.id.whatsapp_button);
         if (whatsappButton != null) {
             whatsappButton.setOnClickListener(v -> socialActions.openWhatsApp(requireActivity()));
@@ -110,7 +104,6 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
             callNowButton.setOnClickListener(v -> socialActions.makeDirectCall(requireActivity()));
         }
 
-        // Setup UI components
         setUpComingEvents();
         setupFeaturesRecyclerView(view);
         setupUniversitiesRecyclerView(view);
@@ -119,6 +112,8 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         setupSearchBar();
         setupCategoryButtons();
         setupEventListeners();
+
+        view.findViewById(R.id.see_all_events).setOnClickListener(view1 -> navController.navigate(R.id.action_homeFragment_to_fragmentUpcomingEvents));
     }
 
     private void setUpComingEvents() {
@@ -126,28 +121,38 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         eventList = new ArrayList<>();
-        eventList.add(new Event(R.drawable.img_offer_1, "MBBS", "Study in Russia", "Moscow Medical University", "+45 Students Enrolled"));
-        eventList.add(new Event(R.drawable.img_offer_2, "MBBS", "Study in Japan", "Kharkiv National Medical University", "+38 Students Enrolled"));
-        eventList.add(new Event(R.drawable.img_offer_3, "MBBS", "Study in China", "Jiangsu University", "+52 Students Enrolled"));
-        adapter = new EventAdapter(eventList, this);
-        recyclerView.setAdapter(adapter);
+        eventAdapter = new UpcomingEventAdapter(eventList, this);
+        recyclerView.setAdapter(eventAdapter);
+
+        databaseReference.child("this_month").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                eventList.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    UpcomingEvent event = data.getValue(UpcomingEvent.class);
+                    if (event != null) {
+                        eventList.add(event);
+                    }
+                }
+                eventAdapter.notifyDataSetChanged();
+                updateSearchList();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                CustomToast.showToast(requireActivity(), "Failed to load events: " + error.getMessage());
+            }
+        });
     }
 
     @Override
-    public void onItemClick(int position, Event event) {
+    public void onItemClick(int position, UpcomingEvent event) {
         Bundle args = new Bundle();
-        args.putInt("imageResourceId", event.getImageResId());
-        args.putString("universityName", event.getLocation());
-        args.putString("country", extractCountry(event.getLocation()));
-        navController.navigate(R.id.action_homeFragment_to_universityDetailsBottomSheet2, args);
-    }
-
-    private String extractCountry(String location) {
-        try {
-            return location.split(", ")[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return "Unknown";
-        }
+        args.putString("imageUrl", event.getImageUrl());
+        args.putString("eventTitle", event.getTitle());
+        args.putString("eventDate", event.getDate() + " • " + event.getTime());
+        args.putString("eventLocation", event.getLocation());
+        navController.navigate(R.id.action_homeFragment_to_eventDetailsBottomSheet, args);
     }
 
     private void setupFeaturesRecyclerView(View view) {
@@ -164,13 +169,11 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         if (universitiesRecyclerView == null) return;
         universitiesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         fullUniversityList = UniversityData.getUniversities(requireContext());
-        if (getContext() != null) {
+        if (getContext() != null && fullUniversityList != null) {
             universityListAdapter = new UniversityListAdapter(getContext(), new ArrayList<>(fullUniversityList), this::navigateToUniversityDetails);
             universitiesRecyclerView.setAdapter(universityListAdapter);
         }
     }
-
-
 
     private void navigateToUniversityDetails(University university) {
         Bundle args = new Bundle();
@@ -242,50 +245,6 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     private void setupSearchBar() {
         if (searchEditText == null || searchResultsRecyclerView == null) return;
 
-        fullSearchList = new ArrayList<>();
-
-        for (int i = 0; i < fullUniversityList.size(); i++) {
-            University uni = fullUniversityList.get(i);
-            fullSearchList.add(new SearchItem(
-                    uni.getName() + ", " + uni.getCountry(),
-                    "University",
-                    uni,
-                    i
-            ));
-        }
-
-        for (int i = 0; i < eventList.size(); i++) {
-            Event event = eventList.get(i);
-            fullSearchList.add(new SearchItem(
-                    event.getTitle() + ", " + event.getLocation(),
-                    "Event",
-                    event,
-                    i
-            ));
-        }
-
-        List<Feature> features = FeatureData.getInstance().getFeatures(requireContext());
-        for (int i = 0; i < features.size(); i++) {
-            Feature feature = features.get(i);
-            fullSearchList.add(new SearchItem(
-                    feature.getTitle(),
-                    "Feature",
-                    feature,
-                    i
-            ));
-        }
-
-        List<Testimonial> testimonials = testimonialsAdapter.getTestimonials();
-        for (int i = 0; i < testimonials.size(); i++) {
-            Testimonial testimonial = testimonials.get(i);
-            fullSearchList.add(new SearchItem(
-                    testimonial.getName() + " - " + testimonial.getUniversity(),
-                    "Testimonial",
-                    testimonial,
-                    i
-            ));
-        }
-
         SearchUtils<SearchItem> searchUtils = new SearchUtils<>(
                 getActivity(),
                 searchEditText,
@@ -318,6 +277,60 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         });
     }
 
+    private void updateSearchList() {
+        fullSearchList.clear();
+
+        if (fullUniversityList != null) {
+            for (int i = 0; i < fullUniversityList.size(); i++) {
+                University uni = fullUniversityList.get(i);
+                fullSearchList.add(new SearchItem(
+                        uni.getName() + ", " + uni.getCountry(),
+                        "University",
+                        uni,
+                        i
+                ));
+            }
+        }
+
+        if (eventList != null) {
+            for (int i = 0; i < eventList.size(); i++) {
+                UpcomingEvent event = eventList.get(i);
+                fullSearchList.add(new SearchItem(
+                        event.getTitle() + ", " + event.getLocation(),
+                        "Event",
+                        event,
+                        i
+                ));
+            }
+        }
+
+        List<Feature> features = FeatureData.getInstance().getFeatures(requireContext());
+        for (int i = 0; i < features.size(); i++) {
+            Feature feature = features.get(i);
+            fullSearchList.add(new SearchItem(
+                    feature.getTitle(),
+                    "Feature",
+                    feature,
+                    i
+            ));
+        }
+
+        List<Testimonial> testimonials = testimonialsAdapter != null ? testimonialsAdapter.getTestimonials() : new ArrayList<>();
+        for (int i = 0; i < testimonials.size(); i++) {
+            Testimonial testimonial = testimonials.get(i);
+            fullSearchList.add(new SearchItem(
+                    testimonial.getName() + " - " + testimonial.getUniversity(),
+                    "Testimonial",
+                    testimonial,
+                    i
+            ));
+        }
+
+        if (searchResultsAdapter != null) {
+            searchResultsAdapter.updateData(fullSearchList);
+        }
+    }
+
     private void navigateToSection(SearchItem item) {
         switch (item.getType()) {
             case "University":
@@ -328,7 +341,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
                 recyclerView.smoothScrollToPosition(item.getSectionPosition());
                 break;
             case "Feature":
-                featuresRecyclerView.smoothScrollToPosition(item.getSectionPosition());
+                onFeatureClick((Feature) item.getData());
                 break;
             case "Testimonial":
                 testimonialsViewPager.setCurrentItem(item.getSectionPosition(), true);
@@ -362,7 +375,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     private void setupEventListeners() {
         if (seeAllEventsButton != null) {
             seeAllEventsButton.setOnClickListener(v -> {
-                CustomToast.showToast(getActivity(), "Coming Soon");
+                navController.navigate(R.id.action_homeFragment_to_fragmentUpcomingEvents);
             });
         }
 
@@ -380,48 +393,9 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
     public void onFeatureClick(Feature feature) {
         if (getActivity() == null) return;
 
-        String title = "";
-        String description = "";
-        switch (feature.getId()) {
-            case Feature.TYPE_UNIVERSITY_LISTINGS:
-                title = "University Listings";
-                description = "Explore a curated selection of top universities worldwide...";
-                break;
-            case Feature.TYPE_SCHOLARSHIP:
-                title = "Scholarships";
-                description = "Discover a wide range of scholarship opportunities...";
-                break;
-            case Feature.TYPE_VISA_ADMISSION:
-                title = "Visa & Admission";
-                description = "Access comprehensive guidance on visa requirements...";
-                break;
-            case Feature.TYPE_TRACKING:
-                title = "Application Tracking";
-                description = "Monitor the progress of your applications in real-time...";
-                break;
-            case Feature.TYPE_SUPPORT:
-                title = "Support";
-                description = "Connect with our dedicated support team...";
-                break;
-        }
-
-        showFeatureBottomSheet(title, description);
-    }
-
-    private void showFeatureBottomSheet(String title, String description) {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
-        View bottomSheetView = LayoutInflater.from(requireContext()).inflate(R.layout.feature_details_bottom_sheet, null);
-        bottomSheetDialog.setContentView(bottomSheetView);
-
-        TextView titleTextView = bottomSheetView.findViewById(R.id.titleTextView);
-        TextView descriptionTextView = bottomSheetView.findViewById(R.id.descriptionTextView);
-        Button closeButton = bottomSheetView.findViewById(R.id.closeButton);
-
-        titleTextView.setText(title);
-        descriptionTextView.setText(description);
-
-        closeButton.setOnClickListener(v -> bottomSheetDialog.dismiss());
-        bottomSheetDialog.show();
+        Bundle args = new Bundle();
+        args.putSerializable("FEATURE",  feature);
+        navController.navigate(R.id.action_homeFragment_to_featuresFragment, args);
     }
 
     private void startTestimonialsAutoSlide() {

@@ -193,15 +193,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/MedicalSectionTitle"
-                    android:text="@string/upcoming_events" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/MedicalSectionTitle"
+                        android:text="@string/upcoming_events" />
 
-                <TextView
-                    android:id="@+id/see_all_events"
-                    style="@style/MedicalSeeAllText"
-                    android:text="@string/see_all"
-                    android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/see_all_events"
+                        style="@style/MedicalSeeAllText"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/see_all" />
+
+                </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"

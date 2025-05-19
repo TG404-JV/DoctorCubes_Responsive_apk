@@ -3,6 +3,7 @@ package com.tvm.doctorcube.university.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,6 @@ import com.tvm.doctorcube.university.model.University;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,13 +32,16 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
     private List<University> universities;
     private List<University> originalUniversities;
     private final Context context;
+
+    private  NavController navController;
     private final OnItemClickListener listener;
 
-    public UniversityAdapter(Context context, List<University> universities, OnItemClickListener listener) {
+    public UniversityAdapter(Context context, List<University> universities, OnItemClickListener listener,NavController navController) {
         this.context = context;
         this.universities = new ArrayList<>(universities);
         this.originalUniversities = new ArrayList<>(universities);
         this.listener = listener;
+        this.navController=navController;
     }
 
     @NonNull
@@ -83,10 +86,17 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Un
 
         // Apply Button
         holder.btnApply.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(v);
-            Bundle args = new Bundle();
-            args.putSerializable("UNIVERSITY", university);
-            navController.navigate(R.id.action_universityFragment_to_universityDetailsBottomSheet2, args);
+            try {
+                Bundle args = new Bundle();
+                args.putSerializable("UNIVERSITY", university);
+                // Assuming University has an id field; replace with actual field if different
+                args.putString("universityId", university.getId()); // Add this if navigation expects an Int
+                Log.d("UniversityAdapter", "Navigating with args: university=" + university.getName() + ", universityId=" + university.getId());
+                navController.navigate(R.id.action_universityFragment_to_universityDetailsBottomSheet, args);
+            } catch (Exception e) {
+                Log.e("UniversityAdapter", "Navigation failed: " + e.getMessage());
+                CustomToast.showToast((Activity) context, "Failed to navigate to university details");
+            }
         });
 
         // Brochure Button

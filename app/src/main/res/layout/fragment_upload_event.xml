@@ -40,7 +40,7 @@
                 android:id="@+id/etEventDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
+                android:inputType="none"
                 android:focusable="false"
                 android:cursorVisible="false" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -56,7 +56,7 @@
                 android:id="@+id/etStartTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="time"
+                android:inputType="none"
                 android:focusable="false"
                 android:cursorVisible="false" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -72,7 +72,7 @@
                 android:id="@+id/etEndTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="time"
+                android:inputType="none"
                 android:focusable="false"
                 android:cursorVisible="false" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -108,21 +108,55 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Image URL -->
+        <!-- Event Type (Featured, This Month, Upcoming) -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:hint="@string/event_image_url"
+            android:hint="event type"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+            <Spinner
+                android:id="@+id/spinnerEventType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Image Selection -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSelectImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="select event image"
+            android:textAllCaps="false"
+            app:cornerRadius="8dp" />
+
+        <!-- Image Preview -->
+        <ImageView
+            android:id="@+id/ivImagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="event image preview"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <!-- Attendees -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="event_attendees"
             app:counterEnabled="true"
-            app:counterMaxLength="500">
+            app:counterMaxLength="50">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etImageUrl"
+                android:id="@+id/etAttendees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textUri"
-                android:maxLength="500" />
+                android:inputType="text"
+                android:maxLength="50" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Premium Status -->

@@ -17,8 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -26,20 +24,11 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.tvm.doctorcube.CustomToast;
-import com.tvm.doctorcube.R;
-import com.tvm.doctorcube.authentication.datamanager.EncryptedSharedPreferencesManager;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -48,6 +37,14 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.tvm.doctorcube.CustomToast;
+import com.tvm.doctorcube.R;
+import com.tvm.doctorcube.authentication.datamanager.EncryptedSharedPreferencesManager;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -66,14 +63,15 @@ public class FragmentEditDetails extends Fragment {
     // Firebase
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
+    private FirebaseStorage mStorage;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     // Views
     private ImageView profileImageView;
     private TextInputLayout emailLayout, fullNameLayout, phoneLayout;
-    private EditText emailEditText, fullNameEditText, phoneEditText;
-    private Button saveButton, changePasswordButton;
+    private TextInputEditText emailEditText, fullNameEditText, phoneEditText;
+    private MaterialButton saveButton, changePasswordButton;
     private ProgressBar progressBar;
-    private CardView profileCard;
     private Toolbar fragmentToolbar;
     private NavController navController;
 
@@ -84,11 +82,28 @@ public class FragmentEditDetails extends Fragment {
     private SharedPreferences sharedPreferences;
     private boolean isImageChanged = false;
     private boolean isEditing = false;
-    private String firestoreImageUrl;  // Keep for loading existing URLs, even if not saving new ones
-    private Bitmap selectedImageBitmap; // Hold the selected bitmap
+    private String firestoreImageUrl;
+    private Bitmap selectedImageBitmap;
 
     // Handler for UI updates
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        authStateListener = firebaseAuth -> {
+            FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+            if (currentUser == null) {
+                Log.e(TAG, "User signed out");
+                CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+                navigateToLogin();
+            } else {
+                userId = currentUser.getUid();
+                Log.d(TAG, "Auth state changed: userId=" + userId);
+            }
+        };
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,9 +112,16 @@ public class FragmentEditDetails extends Fragment {
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
+        mStorage = FirebaseStorage.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             userId = currentUser.getUid();
+            Log.d(TAG, "User ID initialized: " + userId + ", Email: " + currentUser.getEmail());
+        } else {
+            Log.e(TAG, "No authenticated user found");
+            CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+            userId = null;
+            return view;
         }
 
         // Initialize SharedPreferences
@@ -108,15 +130,27 @@ public class FragmentEditDetails extends Fragment {
         // Initialize NavController
         navController = NavHostFragment.findNavController(this);
 
-        // Hide MainActivity Toolbar
-
-        // Initialize views including Toolbar
+        // Initialize views
         initViews(view);
 
         // Load user data
         loadUserData();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            mAuth.removeAuthStateListener(authStateListener);
+        }
     }
 
     private void initViews(View view) {
@@ -135,7 +169,6 @@ public class FragmentEditDetails extends Fragment {
         saveButton = view.findViewById(R.id.saveButton);
         changePasswordButton = view.findViewById(R.id.changePasswordButton);
         progressBar = view.findViewById(R.id.progressBar);
-        profileCard = view.findViewById(R.id.profileCard);
 
         // Set initial state of EditTexts to uneditable
         setEditTextNonEditable();
@@ -155,13 +188,6 @@ public class FragmentEditDetails extends Fragment {
             }
         });
         changePasswordButton.setOnClickListener(v -> showChangePasswordDialog());
-
-        // Add TextWatchers to detect changes
-        emailEditText.addTextChangedListener(textWatcher);
-        fullNameEditText.addTextChangedListener(textWatcher);
-        phoneEditText.addTextChangedListener(textWatcher);
-
-        // Set back button listener
     }
 
     private final TextWatcher textWatcher = new TextWatcher() {
@@ -170,10 +196,10 @@ public class FragmentEditDetails extends Fragment {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            EncryptedSharedPreferencesManager encryptedSharedPreferencesManager = new EncryptedSharedPreferencesManager(requireActivity());
-            isEditing = !emailEditText.getText().toString().equals(encryptedSharedPreferencesManager.getString("email", ""))
-                    || !fullNameEditText.getText().toString().equals(encryptedSharedPreferencesManager.getString("name", ""))
-                    || !phoneEditText.getText().toString().equals(sharedPreferences.getString("phone", ""));
+            EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
+            isEditing = !Objects.requireNonNull(emailEditText.getText()).toString().equals(prefs.getString("email", ""))
+                    || !Objects.requireNonNull(fullNameEditText.getText()).toString().equals(prefs.getString("name", ""))
+                    || !Objects.requireNonNull(phoneEditText.getText()).toString().equals(prefs.getString("phone", ""));
             saveButton.setText(isEditing ? R.string.save_changes : R.string.edit_details);
         }
 
@@ -203,39 +229,41 @@ public class FragmentEditDetails extends Fragment {
         phoneEditText.setFocusable(false);
         emailEditText.setFocusableInTouchMode(false);
         fullNameEditText.setFocusableInTouchMode(false);
+        phoneEditText.setFocusableInTouchMode(false);
     }
 
     private void loadUserData() {
         showLoading(true);
-        EncryptedSharedPreferencesManager encryptedSharedPreferencesManager = new EncryptedSharedPreferencesManager(requireActivity());
+        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
 
-        String email = encryptedSharedPreferencesManager.getString("email", "");
-        String fullName = encryptedSharedPreferencesManager.getString("name", "");
-        String phone = encryptedSharedPreferencesManager.getString("phone", "");
+        String email = prefs.getString("email", "");
+        String fullName = prefs.getString("name", "");
+        String phone = prefs.getString("phone", "");
+        firestoreImageUrl = prefs.getString("imageUrl", "");
+        localImagePath = prefs.getString("FilePath", "");
 
-        firestoreImageUrl = encryptedSharedPreferencesManager.getString("profile_image_url", ""); //load
         boolean hasLocalData = !email.isEmpty() || !fullName.isEmpty() || !phone.isEmpty();
 
-        File localFile = new File(requireContext().getFilesDir(), userId + "_profile.jpg");
-
-        encryptedSharedPreferencesManager.putString("FilePath", String.valueOf(localFile));
-
-        if (localFile.exists()) {
-            localImagePath = localFile.getAbsolutePath();
-            Glide.with(this)
-                    .load(localFile)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE) // Don't cache local file
-                    .skipMemoryCache(true)
-                    .circleCrop()
-                    .placeholder(R.drawable.logo_doctor_cubes_white)
-                    .into(profileImageView);
-        } else if (!firestoreImageUrl.isEmpty()) {
-            Glide.with(this)
-                    .load(firestoreImageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.DATA) // Cache the remote image
-                    .circleCrop()
-                    .placeholder(R.drawable.logo_doctor_cubes_white)
-                    .into(profileImageView);
+        if (localImagePath != null && !localImagePath.isEmpty()) {
+            File localFile = new File(localImagePath);
+            if (localFile.exists()) {
+                Glide.with(this)
+                        .load(localFile)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .circleCrop()
+                        .placeholder(R.drawable.logo_doctor_cubes_white)
+                        .error(R.drawable.logo_doctor_cubes_white)
+                        .into(profileImageView);
+            } else if (!firestoreImageUrl.isEmpty()) {
+                Glide.with(this)
+                        .load(firestoreImageUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.DATA)
+                        .circleCrop()
+                        .placeholder(R.drawable.logo_doctor_cubes_white)
+                        .error(R.drawable.logo_doctor_cubes_white)
+                        .into(profileImageView);
+            }
         }
 
         if (hasLocalData) {
@@ -249,18 +277,33 @@ public class FragmentEditDetails extends Fragment {
     }
 
     private void fetchUserDataFromFirestore() {
+        if (userId == null) {
+            showLoading(false);
+            CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+            return;
+        }
         mFirestore.collection("Users").document(userId)
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         String email = documentSnapshot.getString("email");
-                        String fullName = documentSnapshot.getString("fullName");
-                        String phone = documentSnapshot.getString("phone");
+                        String fullName = documentSnapshot.getString("name");
+                        String phone = documentSnapshot.getString("mobile");
                         firestoreImageUrl = documentSnapshot.getString("imageUrl");
+
+                        email = email != null ? email : getString(R.string.default_email);
+                        fullName = fullName != null ? fullName : getString(R.string.default_name);
+                        phone = phone != null ? phone : getString(R.string.sample_phone);
 
                         emailEditText.setText(email);
                         fullNameEditText.setText(fullName);
                         phoneEditText.setText(phone);
+
+                        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
+                        prefs.putString("email", email);
+                        prefs.putString("name", fullName);
+                        prefs.putString("phone", phone);
+                        prefs.putString("imageUrl", firestoreImageUrl != null ? firestoreImageUrl : "");
 
                         if (firestoreImageUrl != null && !firestoreImageUrl.isEmpty()) {
                             Glide.with(this)
@@ -268,17 +311,16 @@ public class FragmentEditDetails extends Fragment {
                                     .diskCacheStrategy(DiskCacheStrategy.DATA)
                                     .circleCrop()
                                     .placeholder(R.drawable.logo_doctor_cubes_white)
+                                    .error(R.drawable.logo_doctor_cubes_white)
                                     .into(profileImageView);
+                            saveImageToLocalStorage(firestoreImageUrl);
                         }
 
-                        EncryptedSharedPreferencesManager encryptedSharedPreferencesManager = new EncryptedSharedPreferencesManager(requireActivity());
-                        encryptedSharedPreferencesManager.putString("email", email);
-                        encryptedSharedPreferencesManager.putString("name", fullName);
-                        encryptedSharedPreferencesManager.putString("phone", phone);
-                        encryptedSharedPreferencesManager.putString("profile_image_url", firestoreImageUrl);
-
+                        showLoading(false);
+                    } else {
+                        showLoading(false);
+                        CustomToast.showToast(requireActivity(), getString(R.string.error_loading));
                     }
-                    showLoading(false);
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Error fetching user data: ", e);
@@ -300,14 +342,26 @@ public class FragmentEditDetails extends Fragment {
             isImageChanged = true;
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
-                selectedImageBitmap = bitmap; // Store the bitmap
-                profileImageView.setImageBitmap(bitmap);
-                saveImageToLocalStorage(bitmap); //save to local
+                selectedImageBitmap = resizeBitmap(bitmap, 1024, 1024);
+                profileImageView.setImageBitmap(selectedImageBitmap);
+                saveImageToLocalStorage(selectedImageBitmap);
             } catch (IOException e) {
                 Log.e(TAG, "Error loading image from URI: ", e);
-                CustomToast.showToast(requireActivity(), "Failed to load image");
+                CustomToast.showToast(requireActivity(), getString(R.string.error_loading));
             }
         }
+    }
+
+    private Bitmap resizeBitmap(Bitmap original, int maxWidth, int maxHeight) {
+        int width = original.getWidth();
+        int height = original.getHeight();
+        if (width <= maxWidth && height <= maxHeight) {
+            return original;
+        }
+        float ratio = Math.min((float) maxWidth / width, (float) maxHeight / height);
+        int newWidth = Math.round(width * ratio);
+        int newHeight = Math.round(height * ratio);
+        return Bitmap.createScaledBitmap(original, newWidth, newHeight, true);
     }
 
     private void saveImageToLocalStorage(Bitmap bitmap) throws IOException {
@@ -316,13 +370,48 @@ public class FragmentEditDetails extends Fragment {
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
             localImagePath = outputFile.getAbsolutePath();
+            EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireContext());
+            prefs.putString("FilePath", localImagePath);
         } catch (IOException e) {
             Log.e(TAG, "Error saving image to local storage: ", e);
-            throw e; // Re-throw the exception to be caught by the caller
+            throw e;
         }
     }
 
+    private void saveImageToLocalStorage(String imageUrl) {
+        Glide.with(this)
+                .asBitmap()
+                .load(imageUrl)
+                .into(new com.bumptech.glide.request.target.CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Bitmap> transition) {
+                        try {
+                            File outputDir = requireContext().getFilesDir();
+                            File outputFile = new File(outputDir, userId + "_profile.jpg");
+                            try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                                resource.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+                                EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireContext());
+                                prefs.putString("FilePath", outputFile.getAbsolutePath());
+                            }
+                        } catch (IOException e) {
+                            Log.e(TAG, "Error saving image to local storage: ", e);
+                        }
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable android.graphics.drawable.Drawable placeholder) {}
+                });
+    }
+
     private void saveUserData() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            showLoading(false);
+            CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+            navigateToLogin();
+            return;
+        }
+
         String email = emailEditText.getText().toString().trim();
         String fullName = fullNameEditText.getText().toString().trim();
         String phone = phoneEditText.getText().toString().trim();
@@ -345,23 +434,21 @@ public class FragmentEditDetails extends Fragment {
         phoneLayout.setError(null);
         showLoading(true);
 
-        EncryptedSharedPreferencesManager encryptedSharedPreferencesManager = new EncryptedSharedPreferencesManager(requireActivity());
-        encryptedSharedPreferencesManager.putString("email", email);
-        encryptedSharedPreferencesManager.putString("name", fullName);
-        encryptedSharedPreferencesManager.putString("phone", phone);
+        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireActivity());
+        prefs.putString("email", email);
+        prefs.putString("name", fullName);
+        prefs.putString("phone", phone);
 
-        // Update Firestore
         Map<String, Object> updates = new HashMap<>();
         updates.put("email", email);
-        updates.put("fullName", fullName);
-        updates.put("phone", phone);
+        updates.put("name", fullName);
+        updates.put("mobile", phone);
 
-        if (isImageChanged && localImagePath != null) { // Changed condition
-            updates.put("imageUrl", localImagePath);
-            saveImagePathToSharedPreferences(localImagePath); // Save to shared preferences
-            updateUserData(updates);
+        if (isImageChanged && selectedImageBitmap != null) {
+            uploadImageToFirebaseStorage(selectedImageBitmap, updates);
         } else {
-            updateUserData(updates); // only text
+            updates.put("imageUrl", firestoreImageUrl != null ? firestoreImageUrl : "");
+            updateUserData(updates);
         }
 
         isEditing = false;
@@ -369,13 +456,66 @@ public class FragmentEditDetails extends Fragment {
         setEditTextNonEditable();
     }
 
-    private void saveImagePathToSharedPreferences(String imagePath) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(userId + "_profile_image_path", imagePath);
-        editor.apply();
+    private void uploadImageToFirebaseStorage(Bitmap bitmap, Map<String, Object> updates) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null || !currentUser.getUid().equals(userId)) {
+            showLoading(false);
+            Log.e(TAG, "Authentication error: currentUser=" + (currentUser != null ? currentUser.getUid() : "null") + ", userId=" + userId);
+            CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+            navigateToLogin();
+            return;
+        }
+
+        currentUser.getIdToken(true)
+                .addOnSuccessListener(result -> {
+                    Log.d(TAG, "Auth token refreshed for userId: " + userId);
+                    // Corrected storage path: added "/profile.jpg"
+                    StorageReference storageRef = mStorage.getReference().child("profile_images/" + userId + "/profile.jpg");
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    byte[] data = baos.toByteArray();
+
+                    storageRef.putBytes(data)
+                            .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl()
+                                    .addOnSuccessListener(uri -> {
+                                        String imageUrl = uri.toString();
+                                        updates.put("imageUrl", imageUrl);
+                                        EncryptedSharedPreferencesManager prefs = new EncryptedSharedPreferencesManager(requireContext());
+                                        prefs.putString("imageUrl", imageUrl);
+                                        updateUserData(updates);
+                                        CustomToast.showToast(requireActivity(), getString(R.string.profile_image_updated));
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        showLoading(false);
+                                        Log.e(TAG, "Error getting download URL: ", e);
+                                        CustomToast.showToast(requireActivity(), getString(R.string.error_image_upload));
+                                    }))
+                            .addOnFailureListener(e -> {
+                                showLoading(false);
+                                Log.e(TAG, "Error uploading image: ", e);
+                                if (e instanceof com.google.firebase.storage.StorageException && ((com.google.firebase.storage.StorageException) e).getErrorCode() == com.google.firebase.storage.StorageException.ERROR_NOT_AUTHORIZED) {
+                                    CustomToast.showToast(requireActivity(), "Permission denied. Please sign in again.");
+                                    navigateToLogin();
+                                } else {
+                                    CustomToast.showToast(requireActivity(), getString(R.string.error_image_upload));
+                                }
+                            });
+                })
+                .addOnFailureListener(e -> {
+                    showLoading(false);
+                    Log.e(TAG, "Error refreshing auth token: ", e);
+                    CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+                    navigateToLogin();
+                });
     }
 
     private void updateUserData(Map<String, Object> updates) {
+        if (userId == null) {
+            showLoading(false);
+            CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+            navigateToLogin();
+            return;
+        }
         mFirestore.collection("Users").document(userId)
                 .update(updates)
                 .addOnSuccessListener(aVoid -> {
@@ -391,10 +531,8 @@ public class FragmentEditDetails extends Fragment {
     }
 
     private void showChangePasswordDialog() {
-        // Inflate the dialog layout
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_change_password, null);
 
-        // Find views
         TextInputLayout currentPasswordLayout = dialogView.findViewById(R.id.currentPasswordLayout);
         TextInputLayout newPasswordLayout = dialogView.findViewById(R.id.newPasswordLayout);
         TextInputLayout confirmPasswordLayout = dialogView.findViewById(R.id.confirmPasswordLayout);
@@ -406,22 +544,16 @@ public class FragmentEditDetails extends Fragment {
         MaterialButton cancelButton = dialogView.findViewById(R.id.cancelButton);
         MaterialButton changePasswordButton = dialogView.findViewById(R.id.changePasswordButton);
 
-        // Animation views
         FrameLayout animationContainer = dialogView.findViewById(R.id.animationContainer);
         LottieAnimationView successAnimationView = dialogView.findViewById(R.id.successAnimationView);
         LottieAnimationView failureAnimationView = dialogView.findViewById(R.id.failureAnimationView);
 
-        // Create and configure the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(dialogView);
-
-        // Remove title as it's already in the custom layout
         builder.setTitle(null);
 
-        // Create the dialog
         final AlertDialog dialog = builder.create();
 
-        // Set up field validation listeners
         newPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -465,21 +597,16 @@ public class FragmentEditDetails extends Fragment {
             }
         });
 
-        // Set up button click listeners
         cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         changePasswordButton.setOnClickListener(v -> {
-            // Validate all inputs
             if (validateInputs(currentPasswordLayout, newPasswordLayout, confirmPasswordLayout)) {
-                // Get the entered passwords
-                String currentPassword = currentPasswordEditText.getText().toString().trim();
-                String newPassword = newPasswordEditText.getText().toString().trim();
+                String currentPassword = Objects.requireNonNull(currentPasswordEditText.getText()).toString().trim();
+                String newPassword = Objects.requireNonNull(newPasswordEditText.getText()).toString().trim();
 
-                // Disable all inputs during processing
                 setInputsEnabled(false, currentPasswordLayout, newPasswordLayout,
                         confirmPasswordLayout, cancelButton, changePasswordButton);
 
-                // Call password change method
                 changePassword(currentPassword, newPassword, dialog,
                         animationContainer, successAnimationView, failureAnimationView,
                         currentPasswordLayout, newPasswordLayout, confirmPasswordLayout,
@@ -487,11 +614,9 @@ public class FragmentEditDetails extends Fragment {
             }
         });
 
-        // Show the dialog
         dialog.show();
     }
 
-    // Helper method to check if a string contains at least one letter and one digit
     private boolean containsLetterAndDigit(String password) {
         boolean hasLetter = false;
         boolean hasDigit = false;
@@ -511,13 +636,11 @@ public class FragmentEditDetails extends Fragment {
         return false;
     }
 
-    // Validate all input fields
     private boolean validateInputs(TextInputLayout currentPasswordLayout,
                                    TextInputLayout newPasswordLayout,
                                    TextInputLayout confirmPasswordLayout) {
         boolean isValid = true;
 
-        // Validate current password
         if (currentPasswordLayout.getEditText().getText().toString().trim().isEmpty()) {
             currentPasswordLayout.setError("Please enter your current password");
             isValid = false;
@@ -525,7 +648,6 @@ public class FragmentEditDetails extends Fragment {
             currentPasswordLayout.setError(null);
         }
 
-        // Validate new password
         String newPassword = newPasswordLayout.getEditText().getText().toString().trim();
         if (newPassword.isEmpty()) {
             newPasswordLayout.setError("Please enter a new password");
@@ -540,7 +662,6 @@ public class FragmentEditDetails extends Fragment {
             newPasswordLayout.setError(null);
         }
 
-        // Validate password confirmation
         String confirmPassword = confirmPasswordLayout.getEditText().getText().toString().trim();
         if (!confirmPassword.equals(newPassword)) {
             confirmPasswordLayout.setError("Passwords do not match");
@@ -552,12 +673,11 @@ public class FragmentEditDetails extends Fragment {
         return isValid;
     }
 
-    // Enable or disable all input fields
     private void setInputsEnabled(boolean enabled, TextInputLayout currentPasswordLayout,
                                   TextInputLayout newPasswordLayout,
                                   TextInputLayout confirmPasswordLayout,
-                                  Button cancelButton,
-                                  Button changePasswordButton) {
+                                  MaterialButton cancelButton,
+                                  MaterialButton changePasswordButton) {
         currentPasswordLayout.setEnabled(enabled);
         newPasswordLayout.setEnabled(enabled);
         confirmPasswordLayout.setEnabled(enabled);
@@ -565,7 +685,6 @@ public class FragmentEditDetails extends Fragment {
         changePasswordButton.setEnabled(enabled);
     }
 
-    // Perform the password change operation
     private void changePassword(String currentPassword, String newPassword, AlertDialog dialog,
                                 FrameLayout animationContainer,
                                 LottieAnimationView successAnimationView,
@@ -573,10 +692,9 @@ public class FragmentEditDetails extends Fragment {
                                 TextInputLayout currentPasswordLayout,
                                 TextInputLayout newPasswordLayout,
                                 TextInputLayout confirmPasswordLayout,
-                                Button cancelButton,
-                                Button changePasswordButton) {
-
-        showLoading(true); // Keep showing overall fragment loading state
+                                MaterialButton cancelButton,
+                                MaterialButton changePasswordButton) {
+        showLoading(true);
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null && user.getEmail() != null) {
             AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), currentPassword);
@@ -584,40 +702,36 @@ public class FragmentEditDetails extends Fragment {
                     .addOnSuccessListener(aVoid -> {
                         user.updatePassword(newPassword)
                                 .addOnSuccessListener(aVoid1 -> {
-                                    showLoading(false); // Hide overall loading
-                                    // Call success animation method
+                                    showLoading(false);
                                     showSuccessAnimation(dialog, animationContainer, successAnimationView);
-
                                 })
                                 .addOnFailureListener(e -> {
-                                    showLoading(false); // Hide overall loading
+                                    showLoading(false);
                                     Log.e(TAG, "Error updating password: ", e);
-                                    // Call failure animation method
                                     showFailureAnimation(dialog, animationContainer, failureAnimationView,
                                             currentPasswordLayout, newPasswordLayout, confirmPasswordLayout,
                                             cancelButton, changePasswordButton);
                                 });
                     })
                     .addOnFailureListener(e -> {
-                        showLoading(false); // Hide overall loading
+                        showLoading(false);
                         Log.e(TAG, "Error reauthenticating user: ", e);
                         CustomToast.showToast(requireActivity(), "Failed to authenticate");
-                        // Re-enable inputs on the dialog.
                         showFailureAnimation(dialog, animationContainer, failureAnimationView,
                                 currentPasswordLayout, newPasswordLayout, confirmPasswordLayout,
                                 cancelButton, changePasswordButton);
                     });
+        } else {
+            showLoading(false);
+            CustomToast.showToast(requireActivity(), getString(R.string.error_no_user));
+            navigateToLogin();
         }
     }
 
-    // Show success animation and handle completion
     private void showSuccessAnimation(AlertDialog dialog,
                                       FrameLayout animationContainer,
                                       LottieAnimationView successAnimationView) {
-        // Show animation container
         animationContainer.setVisibility(View.VISIBLE);
-
-        // Show and play success animation
         successAnimationView.setVisibility(View.VISIBLE);
         successAnimationView.playAnimation();
 
@@ -627,8 +741,7 @@ public class FragmentEditDetails extends Fragment {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Show success dialog after animation completes
-                new AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(requireContext())
                         .setTitle("Success")
                         .setMessage("Your password has been successfully updated.")
                         .setPositiveButton("OK", (dialogInterface, which) -> {
@@ -651,19 +764,15 @@ public class FragmentEditDetails extends Fragment {
         });
     }
 
-    //Show failure animation and handle completion
     private void showFailureAnimation(AlertDialog dialog,
                                       FrameLayout animationContainer,
                                       LottieAnimationView failureAnimationView,
                                       TextInputLayout currentPasswordLayout,
                                       TextInputLayout newPasswordLayout,
                                       TextInputLayout confirmPasswordLayout,
-                                      Button cancelButton,
-                                      Button changePasswordButton) {
-        // Show animation container
+                                      MaterialButton cancelButton,
+                                      MaterialButton changePasswordButton) {
         animationContainer.setVisibility(View.VISIBLE);
-
-        // Show and play failure animation
         failureAnimationView.setVisibility(View.VISIBLE);
         failureAnimationView.playAnimation();
 
@@ -673,15 +782,10 @@ public class FragmentEditDetails extends Fragment {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Hide animation container
                 animationContainer.setVisibility(View.GONE);
-
-                // Re-enable input fields
                 setInputsEnabled(true, currentPasswordLayout, newPasswordLayout,
                         confirmPasswordLayout, cancelButton, changePasswordButton);
-
-                // Show error message
-                new AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(requireContext())
                         .setTitle("Error")
                         .setMessage("Failed to update password. Please try again.")
                         .setPositiveButton("OK", (dialogInterface, which) -> dialogInterface.dismiss())
@@ -700,30 +804,36 @@ public class FragmentEditDetails extends Fragment {
         if (isAdded()) {
             mainHandler.post(() -> {
                 progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-                profileCard.setVisibility(isLoading ? View.INVISIBLE : View.VISIBLE);
                 saveButton.setEnabled(!isLoading);
                 changePasswordButton.setEnabled(!isLoading);
             });
         }
     }
 
+    private void navigateToHome() {
+        if (navController != null && navController.getCurrentDestination() != null) {
+            try {
+                //navController.navigate(R.id.action_fragmentEditDetails_to_settingsHome);
+            } catch (Exception e) {
+                Log.e(TAG, "Navigation error: ", e);
+                CustomToast.showToast(requireActivity(), getString(R.string.error_navigation));
+            }
+        }
+    }
 
+    private void navigateToLogin() {
+        if (navController != null && navController.getCurrentDestination() != null) {
+            try {
+              //  navController.navigate(R.id.action_fragmentEditDetails_to_loginFragment);
+            } catch (Exception e) {
+                Log.e(TAG, "Navigation error: ", e);
+                CustomToast.showToast(requireActivity(), getString(R.string.error_navigation));
+            }
+        }
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Show MainActivity Toolbar when leaving this Fragment
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (navController != null) {
-            navigateToHome();
-        }
-    }
-
-    private void navigateToHome() {
-
     }
 }

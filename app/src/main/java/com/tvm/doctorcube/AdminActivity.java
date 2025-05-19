@@ -24,6 +24,7 @@ import com.tvm.doctorcube.adminpannel.adminhome.FragmentAddNewUser;
 import com.tvm.doctorcube.adminpannel.adminhome.FragmentAdminHome;
 import com.tvm.doctorcube.adminpannel.adminhome.FragmentExportXLData;
 import com.tvm.doctorcube.adminpannel.adminhome.FragmentImportXLData;
+import com.tvm.doctorcube.adminpannel.adminhome.FragmentUploadEvent;
 import com.tvm.doctorcube.adminpannel.adminhome.FragmentUploadStudyMaterial;
 import com.tvm.doctorcube.authentication.datamanager.EncryptedSharedPreferencesManager;
 
@@ -167,6 +168,9 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             loadFragment(new FragmentExportXLData());
         } else if (id == R.id.nav_upload_study_material) {
             loadFragment(new FragmentUploadStudyMaterial());
+        } else if (id==R.id.nav_upload_event) {
+            loadFragment(new FragmentUploadEvent());
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

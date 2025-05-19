@@ -666,4 +666,100 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="event_image_url">Image URL (Optional)</string>
     <string name="is_premium_event">Is Premium Event</string>
     <string name="submit_event">Submit Event</string>
+
+
+
+
+        <!-- Feature Details Strings -->
+        <string name="feature_image">Feature Image</string>
+        <string name="feature_icon">Feature Icon</string>
+        <string name="about_this_feature">About this Feature</string>
+        <string name="key_benefits">Key Benefits</string>
+        <string name="how_it_works">How It Works</string>
+        <string name="related_features">Related Features</string>
+
+        <string name="benefit_icon">Benefit Icon</string>
+        <string name="step_image">Step Image</string>
+
+        <string name="error_loading">Error loading data. Please try again.</string>
+        <string name="retry">Retry</string>
+
+        <!-- University Feature -->
+        <string name="university_application">University Application</string>
+        <string name="visa_services">Visa Services</string>
+        <string name="counseling_services">Counseling Services</string>
+
+        <!-- Benefit Types -->
+        <string name="expert_guidance">Expert Guidance</string>
+        <string name="document_preparation">Document Preparation</string>
+        <string name="application_tracking_benefit">Application Tracking</string>
+        <string name="higher_acceptance">Higher Acceptance Rate</string>
+
+        <!-- Step Types -->
+        <string name="initial_consultation">Initial Consultation</string>
+        <string name="university_selection">University Selection</string>
+        <string name="document_preparation_step">Document Preparation</string>
+        <string name="application_submission">Application Submission</string>
+        <string name="interview_preparation">Interview Preparation</string>
+        <string name="visa_processing">Visa Processing</string>
+        <string name="pre_departure_guidance">Pre-departure Guidance</string>
+
+        <!-- Contact Options -->
+        <string name="whatsapp_us">WhatsApp Us</string>
+        <string name="live_chat">Live Chat</string>
+
+        <!-- Messages -->
+        <string name="feature_not_found">Feature not found</string>
+        <string name="loading_feature_details">Loading Feature Details…</string>
+        <string name="no_related_features">No related features found</string>
+        <string name="no_benefits">No benefits information available</string>
+        <string name="no_steps">No steps information available</string>
+        <string name="feature_added_to_favorites">Feature added to favorites</string>
+        <string name="feature_removed_from_favorites">Feature removed from favorites</string>
+        <string name="share_feature">Check out this amazing feature from DoctorCubes: %1$s</string>
+
+        <!-- Accessibility -->
+        <string name="content_description_back">Navigate back</string>
+        <string name="content_description_share">Share this feature</string>
+        <string name="content_description_favorite">Add to favorites</string>
+        <string name="content_description_unfavorite">Remove from favorites</string>
+        <string name="content_description_whatsapp">Contact via WhatsApp</string>
+        <string name="content_description_contact">Contact support</string>
+
+
+    <!-- Support section headers -->
+    <string name="need_help">Need Help?</string>
+    <string name="support_description">Our customer support team is here to assist you. Choose your preferred method of contact below.</string>
+
+    <!-- Contact option labels -->
+    <string name="instant_support">Get instant support</string>
+    <string name="chat_anytime">Chat anytime</string>
+    <string name="email_support">Email Support</string>
+
+    <!-- FAQ section -->
+    <string name="faq_title">Frequently Asked Questions</string>
+    <string name="faq_question_1">How do I track my order status?</string>
+    <string name="faq_question_2">What is your return &amp; refund policy?</string>
+
+    <!-- Accessibility strings -->
+    <string name="content_desc_call">Call customer support</string>
+    <string name="content_desc_whatsapp">Chat on WhatsApp</string>
+    <string name="content_desc_email">Send email to support</string>
+
+
+    <string name="version_format">Version: %s</string>
+    <string name="version_unknown">Version: Unknown</string>
+    <string name="settings_title">Settings</string>
+    <string name="default_name">Unknown User</string>
+    <string name="default_email">No email</string>
+    <string name="default_status">Student • USA Aspirant</string>
+    <string name="default_phone">No phone</string>
+    <string name="error_no_user">No user signed in</string>
+    <string name="error_no_email_app">No email app found</string>
+    <string name="error_navigation">Navigation failed</string>
+    <string name="edit_profile_icon">Edit profile icon</string>
+    <string name="profile_image_updated">Profile image updated</string>
+    <string name="error_image_upload">Failed to upload image</string>
+    <string name="error_loading_image">Failed to load image</string>
+
 </resources>

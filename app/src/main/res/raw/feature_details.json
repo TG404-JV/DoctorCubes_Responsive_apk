@@ -1,0 +1,172 @@
+[
+  {
+    "id": 1,
+    "title": "Top University Listings",
+    "description": "Discover a curated selection of NMC/WHO-recognized medical universities across top destinations like Russia, Georgia, Bangladesh, and Kyrgyzstan. Our platform empowers you to explore over 40 prestigious institutions, each offering high-quality MBBS programs tailored to your academic aspirations and budget. With detailed profiles, advanced filtering options, and personalized recommendations, finding the perfect university for your medical career has never been easier. Whether you seek affordability, global recognition, or a vibrant campus life, our service ensures you make an informed choice with confidence.",
+    "imageResId": "university_campus",
+    "benefits": [
+      {
+        "title": "Global Access",
+        "description": "Choose from over 40 top medical universities worldwide."
+      },
+      {
+        "title": "Detailed Profiles",
+        "description": "In-depth info on courses, fees, and admission criteria."
+      },
+      {
+        "title": "Filter Options",
+        "description": "Filter by country and program."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Search Universities",
+        "description": "Filter by country, budget, or program."
+      },
+      {
+        "title": "View Details",
+        "description": "Explore detailed profiles with admission info."
+      },
+      {
+        "title": "Apply",
+        "description": "Submit applications with our expert guidance."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Scholarship Assistance",
+    "description": "Unlock a world of financial opportunities with our comprehensive scholarship assistance program. We connect you to a diverse range of scholarships and funding options designed to make your MBBS education abroad affordable. From merit-based awards to need-based grants, our exclusive listings cover opportunities offered by universities, governments, and private organizations in countries like Russia and Georgia. Our expert team provides step-by-step guidance on eligibility criteria, application processes, and documentation, ensuring you maximize your chances of securing financial aid to support your medical journey.",
+    "imageResId": "scholarship_award",
+    "benefits": [
+      {
+        "title": "Funding Options",
+        "description": "Wide range of funding options."
+      },
+      {
+        "title": "Application Guidance",
+        "description": "Application guidance."
+      },
+      {
+        "title": "Exclusive Listings",
+        "description": "Exclusive scholarship listings."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Browse Scholarships",
+        "description": "Explore available scholarships by criteria."
+      },
+      {
+        "title": "Check Eligibility",
+        "description": "Review requirements for each scholarship."
+      },
+      {
+        "title": "Apply",
+        "description": "Submit your application with guided support."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Visa and Admission Guidance",
+    "description": "Navigate the complexities of international education with our expert visa and admission guidance services. We provide end-to-end support to ensure a seamless application process, from selecting the right university to securing your student visa. Our experienced counselors offer personalized advice on visa requirements, document preparation, and admission procedures for countries like Russia, Georgia, and Kyrgyzstan. With our comprehensive checklists, mock interviews, and timely updates, we simplify the journey, helping you avoid common pitfalls and achieve successful enrollment in your chosen MBBS program.",
+    "imageResId": "visa_document",
+    "benefits": [
+      {
+        "title": "Visa Guidance",
+        "description": "Step-by-step visa guidance."
+      },
+      {
+        "title": "Admission Support",
+        "description": "Admission process support."
+      },
+      {
+        "title": "Document Assistance",
+        "description": "Document preparation assistance."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Consult Experts",
+        "description": "Get advice from our visa and admission experts."
+      },
+      {
+        "title": "Prepare Documents",
+        "description": "Gather necessary documents with our checklist."
+      },
+      {
+        "title": "Submit Application",
+        "description": "Complete your visa and admission applications."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Application Tracking",
+    "description": "Stay informed and in control with our advanced application tracking system, designed to monitor your MBBS admission process in real time. From the moment you submit your university or visa application, our platform provides instant updates on status changes, document requirements, and deadlines. With secure data management and user-friendly notifications, you can track every step of your journey with ease. Our system ensures transparency and peace of mind, allowing you to focus on preparing for your medical education abroad while we keep you updated.",
+    "imageResId": "app_tracking",
+    "benefits": [
+      {
+        "title": "Real-time Updates",
+        "description": "Real-time application updates."
+      },
+      {
+        "title": "Status Notifications",
+        "description": "Status notifications."
+      },
+      {
+        "title": "Secure Data",
+        "description": "Secure data management."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Register Application",
+        "description": "Add your application to the tracking system."
+      },
+      {
+        "title": "Monitor Status",
+        "description": "Receive real-time updates on your application."
+      },
+      {
+        "title": "Get Support",
+        "description": "Contact support for any issues."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "24/7 Student Support",
+    "description": "Experience unparalleled support with our dedicated 24/7 student assistance team, available to guide you at every stage of your MBBS journey abroad. Whether you have questions about university applications, visa processes, or post-admission logistics like accommodation and travel, our multilingual experts are just a call, chat, or email away. We offer personalized, prompt, and professional help to address your concerns, ensuring a smooth transition to studying in countries like Russia or Georgia. With Doctor Cubes, you’re never alone on your path to becoming a doctor.",
+    "imageResId": "support_team",
+    "benefits": [
+      {
+        "title": "24/7 Support",
+        "description": "24/7 customer support."
+      },
+      {
+        "title": "Personalized Help",
+        "description": "Personalized assistance."
+      },
+      {
+        "title": "Multi-language",
+        "description": "Multi-language support."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Contact Us",
+        "description": "Reach out via chat, email, or phone."
+      },
+      {
+        "title": "Describe Issue",
+        "description": "Provide details for quick resolution."
+      },
+      {
+        "title": "Get Help",
+        "description": "Receive personalized assistance promptly."
+      }
+    ]
+  }
+]

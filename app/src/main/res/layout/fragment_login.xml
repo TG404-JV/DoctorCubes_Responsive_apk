@@ -137,7 +137,7 @@
                     android:id="@+id/loginButton"
                     style="@style/MedicalPrimaryButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_48sdp"
+                    android:layout_height="55dp"
                     android:layout_marginTop="@dimen/_24sdp"
                     android:backgroundTint="@color/button_primary"
                     android:text="@string/sign_in"

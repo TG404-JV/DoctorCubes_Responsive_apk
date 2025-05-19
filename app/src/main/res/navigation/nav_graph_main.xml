@@ -37,18 +37,14 @@
                 app:argType="string" />
         </action>
         <action
-            android:id="@+id/action_homeFragment_to_universityDetailsBottomSheet2"
-            app:destination="@id/universityDetailsBottomSheet2">
-            <argument
-                android:name="imageResourceId"
-                app:argType="integer" />
-            <argument
-                android:name="universityName"
-                app:argType="string" />
-            <argument
-                android:name="country"
-                app:argType="string" />
-        </action>
+            android:id="@+id/action_homeFragment_to_eventDetailsBottomSheet"
+            app:destination="@id/eventDetailsBottomSheet" />
+        <action
+            android:id="@+id/action_homeFragment_to_fragmentUpcomingEvents"
+            app:destination="@id/fragmentUpcomingEvents" />
+        <action
+            android:id="@+id/action_homeFragment_to_featuresFragment"
+            app:destination="@id/featuresFragment" />
     </fragment>
     <fragment
         android:id="@+id/studyMaterialFragment"
@@ -84,19 +80,6 @@
             app:argType="string"
             android:defaultValue="All" />
         <action
-            android:id="@+id/action_universityFragment_to_universityDetailsBottomSheet2"
-            app:destination="@id/universityDetailsBottomSheet2">
-            <argument
-                android:name="imageResourceId"
-                app:argType="integer" />
-            <argument
-                android:name="universityName"
-                app:argType="string" />
-            <argument
-                android:name="country"
-                app:argType="string" />
-        </action>
-        <action
             android:id="@+id/action_universityFragment_to_universityDetailsFragment"
             app:destination="@id/universityDetailsFragment"
             app:enterAnim="@anim/fragment_fade_enter"
@@ -108,21 +91,11 @@
                 android:name="COUNTRY"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_universityFragment_to_universityDetailsBottomSheet"
+            app:destination="@id/universityDetailsBottomSheet" />
+
     </fragment>
-    <dialog
-        android:id="@+id/universityDetailsBottomSheet2"
-        android:name="com.tvm.doctorcube.university.UniversityDetailsBottomSheet"
-        android:label="UniversityDetailsBottomSheet">
-        <argument
-            android:name="imageResourceId"
-            app:argType="integer" />
-        <argument
-            android:name="universityName"
-            app:argType="string" />
-        <argument
-            android:name="country"
-            app:argType="string" />
-    </dialog>
     <fragment
         android:id="@+id/universityDetailsFragment"
         android:name="com.tvm.doctorcube.university.UniversityDetailsFragment"
@@ -134,18 +107,9 @@
             android:name="COUNTRY"
             app:argType="string" />
         <action
-            android:id="@+id/action_universityDetailsFragment_to_universityDetailsBottomSheet2"
-            app:destination="@id/universityDetailsBottomSheet2">
-            <argument
-                android:name="imageResourceId"
-                app:argType="integer" />
-            <argument
-                android:name="universityName"
-                app:argType="string" />
-            <argument
-                android:name="country"
-                app:argType="string" />
-        </action>
+            android:id="@+id/action_universityDetailsFragment_to_universityDetailsBottomSheet"
+            app:destination="@id/universityDetailsBottomSheet" />
+
     </fragment>
     <fragment
         android:id="@+id/fragmentEditDetails"
@@ -171,4 +135,37 @@
         android:name="com.tvm.doctorcube.settings.FragmentFAQ"
         android:label="fragment_f_a_q"
         tools:layout="@layout/fragment_f_a_q" />
+    <fragment
+        android:id="@+id/fragmentUpcomingEvents"
+        android:name="com.tvm.doctorcube.home.FragmentUpcomingEvents"
+        android:label="FragmentUpcomingEvents" />
+    <dialog
+        android:id="@+id/eventDetailsBottomSheet"
+        android:name="com.tvm.doctorcube.home.EventDetailsBottomSheet"
+        android:label="EventDetailsBottomSheet" >
+        <action
+            android:id="@+id/action_eventDetailsBottomSheet_to_fragmentUpcomingEvents"
+            app:destination="@id/fragmentUpcomingEvents" />
+    </dialog>
+    <fragment
+        android:id="@+id/featuresFragment"
+        android:name="com.tvm.doctorcube.home.FeaturesFragment"
+        android:label="FeaturesFragment" >
+        <action
+            android:id="@+id/action_featuresFragment_self"
+            app:destination="@id/featuresFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/universityDetailsBottomSheet"
+        android:name="com.tvm.doctorcube.university.UniversityDetailsBottomSheet"
+        android:label="UniversityDetailsBottomSheet" >
+        <argument
+            android:name="UNIVERSITY"
+            app:argType="com.tvm.doctorcube.university.model.University" />
+        <argument
+            android:name="universityId"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
+
 </navigation>

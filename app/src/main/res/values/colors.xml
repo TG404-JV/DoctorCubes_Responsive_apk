@@ -13,13 +13,11 @@
 
     <!-- Card Design Colors -->
     <color name="card_shadow">#12000000</color>         <!-- Subtle shadow for depth -->
-    <color name="card_border">#D0DEF0</color>           <!-- Professional blue-gray border -->
     <color name="card_highlight">#E1F1FF</color>        <!-- Medical blue tint for highlights -->
     <color name="card_accent_border">#2C9CDB</color>    <!-- Consistent with primary_light_color -->
     <color name="premium_card_bg">#FFF5E8</color>       <!-- Warm premium background -->
 
     <!-- Text Colors -->
-    <color name="text_tertiary_color">#7A8899</color>   <!-- Professional blue-gray text -->
     <color name="text_on_primary">#FFFFFF</color>       <!-- Maintained -->
     <color name="text_on_accent">#1A1A1A</color>        <!-- Darker for better readability -->
     <color name="text_link">#0561A4</color>             <!-- Deeper blue for prominence -->
@@ -80,8 +78,6 @@
     <color name="icon_tint_primary">#0077CC</color>     <!-- Matches button_primary -->
     <color name="icon_tint_secondary">#546E7A</color>   <!-- Matches nav_unselected -->
     <color name="icon_tint_accent">#E65C00</color>      <!-- Matches button_accent -->
-    <color name="divider_color">#DCE6F2</color>         <!-- Professional divider -->
-    <color name="ripple_color">#1A000000</color>        <!-- Subtle ripple -->
     <color name="ripple_light">#1AFFFFFF</color>        <!-- Subtle light ripple -->
     <color name="badge_text">#FFFFFF</color>            <!-- Maintained -->
 
@@ -142,7 +138,6 @@
     <color name="card_background">#FFFFFF</color>       <!-- Clean white -->
     <color name="text_primary_color">#1A1A1A</color>    <!-- Professional dark text -->
     <color name="text_secondary_color">#445566</color>  <!-- Professional secondary text -->
-    <color name="white">#FFFFFF</color>                 <!-- Maintained -->
 
     <!-- Icon Tints -->
     <color name="university_icon_tint">#0088E1</color>  <!-- Matches primary_color -->
@@ -152,8 +147,6 @@
     <color name="support_icon_tint">#E65C00</color>     <!-- Matches button_accent -->
 
     <!-- Button Colors -->
-    <color name="whatsapp_button_color">#25D366</color> <!-- Maintained WhatsApp green -->
-    <color name="call_button_color">#007850</color>     <!-- Matches success_color -->
     <color name="ripple_effect">#1AFFFFFF</color>       <!-- Matches ripple_light -->
     <color name="background_light">#F7FAFF</color>      <!-- Matches gradient_card_end -->
 
@@ -162,4 +155,37 @@
     <color name="button_pressed_color">#E65C00</color>  <!-- Matches button_accent -->
     <color name="button_disabled_color">#FFE0B2</color> <!-- Soft orange disabled -->
     <color name="button_stroke_color">#E65C00</color>   <!-- Matches button_accent -->
+
+    <!-- Primary brand colors -->
+    <color name="primary">#1E88E5</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#64B5F6</color>
+
+    <!-- Support option colors -->
+    <color name="call_gradient_start">#E3F2FD</color>
+    <color name="call_gradient_end">#BBDEFB</color>
+    <color name="whatsapp_gradient_start">#E8F5E9</color>
+    <color name="whatsapp_gradient_end">#C8E6C9</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_tertiary_color">#9E9E9E</color>
+
+    <!-- UI element colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="surface_variant">#F5F5F5</color>
+    <color name="card_border">#E0E0E0</color>
+    <color name="divider_color">#EEEEEE</color>
+    <color name="ripple_color">#1F000000</color>
+
+    <!-- Legacy support colors (kept for backward compatibility) -->
+    <color name="call_button_color">#1565C0</color>
+    <color name="whatsapp_button_color">#1B5E20</color>
+
+
+    <color name="card_stroke">#E0E0E0</color>
+    <color name="settings_item_bg">#F5F5F5</color>
+
+
 </resources>

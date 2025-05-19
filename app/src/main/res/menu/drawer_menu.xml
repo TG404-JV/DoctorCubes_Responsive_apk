@@ -22,6 +22,11 @@
                 android:id="@+id/nav_upload_study_material"
                 android:icon="@drawable/ic_studymaterial"
                 android:title="Upload Study Material" />
+
+            <item
+                android:id="@+id/nav_upload_event"
+                android:icon="@drawable/ic_profile"
+                android:title="Upload Study Material" />
         </menu>
     </item>
 </menu>

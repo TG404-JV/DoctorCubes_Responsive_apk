@@ -3,12 +3,13 @@ package com.tvm.doctorcube.home.model;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Represents a feature item displayed in the home screen's RecyclerView.
  */
-public class Feature {
+public class Feature implements Serializable {
     // Static constants for feature types
     public static final int TYPE_UNIVERSITY_LISTINGS = 1;
     public static final int TYPE_SCHOLARSHIP = 2;

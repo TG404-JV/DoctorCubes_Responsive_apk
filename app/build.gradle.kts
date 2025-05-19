@@ -121,6 +121,7 @@ dependencies {
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation(libs.firebase.storage)
     annotationProcessor("androidx.room:room-compiler:2.6.1")
 
     // Animation
@@ -131,6 +132,8 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.2.5")
     implementation("org.apache.xmlbeans:xmlbeans:5.2.0")
     implementation("org.apache.commons:commons-compress:1.26.0")
+    implementation("com.sothree.slidinguppanel:library:3.4.0")
+
 
     // Tests
     testImplementation(libs.junit)

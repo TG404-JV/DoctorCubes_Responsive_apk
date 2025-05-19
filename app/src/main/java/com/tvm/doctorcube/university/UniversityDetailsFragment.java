@@ -63,7 +63,7 @@ public class UniversityDetailsFragment extends Fragment {
                     bundle.putInt("imageResourceId", university.getBannerResourceId());
                     bundle.putString("universityName", university.getName());
                     bundle.putString("country", university.getCountry());
-                    navController.navigate(R.id.action_universityDetailsFragment_to_universityDetailsBottomSheet2, bundle);
+                    navController.navigate(R.id.action_universityDetailsFragment_to_universityDetailsBottomSheet, bundle);
                 });
             } else {
                 setFallbackData("Unknown");

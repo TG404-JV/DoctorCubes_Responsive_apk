@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +46,7 @@ public class UniversityFragment extends Fragment {
     private Spinner filterSpinner;
     private AppBarLayout appBarLayout;
     private ProgressBar progressBar;
+    private NavController navController;
     private String countryFilter;
     private String selectedFilter = "None";
     private ImageButton backBtn;
@@ -91,6 +93,8 @@ public class UniversityFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         backBtn = view.findViewById(R.id.backBtn);
 
+        navController= NavHostFragment.findNavController(this);
+
         // Set country title
         if (countryNameTitle != null) {
             countryNameTitle.setText(countryFilter.equals("All") ? "All Universities" : "Universities in " + countryFilter);
@@ -122,9 +126,10 @@ public class UniversityFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
+
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         universities = new ArrayList<>();
-        adapter = new UniversityAdapter(requireContext(), universities, this::navigateToUniversityDetails);
+        adapter = new UniversityAdapter(requireContext(), universities, this::navigateToUniversityDetails,navController);
         recyclerView.setAdapter(adapter);
     }
 

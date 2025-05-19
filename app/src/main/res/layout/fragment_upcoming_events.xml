@@ -6,33 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/background_color">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Upcoming Events"
-            app:titleTextColor="@color/text_primary_color"
-            app:navigationIcon="@drawable/ic_back"
-            android:elevation="0dp"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Upcoming Events"
-                android:textColor="@color/text_primary_color"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -62,17 +35,7 @@
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnFilter"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Filter"
-                    android:textColor="@color/button_primary"
-                    app:icon="@drawable/ic_filter"
-                    app:iconTint="@color/button_primary"
-                    android:minHeight="36dp"
-                    android:padding="8dp"/>
+
             </LinearLayout>
 
             <!-- Events Category Chips -->
