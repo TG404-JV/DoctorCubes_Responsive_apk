@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -17,8 +18,6 @@
             android:paddingBottom="16dp">
 
             <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_home_header"
@@ -70,6 +69,17 @@
                                 android:singleLine="true" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/search_results"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@android:color/white"
+                        android:maxHeight="300dp"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -82,7 +92,6 @@
                     android:gravity="center"
                     android:weightSum="3">
 
-                    <!-- Study -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/studyButton"
                         android:layout_width="0dp"
@@ -117,7 +126,6 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Exam -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/examButton"
                         android:layout_width="0dp"
@@ -152,7 +160,6 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- University -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/universityButton"
                         android:layout_width="0dp"
@@ -205,7 +212,6 @@
                         style="@style/MedicalSeeAllText"
                         android:layout_alignParentEnd="true"
                         android:text="@string/see_all" />
-
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -238,6 +244,7 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
+
             <LinearLayout
                 style="@style/MedicalSectionContainer"
                 android:layout_width="match_parent"
