@@ -14,7 +14,7 @@
         <!-- Profile Header Banner -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp">
+            android:layout_height="wrap_content">
 
             <View
                 android:layout_width="match_parent"
@@ -22,8 +22,8 @@
                 android:background="@drawable/gradient_toolbar_background" />
 
             <androidx.cardview.widget.CardView
-                android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
                 app:cardCornerRadius="45dp"
@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/default_application_id"
                 android:textSize="14sp"
+                android:visibility="gone"
                 android:textColor="@color/text_secondary"
                 android:layout_marginTop="4dp" />
         </LinearLayout>

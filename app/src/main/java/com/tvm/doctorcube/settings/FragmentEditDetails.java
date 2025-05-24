@@ -346,8 +346,11 @@ public class FragmentEditDetails extends Fragment {
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         Map<String, Object> appData = documentSnapshot.getData();
+                        EncryptedSharedPreferencesManager encryptedSharedPreferencesManager =new EncryptedSharedPreferencesManager(getContext());
                         saveToSharedPreferences(appData);
                         updateUI(appData);
+                        encryptedSharedPreferencesManager.putBoolean("isFormSubmitted",true);
+
                     }
                 })
                 .addOnFailureListener(e -> {

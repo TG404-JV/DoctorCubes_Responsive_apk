@@ -38,7 +38,7 @@
                     android:src="@drawable/logo_doctor_cubes_white"
                     app:civ_border_color="@color/white"
                     app:civ_border_width="3dp"
-                    app:civ_circle_background_color="@color/accent_color"
+                    app:civ_circle_background_color="@color/text_secondary_color"
                     android:contentDescription="@string/profile_image"
                     android:elevation="4dp" />
 
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_6sdp"
                     android:text="@string/email_address"
-                    android:textColor="@color/text_primary_color"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:alpha="0.9" />
 
@@ -73,11 +73,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/status_badge_background"
+                    android:background="@drawable/premium_badge_bg"
                     android:paddingHorizontal="@dimen/_12sdp"
                     android:paddingVertical="@dimen/_6sdp"
                     android:text="@string/user_status"
-                    android:textColor="@color/text_primary_color"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     android:elevation="2dp" />
             </LinearLayout>
@@ -134,7 +134,7 @@
                         android:layout_marginTop="@dimen/_12sdp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="@color/settings_item_bg"
+                        app:cardBackgroundColor="@color/background_color"
                         app:cardCornerRadius="@dimen/_12sdp"
                         app:cardElevation="0dp"
                         app:rippleColor="@color/ripple_color">
@@ -149,11 +149,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_24sdp"
                                 android:layout_height="@dimen/_24sdp"
-                                android:background="@drawable/icon_circle_background"
+                                android:background="@drawable/circle_primary_background"
                                 android:contentDescription="@string/settings_icon"
                                 android:padding="@dimen/_6sdp"
-                                android:src="@android:drawable/ic_menu_manage"
-                                app:tint="@color/icon_tint_primary" />
+                                android:src="@drawable/ic_menu_manage"
+                                app:tint="@color/white" />
 
                             <TextView
                                 style="@style/SettingsItemTextStyle"
@@ -182,7 +182,7 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="@color/settings_item_bg"
+                        app:cardBackgroundColor="@color/background_color"
                         app:cardCornerRadius="@dimen/_12sdp"
                         app:cardElevation="0dp"
                         app:rippleColor="@color/ripple_color">
@@ -197,11 +197,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_24sdp"
                                 android:layout_height="@dimen/_24sdp"
-                                android:background="@drawable/icon_circle_background"
+                                android:background="@drawable/circle_primary_background"
                                 android:contentDescription="@string/settings_icon"
                                 android:padding="@dimen/_6sdp"
                                 android:src="@android:drawable/ic_popup_reminder"
-                                app:tint="@color/icon_tint_primary" />
+                                app:tint="@color/white" />
 
                             <TextView
                                 style="@style/SettingsItemTextStyle"
@@ -257,7 +257,7 @@
                         android:layout_marginTop="@dimen/_12sdp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="@color/settings_item_bg"
+                        app:cardBackgroundColor="@color/background_color"
                         app:cardCornerRadius="@dimen/_12sdp"
                         app:cardElevation="0dp"
                         app:rippleColor="@color/ripple_color">
@@ -272,11 +272,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_24sdp"
                                 android:layout_height="@dimen/_24sdp"
-                                android:background="@drawable/icon_circle_background"
+                                android:background="@drawable/circle_primary_background"
                                 android:contentDescription="@string/support_icon"
                                 android:padding="@dimen/_6sdp"
                                 android:src="@android:drawable/ic_menu_info_details"
-                                app:tint="@color/icon_tint_primary" />
+                                app:tint="@color/white" />
 
                             <TextView
                                 style="@style/SettingsItemTextStyle"
@@ -305,7 +305,7 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="@color/settings_item_bg"
+                        app:cardBackgroundColor="@color/background_color"
                         app:cardCornerRadius="@dimen/_12sdp"
                         app:cardElevation="0dp"
                         app:rippleColor="@color/ripple_color">
@@ -320,11 +320,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_24sdp"
                                 android:layout_height="@dimen/_24sdp"
-                                android:background="@drawable/icon_circle_background"
+                                android:background="@drawable/circle_primary_background"
                                 android:contentDescription="@string/settings_icon"
                                 android:padding="@dimen/_6sdp"
                                 android:src="@android:drawable/ic_lock_lock"
-                                app:tint="@color/icon_tint_primary" />
+                                app:tint="@color/white" />
 
                             <TextView
                                 style="@style/SettingsItemTextStyle"
@@ -353,7 +353,7 @@
                         android:layout_marginTop="@dimen/_8sdp"
                         android:clickable="true"
                         android:focusable="true"
-                        app:cardBackgroundColor="@color/settings_item_bg"
+                        app:cardBackgroundColor="@color/background_color"
                         app:cardCornerRadius="@dimen/_12sdp"
                         app:cardElevation="0dp"
                         app:rippleColor="@color/ripple_color">
@@ -368,11 +368,11 @@
                             <ImageView
                                 android:layout_width="@dimen/_24sdp"
                                 android:layout_height="@dimen/_24sdp"
-                                android:background="@drawable/icon_circle_background"
+                                android:background="@drawable/circle_primary_background"
                                 android:contentDescription="@string/support_icon"
                                 android:padding="@dimen/_6sdp"
                                 android:src="@android:drawable/ic_menu_help"
-                                app:tint="@color/icon_tint_primary" />
+                                app:tint="@color/white" />
 
                             <TextView
                                 style="@style/SettingsItemTextStyle"

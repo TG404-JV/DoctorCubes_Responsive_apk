@@ -378,6 +378,7 @@ public class CreateAccountFragment extends Fragment {
                 .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
+
     private void showOtpVerificationDialog() {
         // Inflate the dialog layout
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.otp_verification_bottom_sheet, null);

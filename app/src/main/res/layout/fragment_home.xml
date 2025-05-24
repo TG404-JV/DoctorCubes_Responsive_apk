@@ -36,7 +36,7 @@
                         android:layout_height="60dp"
                         app:cardCornerRadius="30dp"
                         app:cardElevation="4dp"
-                        app:cardBackgroundColor="@android:color/white"
+                        app:cardBackgroundColor="@color/background_color"
                         app:strokeWidth="0dp">
 
                         <LinearLayout
@@ -50,7 +50,7 @@
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
                                 android:src="@android:drawable/ic_menu_search"
-                                app:tint="#6E6E6E"
+                                app:tint="@color/text_primary"
                                 android:contentDescription="Search Icon" />
 
                             <EditText
@@ -61,8 +61,8 @@
                                 android:layout_weight="1"
                                 android:background="@null"
                                 android:hint="Search universities, exams..."
-                                android:textColor="#222222"
-                                android:textColorHint="#888888"
+                                android:textColor="@color/text_primary"
+                                android:textColorHint="@color/text_primary"
                                 android:textSize="16sp"
                                 android:inputType="text"
                                 android:imeOptions="actionSearch"

@@ -22,7 +22,10 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -30,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -118,6 +122,7 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
         setupCategoryButtons();
         setupEventListeners();
 
+        setupToolbar();
         // Apply animations
         animateViews();
     }
@@ -394,6 +399,26 @@ public class HomeFragment extends Fragment implements FeaturesAdapter.OnFeatureC
             }
         });
     }
+
+    private void setupToolbar() {
+        if (getActivity() instanceof AppCompatActivity activity) {
+            Toolbar toolbar = activity.findViewById(R.id.toolbar);
+            LottieAnimationView home =activity.findViewById(R.id.nav_home_icon);
+            if (toolbar != null) {
+                TextView appTitle = toolbar.findViewById(R.id.app_title);
+                if (appTitle != null) {
+                    appTitle.setText(getString(com.shockwave.pdfium.R.string.app_name)); // Directly set the TextView text
+                }
+                // Hide the back button
+                if (activity.getSupportActionBar() != null) {
+                    activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    activity.getSupportActionBar().setHomeButtonEnabled(false);
+                }
+                toolbar.setNavigationIcon(null); // Explicitly remove navigation icon
+            }
+        }
+    }
+
 
     private void clearSearchState() {
         if (searchEditText != null) {

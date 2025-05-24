@@ -340,7 +340,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_brochure"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_weight="1"
                 android:background="@drawable/button_secondary_outline"
@@ -352,7 +352,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_apply"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="50dp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_weight="1"
                 android:background="@drawable/button_accent"

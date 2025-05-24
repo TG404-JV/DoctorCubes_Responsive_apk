@@ -180,6 +180,9 @@
     <color name="whatsapp_button_color">#1B5E20</color>
     <color name="yellow">#FFEB3B</color>
 
+    <color name="lottieclick">#1565C0</color>
+    <color name="medical_card_bg">#F9FAFB</color>
+
     <color name="background_white">#FAFAFA</color>
     <color name="white">#FFFFFF</color>
     <color name="blue">#2196F3</color> <!-- For "Call Us" border -->
@@ -191,6 +194,7 @@
     <color name="medical_secondary">#FFFFFF</color>     <!-- White for secondary elements -->
     <color name="medical_accent">#43A047</color>        <!-- Scholarship Green -->
 
+    <color name="primaray_c_2">#B3E5FC</color>
     <!-- Text Colors -->
     <color name="text_primary">#212121</color>          <!-- Almost Black for primary text -->
     <color name="text_secondary">#5F6368</color>        <!-- Dark Gray for secondary text -->
@@ -201,5 +205,129 @@
     <color name="card_stroke">#E0E0E0</color>
     <color name="settings_item_bg">#F5F5F5</color>
 
+    <!-- Primary Brand Colors - Medical Theme -->
+    <color name="medical_primary_blue">#2E86AB</color>
+    <color name="medical_primary_blue_dark">#1B5E87</color>
+    <color name="medical_primary_blue_light">#4A9BC7</color>
 
+    <!-- Secondary Brand Colors -->
+    <color name="medical_accent_green">#28A745</color>
+    <color name="medical_accent_green_dark">#1E7E34</color>
+    <color name="medical_accent_orange">#FD7E14</color>
+    <color name="medical_warning_red">#E74C3C</color>
+
+    <!-- Background Colors -->
+    <color name="edu_background_gradient">#F8FAFB</color>
+    <color name="card_background_professional">#FFFFFF</color>
+    <color name="surface_color">#F5F7FA</color>
+    <color name="overlay_background">#80000000</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_professional">#1A202C</color>
+    <color name="text_secondary_professional">#4A5568</color>
+    <color name="text_tertiary_professional">#718096</color>
+    <color name="text_hint_professional">#A0AEC0</color>
+    <color name="text_success">#28A745</color>
+    <color name="text_error">#E74C3C</color>
+
+    <!-- White Variants -->
+    <color name="white_100">#FFFFFF</color>
+    <color name="white_95">#F2F2F2</color>
+    <color name="white_90">#E6E6E6</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+
+    <!-- Input Field Colors -->
+    <color name="input_background">#F7FAFC</color>
+    <color name="input_border">#E2E8F0</color>
+    <color name="input_border_focused">#2E86AB</color>
+    <color name="input_error">#E74C3C</color>
+<color name="primary_start">#B3E5FC</color>
+    <color name="primary_end">#B3E5FC</color>
+    <!-- Button Colors -->
+
+    <color name="button_secondary_pressed">#EDF2F7</color>
+
+    <!-- Password Strength Indicator Colors -->
+    <color name="password_strength_inactive">#E2E8F0</color>
+    <color name="password_strength_weak">#E74C3C</color>
+    <color name="password_strength_fair">#FD7E14</color>
+    <color name="password_strength_good">#F39C12</color>
+    <color name="password_strength_strong">#28A745</color>
+
+    <!-- Checkbox and Radio Colors -->
+    <color name="checkbox_unchecked">#CBD5E0</color>
+
+    <!-- Divider Colors -->
+    <color name="divider_light">#E2E8F0</color>
+    <color name="divider_medium">#CBD5E0</color>
+
+    <!-- Status Colors -->
+    <color name="status_success">#28A745</color>
+    <color name="status_warning">#FD7E14</color>
+    <color name="status_error">#E74C3C</color>
+    <color name="status_info">#2E86AB</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#2E86AB</color>
+    <color name="gradient_middle">#4A9BC7</color>
+    <color name="gradient_end">#6BB6D6</color>
+
+    <!-- Shadow Colors -->
+    <color name="shadow_light">#1A000000</color>
+    <color name="shadow_medium">#33000000</color>
+    <color name="shadow_dark">#4D000000</color>
+
+    <!-- Trust Indicator Colors -->
+    <color name="trust_background">#F0F8FF</color>
+    <color name="verified_green">#10B981</color>
+    <color name="security_blue">#3B82F6</color>
+    <color name="support_purple">#8B5CF6</color>
+
+    <!-- Country Flag Colors (for borders/backgrounds) -->
+    <color name="flag_border">#E5E7EB</color>
+    <color name="country_selection_background">#F3F4F6</color>
+
+    <!-- Loading and Progress Colors -->
+    <color name="progress_background">#E5E7EB</color>
+    <color name="progress_indicator">#2E86AB</color>
+
+    <!-- Floating Action Button Colors -->
+    <color name="fab_background">#28A745</color>
+    <color name="fab_pressed">#1E7E34</color>
+
+    <!-- Header Gradient Colors -->
+    <color name="header_gradient_start">#2E86AB</color>
+    <color name="header_gradient_end">#4A9BC7</color>
+
+    <!-- Card Colors -->
+    <color name="card_elevation_1">#F8F9FA</color>
+    <color name="card_elevation_2">#FFFFFF</color>
+
+    <!-- Ripple Effect Colors -->
+    <color name="ripple_primary">#332E86AB</color>
+    <color name="ripple_secondary">#33718096</color>
+
+    <!-- Specialist Medical Colors -->
+    <color name="medical_cross_red">#DC3545</color>
+    <color name="stethoscope_silver">#6C757D</color>
+    <color name="medical_green">#198754</color>
+    <color name="prescription_blue">#0D6EFD</color>
+
+    <!-- Education Specific Colors -->
+    <color name="academic_gold">#FFC107</color>
+    <color name="diploma_blue">#0DCAF0</color>
+    <color name="graduation_purple">#6F42C1</color>
+    <color name="certificate_orange">#FD7E14</color>
+
+    <!-- Consultation Colors -->
+    <color name="consultation_available">#28A745</color>
+    <color name="consultation_busy">#FFC107</color>
+    <color name="consultation_offline">#6C757D</color>
+
+    <!-- Achievement Colors -->
+    <color name="achievement_bronze">#CD7F32</color>
+    <color name="achievement_silver">#C0C0C0</color>
+    <color name="achievement_gold">#FFD700</color>
+    <color name="achievement_platinum">#E5E4E2</color>
 </resources>

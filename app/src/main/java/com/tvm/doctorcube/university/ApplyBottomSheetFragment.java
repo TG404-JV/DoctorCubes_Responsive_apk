@@ -45,7 +45,6 @@ public class ApplyBottomSheetFragment extends BottomSheetDialogFragment {
     private RadioButton neetScoreYes, neetScoreNo, passportYes, passportNo;
     private TextInputLayout neetScoreLayout;
     private Button submitButton;
-    private LinearLayout headerUniversity;
     private EncryptedSharedPreferencesManager encryptedSharedPreferencesManager;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
@@ -97,8 +96,6 @@ public class ApplyBottomSheetFragment extends BottomSheetDialogFragment {
         passportNo = view.findViewById(R.id.passportNo);
         neetScoreLayout = view.findViewById(R.id.neetScoreLayout);
         submitButton = view.findViewById(R.id.submitButton);
-        headerUniversity = view.findViewById(R.id.headerUniversity);
-        headerUniversity.setVisibility(View.GONE);
 
         countries = getResources().getStringArray(R.array.countries_array);
 
@@ -106,10 +103,6 @@ public class ApplyBottomSheetFragment extends BottomSheetDialogFragment {
             offer = getArguments().getString("event_title", "");
         }
 
-        if (!TextUtils.isEmpty(offer)) {
-            TextView t1 = view.findViewById(R.id.PersonlizedTxt);
-            t1.setText(offer);
-        }
 
         setUpCountrySpinner();
         setUpListeners();

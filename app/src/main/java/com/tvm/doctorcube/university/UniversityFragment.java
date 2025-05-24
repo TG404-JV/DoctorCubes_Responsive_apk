@@ -136,7 +136,7 @@ public class UniversityFragment extends Fragment implements UniversityAdapter.On
             Bundle args = new Bundle();
             args.putSerializable("UNIVERSITY", university);
             args.putString("universityId", university.getId());
-            navController.navigate(R.id.action_universityFragment_to_universityDetailsBottomSheet, args);
+            navController.navigate(R.id.action_universityFragment_to_universityDetailsFragment, args);
         } catch (Exception e) {
             Log.e("UniversityFragment", "Navigation failed for " + university.getName(), e);
         }

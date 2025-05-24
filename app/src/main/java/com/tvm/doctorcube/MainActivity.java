@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,18 +13,23 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.tvm.doctorcube.customview.CustomBottomNavigationView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private LottieAnimationView callButton;
-    private LottieAnimationView[] lottieAnimationViews;
     private NavController navController;
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -33,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Handle window insets for edge-to-edge display
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // Initialize Toolbar
         toolbar = findViewById(R.id.toolbar);
@@ -60,9 +71,8 @@ public class MainActivity extends AppCompatActivity {
         View appLogo = findViewById(R.id.app_logo);
         if (appLogo != null) {
             appLogo.setOnClickListener(v -> {
-                if (navController.getCurrentDestination().getId() != R.id.settingsHome) {
+                if (Objects.requireNonNull(navController.getCurrentDestination()).getId() != R.id.settingsHome) {
                     applySelectionAnimation(v);
-                    setActiveNavigationItem(2);
                     navController.navigate(R.id.settingsHome);
                 }
             });
@@ -85,23 +95,27 @@ public class MainActivity extends AppCompatActivity {
         // Initialize custom navigation
         setupCustomNavigation();
 
-        // Update toolbar title based on destination
+        // Update toolbar title and navigation item based on destination
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            CustomBottomNavigationView bottomNav = findViewById(R.id.custom_bottom_navigation);
             if (destination.getId() == R.id.homeFragment) {
                 toolbar.setTitle("DoctorCubes");
-                setActiveNavigationItem(0);
+                if (bottomNav != null) bottomNav.setSelectedItem(0);
             } else if (destination.getId() == R.id.universityFragment) {
                 String country = arguments != null ? arguments.getString("COUNTRY_NAME", "All") : "All";
                 toolbar.setTitle(country.equals("All") ? "All Universities" : "Universities in " + country);
-                setActiveNavigationItem(1);
+                if (bottomNav != null) bottomNav.setSelectedItem(1);
             } else if (destination.getId() == R.id.settingsHome) {
                 toolbar.setTitle("Settings");
-                setActiveNavigationItem(2);
+                if (bottomNav != null) bottomNav.setSelectedItem(2);
             } else if (destination.getId() == R.id.universityDetailsFragment) {
                 String universityName = arguments != null ? arguments.getString("UNIVERSITY_NAME", "") : "";
                 toolbar.setTitle(universityName);
             } else if (destination.getId() == R.id.studyMaterialFragment) {
                 toolbar.setTitle("Study Material");
+                if (bottomNav != null) bottomNav.setSelectedItem(1);
+            } else {
+                toolbar.setTitle(getString(R.string.app_name));
             }
         });
     }
@@ -110,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (navController.getCurrentDestination().getId() == R.id.homeFragment) {
+                if (Objects.requireNonNull(navController.getCurrentDestination()).getId() == R.id.homeFragment) {
                     if (doubleBackToExitPressedOnce) {
                         finish();
                     } else {
@@ -147,63 +161,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupCustomNavigation() {
-        lottieAnimationViews = new LottieAnimationView[]{
-                findViewById(R.id.nav_home_icon),
-                findViewById(R.id.nav_study_icon),
-                findViewById(R.id.nav_settings_icon)
-        };
-        LinearLayout[] navItems = new LinearLayout[]{
-                findViewById(R.id.nav_home),
-                findViewById(R.id.nav_study),
-                findViewById(R.id.nav_settings)
-        };
-
-        for (int i = 0; i < navItems.length; i++) {
-            final int position = i;
-            navItems[i].setOnClickListener(v -> {
-                int currentDestination = navController.getCurrentDestination().getId();
-                int targetDestination;
-                switch (position) {
-                    case 0:
-                        targetDestination = R.id.homeFragment;
-                        break;
-                    case 1:
-                        targetDestination = R.id.studyMaterialFragment;
-                        break;
-                    case 2:
-                        targetDestination = R.id.settingsHome;
-                        break;
-                    default:
-                        return;
-                }
-                if (currentDestination != targetDestination) {
-                    applySelectionAnimation(v);
-                    setActiveNavigationItem(position);
-                    navController.navigate(targetDestination);
-                }
-            });
+        CustomBottomNavigationView bottomNav = findViewById(R.id.custom_bottom_navigation);
+        if (bottomNav == null) {
+            throw new IllegalStateException("CustomBottomNavigationView not found in activity_main.xml");
         }
 
-        // Set initial state
-        if (lottieAnimationViews[0] != null) {
-            lottieAnimationViews[0].playAnimation();
-        }
+        bottomNav.setOnNavigationItemSelectedListener(position -> {
+            int currentDestination = Objects.requireNonNull(navController.getCurrentDestination()).getId();
+            int targetDestination;
+            switch (position) {
+                case 0:
+                    targetDestination = R.id.homeFragment;
+                    break;
+                case 1:
+                    targetDestination = R.id.studyMaterialFragment;
+                    break;
+                case 2:
+                    targetDestination = R.id.settingsHome;
+                    break;
+                default:
+                    return;
+            }
+            if (currentDestination != targetDestination) {
+                // Apply animation to the clicked navigation item
+                View navItem = bottomNav.findViewById(getNavItemId(position));
+                if (navItem != null) {
+                    applySelectionAnimation(navItem);
+                }
+                navController.navigate(targetDestination);
+            }
+        });
     }
 
-    public void setActiveNavigationItem(int position) {
-        for (int i = 0; i < lottieAnimationViews.length; i++) {
-            if (lottieAnimationViews[i] == null) continue;
-            if (i == position) {
-                lottieAnimationViews[i].playAnimation();
-                lottieAnimationViews[i].setColorFilter(
-                        ContextCompat.getColor(this, R.color.primary_color),
-                        PorterDuff.Mode.SRC_IN
-                );
-            } else {
-                lottieAnimationViews[i].cancelAnimation();
-                lottieAnimationViews[i].setProgress(0f);
-                lottieAnimationViews[i].clearColorFilter();
-            }
+    private int getNavItemId(int position) {
+        switch (position) {
+            case 0:
+                return R.id.nav_home;
+            case 1:
+                return R.id.nav_study;
+            case 2:
+                return R.id.nav_settings;
+            default:
+                return -1;
         }
     }
 

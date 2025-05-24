@@ -108,6 +108,12 @@
         <item name="android:padding">16dp</item>
     </style>
 
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="android:statusBarColor">@android:color/transparent</item> <!-- transparent or custom -->
+        <item name="android:navigationBarColor">@android:color/black</item> <!-- optional -->
+        <item name="android:windowLightStatusBar">true</item> <!-- dark icons -->
+    </style>
     <style name="ServiceCardImageView" parent="">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>

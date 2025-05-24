@@ -668,63 +668,61 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="submit_event">Submit Event</string>
 
 
+    <!-- Feature Details Strings -->
+    <string name="feature_image">Feature Image</string>
+    <string name="feature_icon">Feature Icon</string>
+    <string name="about_this_feature">About this Feature</string>
+    <string name="key_benefits">Key Benefits</string>
+    <string name="how_it_works">How It Works</string>
+    <string name="related_features">Related Features</string>
 
+    <string name="benefit_icon">Benefit Icon</string>
+    <string name="step_image">Step Image</string>
 
-        <!-- Feature Details Strings -->
-        <string name="feature_image">Feature Image</string>
-        <string name="feature_icon">Feature Icon</string>
-        <string name="about_this_feature">About this Feature</string>
-        <string name="key_benefits">Key Benefits</string>
-        <string name="how_it_works">How It Works</string>
-        <string name="related_features">Related Features</string>
+    <string name="error_loading">Error loading data. Please try again.</string>
+    <string name="retry">Retry</string>
 
-        <string name="benefit_icon">Benefit Icon</string>
-        <string name="step_image">Step Image</string>
+    <!-- University Feature -->
+    <string name="university_application">University Application</string>
+    <string name="visa_services">Visa Services</string>
+    <string name="counseling_services">Counseling Services</string>
 
-        <string name="error_loading">Error loading data. Please try again.</string>
-        <string name="retry">Retry</string>
+    <!-- Benefit Types -->
+    <string name="expert_guidance">Expert Guidance</string>
+    <string name="document_preparation">Document Preparation</string>
+    <string name="application_tracking_benefit">Application Tracking</string>
+    <string name="higher_acceptance">Higher Acceptance Rate</string>
 
-        <!-- University Feature -->
-        <string name="university_application">University Application</string>
-        <string name="visa_services">Visa Services</string>
-        <string name="counseling_services">Counseling Services</string>
+    <!-- Step Types -->
+    <string name="initial_consultation">Initial Consultation</string>
+    <string name="university_selection">University Selection</string>
+    <string name="document_preparation_step">Document Preparation</string>
+    <string name="application_submission">Application Submission</string>
+    <string name="interview_preparation">Interview Preparation</string>
+    <string name="visa_processing">Visa Processing</string>
+    <string name="pre_departure_guidance">Pre-departure Guidance</string>
 
-        <!-- Benefit Types -->
-        <string name="expert_guidance">Expert Guidance</string>
-        <string name="document_preparation">Document Preparation</string>
-        <string name="application_tracking_benefit">Application Tracking</string>
-        <string name="higher_acceptance">Higher Acceptance Rate</string>
+    <!-- Contact Options -->
+    <string name="whatsapp_us">WhatsApp Us</string>
+    <string name="live_chat">Live Chat</string>
 
-        <!-- Step Types -->
-        <string name="initial_consultation">Initial Consultation</string>
-        <string name="university_selection">University Selection</string>
-        <string name="document_preparation_step">Document Preparation</string>
-        <string name="application_submission">Application Submission</string>
-        <string name="interview_preparation">Interview Preparation</string>
-        <string name="visa_processing">Visa Processing</string>
-        <string name="pre_departure_guidance">Pre-departure Guidance</string>
+    <!-- Messages -->
+    <string name="feature_not_found">Feature not found</string>
+    <string name="loading_feature_details">Loading Feature Details…</string>
+    <string name="no_related_features">No related features found</string>
+    <string name="no_benefits">No benefits information available</string>
+    <string name="no_steps">No steps information available</string>
+    <string name="feature_added_to_favorites">Feature added to favorites</string>
+    <string name="feature_removed_from_favorites">Feature removed from favorites</string>
+    <string name="share_feature">Check out this amazing feature from DoctorCubes: %1$s</string>
 
-        <!-- Contact Options -->
-        <string name="whatsapp_us">WhatsApp Us</string>
-        <string name="live_chat">Live Chat</string>
-
-        <!-- Messages -->
-        <string name="feature_not_found">Feature not found</string>
-        <string name="loading_feature_details">Loading Feature Details…</string>
-        <string name="no_related_features">No related features found</string>
-        <string name="no_benefits">No benefits information available</string>
-        <string name="no_steps">No steps information available</string>
-        <string name="feature_added_to_favorites">Feature added to favorites</string>
-        <string name="feature_removed_from_favorites">Feature removed from favorites</string>
-        <string name="share_feature">Check out this amazing feature from DoctorCubes: %1$s</string>
-
-        <!-- Accessibility -->
-        <string name="content_description_back">Navigate back</string>
-        <string name="content_description_share">Share this feature</string>
-        <string name="content_description_favorite">Add to favorites</string>
-        <string name="content_description_unfavorite">Remove from favorites</string>
-        <string name="content_description_whatsapp">Contact via WhatsApp</string>
-        <string name="content_description_contact">Contact support</string>
+    <!-- Accessibility -->
+    <string name="content_description_back">Navigate back</string>
+    <string name="content_description_share">Share this feature</string>
+    <string name="content_description_favorite">Add to favorites</string>
+    <string name="content_description_unfavorite">Remove from favorites</string>
+    <string name="content_description_whatsapp">Contact via WhatsApp</string>
+    <string name="content_description_contact">Contact support</string>
 
 
     <!-- Support section headers -->
@@ -782,7 +780,6 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="event_attendees">event image preview</string>
 
 
-
     <string name="all_universities">All Universities</string>
     <string name="universities_in">Universities in %1$s</string>
 
@@ -805,5 +802,141 @@ By clicking \'I Agree\', you acknowledge that you have read and understood these
     <string name="failed_initiate_call">Failed to initiate call</string>
     <string name="failed_open_whatsapp">Failed to open WhatsApp</string>
     <string name="brochure_not_implemented">Brochure download not implemented yet</string>
+
+    <string name="global_medical_education">Global Medical Education</string>
+    <string name="mbbs_abroad_consultancy">MBBS Abroad Consultancy</string>
+    <string name="medical_education_logo">Medical Education Logo</string>
+
+    <!-- Achievement Badges -->
+    <string name="trusted_by_10k_students">Trusted by 10,000+ Students</string>
+    <string name="iso_certified">ISO 9001 Certified</string>
+
+    <!-- Page Headers -->
+    <string name="start_your_medical_journey">Start Your Medical Journey</string>
+    <string name="create_account_subtitle">Join thousands of successful medical students worldwide</string>
+    <string name="student_information">Student Information</string>
+    <string name="account_security">Account Security</string>
+
+    <!-- Form Fields -->
+    <string name="full_name_as_passport">Full Name (as in Passport)</string>
+    <string name="country_code">Code</string>
+    <string name="current_education_level">Current Education Level</string>
+    <string name="preferred_study_destination">Preferred Study Destination</string>
+    <string name="create_password">Create Password</string>
+
+    <!-- Countries Served -->
+    <string name="plus_more_countries">+15 More</string>
+    <string name="russia_flag">Russia Flag</string>
+    <string name="ukraine_flag">Ukraine Flag</string>
+    <string name="georgia_flag">Georgia Flag</string>
+    <string name="philippines_flag">Philippines Flag</string>
+
+    <!-- Education Levels -->
+    <string-array name="education_levels">
+        <item>12th Grade (Science)</item>
+        <item>12th Grade (Other)</item>
+        <item>Diploma</item>
+        <item>Bachelor\'s Degree</item>
+        <item>NEET Qualified</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Study Destinations -->
+    <string-array name="study_destinations">
+        <item>Russia</item>
+        <item>Ukraine</item>
+        <item>Georgia</item>
+        <item>Philippines</item>
+        <item>Kazakhstan</item>
+        <item>Kyrgyzstan</item>
+        <item>China</item>
+        <item>Nepal</item>
+        <item>Bangladesh</item>
+        <item>Poland</item>
+        <item>Romania</item>
+        <item>Hungary</item>
+        <item>Latvia</item>
+        <item>Lithuania</item>
+        <item>Bulgaria</item>
+        <item>Armenia</item>
+    </string-array>
+
+    <!-- Terms and Privacy -->
+    <string name="terms_service_link">Terms of Service</string>
+    <string name="privacy_policy_link">Privacy Policy</string>
+
+    <!-- Buttons -->
+    <string name="create_account_start_journey">Create Account &amp; Start Journey</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="sign_in_here">Sign In Here</string>
+    <string name="get_help">Get Help</string>
+
+    <!-- Trust Indicators -->
+    <string name="secure_encrypted">Secure &amp; Encrypted</string>
+    <string name="verified_consultancy">Verified Consultancy</string>
+    <string name="expert_support">24/7 Expert Support</string>
+
+    <!-- Validation Messages -->
+    <string name="error_empty_name">Please enter your full name</string>
+    <string name="error_invalid_email">Please enter a valid email address</string>
+    <string name="error_invalid_phone">Please enter a valid phone number</string>
+    <string name="error_weak_password">Password must be at least 8 characters with uppercase, lowercase, number and special character</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="error_terms_not_accepted">Please accept the Terms of Service and Privacy Policy</string>
+    <string name="error_education_level_required">Please select your education level</string>
+    <string name="error_country_required">Please select your preferred study destination</string>
+
+    <!-- Success Messages -->
+    <string name="account_created_successfully">Account created successfully! Please verify your email.</string>
+    <string name="verification_email_sent">Verification email sent to your email address</string>
+
+    <!-- Help and Support -->
+    <string name="need_help_title">Need Help?</string>
+    <string name="contact_counselor">Contact Our Education Counselor</string>
+
+    <!-- Password Strength -->
+    <string name="password_strength_weak">Weak</string>
+    <string name="password_strength_fair">Fair</string>
+    <string name="password_strength_good">Good</string>
+    <string name="password_strength_strong">Strong</string>
+
+    <!-- Loading States -->
+    <string name="creating_account">Creating your account...</string>
+    <string name="sending_verification">Sending verification email...</string>
+    <string name="please_wait">Please wait</string>
+
+
+    <!-- Countries and Flags -->
+    <string name="india">India</string>
+    <string name="usa">United States</string>
+    <string name="uk">United Kingdom</string>
+    <string name="canada">Canada</string>
+    <string name="australia">Australia</string>
+
+    <!-- Specialty Information -->
+    <string name="mbbs_duration">6 Years Duration</string>
+    <string name="who_approved">WHO Approved Universities</string>
+    <string name="mci_recognized">NMC Recognized</string>
+    <string name="low_fees">Affordable Fees</string>
+    <string name="english_medium">English Medium</string>
+    <string name="no_donation">No Donation Required</string>
+
+    <!-- Counselor Information -->
+    <string name="speak_to_counselor">Speak to Education Counselor</string>
+
+    <string name="admission_assistance">Complete Admission Assistance</string>
+    <string name="visa_support">Visa &amp; Documentation Support</string>
+
+    <!-- Additional Information -->
+    <string name="why_choose_us">Why Choose Us?</string>
+    <string name="success_rate">98% Success Rate</string>
+    <string name="years_experience">15+ Years Experience</string>
+    <string name="students_placed">10,000+ Students Placed</string>
+    <string name="university_partners">200+ University Partners</string>
+
+    <!-- Social Proof -->
+    <string name="student_testimonials">Student Testimonials</string>
+    <string name="parent_reviews">Parent Reviews</string>
+    <string name="google_reviews">4.8★ Google Reviews</string>
 
 </resources>

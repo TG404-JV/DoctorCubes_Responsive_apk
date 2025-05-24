@@ -20,8 +20,8 @@ android {
         applicationId = "com.tvm.doctorcube"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -47,7 +47,7 @@ android {
             keyAlias = localProperties["KEY_ALIAS"] as String? ?: "default_alias"
             keyPassword = localProperties["KEY_PASSWORD"] as String? ?: "default_key_password"
 
-            println("Keystore path: ${keystorePath}")
+            println("Keystore path: $keystorePath")
             println("Alias: ${localProperties["KEY_ALIAS"]}")
 
         }
@@ -89,51 +89,51 @@ dependencies {
     implementation(libs.constraintlayout)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-database")
-    implementation("com.google.firebase:firebase-crashlytics")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.google.firebase.database)
+    implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.firestore)
-    implementation("com.google.android.gms:play-services-auth:21.3.0")
+    implementation(libs.play.services.auth)
 
     // UI
-    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
-    implementation("androidx.webkit:webkit:1.13.0")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation(libs.core)
+    implementation(libs.webkit)
+    implementation(libs.swiperefreshlayout)
     implementation(libs.android.pdf.viewer)
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.9")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.9")
-    implementation("com.gauravk.bubblenavigation:bubblenavigation:1.0.7")
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.bubblenavigation)
+    implementation(libs.circleimageview)
 
     // Security
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation(libs.security.crypto)
 
     // Networking
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.github.bumptech.glide:glide:4.15.1")
-    implementation("com.squareup.picasso:picasso:2.71828")
-    implementation("com.android.volley:volley:1.2.1")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.glide)
+    implementation(libs.picasso)
+    implementation(libs.volley)
 
     // Background tasks
-    implementation("androidx.work:work-runtime:2.10.0")
+    implementation(libs.work.runtime)
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.1")
+    implementation(libs.room.runtime)
     implementation(libs.firebase.storage)
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    annotationProcessor(libs.room.compiler)
 
     // Animation
-    implementation("com.airbnb.android:lottie:6.6.0")
+    implementation(libs.lottie)
 
     // Excel, Word, etc.
-    implementation("org.apache.poi:poi:5.2.5")
-    implementation("org.apache.poi:poi-ooxml:5.2.5")
-    implementation("org.apache.xmlbeans:xmlbeans:5.2.0")
-    implementation("org.apache.commons:commons-compress:1.26.0")
-    implementation("com.sothree.slidinguppanel:library:3.4.0")
+    implementation(libs.poi)
+    implementation(libs.poi.ooxml)
+    implementation(libs.xmlbeans)
+    implementation(libs.commons.compress)
+    implementation(libs.library)
 
 
     // Tests

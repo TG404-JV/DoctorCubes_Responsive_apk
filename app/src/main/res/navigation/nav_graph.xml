@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_splashFragment2_to_getStartedFragment"
             app:destination="@id/getStartedFragment" />
+        <action
+            android:id="@+id/action_splashFragment2_to_collectUserDetailsFragment"
+            app:destination="@id/collectUserDetailsFragment" />
 
     </fragment>
     <fragment

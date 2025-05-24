@@ -5,6 +5,7 @@
     android:layout_width="140dp"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/card_background"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
@@ -30,16 +31,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:text="hii"
                 android:textSize="16sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/text_primary_color" />
 
             <TextView
                 android:id="@+id/university_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:text="hii"
                 android:textSize="12sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/text_secondary_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +63,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black" />
+                    android:text="hii"
+
+                    android:textColor="@color/text_primary_color" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

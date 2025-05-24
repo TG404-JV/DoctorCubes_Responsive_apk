@@ -1,6 +1,6 @@
 package com.tvm.doctorcube.study.fragment;
 
-import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -34,8 +34,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private YouTubePlayer activePlayer;
     private boolean isFullScreen = false;
     private int currentVideoIndex = 0;
-    private Handler handler; // For delayed hiding of controls
-    private static final int CONTROL_HIDE_DELAY = 3000; // 3 seconds delay
+    private Handler handler;
+    private static final int CONTROL_HIDE_DELAY = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +142,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             activePlayer.loadVideo(videoIds.get(currentVideoIndex), 0);
             toolbar.setTitle("Playing: Video " + (currentVideoIndex + 1));
             updateButtonStates();
-        }
-        else {
+        } else {
             CustomToast.showToast(this, "Invalid video index");
         }
     }
@@ -154,7 +153,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
         } else {
             CustomToast.showToast(this, "At the end of playlist");
         }
-
     }
 
     private void playPreviousVideo() {
@@ -174,24 +172,22 @@ public class VideoPlayerActivity extends AppCompatActivity {
         if (isFullScreen) {
             // Exit fullscreen
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             toolbar.setVisibility(View.VISIBLE);
             btnPrevious.setVisibility(View.VISIBLE);
             btnNext.setVisibility(View.VISIBLE);
             fullscreenToggle.setVisibility(View.VISIBLE);
-            fullscreenToggle.setImageResource(R.drawable.ic_video_orientation); // Use correct icon
+            fullscreenToggle.setImageResource(R.drawable.ic_video_orientation);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             isFullScreen = false;
-            handler.removeCallbacksAndMessages(null); // Cancel any hide tasks
+            handler.removeCallbacksAndMessages(null);
         } else {
             // Enter fullscreen
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             toolbar.setVisibility(View.GONE);
             btnPrevious.setVisibility(View.GONE);
             btnNext.setVisibility(View.GONE);
-            fullscreenToggle.setVisibility(View.GONE); // Initially hidden in fullscreen
-            fullscreenToggle.setImageResource(R.drawable.ic_video_orientation); // Use correct icon
+            fullscreenToggle.setVisibility(View.GONE);
+            fullscreenToggle.setImageResource(R.drawable.ic_video_orientation);
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                             View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
@@ -202,16 +198,16 @@ public class VideoPlayerActivity extends AppCompatActivity {
             );
             isFullScreen = true;
         }
+        // Ensure layout adapts to new configuration
+        youtubePlayerView.requestLayout();
     }
 
     private void toggleControlsVisibility() {
         if (fullscreenToggle.getVisibility() == View.VISIBLE) {
-            // Hide controls and schedule hiding again
             fullscreenToggle.setVisibility(View.GONE);
             btnPrevious.setVisibility(View.GONE);
             btnNext.setVisibility(View.GONE);
         } else {
-            // Show controls and schedule hiding
             fullscreenToggle.setVisibility(View.VISIBLE);
             btnPrevious.setVisibility(View.VISIBLE);
             btnNext.setVisibility(View.VISIBLE);
@@ -220,7 +216,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     }
 
     private void scheduleControlsHide() {
-        handler.removeCallbacksAndMessages(null); // Clear previous tasks
+        handler.removeCallbacksAndMessages(null);
         handler.postDelayed(() -> {
             if (isFullScreen) {
                 fullscreenToggle.setVisibility(View.GONE);
@@ -228,6 +224,18 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 btnNext.setVisibility(View.GONE);
             }
         }, CONTROL_HIDE_DELAY);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Handle configuration changes (e.g., orientation, screen size)
+        youtubePlayerView.requestLayout();
+        updateButtonStates();
+        if (isFullScreen) {
+            // Ensure controls are hidden/shown appropriately
+            toggleControlsVisibility();
+        }
     }
 
     @Override
@@ -249,6 +257,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         youtubePlayerView.release();
-        handler.removeCallbacksAndMessages(null); // Clean up handler
+        handler.removeCallbacksAndMessages(null);
     }
 }

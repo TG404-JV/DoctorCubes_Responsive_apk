@@ -67,8 +67,17 @@ public class SplashFragment extends Fragment {
             {
                 if (role != null) {
                     if ("User".equals(role)) {
-                        startActivity(new Intent(getContext(), MainActivity.class));
-                        requireActivity().finish(); // Remove SplashActivity from back stack
+                        EncryptedSharedPreferencesManager encryptedSharedPreferencesManager = new EncryptedSharedPreferencesManager(requireActivity());
+                        boolean issumbitted = encryptedSharedPreferencesManager.getBoolean("isFormSubmitted",false);
+
+                        if(issumbitted)
+                        {
+                            startActivity(new Intent(getContext(), MainActivity.class));
+                            requireActivity().finish();
+                        }else
+                        {
+                            navController.navigate(R.id.action_splashFragment2_to_collectUserDetailsFragment);
+                        }
 
                     } else if ("admin".equals(role) || "superadmin".equals(role)) {
                         startActivity(new Intent(getContext(), AdminActivity.class));
