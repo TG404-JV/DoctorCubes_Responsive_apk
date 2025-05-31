@@ -123,6 +123,9 @@ dependencies {
     // Room
     implementation(libs.room.runtime)
     implementation(libs.firebase.storage)
+    implementation(libs.firebase.appcheck.playintegrity)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.appcheck.debug)
     annotationProcessor(libs.room.compiler)
 
     // Animation

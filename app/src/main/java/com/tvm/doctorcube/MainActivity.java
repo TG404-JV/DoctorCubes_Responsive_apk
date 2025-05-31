@@ -22,6 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.bumptech.glide.RequestManager;
 import com.tvm.doctorcube.customview.CustomBottomNavigationView;
 
 import java.util.Objects;
@@ -44,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+        // Initialize permission launcher
+       RequestManager requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (!isGranted) {
+                Toast.makeText(this, "Notifications disabled. Enable in settings.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Request notification permission for Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
 
         // Initialize Toolbar
         toolbar = findViewById(R.id.toolbar);
