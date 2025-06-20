@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand Colors -->
+    <color name="primary_dark_color">#00447C</color>    <!-- Deeper blue for premium feel -->
+    <color name="primary_light_color">#2C9CDB</color>   <!-- Brighter blue for better impact -->
+
+    <!-- Accent Colors -->
+    <color name="accent_dark_color">#E65C00</color>     <!-- Richer orange for premium look -->
+    <color name="accent_light_color">#FF9A3D</color>    <!-- Warmer orange for premium feel -->
+
+    <!-- Background Colors -->
+    <color name="secondary_background">#F5F9FF</color>  <!-- Bluer tint for educational brand -->
+
+    <!-- Card Design Colors -->
+    <color name="card_shadow">#12000000</color>         <!-- Subtle shadow for depth -->
+    <color name="card_highlight">#E1F1FF</color>        <!-- Medical blue tint for highlights -->
+    <color name="card_accent_border">#2C9CDB</color>    <!-- Consistent with primary_light_color -->
+    <color name="premium_card_bg">#FFF5E8</color>       <!-- Warm premium background -->
+
+    <!-- Text Colors -->
+    <color name="text_on_primary">#FFFFFF</color>       <!-- Maintained -->
+    <color name="text_on_accent">#1A1A1A</color>        <!-- Darker for better readability -->
+    <color name="text_link">#0561A4</color>             <!-- Deeper blue for prominence -->
+    <color name="text_highlight">#00447C</color>        <!-- Matches primary_dark_color -->
+
+    <!-- Button Colors - Refined -->
+    <color name="button_primary">#0077CC</color>        <!-- Professional medical blue -->
+    <color name="button_primary_pressed">#00447C</color><!-- Deeper blue for feedback -->
+    <color name="button_secondary">#E1F1FF</color>      <!-- Consistent with card_highlight -->
+    <color name="button_secondary_text">#0077CC</color> <!-- Matches button_primary -->
+    <color name="button_accent">#E65C00</color>         <!-- Premium orange -->
+    <color name="button_accent_pressed">#CC4400</color> <!-- Deeper orange for feedback -->
+    <color name="button_success">#007850</color>        <!-- Medical green -->
+    <color name="button_error">#C62828</color>          <!-- Medical red -->
+    <color name="button_disabled">#D0D8E0</color>       <!-- Professional disabled state -->
+    <color name="button_text_primary">#FFFFFF</color>   <!-- Maintained -->
+    <color name="button_text_secondary">#0077CC</color> <!-- Matches button_primary -->
+    <color name="button_disabled_text">#90A0B0</color>  <!-- Professional gray -->
+    <color name="button_outline">#B3DBFF</color>        <!-- Professional blue outline -->
+
+    <!-- Status Colors -->
+    <color name="success_color">#007850</color>         <!-- Matches button_success -->
+    <color name="error_color">#C62828</color>           <!-- Matches button_error -->
+    <color name="warning_color">#E65C00</color>         <!-- Matches accent_dark_color -->
+    <color name="info_color">#0077CC</color>            <!-- Matches button_primary -->
+
+    <!-- UI Component Colors -->
+    <color name="checkbox_tint">#0077CC</color>         <!-- Matches button_primary -->
+    <color name="switch_thumb_on">#0077CC</color>       <!-- Matches button_primary -->
+    <color name="switch_track_on">#99CCEE</color>       <!-- Lighter blue track -->
+    <color name="switch_thumb_off">#FFFFFF</color>      <!-- Clean white -->
+    <color name="switch_track_off">#B0BEC5</color>      <!-- Professional gray -->
+    <color name="slider_inactive">#B3DBFF</color>       <!-- Matches button_outline -->
+    <color name="slider_active">#0077CC</color>         <!-- Matches button_primary -->
+    <color name="progress_primary">#0077CC</color>      <!-- Matches button_primary -->
+    <color name="progress_secondary">#C7E5FF</color>    <!-- Lighter blue for secondary -->
+    <color name="input_outline">#B3DBFF</color>         <!-- Matches button_outline -->
+    <color name="input_focus">#0077CC</color>           <!-- Matches button_primary -->
+
+    <!-- Tab and Navigation Colors -->
+    <color name="tab_selected">#0077CC</color>          <!-- Matches button_primary -->
+    <color name="tab_unselected">#546E7A</color>        <!-- Professional gray -->
+    <color name="tab_indicator">#0077CC</color>         <!-- Matches button_primary -->
+    <color name="nav_selected">#0077CC</color>          <!-- Matches button_primary -->
+    <color name="nav_unselected">#546E7A</color>        <!-- Matches tab_unselected -->
+    <color name="nav_background">#FFFFFF</color>        <!-- Maintained -->
+    <color name="nav_ripple">#E1F1FF</color>            <!-- Matches button_secondary -->
+
+    <!-- Gradient Colors -->
+    <color name="gradient_primary_start">#0077CC</color><!-- Matches button_primary -->
+    <color name="gradient_primary_end">#00447C</color>  <!-- Matches primary_dark_color -->
+    <color name="gradient_accent_start">#E65C00</color> <!-- Matches button_accent -->
+    <color name="gradient_accent_end">#CC4400</color>   <!-- Matches button_accent_pressed -->
+    <color name="gradient_card_start">#FFFFFF</color>   <!-- Clean white -->
+    <color name="gradient_card_end">#F7FAFF</color>     <!-- Premium subtle blue tint -->
+
+    <!-- UI Element Colors -->
+    <color name="icon_tint_primary">#0077CC</color>     <!-- Matches button_primary -->
+    <color name="icon_tint_secondary">#546E7A</color>   <!-- Matches nav_unselected -->
+    <color name="icon_tint_accent">#E65C00</color>      <!-- Matches button_accent -->
+    <color name="ripple_light">#1AFFFFFF</color>        <!-- Subtle light ripple -->
+    <color name="badge_text">#FFFFFF</color>            <!-- Maintained -->
+
+    <!-- Service Category Colors - Refined -->
+    <!-- University Services -->
+    <color name="university_icon_bg">#E3F2FD</color>    <!-- Professional blue background -->
+
+    <!-- Scholarship Services -->
+    <color name="scholarship_icon_bg">#E8F5E9</color>   <!-- Professional green background -->
+
+    <!-- Visa Services -->
+    <color name="visa_icon_bg">#FFF3E0</color>          <!-- Professional orange background -->
+
+    <!-- Application Tracking -->
+    <color name="tracking_icon_bg">#EDE7F6</color>      <!-- Professional purple background -->
+
+    <!-- Support Services -->
+    <color name="support_icon_bg">#FFEBEE</color>       <!-- Professional red background -->
+
+    <!-- Communication Button Colors - Refined -->
+    <color name="email_button_color">#C62828</color>    <!-- Professional red -->
+    <color name="chat_button_color">#0077CC</color>     <!-- Matches button_primary -->
+
+    <!-- Country-specific Colors (for country flags or categories) -->
+    <color name="usa_color">#336699</color>             <!-- Professional USA blue -->
+    <color name="uk_color">#233876</color>              <!-- Professional UK blue -->
+    <color name="canada_color">#C80815</color>          <!-- Professional Canada red -->
+    <color name="australia_color">#00843D</color>       <!-- Professional Australia green -->
+    <color name="germany_color">#DD0000</color>         <!-- Professional Germany red -->
+
+    <!-- Base Colors -->
+    <color name="transparent">#00000000</color>         <!-- Maintained -->
+
+    <!-- Notification Colors -->
+    <color name="notification_unread">#E1F1FF</color>   <!-- Matches button_secondary -->
+    <color name="notification_urgent">#FFEBEE</color>   <!-- Maintained -->
+
+    <color name="hint_color">#7A8899</color>            <!-- Matches text_tertiary_color -->
+
+    <!-- Additional Accent Colors -->
+    <color name="badge_color">#C62828</color>           <!-- Matches error_color -->
+    <color name="indicator_active">#E65C00</color>      <!-- Matches button_accent -->
+    <color name="indicator_inactive">#D0DEF0</color>    <!-- Matches card_border -->
+
+    <!-- Social Media Colors -->
+    <color name="facebook_color">#1877F2</color>        <!-- Updated Facebook blue -->
+    <color name="instagram_color">#C13584</color>       <!-- Maintained -->
+    <color name="twitter_color">#1DA1F2</color>         <!-- Maintained -->
+    <color name="youtube_color">#FF0000</color>         <!-- Maintained -->
+
+    <!-- Common Colors -->
+    <color name="black">#000000</color>                 <!-- Maintained -->
+
+    <!-- Core Colors -->
+    <color name="primary_color">#0088E1</color>         <!-- Professional medical blue -->
+    <color name="accent_color">#FF8000</color>          <!-- Warm orange for MBBS brand -->
+    <color name="background_color">#F7FAFF</color>      <!-- Matches gradient_card_end -->
+    <color name="card_background">#FFFFFF</color>       <!-- Clean white -->
+    <color name="text_primary_color">#1A1A1A</color>    <!-- Professional dark text -->
+    <color name="text_secondary_color">#445566</color>  <!-- Professional secondary text -->
+
+    <!-- Icon Tints -->
+    <color name="university_icon_tint">#0088E1</color>  <!-- Matches primary_color -->
+    <color name="scholarship_icon_tint">#007850</color> <!-- Matches success_color -->
+    <color name="visa_icon_tint">#C62828</color>        <!-- Matches error_color -->
+    <color name="tracking_icon_tint">#673AB7</color>    <!-- Professional purple -->
+    <color name="support_icon_tint">#E65C00</color>     <!-- Matches button_accent -->
+
+    <!-- Button Colors -->
+    <color name="ripple_effect">#1AFFFFFF</color>       <!-- Matches ripple_light -->
+    <color name="background_light">#F7FAFF</color>      <!-- Matches gradient_card_end -->
+
+    <!-- ask user button color -->
+    <color name="button_default_color">#FFFFFF</color>  <!-- Clean white -->
+    <color name="button_pressed_color">#E65C00</color>  <!-- Matches button_accent -->
+    <color name="button_disabled_color">#FFE0B2</color> <!-- Soft orange disabled -->
+    <color name="button_stroke_color">#E65C00</color>   <!-- Matches button_accent -->
+
+    <!-- Primary brand colors -->
+    <color name="primary">#1E88E5</color>
+    <color name="primary_dark">#1565C0</color>
+    <color name="primary_light">#64B5F6</color>
+
+    <!-- Support option colors -->
+    <color name="call_gradient_start">#E3F2FD</color>
+    <color name="call_gradient_end">#BBDEFB</color>
+    <color name="whatsapp_gradient_start">#E8F5E9</color>
+    <color name="whatsapp_gradient_end">#C8E6C9</color>
+
+    <!-- Text colors -->
+    <color name="text_tertiary_color">#9E9E9E</color>
+
+    <!-- UI element colors -->
+    <color name="surface_variant">#F5F5F5</color>
+    <color name="card_border">#E0E0E0</color>
+    <color name="ripple_color">#1F000000</color>
+
+    <!-- Legacy support colors (kept for backward compatibility) -->
+    <color name="call_button_color">#1565C0</color>
+    <color name="whatsapp_button_color">#1B5E20</color>
+    <color name="yellow">#FFEB3B</color>
+
+    <color name="lottieclick">#1565C0</color>
+    <color name="medical_card_bg">#F9FAFB</color>
+
+    <color name="background_white">#FAFAFA</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#2196F3</color> <!-- For "Call Us" border -->
+    <color name="green">#25D366</color> <!-- For "Chat on WhatsApp" border -->
+
+    <!-- Medical Theme Colors -->
+    <color name="medical_primary">#1E88E5</color>       <!-- Medical Blue -->
+    <color name="medical_primary_dark">#1565C0</color>  <!-- Darker Blue -->
+    <color name="medical_secondary">#FFFFFF</color>     <!-- White for secondary elements -->
+    <color name="medical_accent">#43A047</color>        <!-- Scholarship Green -->
+
+    <color name="primaray_c_2">#B3E5FC</color>
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>          <!-- Almost Black for primary text -->
+    <color name="text_secondary">#5F6368</color>        <!-- Dark Gray for secondary text -->
+
+    <!-- Status/Background Colors -->
+    <color name="divider_color">#E0E0E0</color>
+
+    <color name="card_stroke">#E0E0E0</color>
+    <color name="settings_item_bg">#F5F5F5</color>
+
+    <!-- Primary Brand Colors - Medical Theme -->
+    <color name="medical_primary_blue">#2E86AB</color>
+    <color name="medical_primary_blue_dark">#1B5E87</color>
+    <color name="medical_primary_blue_light">#4A9BC7</color>
+
+    <!-- Secondary Brand Colors -->
+    <color name="medical_accent_green">#28A745</color>
+    <color name="medical_accent_green_dark">#1E7E34</color>
+    <color name="medical_accent_orange">#FD7E14</color>
+    <color name="medical_warning_red">#E74C3C</color>
+
+    <!-- Background Colors -->
+    <color name="edu_background_gradient">#F8FAFB</color>
+    <color name="card_background_professional">#FFFFFF</color>
+    <color name="surface_color">#F5F7FA</color>
+    <color name="overlay_background">#80000000</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary_professional">#1A202C</color>
+    <color name="text_secondary_professional">#4A5568</color>
+    <color name="text_tertiary_professional">#718096</color>
+    <color name="text_hint_professional">#A0AEC0</color>
+    <color name="text_success">#28A745</color>
+    <color name="text_error">#E74C3C</color>
+
+    <!-- White Variants -->
+    <color name="white_100">#FFFFFF</color>
+    <color name="white_95">#F2F2F2</color>
+    <color name="white_90">#E6E6E6</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+
+    <!-- Input Field Colors -->
+    <color name="input_background">#F7FAFC</color>
+    <color name="input_border">#E2E8F0</color>
+    <color name="input_border_focused">#2E86AB</color>
+    <color name="input_error">#E74C3C</color>
+<color name="primary_start">#B3E5FC</color>
+    <color name="primary_end">#B3E5FC</color>
+    <!-- Button Colors -->
+
+    <color name="button_secondary_pressed">#EDF2F7</color>
+
+    <!-- Password Strength Indicator Colors -->
+    <color name="password_strength_inactive">#E2E8F0</color>
+    <color name="password_strength_weak">#E74C3C</color>
+    <color name="password_strength_fair">#FD7E14</color>
+    <color name="password_strength_good">#F39C12</color>
+    <color name="password_strength_strong">#28A745</color>
+
+    <!-- Checkbox and Radio Colors -->
+    <color name="checkbox_unchecked">#CBD5E0</color>
+
+    <!-- Divider Colors -->
+    <color name="divider_light">#E2E8F0</color>
+    <color name="divider_medium">#CBD5E0</color>
+
+    <!-- Status Colors -->
+    <color name="status_success">#28A745</color>
+    <color name="status_warning">#FD7E14</color>
+    <color name="status_error">#E74C3C</color>
+    <color name="status_info">#2E86AB</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#2E86AB</color>
+    <color name="gradient_middle">#4A9BC7</color>
+    <color name="gradient_end">#6BB6D6</color>
+
+    <!-- Shadow Colors -->
+    <color name="shadow_light">#1A000000</color>
+    <color name="shadow_medium">#33000000</color>
+    <color name="shadow_dark">#4D000000</color>
+
+    <!-- Trust Indicator Colors -->
+    <color name="trust_background">#F0F8FF</color>
+    <color name="verified_green">#10B981</color>
+    <color name="security_blue">#3B82F6</color>
+    <color name="support_purple">#8B5CF6</color>
+
+    <!-- Country Flag Colors (for borders/backgrounds) -->
+    <color name="flag_border">#E5E7EB</color>
+    <color name="country_selection_background">#F3F4F6</color>
+
+    <!-- Loading and Progress Colors -->
+    <color name="progress_background">#E5E7EB</color>
+    <color name="progress_indicator">#2E86AB</color>
+
+    <!-- Floating Action Button Colors -->
+    <color name="fab_background">#28A745</color>
+    <color name="fab_pressed">#1E7E34</color>
+
+    <!-- Header Gradient Colors -->
+    <color name="header_gradient_start">#2E86AB</color>
+    <color name="header_gradient_end">#4A9BC7</color>
+
+    <!-- Card Colors -->
+    <color name="card_elevation_1">#F8F9FA</color>
+    <color name="card_elevation_2">#FFFFFF</color>
+
+    <!-- Ripple Effect Colors -->
+    <color name="ripple_primary">#332E86AB</color>
+    <color name="ripple_secondary">#33718096</color>
+
+    <!-- Specialist Medical Colors -->
+    <color name="medical_cross_red">#DC3545</color>
+    <color name="stethoscope_silver">#6C757D</color>
+    <color name="medical_green">#198754</color>
+    <color name="prescription_blue">#0D6EFD</color>
+
+    <!-- Education Specific Colors -->
+    <color name="academic_gold">#FFC107</color>
+    <color name="diploma_blue">#0DCAF0</color>
+    <color name="graduation_purple">#6F42C1</color>
+    <color name="certificate_orange">#FD7E14</color>
+
+    <!-- Consultation Colors -->
+    <color name="consultation_available">#28A745</color>
+    <color name="consultation_busy">#FFC107</color>
+    <color name="consultation_offline">#6C757D</color>
+
+    <!-- Achievement Colors -->
+    <color name="achievement_bronze">#CD7F32</color>
+    <color name="achievement_silver">#C0C0C0</color>
+    <color name="achievement_gold">#FFD700</color>
+    <color name="achievement_platinum">#E5E4E2</color>
+</resources>

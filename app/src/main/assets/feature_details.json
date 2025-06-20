@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "title": "Top University Listings",
+    "description": "Explore a curated selection of top universities worldwide, tailored to your academic and career goals.",
+    "benefits": [
+      {
+        "title": "Global Access",
+        "description": "Access to top global universities."
+      },
+      {
+        "title": "Detailed Profiles",
+        "description": "Detailed university profiles."
+      },
+      {
+        "title": "Filter Options",
+        "description": "Filter by country and program."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Search Universities",
+        "description": "Use filters to find universities by country or program.",
+        "imageResId": 0
+      },
+      {
+        "title": "View Details",
+        "description": "Explore detailed profiles with admission info.",
+        "imageResId": 0
+      },
+      {
+        "title": "Apply",
+        "description": "Start your application directly through the platform.",
+        "imageResId": 0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Scholarship Assistance",
+    "description": "Discover a wide range of scholarship opportunities to fund your education abroad.",
+    "benefits": [
+      {
+        "title": "Funding Options",
+        "description": "Wide range of funding options."
+      },
+      {
+        "title": "Application Guidance",
+        "description": "Application guidance."
+      },
+      {
+        "title": "Exclusive Listings",
+        "description": "Exclusive scholarship listings."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Browse Scholarships",
+        "description": "Explore available scholarships by criteria.",
+        "imageResId": 0
+      },
+      {
+        "title": "Check Eligibility",
+        "description": "Review requirements for each scholarship.",
+        "imageResId": 0
+      },
+      {
+        "title": "Apply",
+        "description": "Submit your application with guided support.",
+        "imageResId": 0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Visa and Admission Guidance",
+    "description": "Access comprehensive guidance on visa requirements and admission processes.",
+    "benefits": [
+      {
+        "title": "Visa Guidance",
+        "description": "Step-by-step visa guidance."
+      },
+      {
+        "title": "Admission Support",
+        "description": "Admission process support."
+      },
+      {
+        "title": "Document Assistance",
+        "description": "Document preparation assistance."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Consult Experts",
+        "description": "Get advice from our visa and admission experts.",
+        "imageResId": 0
+      },
+      {
+        "title": "Prepare Documents",
+        "description": "Gather necessary documents with our checklist.",
+        "imageResId": 0
+      },
+      {
+        "title": "Submit Application",
+        "description": "Complete your visa and admission applications.",
+        "imageResId": 0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Application Tracking",
+    "description": "Monitor the progress of your applications in real-time with our tracking system.",
+    "benefits": [
+      {
+        "title": "Real-time Updates",
+        "description": "Real-time application updates."
+      },
+      {
+        "title": "Status Notifications",
+        "description": "Status notifications."
+      },
+      {
+        "title": "Secure Data",
+        "description": "Secure data management."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Register Application",
+        "description": "Add your application to the tracking system.",
+        "imageResId": 0
+      },
+      {
+        "title": "Monitor Status",
+        "description": "Receive real-time updates on your application.",
+        "imageResId": 0
+      },
+      {
+        "title": "Get Support",
+        "description": "Contact support for any issues.",
+        "imageResId": 0
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "24/7 Student Support",
+    "description": "Connect with our dedicated support team for assistance at every step.",
+    "benefits": [
+      {
+        "title": "24/7 Support",
+        "description": "24/7 customer support."
+      },
+      {
+        "title": "Personalized Help",
+        "description": "Personalized assistance."
+      },
+      {
+        "title": "Multi-language",
+        "description": "Multi-language support."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Contact Us",
+        "description": "Reach out via chat, email, or phone.",
+        "imageResId": 0
+      },
+      {
+        "title": "Describe Issue",
+        "description": "Provide details for quick resolution.",
+        "imageResId": 0
+      },
+      {
+        "title": "Get Help",
+        "description": "Receive personalized assistance promptly.",
+        "imageResId": 0
+      }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/account">
+        <menu>
+            <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_home"
+                android:title="Home" />
+            <item
+                android:id="@+id/nav_add_new"
+                android:icon="@drawable/ic_add_user"
+                android:title="Add New" />
+            <item
+                android:id="@+id/nav_import_excel"
+                android:icon="@drawable/ic_import"
+                android:title="Import Data" />
+            <item
+                android:id="@+id/nav_export_excel"
+                android:icon="@drawable/ic_export"
+                android:title="Export Data" />
+            <item
+                android:id="@+id/nav_upload_study_material"
+                android:icon="@drawable/ic_studymaterial"
+                android:title="Upload Study Material" />
+
+            <item
+                android:id="@+id/nav_upload_event"
+                android:icon="@drawable/ic_profile"
+                android:title="Upload Study Material" />
+        </menu>
+    </item>
+</menu>

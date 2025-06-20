@@ -1,0 +1,471 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".settings.FragmentPrivacy">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/_12sdp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_12sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/card_background"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/ivHeaderImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100sdp"
+                            android:alpha="0.8"
+                            android:contentDescription="@string/medical_education_banner"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/flag_china"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100sdp"
+                            android:background="@drawable/gradient_toolbar_background"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvHeaderTitle"
+                            style="@style/CardTitleTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginBottom="@dimen/_40sdp"
+                            android:text="@string/your_privacy_matters"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_18sdp"
+                            app:layout_constraintBottom_toBottomOf="@id/ivHeaderImage"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvLastUpdated"
+                            style="@style/CaptionTextStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_12sdp"
+                            android:text="@string/last_updated_date"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintBottom_toBottomOf="@id/ivHeaderImage"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvHeaderSubtitle"
+                            style="@style/BodyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/_2sdp"
+                            android:padding="@dimen/_12sdp"
+                            android:text="@string/doctor_cubes_privacy_promise"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ivHeaderImage" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/privacyPolicyContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardHeader">
+
+                    <!-- Privacy Policy Intro -->
+                    <TextView
+                        style="@style/SectionTitleText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/privacy_policy_title"
+                        android:textSize="@dimen/_16sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/privacy_policy_description"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Interpretation and Definitions -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/interpretation_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/interpretation_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/interpretation_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/definitions_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/definitions_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Collecting and Using Your Personal Data -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/collecting_data_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/types_of_data_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/personal_data_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_24sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/personal_data_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/usage_data_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_24sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/usage_data_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Use of Your Personal Data -->
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/use_of_personal_data_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/use_of_personal_data_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Retention of Your Personal Data -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/retention_of_data_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/retention_of_data_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Transfer of Your Personal Data -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/transfer_of_data_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/transfer_of_data_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Delete Your Personal Data -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/delete_data_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/delete_data_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Disclosure of Your Personal Data -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/disclosure_of_data_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/business_transactions_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/business_transactions_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/law_enforcement_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/law_enforcement_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        style="@style/SubTitleTextStyle2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/other_legal_requirements_subtitle"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/other_legal_requirements_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Security of Your Personal Data -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/security_of_data_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/security_of_data_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Children's Privacy -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/children_privacy_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/children_privacy_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Links to Other Websites -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/links_to_other_websites_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/links_to_other_websites_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Changes to this Privacy Policy -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/changes_to_policy_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/changes_to_policy_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <!-- Contact Us -->
+                    <TextView
+                        style="@style/SubTitleTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/contact_us_title"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        style="@style/BodyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:lineSpacingExtra="4dp"
+                        android:text="@string/contact_us_content"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "150491308507",
+    "firebase_url": "https://doctorcubes-b4935-default-rtdb.firebaseio.com",
+    "project_id": "doctorcubes-b4935",
+    "storage_bucket": "doctorcubes-b4935.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150491308507:android:e432a942abd0d44869c7fe",
+        "android_client_info": {
+          "package_name": "com.tvm.doctorcube"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp3wJbH-LobxuivJOpAd3kWMNpCGykgYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

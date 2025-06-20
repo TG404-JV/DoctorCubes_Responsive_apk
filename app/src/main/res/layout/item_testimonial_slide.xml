@@ -1,0 +1,105 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/card_background"
+    app:cardCornerRadius="@dimen/_12sdp"  app:cardElevation="2dp">  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_12sdp">  <ImageView
+    android:layout_width="@dimen/_24sdp"
+    android:layout_height="@dimen/_24sdp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="@dimen/_8sdp"  android:src="@drawable/ic_quote"
+    app:tint="@color/primary_color" />
+
+    <TextView
+        android:id="@+id/testimonial_text"
+        style="@style/TestimonialTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12sdp"  android:text="@string/testimonial"
+        android:lineSpacingExtra="@dimen/_4sdp"/>
+
+    <View
+        android:layout_width="@dimen/_60sdp"  android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_12sdp"  android:layout_marginBottom="@dimen/_12sdp"  android:background="@color/divider_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"  android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/testimonial_avatar"
+                android:layout_width="@dimen/_48sdp"  android:layout_height="@dimen/_48sdp"  android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircleShape"
+                android:background="@drawable/circle_background"
+                tools:src="@tools:sample/avatars" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/testimonial_flag"
+                android:layout_width="@dimen/_20sdp"  android:layout_height="@dimen/_20sdp"  android:layout_gravity="bottom|end"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircleShape"
+                android:background="@drawable/circular_background"
+                tools:src="@drawable/flag_russia" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/testimonial_name"
+                style="@style/TestimonialNameTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_14sdp"  android:text="@string/tvm_it_solutions"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/testimonial_university"
+                style="@style/TestimonialUniversityTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"  android:text="@string/sechenov_university"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/testimonial_batch"
+                style="@style/TestimonialBatchTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"  android:text="@string/batch_2023"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/testimonial_rating"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_8sdp"  android:isIndicator="true"
+        android:numStars="5"
+        android:progressTint="@color/accent_color"
+        android:rating="5"
+        android:stepSize="0.5" />
+</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

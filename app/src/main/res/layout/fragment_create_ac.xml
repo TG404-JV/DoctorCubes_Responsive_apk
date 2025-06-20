@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/edu_background_gradient"
+    android:fitsSystemWindows="true"
+    tools:context=".authentication.CreateAccountFragment">
+
+    <!-- Professional Header with Medical Education Theme -->
+    <LinearLayout
+        android:id="@+id/headerSection"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:background="@drawable/medical_education_header_gradient"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/circle_background"
+            android:contentDescription="@string/back_button"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/medical_primary_blue"
+            android:elevation="@dimen/_4sdp" />
+
+        <!-- Medical Education Logo & Branding -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_24sdp">
+
+            <ImageView
+                android:id="@+id/medicalEducationLogo"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:src="@drawable/logo_doctor_cubes_dynamic"
+                android:contentDescription="@string/medical_education_logo"
+                android:background="@drawable/circle_background"
+                android:padding="@dimen/_12sdp"
+                android:elevation="@dimen/_6sdp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/_16sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/global_medical_education"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_18sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_semibold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mbbs_abroad_consultancy"
+                    android:textColor="@color/white_80"
+                    android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_regular" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Achievement Badges -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_16sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trusted_by_10k_students"
+                android:background="@drawable/achievement_badge_background"
+                android:textColor="@color/medical_primary_blue"
+                android:textSize="@dimen/_10sdp"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                android:fontFamily="@font/poppins_medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/iso_certified"
+                android:background="@drawable/achievement_badge_background"
+                android:textColor="@color/medical_primary_blue"
+                android:textSize="@dimen/_10sdp"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:fontFamily="@font/poppins_medium" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_197sdp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_24sdp">
+
+            <!-- Main Registration Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/registrationCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:cardElevation="@dimen/_8sdp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_28sdp">
+
+                    <!-- Registration Header -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/_24sdp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/start_your_medical_journey"
+                            android:textColor="@color/medical_primary_blue"
+                            android:textSize="@dimen/_22sdp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/create_account_subtitle"
+                            android:textColor="@color/text_secondary_professional"
+                            android:textSize="@dimen/_14sdp"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="center" />
+
+                        <!-- Countries We Serve Indicator -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/_12sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:src="@drawable/flag_russia"
+                                android:contentDescription="@string/russia_flag"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:src="@drawable/flag_china"
+                                android:contentDescription="@string/ukraine_flag"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:src="@drawable/flag_georgia"
+                                android:contentDescription="@string/georgia_flag"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_24sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:src="@drawable/flag_nepal"
+                                android:contentDescription="@string/philippines_flag"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:scaleType="centerCrop" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/plus_more_countries"
+                                android:textColor="@color/text_secondary_professional"
+                                android:textSize="@dimen/_10sdp"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Student Information Form -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/student_information"
+                        android:textColor="@color/medical_primary_blue"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:fontFamily="@font/poppins_semibold" />
+
+                    <!-- Full Name Input -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/fullNameInputLayout"
+                        style="@style/ProfessionalTextInputStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        app:startIconDrawable="@drawable/ic_profile"
+                        app:startIconTint="@color/medical_primary_blue"
+                        app:hintTextColor="@color/text_hint_professional">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fullNameEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/full_name_as_passport"
+                            android:inputType="textPersonName|textCapWords"
+                            android:imeOptions="actionNext"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_14sdp"
+                            android:textColor="@color/text_primary_professional" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Email Input -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/emailInputLayout"
+                        style="@style/ProfessionalTextInputStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        app:startIconDrawable="@drawable/ic_email"
+                        app:startIconTint="@color/medical_primary_blue"
+                        app:hintTextColor="@color/text_hint_professional">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/emailEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_email"
+                            android:inputType="textEmailAddress"
+                            android:imeOptions="actionNext"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_14sdp"
+                            android:textColor="@color/text_primary_professional" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Phone Number with Country Code -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="@dimen/_16sdp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/countryCodeInputLayout"
+                            style="@style/ProfessionalTextInputStyle"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            app:startIconDrawable="@drawable/ic_country"
+                            app:startIconTint="@color/medical_primary_blue">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/countryCodeEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/country_code"
+                                android:text="+91"
+                                android:inputType="phone"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textSize="@dimen/_14sdp"
+                                android:textColor="@color/text_primary_professional" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/phoneInputLayout"
+                            style="@style/ProfessionalTextInputStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:startIconDrawable="@drawable/ic_phone"
+                            app:startIconTint="@color/medical_primary_blue">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/phoneEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/mobile_number"
+                                android:inputType="phone"
+                                android:imeOptions="actionNext"
+                                android:fontFamily="@font/poppins_regular"
+                                android:textSize="@dimen/_14sdp"
+                                android:textColor="@color/text_primary_professional" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <!-- Academic Information Section -->
+
+
+                    <!-- Security Section -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account_security"
+                        android:textColor="@color/medical_primary_blue"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:fontFamily="@font/poppins_semibold" />
+
+                    <!-- Password Input -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/passwordInputLayout"
+                        style="@style/ProfessionalTextInputStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        app:startIconDrawable="@drawable/ic_lock"
+                        app:startIconTint="@color/medical_primary_blue"
+                        app:endIconMode="password_toggle"
+                        app:endIconTint="@color/medical_primary_blue">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/create_password"
+                            android:inputType="textPassword"
+                            android:imeOptions="actionNext"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_14sdp"
+                            android:textColor="@color/text_primary_professional" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Password Strength Indicator -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="@dimen/_16sdp">
+
+                        <View
+                            android:id="@+id/passwordStrengthIndicator1"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_3sdp"
+                            android:layout_weight="1"
+                            android:background="@color/password_strength_weak"
+                            android:layout_marginEnd="@dimen/_2sdp" />
+
+                        <View
+                            android:id="@+id/passwordStrengthIndicator2"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_3sdp"
+                            android:layout_weight="1"
+                            android:background="@color/password_strength_inactive"
+                            android:layout_marginEnd="@dimen/_2sdp" />
+
+                        <View
+                            android:id="@+id/passwordStrengthIndicator3"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_3sdp"
+                            android:layout_weight="1"
+                            android:background="@color/password_strength_inactive"
+                            android:layout_marginEnd="@dimen/_2sdp" />
+
+                        <View
+                            android:id="@+id/passwordStrengthIndicator4"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_3sdp"
+                            android:layout_weight="1"
+                            android:background="@color/password_strength_inactive" />
+                    </LinearLayout>
+
+                    <!-- Confirm Password Input -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/confirmPasswordInputLayout"
+                        style="@style/ProfessionalTextInputStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        app:startIconDrawable="@drawable/ic_lock_check"
+                        app:startIconTint="@color/medical_primary_blue"
+                        app:endIconMode="password_toggle"
+                        app:endIconTint="@color/medical_primary_blue">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/confirmPasswordEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/confirm_password"
+                            android:inputType="textPassword"
+                            android:imeOptions="actionDone"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_14sdp"
+                            android:textColor="@color/text_primary_professional" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- Terms and Privacy Agreement -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="@dimen/_24sdp"
+                        android:gravity="top">
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/termsCheckbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/medical_primary_blue"
+                            android:contentDescription="@string/agree_to_terms"
+                            app:buttonTint="@color/medical_primary_blue" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_12sdp"
+                            android:text="Term and Conditions"
+                            android:textColor="@color/text_primary_color"
+                            android:lineSpacingExtra="@dimen/_2sdp">
+
+                        </TextView>
+                    </LinearLayout>
+
+                    <!-- Create Account Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/createAccountButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:text="@string/create_account"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_16sdp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/poppins_semibold"
+                        app:backgroundTint="@color/medical_primary_blue"
+                        app:cornerRadius="@dimen/_12sdp"
+                        app:elevation="@dimen/_4sdp"
+                        app:icon="@drawable/ic_arrow_forward"
+                        app:iconGravity="textEnd"
+                        app:iconTint="@android:color/white"
+                        android:layout_marginBottom="@dimen/_16sdp" />
+
+                    <!-- Login Alternative -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/already_have_account"
+                            android:textColor="@color/text_secondary_professional"
+                            android:textSize="@dimen/_14sdp"
+                            android:fontFamily="@font/poppins_regular" />
+
+                        <TextView
+                            android:id="@+id/loginText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sign_in_here"
+                            android:textColor="@color/medical_primary_blue"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:padding="@dimen/_8sdp"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:background="?attr/selectableItemBackgroundBorderless" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Trust Indicators -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/trust_indicator_background"
+                    android:padding="@dimen/_16sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="@dimen/_32sdp"
+                        android:src="@drawable/ic_security_professional"
+                        app:tint="@color/medical_primary_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/secure_encrypted"
+                        android:textColor="@color/text_primary_professional"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginTop="@dimen/_4sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/trust_indicator_background"
+                    android:padding="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_8sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="@dimen/_32sdp"
+                        android:src="@drawable/ic_verified_professional"
+                        app:tint="@color/medical_primary_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/verified_consultancy"
+                        android:textColor="@color/text_primary_professional"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginTop="@dimen/_4sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/trust_indicator_background"
+                    android:padding="@dimen/_16sdp"
+                    android:layout_marginStart="@dimen/_8sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_32sdp"
+                        android:layout_height="@dimen/_32sdp"
+                        android:src="@drawable/ic_support_professional"
+                        app:tint="@color/medical_primary_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expert_support"
+                        android:textColor="@color/text_primary_professional"
+                        android:textSize="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:layout_marginTop="@dimen/_4sdp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Contact Information Footer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_us"
+                    android:textColor="@color/medical_primary_blue"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_semibold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_address"
+                    android:textColor="@color/text_secondary_professional"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:fontFamily="@font/poppins_regular" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/whatsapp_number"
+                    android:textColor="@color/text_secondary_professional"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/poppins_regular" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Loading Indicator -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="@color/medical_primary_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- OTP Verification Bottom Sheet -->
+    <include
+        android:id="@+id/otp_verification_bottom_sheet"
+        layout="@layout/otp_verification_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
