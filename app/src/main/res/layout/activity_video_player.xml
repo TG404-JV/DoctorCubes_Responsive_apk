@@ -41,49 +41,6 @@
                 </FrameLayout>
 
 
-        <!-- Centralized Controls Container -->
-        <LinearLayout
-            android:id="@+id/controlsContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="@dimen/_16sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-                <!-- Playback Controls -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnPrevious"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_16sdp"
-                    app:icon="@drawable/ic_back"
-                    app:iconGravity="textStart" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fullscreenToggle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_16sdp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:fabSize="normal"
-                    app:srcCompat="@drawable/ic_video_orientation"
-                    app:tint="@android:color/white" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnNext"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    app:icon="@drawable/ic_arrow_forward"
-                    app:iconGravity="textStart" />
-
-        </LinearLayout>
 
         <!-- Improved Progress Indicator -->
         <com.google.android.material.progressindicator.CircularProgressIndicator

@@ -142,6 +142,13 @@ dependencies {
     implementation(libs.commons.compress)
     implementation(libs.library)
 
+    // Lifecycle ViewModel KTX for viewModelScope support
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
+
+    // Kotlin Coroutines for Android (optional but recommended)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+
 
     // Tests
     testImplementation(libs.junit)

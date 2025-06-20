@@ -9,21 +9,28 @@
     android:fitsSystemWindows="false"
     tools:context=".MainActivity">
 
+    <View
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/gradient_toolbar_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@drawable/gradient_toolbar_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="?attr/colorOnPrimary"
-        app:popupTheme="@style/ThemeOverlay.Material3.Dark">
+        app:backgroundTint="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/topView"
+        app:popupTheme="@style/ThemeOverlay.Material3.Dark"
+        app:titleTextColor="?attr/colorOnPrimary">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
             android:paddingStart="@dimen/_8sdp"
             android:paddingEnd="@dimen/_8sdp">
 
@@ -32,29 +39,25 @@
                 android:layout_width="@dimen/_36sdp"
                 android:layout_height="@dimen/_36sdp"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/app_logo"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo_doctor_cubes_dark"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/CircleShape" />
 
             <TextView
                 android:id="@+id/app_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/app_logo"
                 android:letterSpacing="0.02"
                 android:text="@string/app_name"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16sdp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/app_logo"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/call_button"
@@ -62,15 +65,13 @@
                 android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:contentDescription="@string/call"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_colorFilter="@color/black"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/call_anim" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.fragment.app.FragmentContainerView

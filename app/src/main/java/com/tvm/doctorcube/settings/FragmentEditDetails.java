@@ -49,7 +49,7 @@ public class FragmentEditDetails extends Fragment {
     private TextInputEditText nameEditText, emailEditText, mobileEditText, countryEditText, stateEditText, cityEditText;
     private TextInputEditText neetScoreEditText, studyCountryEditText;
     private CheckBox hasNeetScoreCheckbox, hasPassportCheckbox;
-    private Button editModeToggleBtn, cancelBtn, saveBtn, callBtn, whatsappBtn, viewUniversityDetailsBtn;
+    private Button editModeToggleBtn, cancelBtn, saveBtn, callBtn, whatsappBtn;
     private View actionButtonsLayout;
 
     private FirebaseAuth mAuth;
@@ -360,4 +360,7 @@ public class FragmentEditDetails extends Fragment {
         startActivity(whatsappIntent);
     }
 
+    private void viewUniversityDetails() {
+        Toast.makeText(getContext(), "Navigating to university details", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -3,7 +3,28 @@
     android:height="24dp"
     android:viewportWidth="960"
     android:viewportHeight="960">
+  <!-- Main speech bubble/chat background -->
   <path
-      android:pathData="m363,570 l117,-71 117,71 -31,-133 104,-90 -137,-11 -53,-126 -53,126 -137,11 104,90 -31,133ZM80,880v-720q0,-33 23.5,-56.5T160,80h640q33,0 56.5,23.5T880,160v480q0,33 -23.5,56.5T800,720L240,720L80,880ZM206,640h594v-480L160,160v525l46,-45ZM160,640v-480,480Z"
-      android:fillColor="#e3e3e3"/>
+      android:pathData="M80,880v-720q0,-33 23.5,-56.5T160,80h640q33,0 56.5,23.5T880,160v480q0,33 -23.5,56.5T800,720L240,720L80,880Z"
+      android:fillColor="#2196F3"/>
+
+  <!-- Inner speech bubble area -->
+  <path
+      android:pathData="M206,640h594v-480L160,160v525l46,-45Z"
+      android:fillColor="#E3F2FD"/>
+
+  <!-- Star rating with golden color -->
+  <path
+      android:pathData="m363,570 l117,-71 117,71 -31,-133 104,-90 -137,-11 -53,-126 -53,126 -137,11 104,90 -31,133Z"
+      android:fillColor="#FFD700"/>
+
+  <!-- Star inner glow effect -->
+  <path
+      android:pathData="m480,444 l-31,74 -80,7 58,50 -17,78 70,-43 70,43 -17,-78 58,-50 -80,-7 -31,-74Z"
+      android:fillColor="#FFA000"/>
+
+  <!-- Speech bubble tail highlight -->
+  <path
+      android:pathData="M80,880L160,800v-25L80,855v25Z"
+      android:fillColor="#1976D2"/>
 </vector>
