@@ -17,7 +17,7 @@
         <item name="colorOnSecondary">@color/text_on_accent</item>
 
         <!-- Background and surface colors - clean, clinical feel -->
-        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:windowBackground">@color/background_color</item>
         <item name="colorSurface">@color/card_background</item>
         <item name="colorOnBackground">@color/text_primary_color</item>
         <item name="colorOnSurface">@color/text_primary_color</item>

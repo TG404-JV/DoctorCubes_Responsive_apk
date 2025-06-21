@@ -10,8 +10,9 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         maven { url = uri("https://jitpack.io") }
-
-
+    }
+    plugins {
+        id("org.jetbrains.kotlin.android") version "2.1.0" // ✅ Match this to stdlib
     }
 }
 dependencyResolutionManagement {

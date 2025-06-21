@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/settings_header_gradient"
+            android:background="@drawable/gradient_toolbar_background"
             android:paddingTop="48dp"
             android:paddingEnd="24dp"
             android:paddingBottom="24dp">
@@ -27,9 +27,9 @@
                 android:layout_height="48dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_settings_medical"
-                android:background="@drawable/circle_background_white_alpha"
+                android:background="@drawable/circle_outline_bg"
                 android:padding="12dp"
-                app:tint="@color/white" />
+                app:tint="@color/black" />
 
             <TextView
                 android:id="@+id/tv_settings_title"
@@ -39,7 +39,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
                 android:text="Settings"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/roboto_medium" />
@@ -51,7 +51,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
                 android:text="Manage your preferences"
-                android:textColor="@color/white_80"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:fontFamily="@font/roboto_regular" />
 
@@ -493,6 +493,7 @@
 
             <!-- App Version Card -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/versionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"

@@ -51,6 +51,7 @@ import com.tvm.doctorcube.home.data.Testimonial;
 import com.tvm.doctorcube.home.model.Country;
 import com.tvm.doctorcube.home.model.Feature;
 import com.tvm.doctorcube.home.model.UpcomingEvent;
+import com.tvm.doctorcube.home.search.SearchItem;
 import com.tvm.doctorcube.university.model.University;
 import com.tvm.doctorcube.university.model.UniversityData;
 

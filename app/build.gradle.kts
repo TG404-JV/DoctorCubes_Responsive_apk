@@ -2,6 +2,7 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
+    id("org.jetbrains.kotlin.android") // 👈 Required
     id("com.google.gms.google-services") // Google Services (Firebase)
     id("com.google.firebase.crashlytics")
 
@@ -23,7 +24,6 @@ android {
         targetSdk = 35
         versionCode = 3
         versionName = "1.2"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(
@@ -73,16 +73,21 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+
 
     sourceSets["main"].assets.srcDirs("src/main/assets")
 
     buildFeatures {
         buildConfig = true
         viewBinding =true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
@@ -147,10 +152,9 @@ dependencies {
 
     // Kotlin Coroutines for Android (optional but recommended)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-
-
-
-    // Tests
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.22") // ✅ Kotlin standard library
+    implementation("io.github.justson:agentweb-core:v5.1.1-androidx")     // AgentWeb core
+    implementation("io.github.justson:agentweb-filechooser:v5.1.1-androidx") // optional file chooser
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

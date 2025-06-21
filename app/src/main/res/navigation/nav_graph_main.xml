@@ -118,6 +118,9 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_settingsHome_to_webSiteFragment"
+            app:destination="@id/webSiteFragment" />
     </fragment>
     <fragment
         android:id="@+id/universityFragment"
@@ -231,4 +234,8 @@
             app:argType="string"
             app:nullable="true" />
     </dialog>
+    <fragment
+        android:id="@+id/webSiteFragment"
+        android:name="com.tvm.doctorcube.fragments.WebSiteFragment"
+        android:label="WebSiteFragment" />
 </navigation>

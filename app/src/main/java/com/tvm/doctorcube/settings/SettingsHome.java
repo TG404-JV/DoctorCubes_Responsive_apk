@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -115,6 +116,15 @@ public class SettingsHome extends Fragment {
         View layoutAboutDoctorCubes = rootView.findViewById(R.id.layout_about_doctorcubes);
         View layoutPrivacyPolicy = rootView.findViewById(R.id.layout_privacy_policy);
         View layoutFaq = rootView.findViewById(R.id.layout_faq);
+
+        CardView versionCard = rootView.findViewById(R.id.versionCard);
+
+        versionCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                safeNavigate(R.id.action_settingsHome_to_webSiteFragment);
+            }
+        });
         // Support Section
         View layoutContactSupport = rootView.findViewById(R.id.layout_contact_support);
 
