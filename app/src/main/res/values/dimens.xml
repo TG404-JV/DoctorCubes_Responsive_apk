@@ -11,7 +11,10 @@
     <dimen name="nav_icon_size_small">24dp</dimen>
     <dimen name="nav_text_size_small">10sp</dimen>
     <dimen name="nav_vertical_padding_small">6dp</dimen>
-
+    <!-- Tab layout height -->
+    <dimen name="size">48dp</dimen>
+    <!-- Spacing between tabs -->
+    <dimen name="space">16dp</dimen>
     <!-- For larger screens (e.g., tablets) -->
     <dimen name="nav_icon_size_large">32dp</dimen>
     <dimen name="nav_text_size_large">14sp</dimen>

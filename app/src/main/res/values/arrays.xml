@@ -21,5 +21,9 @@
         <item>Nepal</item>
         <item>China</item>
     </string-array>
+    <string-array name="study_material_tabs">
+        <item>Notes</item>
+        <item>Videos</item>
+    </string-array>
 
 </resources>

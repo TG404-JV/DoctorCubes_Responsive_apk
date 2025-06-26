@@ -12,8 +12,6 @@ import com.google.android.material.button.MaterialButton
 import com.tvm.doctorcube.R
 import com.tvm.doctorcube.SocialActions
 
-// Add this import
-// Already imported
 class FragmentAbout : Fragment() {
     private var mParam1: String? = null
     private var mParam2: String? = null
@@ -23,7 +21,7 @@ class FragmentAbout : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (getArguments() != null) {
+        if (arguments != null) {
             mParam1 = requireArguments().getString(ARG_PARAM1)
             mParam2 = requireArguments().getString(ARG_PARAM2)
         }

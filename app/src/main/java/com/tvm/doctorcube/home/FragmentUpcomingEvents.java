@@ -28,6 +28,7 @@ import com.tvm.doctorcube.home.model.UpcomingEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FragmentUpcomingEvents extends Fragment {
 
@@ -178,12 +179,12 @@ public class FragmentUpcomingEvents extends Fragment {
             filteredUpcoming.addAll(upcomingEvents);
         } else {
             for (UpcomingEvent event : thisMonthEvents) {
-                if (event.getCategory().equalsIgnoreCase(category)) {
+                if (Objects.requireNonNull(event.getCategory()).equalsIgnoreCase(category)) {
                     filteredThisMonth.add(event);
                 }
             }
             for (UpcomingEvent event : upcomingEvents) {
-                if (event.getCategory().equalsIgnoreCase(category)) {
+                if (Objects.requireNonNull(event.getCategory()).equalsIgnoreCase(category)) {
                     filteredUpcoming.add(event);
                 }
             }

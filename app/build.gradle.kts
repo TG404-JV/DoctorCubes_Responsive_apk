@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android") // 👈 Required
     id("com.google.gms.google-services") // Google Services (Firebase)
     id("com.google.firebase.crashlytics")
+   
 
 }
 
@@ -22,8 +23,8 @@ android {
         applicationId = "com.tvm.doctorcube"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 5
+        versionName = "1.4"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(
@@ -31,7 +32,7 @@ android {
             "\"${localProperties["YOUTUBE_API_KEY"] ?: ""}\""
         )
 
-        ndkVersion = "25.2.9519653" // ✅ Minimum required for 16 KB alignment support
+        ndkVersion = "29.0.13599879 rc2" // ✅ Minimum required for 16 KB alignment support
 
     }
 
@@ -89,6 +90,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    ndkVersion = "29.0.13599879 rc2"
 }
 
 dependencies {
@@ -158,4 +160,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("androidx.activity:activity-ktx:1.10.1")
+
+
 }

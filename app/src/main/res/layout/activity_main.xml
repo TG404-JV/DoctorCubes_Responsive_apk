@@ -5,17 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
     android:fitsSystemWindows="false"
+    android:background="@drawable/gradient_toolbar_background"
     tools:context=".MainActivity">
 
-    <View
-        android:id="@+id/topView"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/gradient_toolbar_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -23,7 +16,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/gradient_toolbar_background"
         app:backgroundTint="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/topView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.Material3.Dark"
         app:titleTextColor="?attr/colorOnPrimary">
 
@@ -45,6 +39,7 @@
                 android:contentDescription="@string/app_logo"
                 android:scaleType="fitCenter"
                 android:src="@drawable/logo_doctor_cubes_dark"
+                android:tint="#0f766e"
                 app:shapeAppearanceOverlay="@style/CircleShape" />
 
             <TextView
@@ -55,7 +50,7 @@
                 android:layout_toEndOf="@id/app_logo"
                 android:letterSpacing="0.02"
                 android:text="@string/app_name"
-                android:textColor="@color/black"
+                android:textColor="#0f766e"
                 android:textSize="@dimen/_16sdp"
                 android:textStyle="bold" />
 
@@ -68,9 +63,9 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:contentDescription="@string/call"
                 app:lottie_autoPlay="true"
-                app:lottie_colorFilter="@color/black"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/call_anim" />
+                app:lottie_rawRes="@raw/call_anim"
+                app:tint="#0f766e" />
         </RelativeLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 

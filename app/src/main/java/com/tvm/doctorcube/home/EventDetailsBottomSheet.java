@@ -35,7 +35,7 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
     public static EventDetailsBottomSheet newInstance(UpcomingEvent event) {
         EventDetailsBottomSheet fragment = new EventDetailsBottomSheet();
         Bundle args = new Bundle();
-        args.putString("eventId", event.getEventId());
+        args.putString("eventId", event.getId());
         args.putString("imageUrl", event.getImageUrl());
         args.putString("eventTitle", event.getTitle());
         args.putString("eventCategory", event.getCategory());
@@ -45,6 +45,8 @@ public class EventDetailsBottomSheet extends BottomSheetDialogFragment {
         args.putString("eventAttendees", event.getAttendees());
         args.putBoolean("premium", event.isPremium());
         args.putBoolean("featured", event.isFeatured());
+        ;
+
         fragment.setArguments(args);
         return fragment;
     }

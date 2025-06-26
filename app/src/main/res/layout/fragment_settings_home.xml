@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/gradient_toolbar_background"
+            android:background="@drawable/screen_bg"
             android:paddingTop="48dp"
             android:paddingEnd="24dp"
             android:paddingBottom="24dp">
@@ -26,10 +26,10 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_settings_medical"
                 android:background="@drawable/circle_outline_bg"
                 android:padding="12dp"
-                app:tint="@color/black" />
+                android:src="@drawable/ic_settings_medical"
+                app:tint="#0f766e" />
 
             <TextView
                 android:id="@+id/tv_settings_title"
@@ -38,11 +38,11 @@
                 android:layout_below="@id/iv_settings_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Settings"
-                android:textColor="@color/black"
+                android:textColor="@color/text_primary_color"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto_medium" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,10 +50,10 @@
                 android:layout_below="@id/tv_settings_title"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Manage your preferences"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:fontFamily="@font/roboto_regular" />
+                android:textColor="@color/text_secondary_color"
+                android:textSize="14sp" />
 
         </RelativeLayout>
 
@@ -70,9 +70,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/card_background_professional"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/card_background_professional">
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -83,24 +83,24 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="Account"
                         android:textColor="@color/text_primary_professional"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_medium"
-                        android:layout_marginBottom="16dp" />
+                        android:textStyle="bold" />
 
                     <!-- Edit Profile -->
                     <RelativeLayout
                         android:id="@+id/layout_edit_profile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/ripple_effect_settings"
                         android:clickable="true"
                         android:focusable="true"
-                        android:paddingVertical="16dp"
                         android:paddingHorizontal="16dp"
-                        android:layout_marginBottom="8dp">
+                        android:paddingVertical="16dp">
 
                         <ImageView
                             android:id="@+id/iv_edit_profile"
@@ -121,19 +121,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="Edit Profile"
                                 android:textColor="@color/text_primary_professional"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/roboto_medium" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
                                 android:text="Update your personal information"
                                 android:textColor="@color/text_secondary_professional"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_regular" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -155,8 +155,8 @@
                         android:background="@drawable/ripple_effect_settings"
                         android:clickable="true"
                         android:focusable="true"
-                        android:paddingVertical="16dp"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
 
                         <ImageView
                             android:id="@+id/iv_notifications"
@@ -177,19 +177,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="Notification Preferences"
                                 android:textColor="@color/text_primary_professional"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/roboto_medium" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
                                 android:text="Manage your notifications"
                                 android:textColor="@color/text_secondary_professional"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_regular" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -212,9 +212,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/card_background_professional"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/card_background_professional">
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -225,24 +225,24 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="Information"
                         android:textColor="@color/text_primary_professional"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_medium"
-                        android:layout_marginBottom="16dp" />
+                        android:textStyle="bold" />
 
                     <!-- About DoctorCubes -->
                     <RelativeLayout
                         android:id="@+id/layout_about_doctorcubes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/ripple_effect_settings"
                         android:clickable="true"
                         android:focusable="true"
-                        android:paddingVertical="16dp"
                         android:paddingHorizontal="16dp"
-                        android:layout_marginBottom="8dp">
+                        android:paddingVertical="16dp">
 
                         <ImageView
                             android:id="@+id/iv_about"
@@ -263,19 +263,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="About DoctorCubes"
                                 android:textColor="@color/text_primary_professional"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/roboto_medium" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
                                 android:text="Learn more about our platform"
                                 android:textColor="@color/text_secondary_professional"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_regular" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -294,12 +294,12 @@
                         android:id="@+id/layout_privacy_policy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/ripple_effect_settings"
                         android:clickable="true"
                         android:focusable="true"
-                        android:paddingVertical="16dp"
                         android:paddingHorizontal="16dp"
-                        android:layout_marginBottom="8dp">
+                        android:paddingVertical="16dp">
 
                         <ImageView
                             android:id="@+id/iv_privacy"
@@ -320,19 +320,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="Privacy Policy"
                                 android:textColor="@color/text_primary_professional"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/roboto_medium" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
                                 android:text="Read our privacy policy"
                                 android:textColor="@color/text_secondary_professional"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_regular" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -354,8 +354,8 @@
                         android:background="@drawable/ripple_effect_settings"
                         android:clickable="true"
                         android:focusable="true"
-                        android:paddingVertical="16dp"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
 
                         <ImageView
                             android:id="@+id/iv_faq"
@@ -376,19 +376,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="FAQ"
                                 android:textColor="@color/text_primary_professional"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/roboto_medium" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
                                 android:text="Frequently asked questions"
                                 android:textColor="@color/text_secondary_professional"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_regular" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -411,9 +411,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@color/card_background_professional"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:cardBackgroundColor="@color/card_background_professional">
+                app:cardElevation="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -424,12 +424,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="Support"
                         android:textColor="@color/text_primary_professional"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_medium"
-                        android:layout_marginBottom="16dp" />
+                        android:textStyle="bold" />
 
                     <!-- Contact Support -->
                     <RelativeLayout
@@ -439,8 +439,8 @@
                         android:background="@drawable/ripple_effect_settings"
                         android:clickable="true"
                         android:focusable="true"
-                        android:paddingVertical="16dp"
-                        android:paddingHorizontal="16dp">
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
 
                         <ImageView
                             android:id="@+id/iv_support"
@@ -461,19 +461,19 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="Contact Support"
                                 android:textColor="@color/text_primary_professional"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/roboto_medium" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_regular"
                                 android:text="Send us an email for assistance"
                                 android:textColor="@color/text_secondary_professional"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_regular" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -497,51 +497,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
+                app:cardBackgroundColor="@color/surface_color"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@color/surface_color">
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="24dp"
-                    android:gravity="center">
+                    android:padding="24dp">
 
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/logo_doctor_cubes_dynamic"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="12dp"
+                        android:src="@drawable/logo_doctor_cubes_dynamic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="DoctorCubes"
                         android:textColor="@color/text_primary_professional"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_medium"
-                        android:layout_marginBottom="4dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_app_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:text="Version 1.0.0"
                         android:textColor="@color/text_secondary_professional"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:layout_marginBottom="8dp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
                         android:text="© 2025 DoctorCubes. All rights reserved."
                         android:textColor="@color/text_tertiary_professional"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="center" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 

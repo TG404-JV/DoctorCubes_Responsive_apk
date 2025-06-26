@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size"
+    android:padding="@dimen/space">
+
+    <tab
+        android:id="@+id/tab_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawable="@drawable/ic_notes" />
+
+    <tab
+        android:id="@+id/tab_videos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawable="@drawable/ic_video" />
+
+</tabs>

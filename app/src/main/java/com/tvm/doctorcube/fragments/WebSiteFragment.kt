@@ -19,7 +19,6 @@ class WebSiteFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var agentWeb: AgentWeb
-    private var topView: View? = null
     private var toolbar: Toolbar? = null
 
     override fun onCreateView(
@@ -35,13 +34,10 @@ class WebSiteFragment : Fragment() {
 
         val activity = requireActivity() as AppCompatActivity
         toolbar = activity.findViewById(R.id.toolbar)
-        topView = activity.findViewById(R.id.topView)
 
         // 🔹 Hide toolbar initially
         toolbar?.visibility = View.GONE
 
-        // 🔹 Apply website-style gradient to topView
-        topView?.setBackgroundResource(R.drawable.toolbar_gradient_bg)
 
         // 🔹 Load website using AgentWeb
         agentWeb = AgentWeb.with(this)
@@ -66,7 +62,6 @@ class WebSiteFragment : Fragment() {
         super.onDestroyView()
 
         // 🔄 Restore the original gradient
-        topView?.setBackgroundResource(R.drawable.gradient_toolbar_background)
         toolbar?.visibility = View.VISIBLE
 
         _binding = null

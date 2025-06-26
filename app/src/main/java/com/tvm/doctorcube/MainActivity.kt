@@ -1,6 +1,6 @@
 package com.tvm.doctorcube
 
-import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,9 +9,16 @@ import android.view.animation.OvershootInterpolator
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.NavController.OnDestinationChangedListener
 import androidx.navigation.NavDestination
@@ -28,15 +35,34 @@ class MainActivity : AppCompatActivity() {
     private var navController: NavController? = null
     private var doubleBackToExitPressedOnce = false
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
 
-        // Handle window insets for edge-to-edge display
+        val window = window
 
 
-        // Initialize permission launcher
+         // Set status bar icon/text color (light/dark)
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightStatusBars = true
+
 
 
         // Initialize Toolbar
@@ -45,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // Setup Navigation Component
-        val navHostFragment = getSupportFragmentManager()
+        val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
         checkNotNull(navHostFragment) { "NavHostFragment not found in R.id.nav_host_fragment" }
         navController = navHostFragment.navController
@@ -59,17 +85,15 @@ class MainActivity : AppCompatActivity() {
 
         // Apply animation to app logo click
         val appLogo = findViewById<View?>(R.id.app_logo)
-        if (appLogo != null) {
-            appLogo.setOnClickListener(View.OnClickListener { v: View? ->
-                if (Objects.requireNonNull<NavDestination?>(
-                        navController!!.currentDestination
-                    ).id != R.id.settingsHome
-                ) {
-                    applySelectionAnimation(v!!)
-                    navController!!.navigate(R.id.settingsHome)
-                }
-            })
-        }
+        appLogo?.setOnClickListener(View.OnClickListener { v: View? ->
+            if (Objects.requireNonNull<NavDestination?>(
+                    navController!!.currentDestination
+                ).id != R.id.settingsHome
+            ) {
+                applySelectionAnimation(v!!)
+                navController!!.navigate(R.id.settingsHome)
+            }
+        })
 
         // Initialize call button
         callButton = toolbar!!.findViewById<LottieAnimationView?>(R.id.call_button)
@@ -91,22 +115,22 @@ class MainActivity : AppCompatActivity() {
             val bottomNav = findViewById<CustomBottomNavigationView?>(R.id.custom_bottom_navigation)
             if (destination!!.id == R.id.homeFragment) {
                 toolbar!!.setTitle("DoctorCubes")
-                if (bottomNav != null) bottomNav.setSelectedItem(0)
+                bottomNav?.setSelectedItem(0)
             } else if (destination.id == R.id.universityFragment) {
                 val country =
                     if (arguments != null) arguments.getString("COUNTRY_NAME", "All") else "All"
-                toolbar!!.setTitle(if (country == "All") "All Universities" else "Universities in " + country)
-                if (bottomNav != null) bottomNav.setSelectedItem(1)
+                toolbar!!.setTitle(if (country == "All") "All Universities" else "Universities in $country")
+                bottomNav?.setSelectedItem(1)
             } else if (destination.id == R.id.settingsHome) {
                 toolbar!!.setTitle("Settings")
-                if (bottomNav != null) bottomNav.setSelectedItem(2)
+                bottomNav?.setSelectedItem(2)
             } else if (destination.id == R.id.universityDetailsFragment) {
                 val universityName =
                     if (arguments != null) arguments.getString("UNIVERSITY_NAME", "") else ""
                 toolbar!!.setTitle(universityName)
             } else if (destination.id == R.id.studyMaterialFragment) {
                 toolbar!!.setTitle("Study Material")
-                if (bottomNav != null) bottomNav.setSelectedItem(1)
+                bottomNav?.setSelectedItem(1)
             } else {
                 toolbar!!.setTitle(getString(R.string.app_name))
             }
@@ -115,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBackPressHandling() {
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            public override fun handleOnBackPressed() {
+            override fun handleOnBackPressed() {
                 if (Objects.requireNonNull<NavDestination?>(navController!!.currentDestination).id == R.id.homeFragment) {
                     if (doubleBackToExitPressedOnce) {
                         finish()
@@ -145,15 +169,17 @@ class MainActivity : AppCompatActivity() {
             openMedia.makeDirectCall(this)
         })
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar()!!.setDisplayHomeAsUpEnabled(false)
-            getSupportActionBar()!!.setHomeButtonEnabled(true)
+        if (supportActionBar != null) {
+            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            supportActionBar!!.setHomeButtonEnabled(true)
 
-            if (toolbar!!.getNavigationIcon() != null) {
-                toolbar!!.getNavigationIcon()!!.setColorFilter(
-                    ContextCompat.getColor(this, android.R.color.white),
-                    PorterDuff.Mode.SRC_IN
-                )
+            if (toolbar!!.navigationIcon != null) {
+                val navIcon = toolbar?.navigationIcon
+                navIcon?.let {
+                    DrawableCompat.setTint(it, ContextCompat.getColor(this, android.R.color.white))
+                    toolbar!!.navigationIcon = it
+                }
+
             }
         }
     }
@@ -193,18 +219,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun applySelectionAnimation(view: View) {
-        view.setScaleX(0.9f)
-        view.setScaleY(0.9f)
+        view.scaleX = 0.9f
+        view.scaleY = 0.9f
         view.animate()
             .scaleX(1f)
             .scaleY(1f)
             .setDuration(300)
             .setInterpolator(OvershootInterpolator(1.5f))
             .start()
-    }
-
-    fun getToolbar(): Toolbar {
-        return toolbar!!
     }
 
     override fun onSupportNavigateUp(): Boolean {
