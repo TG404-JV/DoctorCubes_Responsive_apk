@@ -2,8 +2,6 @@
 package com.tvm.doctorcube
 
 import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -29,7 +27,6 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -50,10 +47,13 @@ import com.tvm.doctorcube.home.model.UpcomingEvent
 import com.tvm.doctorcube.university.model.University
 import com.tvm.doctorcube.university.model.UniversityData
 import android.view.animation.AccelerateDecelerateInterpolator
+import com.tvm.doctorcube.databinding.FragmentHomeBinding
 import com.tvm.doctorcube.home.adapter.SearchResultsAdapter
 
 class HomeFragment : Fragment(), FeaturesAdapter.OnFeatureClickListener,
     UpcomingEventAdapter.OnItemClickListener, CountryAdapter.OnCountryClickListener {
+
+
     private var featuresRecyclerView: RecyclerView? = null
     private var universitiesRecyclerView: RecyclerView? = null
     private var eventsRecyclerView: RecyclerView? = null
@@ -84,6 +84,7 @@ class HomeFragment : Fragment(), FeaturesAdapter.OnFeatureClickListener,
     private var databaseReference: DatabaseReference? = null
     private var eventList: MutableList<UpcomingEvent?> = ArrayList()
     private var fullUniversityList: MutableList<University?>? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -642,6 +643,7 @@ class HomeFragment : Fragment(), FeaturesAdapter.OnFeatureClickListener,
     )
 
     companion object {
+
         private const val TAG = "HomeFragment"
         private const val AUTO_SLIDE_INTERVAL = 3000
     }

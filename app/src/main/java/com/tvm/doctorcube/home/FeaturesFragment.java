@@ -1,6 +1,5 @@
 package com.tvm.doctorcube.home;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tvm.doctorcube.CustomToast;
 import com.tvm.doctorcube.R;
-import com.tvm.doctorcube.communication.CommunicationUtils;
 import com.tvm.doctorcube.home.data.FeatureData;
 import com.tvm.doctorcube.home.model.Feature;
 
@@ -217,22 +215,7 @@ public class FeaturesFragment extends Fragment {
         }
     }
 
-    private static class Benefit {
-        private final String title;
-        private final String description;
-
-        public Benefit(String title, String description) {
-            this.title = title;
-            this.description = description;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getDescription() {
-            return description;
-        }
+    private record Benefit(String title, String description) {
     }
 
     private static class BenefitAdapter extends RecyclerView.Adapter<BenefitAdapter.ViewHolder> {
@@ -254,8 +237,8 @@ public class FeaturesFragment extends Fragment {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Benefit benefit = benefits.get(position);
             holder.tvBenefitNumber.setText(String.valueOf(position + 1));
-            holder.tvBenefitTitle.setText(benefit.getTitle());
-            holder.tvBenefitDescription.setText(benefit.getDescription());
+            holder.tvBenefitTitle.setText(benefit.title());
+            holder.tvBenefitDescription.setText(benefit.description());
             if (position == benefits.size() - 1) {
                 holder.viewConnector.setVisibility(View.GONE);
             } else {
@@ -282,22 +265,7 @@ public class FeaturesFragment extends Fragment {
         }
     }
 
-    private static class Step {
-        private final String title;
-        private final String description;
-
-        public Step(String title, String description) {
-            this.title = title;
-            this.description = description;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getDescription() {
-            return description;
-        }
+    private record Step(String title, String description) {
     }
 
     private static class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder> {
@@ -319,8 +287,8 @@ public class FeaturesFragment extends Fragment {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             Step step = steps.get(position);
             holder.tvStepNumber.setText(String.valueOf(position + 1));
-            holder.tvStepTitle.setText(step.getTitle());
-            holder.tvStepDescription.setText(step.getDescription());
+            holder.tvStepTitle.setText(step.title());
+            holder.tvStepDescription.setText(step.description());
             holder.ivStepImage.setVisibility(View.GONE);
             if (position == steps.size() - 1) {
                 holder.viewConnector.setVisibility(View.GONE);
